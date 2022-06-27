@@ -37,7 +37,7 @@ export class JobBoardDialogComponent {
     this.header = this.providedData.action === DialogActions.New ? 'New' : 'Edit';
     this.isLoading = false;
     this.jobBoardForm = this.formBuilder.group({
-      date: [null, [Validators.required]],
+      date: [new Date(), [Validators.required]],
       title: [null, [Validators.required, Validators.maxLength(128)]]
     });
 

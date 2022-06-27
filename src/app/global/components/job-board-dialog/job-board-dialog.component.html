@@ -1,11 +1,5 @@
-<div mat-dialog-title class="dialog-toolbar">
-  <span class="dialog-title">{{ header }} job board</span>
-  <span class="spacer"></span>
-  <button mat-icon-button (click)="close()">
-    <mat-icon>close</mat-icon>
-  </button>
-</div>
-<form [formGroup]="jobBoardForm" mat-dialog-content>
+<h1 mat-dialog-title>{{ header }} job board</h1>
+<form [formGroup]="jobBoardForm" mat-dialog-content class="form-grid">
   <mat-form-field class="full-width">
     <mat-label>Title</mat-label>
     <input formControlName="title" matInput type="text" />
@@ -21,16 +15,10 @@
 </form>
 <div mat-dialog-actions [align]="'end'">
   <button mat-button (click)="close()">Cancel</button>
-  <button
-    mat-flat-button
-    color="primary"
-    [disabled]="jobBoardForm.invalid || isLoading"
-    (click)="submit()"
-    class="test"
-  >
-    <div *ngIf="isLoading" class="loading-spinner-in-button">
+  <button mat-flat-button color="primary" [disabled]="jobBoardForm.invalid || isLoading" (click)="submit()">
+    <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
       <mat-spinner color="accent" diameter="24"></mat-spinner>
     </div>
-    <ng-container *ngIf="!isLoading">{{ button }}</ng-container>
+    <ng-template #text>{{ button }}</ng-template>
   </button>
 </div>

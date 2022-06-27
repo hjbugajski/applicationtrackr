@@ -57,7 +57,7 @@ export class JobBoardsComponent {
     this.matDialog.open(JobBoardDialogComponent, {
       data: { action: DialogActions.Edit, data: jobBoard },
       disableClose: true,
-      panelClass: 'mat-dialog-container-with-toolbar'
+      panelClass: 'at-dialog'
     });
   }
 
