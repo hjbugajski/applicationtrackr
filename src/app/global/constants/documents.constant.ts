@@ -13,19 +13,19 @@ export const COLUMNS: ColumnDoc[] = [
   },
   {
     sortOrder: 2,
-    title: 'Interviews',
+    title: 'Interview',
     total: 0
   },
   {
     color: 'at-success',
     sortOrder: 3,
-    title: 'Offers',
+    title: 'Offer',
     total: 0
   },
   {
     color: 'at-error',
     sortOrder: 4,
-    title: 'Rejections',
+    title: 'Rejected',
     total: 0
   }
 ];
