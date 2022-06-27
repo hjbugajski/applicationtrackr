@@ -93,9 +93,18 @@
             "styles": ["src/styles.scss"],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
         }
       }
     }
   },
-  "defaultProject": "applicationtrackr"
+  "defaultProject": "applicationtrackr",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
