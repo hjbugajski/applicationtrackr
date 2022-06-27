@@ -4,14 +4,14 @@
     <span class="dialog-header">Delete {{ data.item }}?</span>
   </div>
   <p *ngIf="data.message">{{ data.message }}</p>
-  <div mat-dialog-actions class="button-row-container-end">
+  <div mat-dialog-actions [align]="'end'">
     <button mat-button matDialogClose="true">Cancel</button>
     <button mat-flat-button color="warn" (click)="close(dialogActions.Delete)">Delete</button>
   </div>
 </ng-container>
 <ng-template #discardDialog>
   <p>Discard {{ data.item }}?</p>
-  <div mat-dialog-actions class="button-row-container-end">
+  <div mat-dialog-actions [align]="'end'">
     <button mat-button matDialogClose="true">Cancel</button>
     <button mat-button (click)="close(dialogActions.Discard)">Discard</button>
   </div>

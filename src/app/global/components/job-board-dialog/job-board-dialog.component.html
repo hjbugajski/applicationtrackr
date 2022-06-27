@@ -19,7 +19,7 @@
     <mat-error>{{ getError(date) }}</mat-error>
   </mat-form-field>
 </form>
-<div mat-dialog-actions class="button-row-container-end">
+<div mat-dialog-actions [align]="'end'">
   <button mat-button (click)="close()">Cancel</button>
   <button
     mat-flat-button
