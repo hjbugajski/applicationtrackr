@@ -1,1 +1,24 @@
-<p>applications works!</p>
+<div class="page-container">
+  <div *ngFor="let column of columns" class="board-column">
+    <div class="board-column-header">
+      <span class="board-column-title">{{ column }}</span>
+      <div class="board-column-actions">
+        <button mat-icon-button matTooltip="New application">
+          <mat-icon svgIcon="carbon-add"></mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Menu">
+          <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <cdk-virtual-scroll-viewport itemSize="25" class="cdk-container">
+      <mat-card *cdkVirtualFor="let item of items">
+        <mat-card-title>Application {{ item }}</mat-card-title>
+        <mat-card-content>Content</mat-card-content>
+      </mat-card>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <div>
+    <button mat-stroked-button color="primary" class="mat-button-with-left-icon">New column</button>
+  </div>
+</div>
