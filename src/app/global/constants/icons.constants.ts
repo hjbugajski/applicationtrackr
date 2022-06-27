@@ -8,6 +8,11 @@ const CARBON_APPLICATION = {
   LOCATION: './assets/icons/carbon-application.svg'
 } as const;
 
+const CARBON_ARROW_LEFT = {
+  NAME: 'carbon-arrow-left',
+  LOCATION: './assets/icons/carbon-arrow-left.svg'
+} as const;
+
 const CARBON_CHART_MULTITYPE = {
   NAME: 'carbon-chart-multitype',
   LOCATION: './assets/icons/carbon-chart-multitype.svg'
@@ -71,6 +76,7 @@ const GOOGLE_LOGO = {
 export {
   APPLE_LOGO,
   CARBON_APPLICATION,
+  CARBON_ARROW_LEFT,
   CARBON_CHART_MULTITYPE,
   CARBON_CLOSE_OUTLINE,
   CARBON_COMPASS,

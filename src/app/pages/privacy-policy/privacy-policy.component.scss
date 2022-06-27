@@ -1,0 +1,19 @@
+.content {
+  margin-top: 56px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+}
+
+@media (min-width: 600px) {
+  .content {
+    margin-top: 64px;
+  }
+}
+
+@media (min-width: 600px) {
+  .content {
+    padding: 16px;
+    max-width: 1170px;
+  }
+}
