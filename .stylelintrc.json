@@ -6,6 +6,7 @@
     "function-parentheses-space-inside": "never-single-line",
     "order/properties-alphabetical-order": null,
     "selector-pseudo-element-no-unknown": null,
-    "no-empty-source": null
+    "no-empty-source": null,
+    "color-function-notation": null
   }
 }
