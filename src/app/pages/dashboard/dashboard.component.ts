@@ -21,9 +21,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.mode = 'side';
     this.opened = true;
     this.subscriptions = new Subscription();
+  }
 
-    this.sidenavService.init();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
+  ngOnInit(): void {
     this.subscriptions.add(
       this.sidenavService.mode.subscribe((value) => {
         this.mode = value;
@@ -34,14 +38,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.opened = value;
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this.sidenavService.destroy();
-    this.subscriptions.unsubscribe();
-  }
-
-  ngOnInit(): void {
     this.sidenavService.sidenav = this._sidenav!;
   }
 }
