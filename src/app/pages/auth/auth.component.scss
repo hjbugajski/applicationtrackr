@@ -1,0 +1,38 @@
+::ng-deep .mat-drawer-content {
+  display: flex !important;
+}
+
+.auth-container {
+  width: 100%;
+  padding: 8px 8px 48px;
+  height: fit-content;
+
+  .art-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0;
+
+    .mat-icon {
+      height: 48px;
+      width: 48px;
+    }
+  }
+
+  .outlet-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .mat-card {
+      max-width: 350px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .auth-container {
+    padding: 16px 16px 48px;
+  }
+}

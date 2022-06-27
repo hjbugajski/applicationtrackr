@@ -1,0 +1,14 @@
+<mat-sidenav-container>
+  <div class="auth-container">
+    <div class="art-container">
+      <mat-icon [svgIcon]="'carbon-compass'"></mat-icon>
+      <h1>ApplicationTrackr</h1>
+      <at-theme-picker></at-theme-picker>
+    </div>
+    <div class="outlet-container">
+      <mat-card>
+        <router-outlet></router-outlet>
+      </mat-card>
+    </div>
+  </div>
+</mat-sidenav-container>
