@@ -1,20 +1,47 @@
-<div class="board-column-header at-text" [ngClass]="column?.color!!">
-  <div class="board-column-title-container">
-    <span class="board-column-title">{{ column?.title }}</span>
-    <span class="board-column-application-count" [ngClass]="column?.color!!">{{ applications.length }}</span>
+<ng-container *ngIf="isLoaded | async; else loading">
+  <div class="board-column-header at-text" [ngClass]="columnDoc.color!!">
+    <div class="board-column-title-container">
+      <span class="board-column-title">{{ columnDoc.title }}</span>
+      <span class="board-column-application-count" [ngClass]="columnDoc.color!!">{{ columnDoc.total }}</span>
+    </div>
+    <div class="board-column-actions">
+      <button mat-icon-button matTooltip="New application" (click)="newApplication()">
+        <mat-icon svgIcon="carbon-add"></mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Menu">
+        <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
+      </button>
+    </div>
   </div>
-  <div class="board-column-actions">
-    <button mat-icon-button matTooltip="New application">
-      <mat-icon svgIcon="carbon-add"></mat-icon>
-    </button>
-    <button mat-icon-button matTooltip="Menu">
-      <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
-    </button>
-  </div>
-</div>
-<cdk-virtual-scroll-viewport itemSize="25" class="cdk-container">
-  <mat-card *cdkVirtualFor="let application of applications">
-    <mat-card-title class="at-text" [ngClass]="column?.color!!">Application {{ application }}</mat-card-title>
-    <mat-card-content>Content</mat-card-content>
-  </mat-card>
-</cdk-virtual-scroll-viewport>
+  <cdk-virtual-scroll-viewport
+    [id]="dragDropId"
+    cdkDropList
+    [cdkDropListConnectedTo]="dragDropConnectedArray"
+    [cdkDropListData]="columnDoc"
+    (cdkDropListDropped)="drop($event)"
+    itemSize="25"
+    class="cdk-container"
+  >
+    <mat-card
+      *cdkVirtualFor="let application of applications | async"
+      cdkDrag
+      [cdkDragData]="application"
+      class="application-card"
+    >
+      <mat-card-title class="at-text" [ngClass]="columnDoc.color!!">
+        {{ application.company }}
+        <mat-card-subtitle>
+          <div class="icon-subtitle">
+            <mat-icon svgIcon="carbon-portfolio" class="small-icon"></mat-icon>
+            {{ application.position }}
+          </div>
+          <div *ngIf="application.location" class="icon-subtitle">
+            <mat-icon svgIcon="carbon-location" class="small-icon"></mat-icon>
+            {{ application.location }}
+          </div>
+        </mat-card-subtitle>
+      </mat-card-title>
+    </mat-card>
+  </cdk-virtual-scroll-viewport>
+</ng-container>
+<ng-template #loading> Loading... </ng-template>

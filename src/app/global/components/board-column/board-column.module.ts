@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -8,9 +9,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { BoardColumnComponent } from './board-column.component';
 
+import { NewApplicationDialogModule } from '~components/new-application-dialog/new-application-dialog.module';
+
 @NgModule({
   declarations: [BoardColumnComponent],
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatTooltipModule, ScrollingModule],
+  imports: [
+    NewApplicationDialogModule,
+    CommonModule,
+    DragDropModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatTooltipModule,
+    ScrollingModule
+  ],
   exports: [BoardColumnComponent]
 })
 export class BoardColumnModule {}

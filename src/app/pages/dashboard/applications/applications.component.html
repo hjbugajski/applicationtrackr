@@ -1,11 +1,17 @@
-<div *ngIf="columns | async; else loading" class="page-container no-padding at-alt-background">
-  <at-board-column
-    *ngFor="let column of columns | async"
-    [column]="column"
-    [ngClass]="column.color!!"
-    class="board-column at-alpha-background"
-  ></at-board-column>
-</div>
+<ng-container *ngIf="isLoaded | async; else loading">
+  <div class="page-container no-padding at-alt-background">
+    <at-board-column
+      *ngFor="let column of columnsIds; let i = index"
+      [attr.id]="'at-board-column-' + i"
+      [id]="'at-board-column-' + i"
+      [column]="column"
+      [columns]="columns!"
+      [dragDropConnectedArray]="getDragDropConnectedArray(i)"
+      [dragDropId]="'column-' + i"
+      class="board-column at-alpha-background"
+    ></at-board-column>
+  </div>
+</ng-container>
 <ng-template #loading>
   <p>Loading...</p>
 </ng-template>
