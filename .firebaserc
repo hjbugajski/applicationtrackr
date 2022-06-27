@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "applicationtrackr": {
+      "hosting": {
+        "applicationtrackr": [
+          "applicationtrackr"
+        ]
+      }
+    }
+  }
+}
