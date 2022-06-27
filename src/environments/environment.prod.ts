@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   firebaseConfig: {
     apiKey: 'AIzaSyBbD6prw9ypO9rGm4gJu2CMDs3-3VeBAcs',
-    authDomain: 'applicationtrackr.firebaseapp.com',
+    authDomain: 'applicationtrackr.io',
     databaseURL: 'https://applicationtrackr.firebaseio.com',
     projectId: 'applicationtrackr',
     storageBucket: 'applicationtrackr.appspot.com',
