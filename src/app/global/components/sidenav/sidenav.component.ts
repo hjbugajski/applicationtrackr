@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 
-import {
-  CARBON_APPLICATION,
-  CARBON_CHART_MULTITYPE,
-  CARBON_EMAIL,
-  CARBON_TEMPLATE
-} from '../../constants/icons.constants';
-import { ANALYTICS, APPLICATIONS, JOB_BOARDS, OFFERS } from '../../constants/pages.constants';
+import { CARBON_APPLICATION, CARBON_CHART_MULTITYPE, CARBON_EMAIL, CARBON_TEMPLATE } from '~constants/icons.constants';
+import { ANALYTICS, APPLICATIONS, JOB_BOARDS, OFFERS } from '~constants/pages.constants';
 
 interface SidenavItem {
   icon: string;

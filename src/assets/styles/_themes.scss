@@ -1,6 +1,6 @@
 @use '~@angular/material' as mat;
-@use './palettes' as palettes;
-@use './components' as components;
+@use 'palettes' as palettes;
+@use 'components' as components;
 
 @include mat.core();
 

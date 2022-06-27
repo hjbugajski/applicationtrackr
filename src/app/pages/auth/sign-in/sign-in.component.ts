@@ -2,10 +2,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SIGN_IN, SIGN_UP } from 'src/app/global/constants/pages.constants';
-import { LIGHT_THEME, DARK_THEME } from 'src/app/global/constants/themes.constants';
-import { IPage } from 'src/app/global/interfaces/page.interface';
-import { ThemeService } from 'src/app/global/services/theme.service';
+
+import { SIGN_IN, SIGN_UP } from '~constants/pages.constants';
+import { LIGHT_THEME, DARK_THEME } from '~constants/themes.constants';
+import { IPage } from '~interfaces/page.interface';
+import { ThemeService } from '~services/theme/theme.service';
 
 interface ISignInUpButton {
   text: string;

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SIGN_IN, SIGN_UP } from 'src/app/global/constants/pages.constants';
 
 import { AuthComponent } from './auth.component';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+
+import { SIGN_IN, SIGN_UP } from '~constants/pages.constants';
 
 const routes: Routes = [
   {

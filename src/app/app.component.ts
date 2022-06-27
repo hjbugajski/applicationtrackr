@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatIconService } from './global/services/mat-icon.service';
-import { ThemeService } from './global/services/theme.service';
+import { MatIconService } from '~services/mat-icon/mat-icon.service';
+import { ThemeService } from '~services/theme/theme.service';
 
 @Component({
   selector: 'at-root',

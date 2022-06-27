@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { LIGHT_THEME, THEME } from '../constants/themes.constants';
+import { LIGHT_THEME, THEME } from '~constants/themes.constants';
 
 @Injectable({
   providedIn: 'root'
