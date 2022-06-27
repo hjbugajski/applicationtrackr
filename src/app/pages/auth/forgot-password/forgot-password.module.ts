@@ -1,23 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 
-import { PasswordResetComponent } from './password-reset.component';
+import { ForgotPasswordComponent } from './forgot-password.component';
 
 @NgModule({
-  declarations: [PasswordResetComponent],
+  declarations: [ForgotPasswordComponent],
   imports: [
     CommonModule,
+    FormsModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    RouterModule.forChild([{ path: '', component: PasswordResetComponent }])
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    RouterModule.forChild([{ path: '', component: ForgotPasswordComponent }])
   ],
-  exports: [PasswordResetComponent]
+  exports: [ForgotPasswordComponent]
 })
-export class PasswordResetModule {}
+export class ForgotPasswordModule {}

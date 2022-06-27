@@ -1,43 +1,75 @@
 <mat-card-title>{{ title }}</mat-card-title>
 <button
-  mat-stroked-button
+  mat-button
+  [disabled]="isAppleLoading"
+  (click)="signInWithApple()"
+  [ngClass]="{
+    'apple-button-light': appTheme === themes.Light,
+    'apple-button-dark': appTheme === themes.Dark,
+    'is-disabled': isAppleLoading
+  }"
   class="mat-button-with-icon full-width"
-  [ngClass]="{ 'apple-button-light': appTheme === lightTheme, 'apple-button-dark': appTheme === darkTheme }"
 >
-  <mat-icon [svgIcon]="'apple-logo'"></mat-icon>
-  {{ title }} with Apple
+  <div *ngIf="isAppleLoading" class="loading-spinner-in-button">
+    <mat-spinner color="accent" diameter="24"></mat-spinner>
+  </div>
+  <ng-container *ngIf="!isAppleLoading">
+    <mat-icon [svgIcon]="'apple-logo'"></mat-icon>
+    {{ title }} with Apple
+  </ng-container>
 </button>
-<button mat-stroked-button class="mat-button-with-icon full-width apple-button-dark">
-  <mat-icon [svgIcon]="'google-logo'" class="google-icon"></mat-icon>
-  {{ title }} with Google
+<button
+  mat-stroked-button
+  [disabled]="isGoogleLoading"
+  (click)="signInWithGoogle()"
+  [ngClass]="{ 'is-disabled': isGoogleLoading }"
+  class="mat-button-with-icon full-width apple-button-dark"
+>
+  <div *ngIf="isGoogleLoading" class="loading-spinner-in-button">
+    <mat-spinner color="accent" diameter="24"></mat-spinner>
+  </div>
+  <ng-container *ngIf="!isGoogleLoading">
+    <mat-icon [svgIcon]="'google-logo'" class="google-icon"></mat-icon>
+    {{ title }} with Google
+  </ng-container>
 </button>
-<button mat-stroked-button (click)="emailSignInButtonClick()" class="mat-button-with-icon full-width">
+<button mat-stroked-button (click)="toggleEmailForm()" class="mat-button-with-icon full-width">
   <mat-icon *ngIf="!showEmailPasswordForm" [svgIcon]="'carbon-email'"></mat-icon>
-  <mat-icon *ngIf="showEmailPasswordForm"> expand_less </mat-icon>
   {{ emailSignInButton }}
 </button>
 <div class="form-container" [@emailPasswordExpanded]="showEmailPasswordForm ? 'expanded' : 'collapsed'">
-  <form [attr.aria-hidden]="!showEmailPasswordForm">
-    <mat-form-field appearance="fill" class="full-width" [attr.aria-hidden]="!showEmailPasswordForm">
+  <form [formGroup]="emailForm" [attr.aria-hidden]="!showEmailPasswordForm" (ngSubmit)="signInWithEmail()">
+    <mat-form-field class="full-width" [attr.aria-hidden]="!showEmailPasswordForm">
       <mat-label>Email</mat-label>
-      <input id="email-input" matInput type="email" [disabled]="!showEmailPasswordForm" required />
+      <input formControlName="email" matInput type="email" required />
+      <mat-error>{{ getFormControlError(email) }}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="full-width two-line-hint" [attr.aria-hidden]="!showEmailPasswordForm">
+    <mat-form-field class="full-width two-line-hint" [attr.aria-hidden]="!showEmailPasswordForm">
       <mat-label>Password</mat-label>
-      <input matInput type="password" [disabled]="!showEmailPasswordForm" required />
+      <input formControlName="password" matInput type="password" required />
       <mat-hint>8 or more characters with a mix of letters, numbers, and symbols</mat-hint>
+      <mat-error>{{ getFormControlError(password) }}</mat-error>
     </mat-form-field>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!showEmailPasswordForm || emailForm.disabled || isEmailLoading"
+      [attr.aria-hidden]="!showEmailPasswordForm"
+      type="submit"
+      class="full-width submit-button"
+    >
+      <div *ngIf="isEmailLoading" class="loading-spinner-in-button">
+        <mat-spinner color="accent" diameter="24"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!isEmailLoading">{{ title }}</ng-container>
+    </button>
   </form>
   <button
-    mat-flat-button
-    color="primary"
-    class="full-width submit-button"
-    [disabled]="!showEmailPasswordForm"
-    [attr.aria-hidden]="!showEmailPasswordForm"
+    *ngIf="showForgotPassword"
+    mat-button
+    class="full-width forgot-password-button"
+    [routerLink]="['/', paths.Auth, paths.ForgotPassword]"
   >
-    {{ title }}
-  </button>
-  <button *ngIf="showForgotPassword" mat-button class="full-width" routerLink="/auth/password-reset">
     Forgot password?
   </button>
 </div>

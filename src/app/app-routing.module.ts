@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { Paths } from '~enums/paths.enum';
+import { AuthGuard } from '~guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -11,10 +12,12 @@ const routes: Routes = [
   },
   {
     path: Paths.Auth,
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: Paths.Dashboard,
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule)
   },
   {

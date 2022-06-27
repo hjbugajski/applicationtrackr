@@ -1,12 +1,20 @@
-@use 'src/assets/styles/colors' as colors;
+@use 'colors';
 
-.mat-button-base:not(:last-of-type) {
+.mat-button-base:not(:last-child) {
   margin-bottom: 16px;
+}
+
+.forgot-password-button {
+  margin-top: 16px;
 }
 
 .apple-button-light {
   background-color: colors.$black;
   color: colors.$white;
+
+  &.is-disabled {
+    background-color: transparent;
+  }
 }
 
 .apple-button-dark {
@@ -16,5 +24,9 @@
   &:hover,
   &:focus {
     background-color: colors.$cool-gray-10;
+  }
+
+  &.is-disabled {
+    background-color: transparent;
   }
 }

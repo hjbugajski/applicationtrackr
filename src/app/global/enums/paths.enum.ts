@@ -7,7 +7,7 @@ export enum Paths {
   ManageAccount = 'manage-account',
   NoResponse = 'no-response',
   Offers = 'offers',
-  PasswordReset = 'password-reset',
+  ForgotPassword = 'forgot-password',
   PrivacyPolicy = 'privacy-policy',
   Rejections = 'rejections',
   SignIn = 'sign-in',

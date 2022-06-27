@@ -1,24 +1,64 @@
-<mat-card-title>{{ title }}</mat-card-title>
-<div *ngIf="params.mode === 'resetPassword'" class="form-container">
-  <form>
-    <mat-form-field appearance="fill" class="full-width two-line-hint">
-      <mat-label>New Password</mat-label>
-      <input matInput type="password" required />
-      <mat-hint>8 or more characters with a mix of letters, numbers, and symbols</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Confirm Password</mat-label>
-      <input matInput type="password" required />
-      <mat-hint>Passwords must match</mat-hint>
-    </mat-form-field>
-  </form>
-  <button mat-flat-button color="primary" class="full-width submit-button">Reset password</button>
-</div>
-<div *ngIf="params.mode === 'verifyEmail'">
-  <mat-card-content>Click the button below to verify your email address.</mat-card-content>
-  <button mat-flat-button color="primary" class="full-width">Verify</button>
-</div>
-<div *ngIf="params.mode === 'recoverEmail'">
-  <mat-card-content>Click the button below to recover your email address.</mat-card-content>
-  <button mat-flat-button color="primary" class="full-width">Recover</button>
-</div>
+<ng-container [ngSwitch]="queryParams.mode">
+  <ng-container *ngSwitchCase="params.ResetPassword">
+    <mat-card-title>Reset password</mat-card-title>
+    <form [formGroup]="passwordForm" (ngSubmit)="confirmPasswordReset()" class="form-container">
+      <mat-form-field class="full-width two-line-hint">
+        <mat-label>New Password</mat-label>
+        <input formControlName="password" matInput type="password" required />
+        <mat-hint>8 or more characters with a mix of letters, numbers, and symbols</mat-hint>
+        <mat-error>{{ getFormControlError(password) }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input formControlName="confirmPassword" matInput type="password" required />
+        <mat-hint>Passwords must match</mat-hint>
+        <mat-error>{{ getFormControlError(confirmPassword) }}</mat-error>
+      </mat-form-field>
+      <button mat-flat-button type="submit" color="primary" [disabled]="isLoading" class="full-width submit-button">
+        <div *ngIf="isLoading" class="loading-spinner-in-button">
+          <mat-spinner color="accent" diameter="24"></mat-spinner>
+        </div>
+        <ng-container *ngIf="!isLoading">Reset</ng-container>
+      </button>
+    </form>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="params.VerifyEmail">
+    <mat-card-title>Verify email</mat-card-title>
+    <mat-card-content>Click the button below to verify your email address.</mat-card-content>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="isLoading"
+      (click)="verifyEmail()"
+      class="full-width submit-button"
+    >
+      <div *ngIf="isLoading" class="loading-spinner-in-button">
+        <mat-spinner color="accent" diameter="24"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!isLoading">Verify</ng-container>
+    </button>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="params.RecoverEmail">
+    <mat-card-title>Recover email</mat-card-title>
+    <mat-card-content>Click the button below to recover your email address.</mat-card-content>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="isLoading"
+      (click)="recoverEmail()"
+      class="full-width submit-button"
+    >
+      <div *ngIf="isLoading" class="loading-spinner-in-button">
+        <mat-spinner color="accent" diameter="24"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!isLoading">Recover</ng-container>
+    </button>
+  </ng-container>
+
+  <ng-container *ngSwitchDefault>
+    <mat-card-title>Unauthorized</mat-card-title>
+  </ng-container>
+</ng-container>
+<a mat-button class="full-width back-button" [routerLink]="linkButton.route">{{ linkButton.text }}</a>

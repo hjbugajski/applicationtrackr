@@ -1,21 +1,18 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { TITLE_SUFFIX } from '~constants/title.constant';
 import { Paths } from '~enums/paths.enum';
 import { Themes } from '~enums/themes.enum';
+import { LinkButton } from '~interfaces/link-button.interface';
+import { RouteData } from '~interfaces/route-data.interface';
+import { AuthService } from '~services/auth/auth.service';
 import { ThemeService } from '~services/theme/theme.service';
-
-interface RouteData {
-  title: string;
-  path: string;
-}
-
-interface SignInUpButton {
-  text: string;
-  route: string;
-}
+import { CustomValidators } from '~utils/custom-validators/custom-validators';
 
 @Component({
   selector: 'at-sign-in',
@@ -30,26 +27,43 @@ interface SignInUpButton {
   ]
 })
 export class SignInComponent implements OnInit, OnDestroy {
-  public lightTheme: string = Themes.Light;
-  public darkTheme: string = Themes.Dark;
-
   public title: string;
+  public currentPath: Paths;
   public appTheme: string;
   public emailSignInButton: string | undefined;
-
+  public emailForm: FormGroup;
   public showEmailPasswordForm: boolean;
   public showForgotPassword: boolean;
-
-  public signInUpButton: SignInUpButton | undefined;
+  public isAppleLoading: boolean;
+  public isGoogleLoading: boolean;
+  public isEmailLoading: boolean;
+  public signInUpButton: LinkButton | undefined;
 
   private appThemeSubscription: Subscription | undefined;
 
-  constructor(private activatedRoute: ActivatedRoute, public themeService: ThemeService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private themeService: ThemeService,
+    private titleService: Title
+  ) {
     this.title = 'Sign in';
+    this.currentPath = Paths.SignIn;
     this.appTheme = this.themeService.appTheme;
     this.showEmailPasswordForm = false;
     this.showForgotPassword = false;
+    this.isAppleLoading = false;
+    this.isGoogleLoading = false;
+    this.isEmailLoading = false;
+    this.emailForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email], null, { disabled: true }],
+      password: ['', CustomValidators.passwordValidators, null, { disabled: true }]
+    });
+
+    this.emailForm.disable();
     this.initSignInOrSignUp();
+    this.titleService.setTitle(this.title + TITLE_SUFFIX);
   }
 
   ngOnInit(): void {
@@ -62,34 +76,88 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   private initSignInOrSignUp(): void {
     const data = this.activatedRoute.snapshot.data as RouteData;
-    const path: string = data.path;
+    this.currentPath = data.path;
 
     this.title = data.title;
     this.emailSignInButton = this.title + ' with email';
 
-    if (path === Paths.SignIn) {
+    if (this.currentPath === Paths.SignIn) {
       this.showForgotPassword = true;
-      this.signInUpButton = {
-        text: 'No account? Sign up',
-        route: `/${Paths.Auth}/${Paths.SignUp}`
-      };
+      this.signInUpButton = { text: 'No account? Sign up', route: `/${Paths.Auth}/${Paths.SignUp}` };
     } else {
       // Sign up
       this.showForgotPassword = false;
-      this.signInUpButton = {
-        text: 'Have an account? Sign in',
-        route: `/${Paths.Auth}/${Paths.SignIn}`
-      };
+      this.signInUpButton = { text: 'Have an account? Sign in', route: `/${Paths.Auth}/${Paths.SignIn}` };
     }
   }
 
-  public emailSignInButtonClick(): void {
+  public async signInWithApple(): Promise<void> {
+    this.isAppleLoading = true;
+    await this.authService.signInWithApple().then(() => (this.isAppleLoading = false));
+  }
+
+  public async signInWithGoogle(): Promise<void> {
+    this.isGoogleLoading = true;
+    await this.authService.signInWithGoogle().then(() => (this.isGoogleLoading = false));
+  }
+
+  public async signInWithEmail(): Promise<void> {
+    if (this.emailForm.valid) {
+      const email = this.email?.value as string;
+      const password = this.password?.value as string;
+
+      this.isEmailLoading = true;
+
+      if (this.currentPath === Paths.SignIn) {
+        await this.authService.signInWithEmail(email, password).then(() => (this.isEmailLoading = false));
+      } else {
+        // Sign up
+        await this.authService.createUserWithEmail(email, password).then(() => (this.isEmailLoading = false));
+      }
+    }
+  }
+
+  public toggleEmailForm(): void {
     this.showEmailPasswordForm = !this.showEmailPasswordForm;
 
     if (this.showEmailPasswordForm) {
+      this.emailForm.enable();
       this.emailSignInButton = 'Hide ' + this.title.toLowerCase() + ' with email';
     } else {
+      this.emailForm.disable();
       this.emailSignInButton = this.title + ' with email';
     }
+  }
+
+  public getFormControlError(control: AbstractControl | null): string {
+    if (control?.hasError('email')) {
+      return 'Invalid email';
+    } else if (control?.hasError('minlength')) {
+      return 'Password length must be at least 8 characters';
+    } else if (control?.hasError('letter')) {
+      return 'Must contain at least one letter';
+    } else if (control?.hasError('number')) {
+      return 'Must contain at least one number';
+    } else if (control?.hasError('symbol')) {
+      return 'Must contain at least one symbol';
+    } else {
+      return 'Required';
+    }
+  }
+
+  public get paths(): typeof Paths {
+    return Paths;
+  }
+
+  public get themes(): typeof Themes {
+    return Themes;
+  }
+
+  public get email(): AbstractControl | null {
+    return this.emailForm.get('email');
+  }
+
+  public get password(): AbstractControl | null {
+    return this.emailForm.get('password');
   }
 }
