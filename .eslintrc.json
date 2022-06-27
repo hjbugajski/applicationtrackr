@@ -46,8 +46,21 @@
             "newlines-between": "always"
           }
         ],
+        "sort-imports": [
+          "error",
+          {
+            "ignoreDeclarationSort": true,
+            "ignoreCase": true
+          }
+        ],
         "import/no-unresolved": "off",
-        "@typescript-eslint/no-inferrable-types": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ]
       }
     },
     {
