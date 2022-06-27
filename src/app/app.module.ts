@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { initializeApp } from '@firebase/app';
@@ -12,18 +13,21 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { NotificationModule } from '~components/notification/notification.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     AppRoutingModule,
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
     HttpClientModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    NotificationModule,
     provideAuth(() => getAuth()),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
