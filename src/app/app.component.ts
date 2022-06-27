@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
+import { Unsubscribe } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
@@ -14,7 +15,7 @@ import { UserDataService } from '~state/user-data/user-data.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription;
-  private unsubscribeUserDocData: Subscription;
+  private unsubscribeUserDocData!: Unsubscribe;
 
   constructor(
     private auth: Auth,
@@ -24,14 +25,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private userDataService: UserDataService
   ) {
     this.subscriptions = new Subscription();
-    this.unsubscribeUserDocData = new Subscription();
     this.matIconService.initializeMatIcons();
     this.themeService.initTheme();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.unsubscribeUserDocData?.unsubscribe();
+    this.unsubscribeUserDocData();
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.unsubscribeUserDocData = this.userDataService.subscribeToUserDocData(user.uid);
           this.jobBoardsService.initJobBoards();
         } else {
-          this.unsubscribeUserDocData.unsubscribe();
+          this.unsubscribeUserDocData();
           this.userDataService.resetUserData();
           this.jobBoardsService.resetJobBoards();
         }

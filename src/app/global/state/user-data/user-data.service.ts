@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import {
   doc,
-  docData,
   DocumentData,
   DocumentSnapshot,
   Firestore,
   getDoc,
+  onSnapshot,
   setDoc,
+  Unsubscribe,
   updateDoc
 } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
 
-import { UserData } from './user-data.model';
 import { UserDataQuery } from './user-data.query';
 import { UserDataStore } from './user-data.store';
 
@@ -47,13 +46,11 @@ export class UserDataService {
     this.uid = null;
   }
 
-  public subscribeToUserDocData(uid: string): Subscription {
-    return docData(doc(this.firestore, Collections.Users, uid).withConverter(userDataConverter)).subscribe(
-      (data: UserData) => {
-        this.currentJobBoard = data?.currentJobBoard;
-        this.uid = data?.uid;
-      }
-    );
+  public subscribeToUserDocData(uid: string): Unsubscribe {
+    return onSnapshot(doc(this.firestore, Collections.Users, uid).withConverter(userDataConverter), (snapshot) => {
+      this.currentJobBoard = snapshot.data()?.currentJobBoard ?? null;
+      this.uid = snapshot.data()?.uid ?? null;
+    });
   }
 
   public async updateCurrentJobBoard(newBoard: JobBoard): Promise<void> {
