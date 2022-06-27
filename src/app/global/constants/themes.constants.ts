@@ -1,8 +1,13 @@
 const THEME = 'theme';
 
-const THEMES = {
-  LIGHT: 'app-light-theme',
-  DARK: 'app-dark-theme'
-};
+const LIGHT_THEME = {
+  CLASS: 'app-light-theme',
+  VIEW_VALUE: 'Light theme'
+} as const;
 
-export { THEME, THEMES };
+const DARK_THEME = {
+  CLASS: 'app-dark-theme',
+  VIEW_VALUE: 'Dark theme'
+} as const;
+
+export { DARK_THEME, LIGHT_THEME, THEME };

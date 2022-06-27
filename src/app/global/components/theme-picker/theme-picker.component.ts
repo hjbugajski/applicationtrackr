@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { THEMES } from '../../constants/themes.constants';
+import { DARK_THEME, LIGHT_THEME } from '../../constants/themes.constants';
 import { ThemeService } from '../../services/theme.service';
 
 interface Theme {
@@ -16,8 +16,8 @@ interface Theme {
 export class ThemePickerComponent implements OnInit, OnDestroy {
   public appTheme: string;
   public themes: Theme[] = [
-    { class: THEMES.LIGHT, viewValue: 'Light theme' },
-    { class: THEMES.DARK, viewValue: 'Dark theme' }
+    { class: LIGHT_THEME.CLASS, viewValue: LIGHT_THEME.VIEW_VALUE },
+    { class: DARK_THEME.CLASS, viewValue: DARK_THEME.VIEW_VALUE }
   ];
 
   private appThemeSubscription: Subscription | undefined;
