@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrivacyPolicyComponent } from './privacy-policy.component';
-import { PrivacyPolicyRoutingModule } from './privacy-policy-routing.module';
+import { NgModule } from '@angular/core';
 import { MaterialModule } from 'src/app/global/modules/material.module';
+
+import { PrivacyPolicyRoutingModule } from './privacy-policy-routing.module';
+import { PrivacyPolicyComponent } from './privacy-policy.component';
 
 @NgModule({
   declarations: [PrivacyPolicyComponent],

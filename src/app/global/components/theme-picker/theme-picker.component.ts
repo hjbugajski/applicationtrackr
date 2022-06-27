@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { DARK_THEME, LIGHT_THEME } from '../../constants/themes.constants';
 import { ThemeService } from '../../services/theme.service';
 
