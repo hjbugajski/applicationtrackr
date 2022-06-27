@@ -1,14 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { SIGN_IN, SIGN_UP } from '~constants/pages.constants';
-import { LIGHT_THEME, DARK_THEME } from '~constants/themes.constants';
-import { IPage } from '~interfaces/page.interface';
+import { Paths } from '~enums/paths.enum';
+import { Themes } from '~enums/themes.enum';
 import { ThemeService } from '~services/theme/theme.service';
 
-interface ISignInUpButton {
+interface SignInUpButton {
   text: string;
   route: string;
 }
@@ -26,8 +25,8 @@ interface ISignInUpButton {
   ]
 })
 export class SignInComponent implements OnInit, OnDestroy {
-  public LIGHT_THEME: string = LIGHT_THEME.CLASS;
-  public DARK_THEME: string = DARK_THEME.CLASS;
+  public lightTheme: string = Themes.Light;
+  public darkTheme: string = Themes.Dark;
 
   public title: string;
   public appTheme: string;
@@ -36,61 +35,45 @@ export class SignInComponent implements OnInit, OnDestroy {
   public showEmailPasswordForm: boolean;
   public showForgotPassword: boolean;
 
-  public signInUpButton: ISignInUpButton | undefined;
+  public signInUpButton: SignInUpButton | undefined;
 
-  private activatedRouteSubscription: Subscription | undefined;
   private appThemeSubscription: Subscription | undefined;
 
   constructor(private activatedRoute: ActivatedRoute, public themeService: ThemeService) {
-    this.title = SIGN_IN.VIEW_VALUE;
+    this.title = 'Sign in';
     this.appTheme = this.themeService.appTheme;
     this.showEmailPasswordForm = false;
     this.showForgotPassword = false;
+    this.initSignInOrSignUp();
   }
 
   ngOnInit(): void {
-    this.activatedRouteSubscription = this.subscribeToActivatedRoute();
-    this.appThemeSubscription = this.subscribeToAppTheme();
+    this.appThemeSubscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
   }
 
   ngOnDestroy(): void {
-    if (this.activatedRouteSubscription) {
-      this.activatedRouteSubscription.unsubscribe();
-    }
-
-    if (this.appThemeSubscription) {
-      this.appThemeSubscription.unsubscribe();
-    }
+    this.appThemeSubscription?.unsubscribe();
   }
 
-  private subscribeToActivatedRoute(): Subscription {
-    return this.activatedRoute.data.subscribe((data: Data) => {
-      this.onActivatedRouteDataChange(data.title);
-    });
-  }
+  private initSignInOrSignUp(): void {
+    const snapshot = this.activatedRoute.snapshot;
+    const path = snapshot.routeConfig?.path;
 
-  private subscribeToAppTheme(): Subscription {
-    return this.themeService.appTheme$.subscribe((theme: string) => {
-      this.appTheme = theme;
-    });
-  }
+    this.title = snapshot.data?.title as string;
+    this.emailSignInButton = this.title + ' with email';
 
-  private onActivatedRouteDataChange(title: IPage): void {
-    this.title = title.viewValue;
-    this.emailSignInButton = title.viewValue + ' with email';
-
-    if (title.value === SIGN_IN.VALUE) {
+    if (path === Paths.SignIn) {
       this.showForgotPassword = true;
       this.signInUpButton = {
         text: 'No account? Sign up',
-        route: SIGN_UP.ROUTE
+        route: `/${Paths.Auth}/${Paths.SignUp}`
       };
     } else {
       // Sign up
       this.showForgotPassword = false;
       this.signInUpButton = {
         text: 'Have an account? Sign in',
-        route: SIGN_IN.ROUTE
+        route: `/${Paths.Auth}/${Paths.SignIn}`
       };
     }
   }

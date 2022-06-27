@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { LIGHT_THEME, THEME } from '~constants/themes.constants';
+import { Themes } from '~enums/themes.enum';
+
+const THEME = 'theme';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class ThemeService {
   public appTheme$: BehaviorSubject<string>;
 
   constructor() {
-    this.appTheme = LIGHT_THEME.CLASS;
+    this.appTheme = Themes.Light;
     this.appTheme$ = new BehaviorSubject<string>(this.appTheme);
   }
 

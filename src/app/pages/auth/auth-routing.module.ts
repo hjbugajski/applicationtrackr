@@ -6,26 +6,26 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
-import { SIGN_IN, SIGN_UP } from '~constants/pages.constants';
+import { Paths } from '~enums/paths.enum';
 
 const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
     children: [
-      { path: '', pathMatch: 'prefix', redirectTo: 'sign-in' },
+      { path: '', pathMatch: 'prefix', redirectTo: Paths.SignIn },
       {
-        path: 'sign-in',
+        path: Paths.SignIn,
         component: SignInComponent,
-        data: { title: { value: SIGN_IN.VALUE, viewValue: SIGN_IN.VIEW_VALUE } }
+        data: { title: 'Sign in' }
       },
       {
-        path: 'sign-up',
+        path: Paths.SignUp,
         component: SignInComponent,
-        data: { title: { value: SIGN_UP.VALUE, viewValue: SIGN_UP.VIEW_VALUE } }
+        data: { title: 'Sign up' }
       },
-      { path: 'password-reset', component: PasswordResetComponent },
-      { path: 'manage-account', component: ManageAccountComponent }
+      { path: Paths.PasswordReset, component: PasswordResetComponent },
+      { path: Paths.ManageAccount, component: ManageAccountComponent }
     ]
   }
 ];

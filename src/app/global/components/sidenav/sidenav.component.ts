@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
-import { CARBON_APPLICATION, CARBON_CHART_MULTITYPE, CARBON_EMAIL, CARBON_TEMPLATE } from '~constants/icons.constants';
-import { ANALYTICS, APPLICATIONS, JOB_BOARDS, OFFERS } from '~constants/pages.constants';
+import { Icons } from '~enums/icons.enum';
 
 interface SidenavItem {
   icon: string;
@@ -15,22 +14,26 @@ interface SidenavItem {
 })
 export class SidenavComponent {
   public title = 'ApplicationTrackr';
-  public sidenavItems: SidenavItem[] = [
-    {
-      icon: CARBON_APPLICATION.NAME,
-      viewValue: APPLICATIONS.VIEW_VALUE
-    },
-    {
-      icon: CARBON_EMAIL.NAME,
-      viewValue: OFFERS.VIEW_VALUE
-    },
-    {
-      icon: CARBON_CHART_MULTITYPE.NAME,
-      viewValue: ANALYTICS.VIEW_VALUE
-    },
-    {
-      icon: CARBON_TEMPLATE.NAME,
-      viewValue: JOB_BOARDS.VIEW_VALUE
-    }
-  ];
+  public sidenavItems: SidenavItem[];
+
+  constructor() {
+    this.sidenavItems = [
+      {
+        icon: Icons.CarbonApplication,
+        viewValue: 'Applications'
+      },
+      {
+        icon: Icons.CarbonEmail,
+        viewValue: 'Offers'
+      },
+      {
+        icon: Icons.CarbonChartMultitype,
+        viewValue: 'Analytics'
+      },
+      {
+        icon: Icons.CarbonTemplate,
+        viewValue: 'Job Boards'
+      }
+    ];
+  }
 }

@@ -19,8 +19,8 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "~components/*": ["src/app/global/components/*"],
-      "~constants/*": ["src/app/global/constants/*"],
-      "~interfaces/*": ["src/app/global/interfaces/*"],
+      "~enums/*": ["src/app/global/enums/*"],
+      "~environments/*": ["src/environments/*"],
       "~services/*": ["src/app/global/services/*"]
     }
   },
