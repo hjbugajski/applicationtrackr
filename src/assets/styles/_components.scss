@@ -24,7 +24,7 @@ $dark: 'dark';
       // (default) light theme
       @include mat.elevation(6, colors.$elevation, 0.8);
 
-      background-color: colors.$cool-gray-10;
+      // background-color: colors.$cool-gray-10;
       border: 0 !important;
     }
 
@@ -74,7 +74,8 @@ $dark: 'dark';
     border-radius: variables.$border-radius !important;
     font-weight: variables.$font-weight-semi-bold;
 
-    &.mat-button-with-icon .mat-button-wrapper {
+    &.mat-button-with-left-icon .mat-button-wrapper,
+    &.mat-button-with-right-icon .mat-button-wrapper {
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -86,7 +87,6 @@ $dark: 'dark';
         align-items: center;
         height: 22px;
         width: 22px;
-        margin-right: 8px;
 
         &.google-icon {
           height: 16.5px;
@@ -94,6 +94,14 @@ $dark: 'dark';
           padding: 2.75px;
         }
       }
+    }
+
+    &.mat-button-with-left-icon .mat-button-wrapper .mat-icon {
+      margin-right: 8px;
+    }
+
+    &.mat-button-with-right-icon .mat-button-wrapper .mat-icon {
+      margin-left: 8px;
     }
   }
 
@@ -112,10 +120,16 @@ $dark: 'dark';
   }
 
   .mat-form-field {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 
     &.two-line-hint {
-      margin-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 350px) {
+      &.two-line-hint {
+        margin-bottom: 24px;
+      }
     }
   }
 
@@ -133,6 +147,10 @@ $dark: 'dark';
 
     .mat-form-field-underline {
       display: none !important;
+    }
+
+    .mat-form-field-label {
+      top: 1.075em !important;
     }
   }
 
@@ -152,6 +170,14 @@ $dark: 'dark';
 
   .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
     background: map.get($theme-colors, 'hover');
+  }
+
+  .mat-list-item {
+    border-radius: variables.$border-radius;
+  }
+
+  .mat-list-item-ripple {
+    border-radius: variables.$border-radius;
   }
 
   .mat-list-single-selected-option {

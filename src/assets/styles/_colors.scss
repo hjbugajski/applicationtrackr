@@ -70,41 +70,159 @@ $white: #fff;
 $orange: #ff832b;
 $yellow: #f1c21b;
 
+$light-primary: $blue-60;
+$light-accent: $purple-60;
+$light-success: $green-60;
+$light-error: $red-60;
+
+$dark-primary: $blue-40;
+$dark-accent: $purple-40;
+$dark-success: $green-40;
+$dark-error: $red-50;
+
 $elevation: $cool-gray-50;
 
 @mixin color-classes($theme: 'light') {
   @if $theme == 'dark' {
-    .text-primary {
-      color: $blue-40;
+    .at-primary {
+      &.at-border {
+        border: 2px solid $dark-primary;
+      }
+
+      &.at-text {
+        color: $dark-primary;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($dark-primary, $alpha: 0.05);
+      }
     }
 
-    .text-accent {
-      color: $purple-40;
+    .at-accent {
+      &.at-border {
+        border: 2px solid $dark-accent;
+      }
+
+      &.at-text {
+        color: $dark-accent;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($dark-accent, $alpha: 0.05);
+      }
     }
 
-    .text-error {
-      color: $red-40;
+    .at-success {
+      &.at-border {
+        border: 2px solid $dark-success;
+      }
+
+      &.at-text {
+        color: $dark-success;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($dark-success, $alpha: 0.05);
+      }
     }
 
-    .text-success {
-      color: $green-40;
+    .at-error {
+      &.at-border {
+        border: 2px solid $dark-error;
+      }
+
+      &.at-text {
+        color: $dark-error;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($dark-error, $alpha: 0.05);
+      }
     }
   } @else {
     // (default) light theme
-    .text-primary {
-      color: $blue-60;
+    .at-primary {
+      &.at-border {
+        border: 2px solid $light-primary;
+      }
+
+      &.at-text {
+        color: $light-primary;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($light-primary, $alpha: 0.05);
+      }
     }
 
-    .text-accent {
-      color: $purple-60;
+    .at-accent {
+      &.at-border {
+        border: 2px solid $light-accent;
+      }
+
+      &.at-text {
+        color: $light-accent;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($light-accent, $alpha: 0.05);
+      }
     }
 
-    .text-error {
-      color: $red-60;
+    .at-success {
+      &.at-border {
+        border: 2px solid $light-success;
+      }
+
+      &.at-text {
+        color: $light-success;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($light-success, $alpha: 0.05);
+      }
     }
 
-    .text-success {
-      color: $green-60;
+    .at-error {
+      &.at-border {
+        border: 2px solid $light-error;
+      }
+
+      &.at-text {
+        color: $light-error;
+      }
+
+      &.at-alpha-background {
+        background-color: rgba($light-error, $alpha: 0.05);
+      }
+    }
+  }
+
+  .at-orange {
+    &.at-border {
+      border: 2px solid $orange;
+    }
+
+    &.at-text {
+      color: $orange;
+    }
+
+    &.at-alpha-background {
+      background-color: rgba($orange, $alpha: 0.05);
+    }
+  }
+
+  .at-yellow {
+    &.at-border {
+      border: 2px solid $yellow;
+    }
+
+    &.at-text {
+      color: $yellow;
+    }
+
+    &.at-alpha-background {
+      background-color: rgba($yellow, $alpha: 0.05);
     }
   }
 }
@@ -112,10 +230,10 @@ $elevation: $cool-gray-50;
 @function get-theme-colors($theme: 'light') {
   @if $theme == 'dark' {
     @return (
-      'text-primary': $blue-40,
-      'text-accent': $purple-40,
-      'text-error': $red-40,
-      'text-success': $green-40,
+      'text-primary': $blue-50,
+      'text-accent': $purple-50,
+      'text-error': $red-50,
+      'text-success': $green-50,
       'border': $primer-gray-80,
       'hover': $primer-gray-90
     );
