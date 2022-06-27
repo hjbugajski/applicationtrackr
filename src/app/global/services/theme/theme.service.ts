@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Themes } from '~enums/themes.enum';
@@ -12,7 +13,7 @@ export class ThemeService {
   public appTheme: Themes;
   public appTheme$: BehaviorSubject<Themes>;
 
-  constructor() {
+  constructor(@Inject(DOCUMENT) private document: Document) {
     this.appTheme = Themes.Light;
     this.appTheme$ = new BehaviorSubject<Themes>(this.appTheme);
   }
@@ -23,7 +24,7 @@ export class ThemeService {
 
   public setTheme(theme: Themes): void {
     localStorage.setItem(THEME, theme);
-    document.body.classList.replace(this.appTheme, theme);
+    this.document.body.classList.replace(this.appTheme, theme);
     this.appTheme = theme;
     this.appTheme$.next(theme);
   }
