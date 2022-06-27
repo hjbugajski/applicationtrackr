@@ -1,0 +1,18 @@
+<ng-container *ngIf="data.action === dialogActions.Delete; else discardDialog">
+  <div class="dialog-header-with-icon">
+    <mat-icon svgIcon="carbon-trash-can" class="at-error at-text"></mat-icon>
+    <span class="dialog-header">Delete {{ data.item }}?</span>
+  </div>
+  <p *ngIf="data.message">{{ data.message }}</p>
+  <div mat-dialog-actions class="button-row-container-end">
+    <button mat-button matDialogClose="true">Cancel</button>
+    <button mat-flat-button color="warn" (click)="close(dialogActions.Delete)">Delete</button>
+  </div>
+</ng-container>
+<ng-template #discardDialog>
+  <p>Discard {{ data.item }}?</p>
+  <div mat-dialog-actions class="button-row-container-end">
+    <button mat-button matDialogClose="true">Cancel</button>
+    <button mat-button (click)="close(dialogActions.Discard)">Discard</button>
+  </div>
+</ng-template>
