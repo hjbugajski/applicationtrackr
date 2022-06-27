@@ -1,10 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { Timestamp } from '@firebase/firestore';
-import { BehaviorSubject, lastValueFrom, map, Observable } from 'rxjs';
+import { lastValueFrom, map, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-dialog.component';
@@ -13,7 +11,6 @@ import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { JobBoard } from '~models/job-board.model';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
-import { SidenavService } from '~services/sidenav/sidenav.service';
 import { UserDataQuery } from '~state/user-data/user-data.query';
 
 @Component({
@@ -22,23 +19,15 @@ import { UserDataQuery } from '~state/user-data/user-data.query';
   styleUrls: ['./job-boards.component.scss']
 })
 export class JobBoardsComponent {
-  @ViewChild(MatSort) public sort: MatSort;
-
-  public displayedColumns: string[] = ['title', 'date', 'actions'];
-  public displayedColumnsMobile: string[] = ['title', 'actions'];
-  public isMobile: BehaviorSubject<boolean>;
   public jobBoards: Observable<JobBoard[]>;
 
   constructor(
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
-    private sidenavService: SidenavService,
     private title: Title,
     private userDataQuery: UserDataQuery
   ) {
-    this.isMobile = this.sidenavService.isMobile;
     this.title.setTitle('Job Boards' + TITLE_SUFFIX);
-    this.sort = new MatSort();
     this.jobBoards = this.jobBoardsService.jobBoards.pipe(
       map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title! > b.title! ? -1 : 1)))
     );
@@ -73,9 +62,5 @@ export class JobBoardsComponent {
 
   public isCurrentBoard(board: JobBoard): boolean {
     return board.docId === this.userDataQuery.currentJobBoard?.docId;
-  }
-
-  public sortData(data: MatTableDataSource<JobBoard>): void {
-    data.sort = this.sort;
   }
 }
