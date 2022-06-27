@@ -37,7 +37,8 @@ export class BoardSelectorComponent implements OnInit, OnDestroy {
   public newBoard(): void {
     this.matDialog.open(JobBoardDialogComponent, {
       data: { action: DialogActions.New, data: null },
-      panelClass: 'mat-dialog-container-with-toolbar'
+      disableClose: true,
+      panelClass: ['at-dialog', 'mat-dialog-container-with-toolbar']
     });
   }
 
