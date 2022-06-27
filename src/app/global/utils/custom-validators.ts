@@ -91,5 +91,5 @@ function regexValidator(regex: RegExp, validator: string, control: AbstractContr
     return null;
   }
 
-  return regex.test(control?.value) ? null : { [validator]: true };
+  return regex.test(control?.value as string) ? null : { [validator]: true };
 }
