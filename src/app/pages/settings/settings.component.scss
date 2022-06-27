@@ -1,6 +1,10 @@
 @use 'colors';
 
 :host {
+  .settings-card .mat-card-title {
+    margin-bottom: 16px;
+  }
+
   .content {
     margin-top: 56px;
     margin-left: auto;
