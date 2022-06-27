@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { NotificationComponent } from '~components/notification/notification.component';
-import { Notifications } from '~enums/notifications.enum';
+import { Colors } from '~enums/colors.enum';
 import { NotificationData } from '~interfaces/notification-data.interface';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { NotificationData } from '~interfaces/notification-data.interface';
 export class NotificationService {
   constructor(private matSnackBar: MatSnackBar) {}
 
-  public show(type: Notifications, title: string, message: string, duration = 3000): void {
+  public show(type: Colors, title: string, message: string, duration = 3000): void {
     const data: NotificationData = {
       message,
       title,
@@ -28,10 +28,10 @@ export class NotificationService {
   }
 
   public showError(message: string, title = 'Error'): void {
-    this.show(Notifications.Error, title, message, 0);
+    this.show(Colors.Error, title, message, 0);
   }
 
   public showSuccess(message: string, title = 'Success'): void {
-    this.show(Notifications.Success, title, message);
+    this.show(Colors.Success, title, message);
   }
 }

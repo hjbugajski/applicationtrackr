@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
-import { traceUntilFirst } from '@angular/fire/performance';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -30,7 +29,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     const noAuthPaths: Paths[] = [Paths.SignIn, Paths.SignUp, Paths.ForgotPassword];
 
     return authState(this.auth).pipe(
-      traceUntilFirst('auth'),
       map((user) => {
         const isAuthorized = !!user;
 

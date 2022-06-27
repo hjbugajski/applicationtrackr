@@ -13,5 +13,6 @@ export enum Icons {
   CarbonRadioButtonChecked = 'carbon-radio-button-checked',
   CarbonSettings = 'carbon-settings',
   CarbonTemplate = 'carbon-template',
+  CarbonUserAvatar = 'carbon-user-avatar',
   GoogleLogo = 'google-logo'
 }

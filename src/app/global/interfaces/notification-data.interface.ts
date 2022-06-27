@@ -1,7 +1,7 @@
-import { Notifications } from '~enums/notifications.enum';
+import { Colors } from '~enums/colors.enum';
 
 export interface NotificationData {
   message: string;
   title: string;
-  type: Notifications;
+  type: Colors;
 }

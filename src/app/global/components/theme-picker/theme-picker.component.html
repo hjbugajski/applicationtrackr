@@ -1,12 +1,18 @@
-<button mat-icon-button [matMenuTriggerFor]="themeMenu" matTooltip="Theme">
-  <mat-icon [svgIcon]="'carbon-color-palette'"></mat-icon>
-</button>
-<mat-menu #themeMenu="matMenu" xPosition="before">
-  <button mat-menu-item *ngFor="let theme of themes" (click)="setTheme(theme.class)">
-    <mat-icon
-      [color]="appTheme === theme.class ? 'accent' : undefined"
-      [svgIcon]="appTheme === theme.class ? 'carbon-radio-button-checked' : 'carbon-radio-button'"
-    ></mat-icon>
-    <span>{{ theme.viewValue }}</span>
+<ng-container *ngIf="layout === 'icon'; else listLayout">
+  <button mat-icon-button [matMenuTriggerFor]="themeMenu" matTooltip="Theme">
+    <mat-icon [svgIcon]="'carbon-color-palette'"></mat-icon>
   </button>
-</mat-menu>
+  <mat-menu #themeMenu="matMenu" xPosition="before">
+    <button mat-menu-item *ngFor="let theme of themesArray" (click)="setTheme(theme.class)">
+      <mat-radio-button [checked]="appTheme === theme.class"></mat-radio-button>
+      <span>{{ theme.viewValue }}</span>
+    </button>
+  </mat-menu>
+</ng-container>
+<ng-template #listLayout>
+  <mat-list-item *ngFor="let theme of themesArray" (click)="setTheme(theme.class)">
+    <span>{{ theme.viewValue }}</span>
+    <span class="spacer"></span>
+    <mat-radio-button [checked]="appTheme === theme.class" (change)="setTheme(theme.class)"></mat-radio-button>
+  </mat-list-item>
+</ng-template>

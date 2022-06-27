@@ -9,19 +9,19 @@ const THEME = 'theme';
   providedIn: 'root'
 })
 export class ThemeService {
-  public appTheme: string;
-  public appTheme$: BehaviorSubject<string>;
+  public appTheme: Themes;
+  public appTheme$: BehaviorSubject<Themes>;
 
   constructor() {
     this.appTheme = Themes.Light;
-    this.appTheme$ = new BehaviorSubject<string>(this.appTheme);
+    this.appTheme$ = new BehaviorSubject<Themes>(this.appTheme);
   }
 
   public initTheme(): void {
-    this.setTheme(localStorage.getItem(THEME) ?? this.appTheme);
+    this.setTheme((localStorage.getItem(THEME) as Themes) ?? this.appTheme);
   }
 
-  public setTheme(theme: string): void {
+  public setTheme(theme: Themes): void {
     localStorage.setItem(THEME, theme);
     document.body.classList.replace(this.appTheme, theme);
     this.appTheme = theme;

@@ -10,6 +10,7 @@ export enum Paths {
   ForgotPassword = 'forgot-password',
   PrivacyPolicy = 'privacy-policy',
   Rejections = 'rejections',
+  Settings = 'settings',
   SignIn = 'sign-in',
   SignUp = 'sign-up'
 }
