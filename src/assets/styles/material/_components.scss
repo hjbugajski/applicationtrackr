@@ -1,0 +1,193 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+@use '../colors' as colors;
+
+$light: 'light';
+$dark: 'dark';
+
+@mixin get-components-styles($theme: $light) {
+  $theme-colors: colors.get-theme-colors($theme);
+
+  .mat-sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .mat-toolbar {
+    @if $theme == $dark {
+      border-bottom: 2px solid map.get($theme-colors, 'border');
+    } @else {
+      // (default) light theme
+      @include mat.elevation(6, colors.$elevation, 0.8);
+
+      background-color: colors.$cool-gray-10;
+      border: 0 !important;
+    }
+
+    color: map.get($theme-colors, 'text-primary');
+    position: absolute;
+    z-index: 2;
+
+    &.ghost-toolbar {
+      background-color: transparent;
+      border-bottom: 0;
+      box-shadow: none;
+    }
+
+    .mat-toolbar-title {
+      font-weight: 700;
+    }
+  }
+
+  .mat-sidenav {
+    @if $theme == $dark {
+      border-right: 2px solid map.get($theme-colors, 'border') !important;
+    } @else {
+      @include mat.elevation(6, colors.$elevation, 0.8);
+    }
+  }
+
+  .mat-card {
+    @if $theme == $dark {
+      border: 2px solid map.get($theme-colors, 'border');
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.overridable-elevation(6, colors.$elevation, 0.8);
+    }
+
+    border-radius: 8px !important;
+
+    .mat-card-title {
+      color: map.get($theme-colors, 'text-primary');
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: 16px;
+    }
+  }
+
+  .mat-button-base {
+    border-radius: 8px !important;
+    font-weight: 500;
+
+    &.mat-button-with-icon .mat-button-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .mat-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        width: 22px;
+        margin-right: 8px;
+
+        &.google-icon {
+          height: 16.5px;
+          width: 16.5px;
+          padding: 2.75px;
+        }
+      }
+    }
+  }
+
+  .mat-raised-button {
+    @if $theme == $dark {
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.overridable-elevation(6, colors.$elevation, 0.8);
+    }
+  }
+
+  .mat-stroked-button {
+    border-color: inherit !important;
+    border-width: 1px !important;
+  }
+
+  .mat-form-field {
+    margin-bottom: 8px;
+
+    &.two-line-hint {
+      margin-bottom: 16px;
+    }
+  }
+
+  .mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+      @if $theme == $dark {
+        background-color: colors.$primer-gray-90;
+      } @else {
+        // (default) light theme
+        background-color: colors.$cool-gray-10;
+      }
+
+      border-radius: 8px !important;
+    }
+
+    .mat-form-field-underline {
+      display: none !important;
+    }
+  }
+
+  .mat-menu-panel,
+  .mat-select-panel,
+  .mat-dialog-container {
+    @if $theme == $dark {
+      border: 2px solid map.get($theme-colors, 'border');
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.elevation(6, colors.$elevation, 0.8);
+    }
+
+    border-radius: 8px !important;
+  }
+
+  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: map.get($theme-colors, 'hover');
+  }
+
+  .mat-list-single-selected-option {
+    background-color: map.get($theme-colors, 'hover') !important;
+    color: map.get($theme-colors, 'text-primary') !important;
+  }
+
+  .mat-slide-toggle-thumb {
+    @if $theme == $dark {
+      border: 2px solid map.get($theme-colors, 'border');
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.elevation(6, colors.$elevation, 0.8);
+    }
+
+    background-color: map.get($theme-colors, 'hover');
+  }
+
+  .mat-tab-nav-bar,
+  .mat-tab-header {
+    border-bottom: 1px solid map.get($theme-colors, 'border');
+  }
+
+  .mat-divider {
+    border-top-width: 2px;
+
+    &.padded-divider {
+      margin: 8px 0 !important;
+    }
+  }
+
+  .mat-step-header {
+    border-radius: 8px;
+  }
+
+  .mat-list-base {
+    padding-bottom: 8px;
+  }
+}

@@ -1,0 +1,82 @@
+$red-100: #2d0709;
+$red-90: #520408;
+$red-80: #750e13;
+$red-70: #a2191f;
+$red-60: #da1e28;
+$red-50: #fa4d56;
+$red-40: #ff8389;
+$red-30: #ffb3b8;
+$red-20: #ffd7d9;
+$red-10: #fff1f1;
+
+$purple-100: #1c0f30;
+$purple-90: #31135e;
+$purple-80: #491d8b;
+$purple-70: #6929c4;
+$purple-60: #8a3ffc;
+$purple-50: #a56eff;
+$purple-40: #be95ff;
+$purple-30: #d4bbff;
+$purple-20: #e8daff;
+$purple-10: #f6f2ff;
+
+$blue-100: #001141;
+$blue-90: #001d6c;
+$blue-80: #002d9c;
+$blue-70: #0043ce;
+$blue-60: #0f62fe;
+$blue-50: #4589ff;
+$blue-40: #78a9ff;
+$blue-30: #a6c8ff;
+$blue-20: #d0e2ff;
+$blue-10: #edf5ff;
+
+$green-100: #071908;
+$green-90: #022d0d;
+$green-80: #044317;
+$green-70: #0e6027;
+$green-60: #198038;
+$green-50: #24a148;
+$green-40: #42be65;
+$green-30: #6fdc8c;
+$green-20: #a7f0ba;
+$green-10: #defbe6;
+
+$cool-gray-100: #121619;
+$cool-gray-90: #21272a;
+$cool-gray-80: #343a3f;
+$cool-gray-70: #4d5358;
+$cool-gray-60: #697077;
+$cool-gray-50: #878d96;
+$cool-gray-40: #a2a9b0;
+$cool-gray-30: #c1c7cd;
+$cool-gray-20: #dde1e6;
+$cool-gray-10: #f2f4f8;
+
+$primer-gray-110: #090c10;
+$primer-gray-100: #0d1117;
+$primer-gray-90: #161b22;
+$primer-gray-80: #21262d;
+$primer-gray-70: #30363d;
+$primer-gray-60: #484f58;
+$primer-gray-50: #6e7681;
+$primer-gray-40: #8b949e;
+$primer-gray-30: #b1bac4;
+$primer-gray-20: #c9d1d9;
+$primer-gray-10: #f0f6fc;
+
+$black: #000;
+$white: #fff;
+$orange: #ff832b;
+$yellow: #f1c21b;
+
+$elevation: $cool-gray-50;
+
+@function get-theme-colors($theme: 'light') {
+  @if $theme == 'dark' {
+    @return ('text-primary': $blue-40, 'border': $primer-gray-80, 'hover': $primer-gray-90);
+  } @else {
+    // (default) light theme
+    @return ('text-primary': $blue-60, 'border': $cool-gray-20, 'hover': $cool-gray-10);
+  }
+}

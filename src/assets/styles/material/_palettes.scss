@@ -1,0 +1,171 @@
+@use '../colors' as colors;
+
+$red-palette: (
+  50: colors.$red-10,
+  100: colors.$red-20,
+  200: colors.$red-30,
+  300: colors.$red-40,
+  400: colors.$red-50,
+  500: colors.$red-60,
+  600: colors.$red-70,
+  700: colors.$red-80,
+  800: colors.$red-90,
+  900: colors.$red-100,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$purple-palette: (
+  50: colors.$purple-10,
+  100: colors.$purple-20,
+  200: colors.$purple-30,
+  300: colors.$purple-40,
+  400: colors.$purple-50,
+  500: colors.$purple-60,
+  600: colors.$purple-70,
+  700: colors.$purple-80,
+  800: colors.$purple-90,
+  900: colors.$purple-100,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$blue-palette: (
+  50: colors.$blue-10,
+  100: colors.$blue-20,
+  200: colors.$blue-30,
+  300: colors.$blue-40,
+  400: colors.$blue-50,
+  500: colors.$blue-60,
+  600: colors.$blue-70,
+  700: colors.$blue-80,
+  800: colors.$blue-90,
+  900: colors.$blue-100,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$green-palette: (
+  50: colors.$green-10,
+  100: colors.$green-20,
+  200: colors.$green-30,
+  300: colors.$green-40,
+  400: colors.$green-50,
+  500: colors.$green-60,
+  600: colors.$green-70,
+  700: colors.$green-80,
+  800: colors.$green-90,
+  900: colors.$green-100,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$light-theme-foreground-palette: (
+  base: colors.$cool-gray-90,
+  divider: colors.$cool-gray-20,
+  dividers: colors.$cool-gray-20,
+  disabled: colors.$cool-gray-30,
+  disabled-button: colors.$cool-gray-40,
+  disabled-text: colors.$cool-gray-30,
+  hint-text: colors.$cool-gray-40,
+  secondary-text: colors.$cool-gray-90,
+  icon: colors.$cool-gray-90,
+  icons: colors.$cool-gray-90,
+  text: colors.$cool-gray-90,
+  slider-min: colors.$cool-gray-40,
+  slider-off: colors.$cool-gray-40,
+  slider-off-active: colors.$cool-gray-40
+);
+
+$dark-theme-foreground-palette: (
+  base: colors.$primer-gray-10,
+  divider: colors.$primer-gray-80,
+  dividers: colors.$primer-gray-80,
+  disabled: colors.$primer-gray-70,
+  disabled-button: colors.$primer-gray-70,
+  disabled-text: colors.$primer-gray-70,
+  hint-text: colors.$primer-gray-40,
+  secondary-text: colors.$primer-gray-40,
+  icon: colors.$primer-gray-10,
+  icons: colors.$primer-gray-10,
+  text: colors.$primer-gray-10,
+  slider-min: colors.$primer-gray-40,
+  slider-off: colors.$primer-gray-40,
+  slider-off-active: colors.$primer-gray-40
+);
+
+$light-theme-background-palette: (
+  status-bar: colors.$white,
+  app-bar: colors.$white,
+  background: colors.$cool-gray-10,
+  hover: colors.$cool-gray-10,
+  card: colors.$white,
+  dialog: colors.$white,
+  disabled-button: colors.$cool-gray-20,
+  raised-button: colors.$cool-gray-10,
+  focused-button: colors.$cool-gray-100,
+  selected-button: colors.$cool-gray-20,
+  selected-disabled-button: colors.$cool-gray-20,
+  disabled-button-toggle: colors.$cool-gray-20,
+  unselected-chip: colors.$cool-gray-10,
+  disabled-list-option: colors.$white,
+  tooltip: colors.$cool-gray-90
+);
+
+$dark-theme-background-palette: (
+  status-bar: colors.$primer-gray-110,
+  app-bar: colors.$primer-gray-110,
+  background: colors.$primer-gray-100,
+  hover: colors.$primer-gray-90,
+  card: colors.$primer-gray-110,
+  dialog: colors.$primer-gray-110,
+  disabled-button: colors.$primer-gray-80,
+  raised-button: colors.$primer-gray-90,
+  focused-button: colors.$primer-gray-10,
+  selected-button: colors.$primer-gray-80,
+  selected-disabled-button: colors.$primer-gray-80,
+  disabled-button-toggle: colors.$primer-gray-80,
+  unselected-chip: colors.$primer-gray-80,
+  disabled-list-option: colors.$primer-gray-110,
+  tooltip: colors.$primer-gray-80
+);
