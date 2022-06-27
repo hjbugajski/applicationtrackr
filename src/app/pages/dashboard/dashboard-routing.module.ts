@@ -22,10 +22,6 @@ const routes: Routes = [
       {
         path: Paths.JobBoards,
         loadChildren: () => import('./job-boards/job-boards.module').then((m) => m.JobBoardsModule)
-      },
-      {
-        path: Paths.Offers,
-        loadChildren: () => import('./offers/offers.module').then((m) => m.OffersModule)
       }
     ]
   }

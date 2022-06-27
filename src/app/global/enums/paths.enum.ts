@@ -6,7 +6,6 @@ export enum Paths {
   JobBoards = 'job-boards',
   ManageAccount = 'manage-account',
   NoResponse = 'no-response',
-  Offers = 'offers',
   ForgotPassword = 'forgot-password',
   PrivacyPolicy = 'privacy-policy',
   Rejections = 'rejections',

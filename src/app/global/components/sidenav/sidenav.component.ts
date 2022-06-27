@@ -27,11 +27,6 @@ export class SidenavComponent {
         route: Paths.Applications
       },
       {
-        icon: Icons.CarbonEmail,
-        viewValue: 'Offers',
-        route: Paths.Offers
-      },
-      {
         icon: Icons.CarbonChartMultitype,
         viewValue: 'Analytics',
         route: Paths.Analytics
