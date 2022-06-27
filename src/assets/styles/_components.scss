@@ -86,9 +86,56 @@ $dark: 'dark';
       margin-bottom: 5px;
       padding: 5px 5px 0 10px;
 
-      .board-column-title {
-        font-size: 16px;
-        font-weight: variables.$font-weight-bold;
+      .board-column-title-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .board-column-title {
+          font-size: 16px;
+          font-weight: variables.$font-weight-bold;
+        }
+
+        .board-column-application-count {
+          display: inline-flex;
+          margin-left: 8px;
+          padding: 4px 6px;
+          border-radius: 6px;
+          font-size: 12px;
+          line-height: 12px;
+          font-weight: variables.$font-weight-semi-bold;
+
+          @if $theme == $dark {
+            background-color: colors.$primer-gray-80;
+            color: colors.$primer-gray-20;
+          } @else {
+            // (default) light
+            background-color: colors.$cool-gray-20;
+            color: colors.$cool-gray-80;
+          }
+
+          &.at-success {
+            @if $theme == $dark {
+              background-color: colors.$green-40;
+              color: colors.$black;
+            } @else {
+              // (default) light
+              background-color: colors.$green-60;
+              color: colors.$white;
+            }
+          }
+
+          &.at-error {
+            @if $theme == $dark {
+              background-color: colors.$red-50;
+              color: colors.$black;
+            } @else {
+              // (default) light
+              background-color: colors.$red-60;
+              color: colors.$white;
+            }
+          }
+        }
       }
     }
 

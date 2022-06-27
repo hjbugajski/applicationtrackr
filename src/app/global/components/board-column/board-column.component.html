@@ -1,0 +1,20 @@
+<div class="board-column-header at-text" [ngClass]="column?.color!!">
+  <div class="board-column-title-container">
+    <span class="board-column-title">{{ column?.title }}</span>
+    <span class="board-column-application-count" [ngClass]="column?.color!!">{{ applications.length }}</span>
+  </div>
+  <div class="board-column-actions">
+    <button mat-icon-button matTooltip="New application">
+      <mat-icon svgIcon="carbon-add"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Menu">
+      <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
+    </button>
+  </div>
+</div>
+<cdk-virtual-scroll-viewport itemSize="25" class="cdk-container">
+  <mat-card *cdkVirtualFor="let application of applications">
+    <mat-card-title class="at-text" [ngClass]="column?.color!!">Application {{ application }}</mat-card-title>
+    <mat-card-content>Content</mat-card-content>
+  </mat-card>
+</cdk-virtual-scroll-viewport>
