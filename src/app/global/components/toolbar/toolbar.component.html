@@ -1,3 +1,6 @@
 <mat-toolbar class="at-toolbar ghost-toolbar">
+  <button mat-icon-button *ngIf="sidenavService.showMenuButton | async" (click)="toggleSidenav()">
+    <mat-icon svgIcon="carbon-menu"></mat-icon>
+  </button>
   <button mat-flat-button color="primary">New</button>
 </mat-toolbar>

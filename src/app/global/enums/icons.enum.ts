@@ -8,6 +8,7 @@ export enum Icons {
   CarbonCompass = 'carbon-compass',
   CarbonEmail = 'carbon-email',
   CarbonLogout = 'carbon-logout',
+  CarbonMenu = 'carbon-menu',
   CarbonNotificationOff = 'carbon-notification-off',
   CarbonRadioButton = 'carbon-radio-button',
   CarbonRadioButtonChecked = 'carbon-radio-button-checked',
