@@ -4,19 +4,21 @@ import { Observable } from 'rxjs';
 
 import { UserDataState, UserDataStore } from './user-data.store';
 
+import { JobBoard } from '~models/job-board.model';
+
 @Injectable({ providedIn: 'root' })
 export class UserDataQuery extends QueryEntity<UserDataState> {
-  private _currentJobBoard$ = this.select('currentJobBoard') as Observable<string>;
+  private _currentJobBoard$ = this.select('currentJobBoard') as Observable<JobBoard>;
 
   constructor(protected store: UserDataStore) {
     super(store);
   }
 
-  public get currentJobBoard(): string | null {
-    return this.store.getValue().currentJobBoard as string | null;
+  public get currentJobBoard(): JobBoard | null {
+    return this.store.getValue().currentJobBoard as JobBoard | null;
   }
 
-  public get currentJobBoard$(): Observable<string> {
+  public get currentJobBoard$(): Observable<JobBoard> {
     return this._currentJobBoard$;
   }
 

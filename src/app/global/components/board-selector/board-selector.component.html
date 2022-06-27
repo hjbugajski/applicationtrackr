@@ -1,0 +1,40 @@
+<ng-container *ngIf="currentJobBoard; else loading">
+  <ng-container *ngIf="mode === 'select'; else menuMode">
+    <mat-form-field class="full-width">
+      <mat-label>Current Job board</mat-label>
+      <mat-select [value]="currentJobBoard!.docId ?? ''">
+        <mat-option
+          *ngFor="let jobBoard of jobBoards | async"
+          [value]="jobBoard.docId"
+          (click)="onSelectionChange(jobBoard)"
+        >
+          {{ jobBoard.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button color="primary" class="full-width" (click)="newBoard()">New job board</button>
+  </ng-container>
+  <ng-template #menuMode>
+    <button mat-button [matMenuTriggerFor]="jobBoardMenu" class="mat-button-with-right-icon job-board-menu">
+      <span class="text">{{ currentJobBoard?.title }}</span>
+      <mat-icon svgIcon="carbon-caret-down"></mat-icon>
+    </button>
+    <mat-menu #jobBoardMenu="matMenu">
+      <button mat-menu-item (click)="newBoard()">New job board</button>
+      <mat-divider style="margin: 8px 0"></mat-divider>
+      <button
+        mat-menu-item
+        *ngFor="let board of jobBoards | async"
+        (click)="onSelectionChange(board)"
+        [ngClass]="{ 'mat-list-single-selected-option': currentJobBoard?.docId === board.docId }"
+      >
+        {{ board.title }}
+      </button>
+    </mat-menu>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <div class="spinner-container">
+    <mat-spinner color="accent" diameter="24"></mat-spinner>
+  </div>
+</ng-template>

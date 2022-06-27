@@ -1,7 +1,9 @@
 import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
 
+import { JobBoard } from '~models/job-board.model';
+
 export class UserData {
-  public currentJobBoard: string | null;
+  public currentJobBoard: JobBoard | null;
   public uid: string | null;
 
   constructor(doc: QueryDocumentSnapshot<DocumentData>) {

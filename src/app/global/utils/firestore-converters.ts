@@ -13,8 +13,10 @@ const jobBoardConverter = {
 };
 
 const userDataConverter = {
-  toFirestore: (user: UserData): UserData => {
-    return user;
+  toFirestore: (user: UserData) => {
+    return {
+      currentJobBoard: user.currentJobBoard
+    };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): UserData => {
     return new UserData(snapshot);

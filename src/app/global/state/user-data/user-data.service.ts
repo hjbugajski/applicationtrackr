@@ -17,6 +17,7 @@ import { UserDataQuery } from './user-data.query';
 import { UserDataStore } from './user-data.store';
 
 import { Collections } from '~enums/collections.enum';
+import { JobBoard } from '~models/job-board.model';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { userDataConverter } from '~utils/firestore-converters';
 
@@ -55,11 +56,13 @@ export class UserDataService {
     );
   }
 
-  public async updateCurrentJobBoard(currentJobBoard: string): Promise<void> {
-    await updateDoc(doc(this.firestore, Collections.Users, this.userDataQuery.uid!), { currentJobBoard });
+  public async updateCurrentJobBoard(newBoard: JobBoard): Promise<void> {
+    await updateDoc(doc(this.firestore, Collections.Users, this.userDataQuery.uid!), {
+      currentJobBoard: { date: newBoard.date, docId: newBoard.docId, title: newBoard.title }
+    });
   }
 
-  public set currentJobBoard(value: string | null) {
+  public set currentJobBoard(value: JobBoard | null) {
     this.userDataStore.update({ currentJobBoard: value });
   }
 
