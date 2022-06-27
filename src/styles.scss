@@ -1,5 +1,5 @@
 @use './assets/styles/material/themes';
-@use './assets/styles/colors';
+@use './assets/styles/colors' as colors;
 
 html,
 body {
@@ -8,8 +8,39 @@ body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700 !important;
+}
+
+.app-light-theme {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  a {
+    color: colors.$blue-60;
+  }
+}
+
 .app-dark-theme {
   background-color: colors.$primer-gray-110;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  a {
+    color: colors.$blue-40;
+  }
 }
 
 .spacer {
