@@ -1,0 +1,32 @@
+.sidenav-item-container {
+  margin-top: 56px;
+}
+
+.sidenav-mat-selection-list {
+  padding-top: 0;
+}
+
+.sidenav-item-container-end {
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 12px;
+  position: absolute;
+  right: 0;
+}
+
+.padded-container {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px 0;
+}
+
+@media (min-width: 600px) {
+  .sidenav-item-container {
+    margin-top: 64px;
+  }
+
+  .sidenav-item-container-end {
+    bottom: 0;
+  }
+}

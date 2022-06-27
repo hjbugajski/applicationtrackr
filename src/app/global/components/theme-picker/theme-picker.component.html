@@ -1,0 +1,12 @@
+<button mat-icon-button [matMenuTriggerFor]="themeMenu" matTooltip="Theme">
+  <mat-icon [svgIcon]="'carbon-color-palette'"></mat-icon>
+</button>
+<mat-menu #themeMenu="matMenu" xPosition="before">
+  <button mat-menu-item *ngFor="let theme of themes" (click)="setTheme(theme.class)">
+    <mat-icon
+      [color]="appTheme === theme.class ? 'accent' : undefined"
+      [svgIcon]="appTheme === theme.class ? 'carbon-radio-button-checked' : 'carbon-radio-button'"
+    ></mat-icon>
+    <span>{{ theme.viewValue }}</span>
+  </button>
+</mat-menu>

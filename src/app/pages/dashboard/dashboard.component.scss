@@ -1,0 +1,19 @@
+@use '~@angular/material' as mat;
+@use 'src/assets/styles/colors' as colors;
+
+.mat-sidenav {
+  border: 0;
+  min-width: 12rem;
+}
+
+.outlet-container {
+  margin-top: 56px;
+  padding: 8px;
+}
+
+@media (min-width: 600px) {
+  .outlet-container {
+    margin-top: 64px;
+    padding: 16px;
+  }
+}

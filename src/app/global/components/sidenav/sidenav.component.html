@@ -1,0 +1,32 @@
+<mat-toolbar class="ghost-toolbar">
+  <span class="mat-toolbar-title">{{ title }}</span>
+</mat-toolbar>
+<div class="sidenav-item-container">
+  <mat-selection-list #navItems [multiple]="false" class="sidenav-mat-selection-list">
+    <mat-list-option *ngFor="let item of sidenavItems" [value]="item.viewValue">
+      <mat-icon mat-list-icon [svgIcon]="item.icon"></mat-icon>
+      {{ item.viewValue }}
+    </mat-list-option>
+  </mat-selection-list>
+  <div class="padded-container">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Job board</mat-label>
+        <mat-select>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option3">Option 2</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-flat-button color="primary" class="spacer">New Board</button>
+  </div>
+</div>
+<div class="sidenav-item-container-end">
+  <at-theme-picker></at-theme-picker>
+  <button mat-icon-button matTooltip="Settings">
+    <mat-icon [svgIcon]="'carbon-settings'"></mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Sign out">
+    <mat-icon [svgIcon]="'carbon-logout'"></mat-icon>
+  </button>
+</div>
