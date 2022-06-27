@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
@@ -7,15 +6,10 @@ import { take } from 'rxjs/operators';
 import { TITLE_SUFFIX } from '~constants/title.constant';
 import { Params } from '~enums/params.enum';
 import { Paths } from '~enums/paths.enum';
+import { AuthParams } from '~interfaces/auth-params.interface';
 import { LinkButton } from '~interfaces/link-button.interface';
 import { RouteData } from '~interfaces/route-data.interface';
 import { AuthService } from '~services/auth/auth.service';
-import { CustomValidators } from '~utils/custom-validators/custom-validators';
-
-interface AuthParams {
-  mode: string;
-  oobCode: string;
-}
 
 @Component({
   selector: 'at-manage-account',
@@ -25,15 +19,9 @@ interface AuthParams {
 export class ManageAccountComponent {
   public isLoading: boolean;
   public linkButton: LinkButton;
-  public passwordForm: FormGroup;
   public queryParams: AuthParams;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private authService: AuthService,
-    private formBuilder: FormBuilder,
-    private titleService: Title
-  ) {
+  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService, private titleService: Title) {
     const routeSnapshot = this.activatedRoute.snapshot;
     const data = routeSnapshot.data as RouteData;
 
@@ -41,42 +29,8 @@ export class ManageAccountComponent {
     this.queryParams = routeSnapshot.queryParams as AuthParams;
     this.linkButton = { route: '/', text: 'Back to sign in' };
 
-    this.passwordForm = this.formBuilder.group({
-      password: ['', CustomValidators.passwordValidators],
-      confirmPassword: ['', CustomValidators.passwordValidators]
-    });
-    this.confirmPassword?.setValidators(CustomValidators.matchValue(this.password));
-
     this.titleService.setTitle(data.title + TITLE_SUFFIX);
     this.setLinkButton();
-  }
-
-  public async confirmPasswordReset(): Promise<void> {
-    if (this.passwordForm.valid) {
-      this.isLoading = true;
-
-      const passwordValue = this.password?.value as string;
-
-      await this.authService
-        .confirmPasswordReset(this.queryParams.oobCode, passwordValue)
-        .then(() => (this.isLoading = false));
-    }
-  }
-
-  public getFormControlError(control: AbstractControl | null): string {
-    if (control?.hasError('minlength')) {
-      return 'Length must be at least 8 characters';
-    } else if (control?.hasError('letter')) {
-      return 'Must contain at least one letter';
-    } else if (control?.hasError('number')) {
-      return 'Must contain at least one number';
-    } else if (control?.hasError('symbol')) {
-      return 'Must contain at least one symbol';
-    } else if (control?.hasError('matchValue')) {
-      return 'Passwords must match';
-    } else {
-      return 'Required';
-    }
   }
 
   public async recoverEmail(): Promise<void> {
@@ -105,13 +59,5 @@ export class ManageAccountComponent {
 
   public get params(): typeof Params {
     return Params;
-  }
-
-  public get password(): AbstractControl | null {
-    return this.passwordForm.get('password');
-  }
-
-  public get confirmPassword(): AbstractControl | null {
-    return this.passwordForm.get('confirmPassword');
   }
 }

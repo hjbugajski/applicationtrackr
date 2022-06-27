@@ -1,26 +1,7 @@
 <ng-container [ngSwitch]="queryParams.mode">
   <ng-container *ngSwitchCase="params.ResetPassword">
     <mat-card-title>Reset password</mat-card-title>
-    <form [formGroup]="passwordForm" (ngSubmit)="confirmPasswordReset()" class="form-container">
-      <mat-form-field class="full-width two-line-hint">
-        <mat-label>New Password</mat-label>
-        <input formControlName="password" matInput type="password" required />
-        <mat-hint>8 or more characters with a mix of letters, numbers, and symbols</mat-hint>
-        <mat-error>{{ getFormControlError(password) }}</mat-error>
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <mat-label>Confirm Password</mat-label>
-        <input formControlName="confirmPassword" matInput type="password" required />
-        <mat-hint>Passwords must match</mat-hint>
-        <mat-error>{{ getFormControlError(confirmPassword) }}</mat-error>
-      </mat-form-field>
-      <button mat-flat-button type="submit" color="primary" [disabled]="isLoading" class="full-width submit-button">
-        <div *ngIf="isLoading" class="loading-spinner-in-button">
-          <mat-spinner color="accent" diameter="24"></mat-spinner>
-        </div>
-        <ng-container *ngIf="!isLoading">Reset</ng-container>
-      </button>
-    </form>
+    <at-reset-password-form [queryParams]="queryParams"></at-reset-password-form>
   </ng-container>
 
   <ng-container *ngSwitchCase="params.VerifyEmail">

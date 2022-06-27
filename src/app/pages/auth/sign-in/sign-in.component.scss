@@ -1,32 +1,18 @@
 @use 'colors';
 
-.mat-button-base:not(:last-child) {
-  margin-bottom: 16px;
-}
-
-.forgot-password-button {
-  margin-top: 16px;
-}
-
-.apple-button-light {
-  background-color: colors.$black;
-  color: colors.$white;
-
-  &.is-disabled {
-    background-color: transparent;
-  }
-}
-
-.apple-button-dark {
-  background-color: colors.$white;
-  color: colors.$black;
-
-  &:hover,
-  &:focus {
-    background-color: colors.$cool-gray-10;
+:host {
+  .mat-button-base:not(:last-child) {
+    margin-bottom: 16px;
   }
 
-  &.is-disabled {
-    background-color: transparent;
+  ::ng-deep {
+    .at-sign-in-with-apple,
+    .at-sign-in-with-google {
+      margin-bottom: 16px;
+    }
+  }
+
+  .forgot-password-button {
+    margin-top: 16px;
   }
 }

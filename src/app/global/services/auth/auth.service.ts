@@ -3,17 +3,24 @@ import {
   ActionCodeInfo,
   applyActionCode,
   Auth,
+  AuthProvider,
   authState,
   checkActionCode,
   confirmPasswordReset,
   createUserWithEmailAndPassword,
+  deleteUser,
+  EmailAuthProvider,
   fetchSignInMethodsForEmail,
   GoogleAuthProvider,
   OAuthProvider,
+  reauthenticateWithCredential,
+  reauthenticateWithPopup,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateEmail,
+  updatePassword,
   User,
   verifyPasswordResetCode
 } from '@angular/fire/auth';
@@ -21,6 +28,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { Paths } from '~enums/paths.enum';
+import { Providers } from '~enums/providers.enum';
 import { Error } from '~interfaces/error.interface';
 import { NotificationService } from '~services/notification/notification.service';
 
@@ -94,6 +102,21 @@ export class AuthService {
       });
   }
 
+  public async deleteUser(): Promise<void> {
+    await deleteUser(this.auth.currentUser!)
+      .then(async () => {
+        await signOut(this.auth).then(async () => {
+          await this.router.navigate([Paths.Auth, Paths.SignIn]).then(() => {
+            this.notificationService.showSuccess('Account and data have been deleted.');
+          });
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        this.notificationService.showError('There was an error deleting account and data. Please try again.');
+      });
+  }
+
   public destroyAuthState(): void {
     this.unsubscribeUser?.unsubscribe();
   }
@@ -102,6 +125,31 @@ export class AuthService {
     this.unsubscribeUser = authState(this.auth).subscribe((user) => {
       this.isLoggedIn$.next(!!user);
       this.user$.next(user);
+    });
+  }
+
+  public async reauthenticateCredential(email: string, password: string): Promise<void> {
+    const credential = EmailAuthProvider.credential(email, password);
+
+    await reauthenticateWithCredential(this.auth.currentUser!, credential).catch((error) => {
+      console.error(error);
+      this.notificationService.showError('There was an error with re-authentication. Please try again.');
+    });
+  }
+
+  public async reauthenticatePopup(provider: Providers): Promise<void> {
+    let authProvider: AuthProvider;
+
+    if (provider === Providers.Apple) {
+      authProvider = new OAuthProvider('apple.com').addScope('email');
+    } else {
+      // Google
+      authProvider = new GoogleAuthProvider().setCustomParameters({ prompt: 'select_account' });
+    }
+
+    await reauthenticateWithPopup(this.auth.currentUser!, authProvider).catch((error) => {
+      console.error(error);
+      this.notificationService.showError('There was an error with re-authentication. Please try again.');
     });
   }
 
@@ -209,8 +257,34 @@ export class AuthService {
       })
       .catch((error) => {
         console.error(error);
-        this.notificationService.showError('There was an error while trying to sign out. P{lease try again.');
+        this.notificationService.showError('There was an error while trying to sign out. Please try again.');
       });
+  }
+
+  public async updateUserEmail(currentEmail: string, newEmail: string, password: string): Promise<void> {
+    await this.reauthenticateCredential(currentEmail, password).then(async () => {
+      await updateEmail(this.auth.currentUser!, newEmail)
+        .then(() => {
+          this.notificationService.showSuccess('Email has been updated!');
+        })
+        .catch((error) => {
+          console.error(error);
+          this.notificationService.showError('There was an error updating your email. Please try again.');
+        });
+    });
+  }
+
+  public async updateUserPassword(email: string, currentPassword: string, newPassword: string): Promise<void> {
+    await this.reauthenticateCredential(email, currentPassword).then(async () => {
+      await updatePassword(this.auth.currentUser!, newPassword)
+        .then(() => {
+          this.notificationService.showSuccess('Password has been updated!');
+        })
+        .catch((error: AuthError) => {
+          console.error(error);
+          this.notificationService.showError(error.message);
+        });
+    });
   }
 
   public async verifyEmail(oobCode: string): Promise<void> {

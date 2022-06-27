@@ -1,0 +1,17 @@
+<div class="at-sign-in-with-google">
+  <button
+    mat-stroked-button
+    [disabled]="isLoading"
+    (click)="signInWithGoogle()"
+    [ngClass]="{ 'is-disabled': isLoading }"
+    class="mat-button-with-left-icon full-width google-button-dark"
+  >
+    <div *ngIf="isLoading" class="loading-spinner-in-button">
+      <mat-spinner color="accent" diameter="24"></mat-spinner>
+    </div>
+    <ng-container *ngIf="!isLoading">
+      <mat-icon svgIcon="google-logo" class="google-icon"></mat-icon>
+      {{ prefix }} with Google
+    </ng-container>
+  </button>
+</div>
