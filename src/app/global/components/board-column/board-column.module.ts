@@ -9,18 +9,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { BoardColumnComponent } from './board-column.component';
 
+import { ApplicationDialogModule } from '~components/application-dialog/application-dialog.module';
 import { NewApplicationDialogModule } from '~components/new-application-dialog/new-application-dialog.module';
 
 @NgModule({
   declarations: [BoardColumnComponent],
   imports: [
-    NewApplicationDialogModule,
+    ApplicationDialogModule,
     CommonModule,
     DragDropModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
     MatTooltipModule,
+    NewApplicationDialogModule,
     ScrollingModule
   ],
   exports: [BoardColumnComponent]

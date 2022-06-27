@@ -1,11 +1,21 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, deleteDoc, doc, Firestore } from '@angular/fire/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  DocumentData,
+  DocumentReference,
+  Firestore,
+  updateDoc
+} from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
 import { Updates } from '~enums/updates.enum';
 import { ApplicationDoc } from '~interfaces/application-doc.interface';
 import { Application } from '~models/application.model';
+import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
 import { UserDataQuery } from '~state/user-data/user-data.query';
 
@@ -67,18 +77,34 @@ export class ApplicationService {
       });
   }
 
-  public async moveApplication(prevColumnId: string, nextColumnId: string, application: Application): Promise<void> {
+  public getDocRef(columnId: string, applicationId: string): DocumentReference<DocumentData> {
+    return doc(
+      this.firestore,
+      Collections.Users,
+      this.userDataQuery.uid!,
+      Collections.JobBoards,
+      this.userDataQuery.currentJobBoard!.docId!,
+      Collections.Columns,
+      columnId,
+      Collections.Applications,
+      applicationId
+    );
+  }
+
+  public async moveApplication(prevColumnId: string, nextColumn: Column, application: Application): Promise<void> {
     this.isApplicationsLoading.next(true);
 
     const applicationDoc: ApplicationDoc = {
+      columnDocId: nextColumn.docId,
       company: application.company,
       date: application.date,
-      link: application.link,
-      location: application.location,
-      position: application.position
+      link: application.link ?? null,
+      location: application.location ?? null,
+      position: application.position,
+      salary: application.salary ?? null
     };
 
-    await this.createApplication(nextColumnId, applicationDoc)
+    await this.createApplication(nextColumn.docId, applicationDoc)
       .then(async () => {
         await this.deleteApplication(prevColumnId, application.docId).catch((error) => {
           throw error;
@@ -89,5 +115,18 @@ export class ApplicationService {
       });
 
     this.isApplicationsLoading.next(false);
+  }
+
+  public async updateApplication(columnId: string, applicationId: string, application: ApplicationDoc): Promise<void> {
+    await updateDoc(this.getDocRef(columnId, applicationId), {
+      company: application.company,
+      date: application.date,
+      link: application.link ?? null,
+      location: application.location ?? null,
+      position: application.position,
+      salary: application.salary ?? null
+    }).catch((error) => {
+      throw error;
+    });
   }
 }

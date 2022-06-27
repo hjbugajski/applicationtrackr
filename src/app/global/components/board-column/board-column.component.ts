@@ -16,6 +16,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { NewApplicationDialogComponent } from '~components/new-application-dialog/new-application-dialog.component';
 import { Collections } from '~enums/collections.enum';
 import { Application } from '~models/application.model';
@@ -61,7 +62,7 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
     const prevColumn = event.previousContainer.data as Column;
 
     if (prevColumn !== nextColumn) {
-      await this.applicationService.moveApplication(prevColumn.docId, nextColumn.docId, application).catch((error) => {
+      await this.applicationService.moveApplication(prevColumn.docId, nextColumn, application).catch((error) => {
         console.error(error);
         this.notificationService.showError('There was an error moving the application. Please try again.');
       });
@@ -103,6 +104,18 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
       }
     });
     this.applications = collectionData(query(this.applicationsCollection, orderBy('company', 'asc')));
+  }
+
+  public openApplication(application: Application): void {
+    this.matDialog.open(ApplicationDialogComponent, {
+      data: {
+        application: application,
+        columnDoc: this.columnDoc,
+        columns: this.columns
+      },
+      disableClose: true,
+      panelClass: ['at-dialog', 'mat-dialog-container-with-toolbar']
+    });
   }
 
   private get applicationsCollection(): CollectionReference<Application> {

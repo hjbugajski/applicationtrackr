@@ -12,6 +12,24 @@ $dark: 'dark';
   box-shadow: $box-shadow;
 }
 
+@mixin tab-label-color($theme, $color, $background-light, $background-dark) {
+  &:hover,
+  &:focus,
+  &.mat-tab-label-active {
+    color: $color;
+    border-color: $color;
+  }
+
+  &:focus {
+    @if $theme == $dark {
+      background-color: rgba($background-dark, $alpha: 0.05) !important;
+    } @else {
+      // (default) light
+      background-color: rgba($background-light, $alpha: 0.05) !important;
+    }
+  }
+}
+
 @mixin get-components-styles($theme: $light) {
   $theme-colors: colors.get-theme-colors($theme);
 
@@ -33,8 +51,12 @@ $dark: 'dark';
     border-right: 2px solid map.get($theme-colors, 'border') !important;
 
     @if $theme == $dark {
-      background-color: colors.$black;
+      background-color: colors.$primer-gray-110 !important;
     }
+  }
+
+  .mat-drawer {
+    box-shadow: none !important;
   }
 
   .mat-toolbar {
@@ -64,7 +86,7 @@ $dark: 'dark';
     @include border($theme-colors, none !important);
 
     .mat-card-title {
-      color: map.get($theme-colors, 'text-primary');
+      color: map.get($theme-colors, 'primary');
       font-weight: variables.$font-weight-bold;
       font-size: 18px;
       line-height: unset;
@@ -188,9 +210,18 @@ $dark: 'dark';
     background: map.get($theme-colors, 'hover');
   }
 
+  .mat-menu-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    .mat-divider {
+      margin: 0 !important;
+    }
+  }
+
   .mat-list-single-selected-option {
     background-color: map.get($theme-colors, 'hover') !important;
-    color: map.get($theme-colors, 'text-primary') !important;
+    color: map.get($theme-colors, 'primary') !important;
   }
 
   .mat-slide-toggle-thumb {
@@ -199,9 +230,73 @@ $dark: 'dark';
     background-color: map.get($theme-colors, 'hover');
   }
 
-  .mat-tab-nav-bar,
-  .mat-tab-header {
-    border-bottom: 1px solid map.get($theme-colors, 'border');
+  .mat-tab-group {
+    .mat-tab-nav-bar,
+    .mat-tab-header {
+      border-bottom: 0;
+    }
+
+    .mat-tab-label {
+      @include border($theme-colors);
+      @include tab-label-color($theme, map.get($theme-colors, 'primary'), colors.$dark-primary, colors.$light-primary);
+
+      padding: 8px 16px;
+      height: unset;
+      min-width: unset;
+      opacity: 1;
+
+      &:not(:last-of-type) {
+        margin-right: 16px;
+      }
+    }
+
+    &.at-primary {
+      * > * .mat-tab-label {
+        @include tab-label-color(
+          $theme,
+          map.get($theme-colors, 'primary'),
+          colors.$dark-primary,
+          colors.$light-primary
+        );
+      }
+    }
+
+    &.at-accent {
+      * > * .mat-tab-label {
+        @include tab-label-color($theme, map.get($theme-colors, 'accent'), colors.$dark-accent, colors.$light-accent);
+      }
+    }
+
+    &.at-error {
+      * > * .mat-tab-label {
+        @include tab-label-color($theme, map.get($theme-colors, 'error'), colors.$dark-error, colors.$light-error);
+      }
+    }
+
+    &.at-success {
+      * > * .mat-tab-label {
+        @include tab-label-color(
+          $theme,
+          map.get($theme-colors, 'success'),
+          colors.$dark-success,
+          colors.$light-success
+        );
+      }
+    }
+
+    &.at-black-white {
+      * > * .mat-tab-label {
+        @include tab-label-color($theme, map.get($theme-colors, 'text'), colors.$white, colors.$black);
+      }
+    }
+  }
+
+  .mat-tab-header-pagination {
+    box-shadow: none !important;
+  }
+
+  .mat-ink-bar {
+    display: none;
   }
 
   .mat-divider {
@@ -244,16 +339,54 @@ $dark: 'dark';
     }
   }
 
-  .mat-dialog-container-with-toolbar .mat-dialog-container {
-    padding: 16px 24px 24px;
-  }
-
   .mat-dialog-title {
-    color: map.get($theme-colors, 'text-primary');
+    color: map.get($theme-colors, 'primary');
     font-size: 20px !important;
     line-height: 20px !important;
-    font-weight: bold !important;
+    font-weight: variables.$font-weight-bold !important;
     margin-bottom: 24px;
+  }
+
+  .mat-dialog-container-with-toolbar {
+    .mat-dialog-container {
+      padding: 16px 24px 24px;
+    }
+
+    .dialog-toolbar {
+      align-items: flex-start;
+    }
+
+    .mat-dialog-title .dialog-title-container {
+      margin: 8px 16px 0 0;
+
+      .dialog-title {
+        color: map.get($theme-colors, 'primary');
+        font-size: 20px !important;
+        line-height: 20px !important;
+        font-weight: variables.$font-weight-bold !important;
+        margin-bottom: 8px;
+      }
+
+      .dialog-sub-title {
+        @if $theme == $dark {
+          color: colors.$white;
+        } @else {
+          // (default) light theme
+          color: colors.$black;
+        }
+
+        font-size: 16px !important;
+        line-height: 16px !important;
+        font-weight: variables.$font-weight-semi-bold !important;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .overlay-spinner-dialog .mat-dialog-container {
+    box-shadow: none !important;
+    background: rgba(0, 0, 0, 0%) !important;
+    border: 0 !important;
   }
 
   .cdk-overlay-pane.at-dialog {
@@ -271,22 +404,16 @@ $dark: 'dark';
       }
     }
 
-    @media (min-width: 425px) {
+    @media (min-width: 768px) {
+      width: unset !important;
       max-width: 80vw !important;
-      width: 80vw !important;
-      height: unset !important;
+      min-width: 750px !important;
+      height: auto !important;
+      overflow: scroll;
 
       .mat-dialog-container {
         @include border($theme-colors, none !important);
       }
-    }
-
-    @media (min-width: 650px) {
-      min-width: 650px !important;
-    }
-
-    @media (min-width: 768px) {
-      width: unset !important;
     }
   }
 }

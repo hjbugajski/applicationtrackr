@@ -40,7 +40,7 @@ $dark: 'dark';
     margin-bottom: 16px;
 
     .dialog-title {
-      color: map.get($theme-colors, 'text-primary');
+      color: map.get($theme-colors, 'primary');
       font-size: 20px;
       font-weight: bold;
     }
@@ -58,7 +58,7 @@ $dark: 'dark';
     width: 100%;
 
     .mat-button-base:not(:last-child) {
-      margin-right: 16px;
+      margin-right: 8px;
     }
   }
 
@@ -115,25 +115,23 @@ $dark: 'dark';
           }
 
           &.at-success {
-            @if $theme == $dark {
-              background-color: colors.$green-40;
-              color: colors.$black;
-            } @else {
-              // (default) light
-              background-color: colors.$green-60;
-              color: colors.$white;
-            }
+            background-color: map.get($theme-colors, 'success');
+            color: map.get($theme-colors, 'invert-text');
           }
 
           &.at-error {
-            @if $theme == $dark {
-              background-color: colors.$red-50;
-              color: colors.$black;
-            } @else {
-              // (default) light
-              background-color: colors.$red-60;
-              color: colors.$white;
-            }
+            background-color: map.get($theme-colors, 'error');
+            color: map.get($theme-colors, 'invert-text');
+          }
+
+          &.at-accent {
+            background-color: map.get($theme-colors, 'accent');
+            color: map.get($theme-colors, 'invert-text');
+          }
+
+          &.at-primary {
+            background-color: map.get($theme-colors, 'primary');
+            color: map.get($theme-colors, 'invert-text');
           }
         }
       }
@@ -189,6 +187,90 @@ $dark: 'dark';
     &.tag-red {
       background-color: colors.$red-20;
       color: colors.$red-80;
+    }
+  }
+
+  .application-card {
+    .application-card-title {
+      margin-bottom: 8px !important;
+    }
+
+    &:hover {
+      background-color: transparent;
+      cursor: grab;
+    }
+
+    &:focus {
+      outline: none;
+
+      &.at-primary {
+        @if $theme == $dark {
+          border-color: colors.$dark-primary;
+        } @else {
+          // (default) light
+          border-color: colors.$light-primary;
+        }
+      }
+
+      &.at-accent {
+        @if $theme == $dark {
+          border-color: colors.$dark-accent;
+        } @else {
+          // (default) light
+          border-color: colors.$light-accent;
+        }
+      }
+
+      &.at-success {
+        @if $theme == $dark {
+          border-color: colors.$dark-success;
+        } @else {
+          // (default) light
+          border-color: colors.$light-success;
+        }
+      }
+
+      &.at-error {
+        @if $theme == $dark {
+          border-color: colors.$dark-error;
+        } @else {
+          // (default) light
+          border-color: colors.$light-error;
+        }
+      }
+
+      &.at-black-white {
+        @if $theme == $dark {
+          border-color: colors.$white;
+        } @else {
+          // (default) light
+          border-color: colors.$black;
+        }
+      }
+    }
+
+    .icon-subtitle {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+
+      .small-icon {
+        display: inline-flex;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        margin-top: 2px;
+        margin-right: 8px;
+
+        svg {
+          width: 16px !important;
+          height: 16px !important;
+        }
+      }
+    }
+
+    .mat-card-content {
+      font-weight: variables.$font-weight-semi-bold;
     }
   }
 }

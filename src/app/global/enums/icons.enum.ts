@@ -10,6 +10,7 @@ export enum Icons {
   CarbonCompass = 'carbon-compass',
   CarbonEdit = 'carbon-edit',
   CarbonEmail = 'carbon-email',
+  CarbonLaunch = 'carbon-launch',
   CarbonLocation = 'carbon-location',
   CarbonLogout = 'carbon-logout',
   CarbonMenu = 'carbon-menu',

@@ -90,7 +90,7 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $dark-primary;
+        color: $dark-primary !important;
       }
 
       &.at-alpha-background {
@@ -104,7 +104,7 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $dark-accent;
+        color: $dark-accent !important;
       }
 
       &.at-alpha-background {
@@ -118,7 +118,7 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $dark-success;
+        color: $dark-success !important;
       }
 
       &.at-alpha-background {
@@ -132,11 +132,17 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $dark-error;
+        color: $dark-error !important;
       }
 
       &.at-alpha-background {
         background-color: rgba($dark-error, $alpha: 0.05);
+      }
+    }
+
+    .at-black-white {
+      &.at-text {
+        color: $white !important;
       }
     }
 
@@ -155,7 +161,7 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $light-primary;
+        color: $light-primary !important;
       }
 
       &.at-alpha-background {
@@ -169,7 +175,7 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $light-accent;
+        color: $light-accent !important;
       }
 
       &.at-alpha-background {
@@ -183,7 +189,7 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $light-success;
+        color: $light-success !important;
       }
 
       &.at-alpha-background {
@@ -197,11 +203,17 @@ $elevation: $cool-gray-50;
       }
 
       &.at-text {
-        color: $light-error;
+        color: $light-error !important;
       }
 
       &.at-alpha-background {
         background-color: rgba($light-error, $alpha: 0.05);
+      }
+    }
+
+    .at-black-white {
+      &.at-text {
+        color: $black !important;
       }
     }
 
@@ -220,7 +232,7 @@ $elevation: $cool-gray-50;
     }
 
     &.at-text {
-      color: $orange;
+      color: $orange !important;
     }
 
     &.at-alpha-background {
@@ -234,7 +246,7 @@ $elevation: $cool-gray-50;
     }
 
     &.at-text {
-      color: $yellow;
+      color: $yellow !important;
     }
 
     &.at-alpha-background {
@@ -246,20 +258,24 @@ $elevation: $cool-gray-50;
 @function get-theme-colors($theme: 'light') {
   @if $theme == 'dark' {
     @return (
-      'text-primary': $blue-40,
-      'text-accent': $purple-40,
-      'text-error': $red-50,
-      'text-success': $green-40,
+      'text': $white,
+      'invert-text': $black,
+      'primary': $blue-40,
+      'accent': $purple-40,
+      'error': $red-50,
+      'success': $green-40,
       'border': $primer-gray-80,
       'hover': $primer-gray-90
     );
   } @else {
     // (default) light theme
     @return (
-      'text-primary': $blue-60,
-      'text-accent': $purple-60,
-      'text-error': $red-60,
-      'text-success': $green-60,
+      'text': $black,
+      'invert-text': $white,
+      'primary': $blue-60,
+      'accent': $purple-60,
+      'error': $red-60,
+      'success': $green-60,
       'border': $cool-gray-20,
       'hover': $cool-gray-10
     );

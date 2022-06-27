@@ -1,57 +1,7 @@
 <h1 mat-dialog-title>New application</h1>
-<form [formGroup]="applicationForm" mat-dialog-content class="form-grid">
-  <mat-form-field class="full-width">
-    <mat-label>Company</mat-label>
-    <input formControlName="company" matInput type="text" />
-    <mat-error>{{ getError(company) }}</mat-error>
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <mat-label>Position</mat-label>
-    <input formControlName="position" matInput type="text" />
-    <mat-error>{{ getError(position) }}</mat-error>
-  </mat-form-field>
-  <div [@expandCollapse]="viewMore ? 'expanded' : 'collapsed'">
-    <mat-form-field @ngIfAnimation *ngIf="viewMore" class="full-width">
-      <mat-label>Location</mat-label>
-      <input formControlName="location" matInput type="text" />
-      <mat-error>{{ getError(location) }}</mat-error>
-    </mat-form-field>
-  </div>
-  <div [@expandCollapse]="viewMore ? 'expanded' : 'collapsed'">
-    <mat-form-field @ngIfAnimation *ngIf="viewMore" class="full-width">
-      <mat-label>Application link</mat-label>
-      <input formControlName="link" matInput type="text" />
-      <mat-error>{{ getLinkError(link) }}</mat-error>
-    </mat-form-field>
-  </div>
-  <div [@expandCollapse]="viewMore ? 'expanded' : 'collapsed'">
-    <mat-form-field @ngIfAnimation *ngIf="viewMore" class="full-width">
-      <mat-label>Date</mat-label>
-      <input formControlName="date" matInput [matDatepicker]="picker" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-error>{{ getError(date) }}</mat-error>
-    </mat-form-field>
-  </div>
-  <div [@expandCollapse]="viewMore ? 'expanded' : 'collapsed'">
-    <mat-form-field @ngIfAnimation *ngIf="viewMore" class="full-width">
-      <mat-label>Column</mat-label>
-      <mat-select formControlName="column">
-        <mat-option *ngFor="let c of dialogData.columns | async" [value]="c.docId">
-          {{ c.title }}
-        </mat-option>
-      </mat-select>
-      <mat-error>{{ getError(column) }}</mat-error>
-    </mat-form-field>
-  </div>
-</form>
-<button *ngIf="!viewMore" mat-button (click)="toggleViewMore()" class="full-width">View more</button>
-<div mat-dialog-actions [align]="'end'">
-  <button mat-button (click)="close()">Cancel</button>
-  <button mat-flat-button color="primary" [disabled]="applicationForm.invalid || isLoading" (click)="submit()">
-    <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
-      <mat-spinner color="accent" diameter="24"></mat-spinner>
-    </div>
-    <ng-template #text>Add</ng-template>
-  </button>
-</div>
+<at-application-info-form
+  mat-dialog-content
+  [action]="dialogActions.New"
+  [currentColumn]="dialogData.column"
+  [columns]="dialogData.columns"
+></at-application-info-form>

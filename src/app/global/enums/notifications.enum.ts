@@ -1,6 +1,6 @@
 export enum Notifications {
-  Accent = 'text-accent',
-  Error = 'text-error',
-  Primary = 'text-primary',
-  Success = 'text-success'
+  Accent = 'accent',
+  Error = 'error',
+  Primary = 'primary',
+  Success = 'success'
 }
