@@ -1,5 +1,5 @@
 <mat-toolbar class="ghost-toolbar">
-  <span class="mat-toolbar-title">{{ title }}</span>
+  <span class="mat-toolbar-title">ApplicationTrackr</span>
 </mat-toolbar>
 <div class="sidenav-item-container">
   <mat-selection-list #navItems [multiple]="false" class="sidenav-mat-selection-list">
@@ -10,7 +10,7 @@
   </mat-selection-list>
   <div class="padded-container">
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field>
         <mat-label>Job board</mat-label>
         <mat-select>
           <mat-option value="option1">Option 1</mat-option>
@@ -26,7 +26,7 @@
   <button mat-icon-button matTooltip="Settings">
     <mat-icon [svgIcon]="'carbon-settings'"></mat-icon>
   </button>
-  <button mat-icon-button matTooltip="Sign out">
+  <button mat-icon-button matTooltip="Sign out" (click)="signOut()">
     <mat-icon [svgIcon]="'carbon-logout'"></mat-icon>
   </button>
 </div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Icons } from '~enums/icons.enum';
+import { AuthService } from '~services/auth/auth.service';
 
 interface SidenavItem {
   icon: string;
@@ -13,10 +14,9 @@ interface SidenavItem {
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent {
-  public title = 'ApplicationTrackr';
   public sidenavItems: SidenavItem[];
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.sidenavItems = [
       {
         icon: Icons.CarbonApplication,
@@ -35,5 +35,9 @@ export class SidenavComponent {
         viewValue: 'Job Boards'
       }
     ];
+  }
+
+  public async signOut(): Promise<void> {
+    await this.authService.signOut();
   }
 }
