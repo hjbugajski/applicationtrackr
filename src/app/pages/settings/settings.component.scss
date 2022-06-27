@@ -1,0 +1,91 @@
+@use 'colors';
+
+:host {
+  .content {
+    margin-top: 56px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+    max-width: 500px;
+  }
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+  }
+
+  .mat-card-secondary-title {
+    padding-top: 16px !important;
+  }
+
+  .account-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .account-details-avatar {
+    height: 72px;
+    width: 72px;
+    margin-bottom: 16px;
+  }
+
+  .account-details-email {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .mat-list-base {
+    &:not(:last-child) {
+      padding-bottom: 32px;
+    }
+
+    &:first-of-type {
+      padding-bottom: 16px;
+    }
+  }
+
+  .mat-list-item {
+    height: auto !important;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  ::ng-deep {
+    .mat-list-item-content,
+    .mat-subheader {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .at-alert {
+      margin-bottom: 16px;
+    }
+
+    .mat-step-header {
+      padding-left: 8px !important;
+      padding-right: 0 !important;
+    }
+
+    .mat-vertical-content {
+      padding-right: 0 !important;
+    }
+
+    .mat-vertical-content-container {
+      margin-left: 20px !important;
+      margin-top: 8px;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .content {
+      margin-top: 64px;
+      padding: 16px;
+    }
+  }
+}

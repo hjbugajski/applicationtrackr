@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: Paths.PrivacyPolicy,
     loadChildren: () => import('./pages/privacy-policy/privacy-policy.module').then((m) => m.PrivacyPolicyModule)
+  },
+  {
+    path: Paths.Settings,
+    loadChildren: () => import('./pages/settings/settings.module').then((m) => m.SettingsModule)
   }
 ];
 
