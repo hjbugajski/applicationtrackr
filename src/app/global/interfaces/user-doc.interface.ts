@@ -1,3 +1,5 @@
+import { JobBoard } from '~models/job-board.model';
+
 export interface UserDoc {
-  currentJobBoard: string | null;
+  currentJobBoard: JobBoard | null;
 }

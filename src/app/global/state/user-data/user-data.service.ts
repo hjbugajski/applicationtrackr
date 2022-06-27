@@ -31,10 +31,10 @@ export class UserDataService {
   ) {}
 
   public async createUserDoc(user: User): Promise<void> {
-    const currentJobBoard = (await this.jobBoardsService.createJobBoard(user.uid)).id;
+    const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
 
     await setDoc(doc(this.firestore, 'users', user.uid), {
-      currentJobBoard
+      currentJobBoard: { date: newBoard.date, docId: newBoard.docId, title: newBoard.title }
     });
   }
 
@@ -50,8 +50,8 @@ export class UserDataService {
   public subscribeToUserDocData(uid: string): Subscription {
     return docData(doc(this.firestore, Collections.Users, uid).withConverter(userDataConverter)).subscribe(
       (data: UserData) => {
-        this.currentJobBoard = data.currentJobBoard;
-        this.uid = data.uid;
+        this.currentJobBoard = data?.currentJobBoard;
+        this.uid = data?.uid;
       }
     );
   }
