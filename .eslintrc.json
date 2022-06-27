@@ -14,6 +14,8 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
         "plugin:prettier/recommended",
         "prettier"
       ],
@@ -33,7 +35,19 @@
             "prefix": "at",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "import/order": [
+          "error",
+          {
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            },
+            "newlines-between": "always"
+          }
+        ],
+        "import/no-unresolved": "off",
+        "@typescript-eslint/no-inferrable-types": "off"
       }
     },
     {
