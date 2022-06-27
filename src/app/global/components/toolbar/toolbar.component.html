@@ -2,5 +2,5 @@
   <button mat-icon-button *ngIf="sidenavService.showMenuButton | async" (click)="toggleSidenav()">
     <mat-icon svgIcon="carbon-menu"></mat-icon>
   </button>
-  <button mat-flat-button color="primary">New</button>
+  <at-board-selector *ngIf="sidenavService.showMenuButton | async" mode="menu"></at-board-selector>
 </mat-toolbar>

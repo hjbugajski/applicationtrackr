@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription;
 
-  constructor(private sidenavService: SidenavService) {
+  constructor(public sidenavService: SidenavService) {
     this.mode = 'side';
     this.opened = true;
     this.subscriptions = new Subscription();
@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sidenavService.destroy();
+    this.subscriptions.unsubscribe();
   }
 
   ngOnInit(): void {

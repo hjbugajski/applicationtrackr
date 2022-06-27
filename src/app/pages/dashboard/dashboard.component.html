@@ -1,11 +1,9 @@
-<mat-sidenav-container class="alt-background-color">
+<mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="mode" [opened]="opened">
     <at-sidenav class="full-height-flex"></at-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
-    <at-toolbar></at-toolbar>
-    <div class="outlet-container">
-      <router-outlet></router-outlet>
-    </div>
+    <at-toolbar *ngIf="sidenavService.showMenuButton | async"></at-toolbar>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

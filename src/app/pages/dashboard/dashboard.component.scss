@@ -5,15 +5,4 @@
     border: 0;
     width: 236px !important;
   }
-
-  .outlet-container {
-    padding-bottom: 8px;
-    flex: 1 1 auto;
-  }
-
-  @media (min-width: 768px) {
-    .outlet-container {
-      padding-bottom: 16px;
-    }
-  }
 }
