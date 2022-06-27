@@ -86,6 +86,19 @@ $dark: 'dark';
     padding: 0 16px 8px;
   }
 
+  .mat-icon-button:not(a) .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mat-icon-button.button-link,
+  .mat-icon-button.button-link .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .mat-button-base {
     border-radius: variables.$border-radius !important;
     font-weight: variables.$font-weight-semi-bold;
