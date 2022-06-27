@@ -56,3 +56,13 @@
     margin-right: 8px;
   }
 }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 24px;
+
+  @media (min-width: 650px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
