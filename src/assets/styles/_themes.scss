@@ -40,12 +40,12 @@ $typography: mat.define-typography-config(
 
 @include mat.core($typography);
 
-.app-light-theme {
+.at-light-theme {
   @include mat.all-component-themes($light-theme);
   @include components.get-components-styles();
 }
 
-.app-dark-theme {
+.at-dark-theme {
   @include mat.all-component-themes($dark-theme);
   @include components.get-components-styles('dark');
 }
