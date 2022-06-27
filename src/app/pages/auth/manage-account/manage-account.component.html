@@ -1,1 +1,24 @@
-<p>manage-account works!</p>
+<mat-card-title>{{ title }}</mat-card-title>
+<div *ngIf="params.mode === 'resetPassword'" class="form-container">
+  <form>
+    <mat-form-field appearance="fill" class="full-width two-line-hint">
+      <mat-label>New Password</mat-label>
+      <input matInput type="password" required />
+      <mat-hint>8 or more characters with a mix of letters, numbers, and symbols</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" required />
+      <mat-hint>Passwords must match</mat-hint>
+    </mat-form-field>
+  </form>
+  <button mat-flat-button color="primary" class="full-width submit-button">Reset password</button>
+</div>
+<div *ngIf="params.mode === 'verifyEmail'">
+  <mat-card-content>Click the button below to verify your email address.</mat-card-content>
+  <button mat-flat-button color="primary" class="full-width">Verify</button>
+</div>
+<div *ngIf="params.mode === 'recoverEmail'">
+  <mat-card-content>Click the button below to recover your email address.</mat-card-content>
+  <button mat-flat-button color="primary" class="full-width">Recover</button>
+</div>

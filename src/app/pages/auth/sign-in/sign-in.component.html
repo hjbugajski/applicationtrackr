@@ -1,1 +1,47 @@
-<p>sign-in works!</p>
+<mat-card-title>{{ title }}</mat-card-title>
+<button
+  mat-stroked-button
+  class="mat-button-with-icon full-width"
+  [ngClass]="{
+    'apple-button-light': appTheme === LIGHT_THEME,
+    'apple-button-dark': appTheme === DARK_THEME
+  }"
+>
+  <mat-icon [svgIcon]="'apple-logo'"></mat-icon>
+  {{ title }} with Apple
+</button>
+<button mat-stroked-button class="mat-button-with-icon full-width apple-button-dark">
+  <mat-icon [svgIcon]="'google-logo'" class="google-icon"></mat-icon>
+  {{ title }} with Google
+</button>
+<button mat-stroked-button (click)="emailSignInButtonClick()" class="mat-button-with-icon full-width">
+  <mat-icon *ngIf="!showEmailPasswordForm" [svgIcon]="'carbon-email'"></mat-icon>
+  <mat-icon *ngIf="showEmailPasswordForm"> expand_less </mat-icon>
+  {{ emailSignInButton }}
+</button>
+<div class="form-container" [@emailPasswordExpanded]="showEmailPasswordForm ? 'expanded' : 'collapsed'">
+  <form [attr.aria-hidden]="!showEmailPasswordForm">
+    <mat-form-field appearance="fill" class="full-width" [attr.aria-hidden]="!showEmailPasswordForm">
+      <mat-label>Email</mat-label>
+      <input id="email-input" matInput type="email" [disabled]="!showEmailPasswordForm" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width two-line-hint" [attr.aria-hidden]="!showEmailPasswordForm">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" [disabled]="!showEmailPasswordForm" required />
+      <mat-hint>8 or more characters with a mix of letters, numbers, and symbols</mat-hint>
+    </mat-form-field>
+  </form>
+  <button
+    mat-flat-button
+    color="primary"
+    class="full-width submit-button"
+    [disabled]="!showEmailPasswordForm"
+    [attr.aria-hidden]="!showEmailPasswordForm"
+  >
+    {{ title }}
+  </button>
+  <button *ngIf="showForgotPassword" mat-button class="full-width" routerLink="/auth/password-reset">
+    Forgot password?
+  </button>
+</div>
+<button mat-button class="full-width" [routerLink]="signInUpButton?.route">{{ signInUpButton?.text }}</button>

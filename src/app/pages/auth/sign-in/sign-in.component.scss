@@ -1,0 +1,20 @@
+@use 'src/assets/styles/colors' as colors;
+
+.mat-button-base:not(:last-of-type) {
+  margin-bottom: 16px;
+}
+
+.apple-button-light {
+  background-color: colors.$black;
+  color: colors.$white;
+}
+
+.apple-button-dark {
+  background-color: colors.$white;
+  color: colors.$black;
+
+  &:hover,
+  &:focus {
+    background-color: colors.$cool-gray-10;
+  }
+}
