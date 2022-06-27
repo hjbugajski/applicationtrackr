@@ -13,8 +13,10 @@ import {
   query,
   updateDoc
 } from '@angular/fire/firestore';
+import { Timestamp } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 
+import { COLUMNS } from '~constants/documents.constant';
 import { Collections } from '~enums/collections.enum';
 import { JobBoard } from '~models/job-board.model';
 import { NotificationService } from '~services/notification/notification.service';
@@ -35,16 +37,32 @@ export class JobBoardsService {
     this.jobBoards = new Observable<JobBoard[]>();
   }
 
-  public async createJobBoard(uid: string, title?: string, date?: Date): Promise<DocumentReference<DocumentData>> {
+  public async createColumns(uid: string, boardId: string): Promise<void> {
+    for (let i = 0; i < COLUMNS.length; i++) {
+      await addDoc(
+        collection(this.firestore, Collections.Users, uid, Collections.JobBoards, boardId, Collections.Columns),
+        COLUMNS[i]
+      );
+    }
+  }
+
+  public async createJobBoard(uid: string, title?: string, date?: Date): Promise<JobBoard> {
     if (!title && !date) {
       title = 'Job Board';
       date = new Date();
     }
 
-    return await addDoc(collection(this.firestore, Collections.Users, uid, Collections.JobBoards), {
-      date,
-      title
-    });
+    const docRef: DocumentReference<DocumentData> = await addDoc(
+      collection(this.firestore, Collections.Users, uid, Collections.JobBoards),
+      {
+        date,
+        title
+      }
+    );
+
+    await this.createColumns(uid, docRef.id);
+
+    return { date: Timestamp.fromDate(date!), docId: docRef.id, title: title! };
   }
 
   public async deleteJobBoard(docId: string): Promise<void> {
