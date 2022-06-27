@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from 'src/app/global/modules/material.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
-import { ManageAccountComponent } from './manage-account/manage-account.component';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 
-import { ComponentsModule } from '~components/components.module';
+import { ThemePickerModule } from '~components/theme-picker/theme-picker.module';
 
 @NgModule({
-  declarations: [AuthComponent, ManageAccountComponent, PasswordResetComponent, SignInComponent],
-  imports: [CommonModule, AuthRoutingModule, ComponentsModule, MaterialModule],
+  declarations: [AuthComponent],
+  imports: [AuthRoutingModule, CommonModule, MatCardModule, MatIconModule, MatSidenavModule, ThemePickerModule],
   exports: [AuthComponent]
 })
 export class AuthModule {}

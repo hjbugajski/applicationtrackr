@@ -7,6 +7,11 @@ import { Paths } from '~enums/paths.enum';
 import { Themes } from '~enums/themes.enum';
 import { ThemeService } from '~services/theme/theme.service';
 
+interface RouteData {
+  title: string;
+  path: string;
+}
+
 interface SignInUpButton {
   text: string;
   route: string;
@@ -56,10 +61,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   private initSignInOrSignUp(): void {
-    const snapshot = this.activatedRoute.snapshot;
-    const path = snapshot.routeConfig?.path;
+    const data = this.activatedRoute.snapshot.data as RouteData;
+    const path: string = data.path;
 
-    this.title = snapshot.data?.title as string;
+    this.title = data.title;
     this.emailSignInButton = this.title + ' with email';
 
     if (path === Paths.SignIn) {

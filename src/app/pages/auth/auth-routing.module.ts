@@ -2,30 +2,37 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthComponent } from './auth.component';
-import { ManageAccountComponent } from './manage-account/manage-account.component';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 
 import { Paths } from '~enums/paths.enum';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     component: AuthComponent,
     children: [
-      { path: '', pathMatch: 'prefix', redirectTo: Paths.SignIn },
+      {
+        path: '',
+        pathMatch: 'prefix',
+        redirectTo: Paths.SignIn
+      },
       {
         path: Paths.SignIn,
-        component: SignInComponent,
-        data: { title: 'Sign in' }
+        data: { title: 'Sign in', path: Paths.SignIn },
+        loadChildren: () => import('./sign-in/sign-in.module').then((m) => m.SignInModule)
       },
       {
         path: Paths.SignUp,
-        component: SignInComponent,
-        data: { title: 'Sign up' }
+        data: { title: 'Sign up', path: Paths.SignUp },
+        loadChildren: () => import('./sign-in/sign-in.module').then((m) => m.SignInModule)
       },
-      { path: Paths.PasswordReset, component: PasswordResetComponent },
-      { path: Paths.ManageAccount, component: ManageAccountComponent }
+      {
+        path: Paths.PasswordReset,
+        loadChildren: () => import('./password-reset/password-reset.module').then((m) => m.PasswordResetModule)
+      },
+      {
+        path: Paths.ManageAccount,
+        loadChildren: () => import('./manage-account/manage-account.module').then((m) => m.ManageAccountModule)
+      }
     ]
   }
 ];

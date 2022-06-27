@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from 'src/app/global/modules/material.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 
-import { ComponentsModule } from '~components/components.module';
+import { SidenavModule } from '~components/sidenav/sidenav.module';
+import { ToolbarModule } from '~components/toolbar/toolbar.module';
 
 @NgModule({
   declarations: [DashboardComponent],
-  imports: [CommonModule, DashboardRoutingModule, ComponentsModule, MaterialModule]
+  imports: [CommonModule, DashboardRoutingModule, MatSidenavModule, SidenavModule, ToolbarModule]
 })
 export class DashboardModule {}
