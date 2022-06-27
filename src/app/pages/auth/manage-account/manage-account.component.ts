@@ -23,10 +23,10 @@ interface AuthParams {
   styleUrls: ['./manage-account.component.scss']
 })
 export class ManageAccountComponent {
-  public queryParams: AuthParams;
-  public passwordForm: FormGroup;
   public isLoading: boolean;
   public linkButton: LinkButton;
+  public passwordForm: FormGroup;
+  public queryParams: AuthParams;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -63,16 +63,6 @@ export class ManageAccountComponent {
     }
   }
 
-  public async verifyEmail(): Promise<void> {
-    this.isLoading = true;
-    await this.authService.verifyEmail(this.queryParams.oobCode).then(() => (this.isLoading = false));
-  }
-
-  public async recoverEmail(): Promise<void> {
-    this.isLoading = true;
-    await this.authService.recoverEmail(this.queryParams.oobCode).then(() => (this.isLoading = false));
-  }
-
   public getFormControlError(control: AbstractControl | null): string {
     if (control?.hasError('minlength')) {
       return 'Length must be at least 8 characters';
@@ -87,6 +77,16 @@ export class ManageAccountComponent {
     } else {
       return 'Required';
     }
+  }
+
+  public async recoverEmail(): Promise<void> {
+    this.isLoading = true;
+    await this.authService.recoverEmail(this.queryParams.oobCode).then(() => (this.isLoading = false));
+  }
+
+  public async verifyEmail(): Promise<void> {
+    this.isLoading = true;
+    await this.authService.verifyEmail(this.queryParams.oobCode).then(() => (this.isLoading = false));
   }
 
   private setLinkButton(): void {

@@ -28,12 +28,12 @@ export class ThemePickerComponent implements OnInit, OnDestroy {
     ];
   }
 
-  ngOnInit(): void {
-    this.appThemeSubscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
-  }
-
   ngOnDestroy(): void {
     this.appThemeSubscription?.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.appThemeSubscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
   }
 
   public setTheme(theme: string): void {

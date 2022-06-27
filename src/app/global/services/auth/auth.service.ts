@@ -40,6 +40,64 @@ export class AuthService {
 
   constructor(private auth: Auth, private notificationService: NotificationService, private router: Router) {}
 
+  public async confirmPasswordReset(oobCode: string, newPassword: string): Promise<void> {
+    await verifyPasswordResetCode(this.auth, oobCode)
+      .then(async () => {
+        await confirmPasswordReset(this.auth, oobCode, newPassword)
+          .then(async () => {
+            await this.router.navigate([Paths.Auth, Paths.SignIn]).then(() => {
+              this.notificationService.showSuccess('Password has been reset!');
+            });
+          })
+          .catch((error: AuthError) => {
+            console.error(error);
+            this.notificationService.showError(error.message);
+          });
+      })
+      .catch((error: AuthError) => {
+        console.error(error);
+        this.notificationService.showError(error.message);
+      });
+  }
+
+  public async createUserWithEmail(email: string, password: string): Promise<void> {
+    await createUserWithEmailAndPassword(this.auth, email, password)
+      .then(async () => {
+        await this.authSuccessNavigation();
+      })
+      .catch(async (error: AuthError) => {
+        console.error(error);
+
+        if (error.code === 'auth/email-already-in-use') {
+          await fetchSignInMethodsForEmail(this.auth, email).then((methods) => {
+            // TODO: implement account link options
+            if (methods[0] === 'apple.com') {
+              this.notificationService.showError(
+                "This email address is already in use with an Apple account. Please sign in using the 'Sign in with Apple' button."
+              );
+            } else if (methods[0] === 'google.com') {
+              this.notificationService.showError(
+                "This email address is already in use with a Google account. Please sign in using the 'Sign in with Google' button."
+              );
+            } else {
+              // (method) password
+              this.notificationService.showError(
+                'This email address is already in use. Please use another or sign in.'
+              );
+            }
+          });
+        } else if (error.code === 'auth/invalid-email') {
+          this.notificationService.showError('Invalid email address');
+        } else {
+          this.notificationService.showError(error.message);
+        }
+      });
+  }
+
+  public destroyAuthState(): void {
+    this.unsubscribeUser?.unsubscribe();
+  }
+
   public initAuthState(): void {
     this.unsubscribeUser = authState(this.auth).subscribe((user) => {
       this.isLoggedIn$.next(!!user);
@@ -47,28 +105,45 @@ export class AuthService {
     });
   }
 
-  public destroyAuthState(): void {
-    this.unsubscribeUser?.unsubscribe();
+  public async recoverEmail(oobCode: string): Promise<void> {
+    await checkActionCode(this.auth, oobCode)
+      .then(async (info: ActionCodeInfo) => {
+        const recoveredEmail = info.data.email;
+
+        await applyActionCode(this.auth, oobCode)
+          .then(async () => {
+            this.notificationService.showSuccess('Email has been recovered!');
+
+            if (recoveredEmail) {
+              await this.sendPasswordResetEmail(recoveredEmail);
+            }
+          })
+          .catch((error: AuthError) => {
+            console.error(error);
+            this.notificationService.showError(error.message);
+          });
+      })
+      .catch((error: AuthError) => {
+        console.error(error);
+        this.notificationService.showError(error.message);
+      });
+  }
+
+  public async sendPasswordResetEmail(email: string): Promise<void> {
+    await sendPasswordResetEmail(this.auth, email)
+      .then(() => {
+        this.notificationService.showSuccess('Password reset email has been sent');
+      })
+      .catch((error: AuthError) => {
+        console.error(error);
+        this.notificationService.showError(error.message);
+      });
   }
 
   public async signInWithApple(): Promise<void> {
     const provider = new OAuthProvider('apple.com');
 
     provider.addScope('email');
-
-    await signInWithPopup(this.auth, provider)
-      .then(async () => {
-        await this.authSuccessNavigation();
-      })
-      .catch((error: AuthError) => {
-        this.handlePopupError(error);
-      });
-  }
-
-  public async signInWithGoogle(): Promise<void> {
-    const provider = new GoogleAuthProvider();
-
-    provider.setCustomParameters({ prompt: 'select_account' });
 
     await signInWithPopup(this.auth, provider)
       .then(async () => {
@@ -111,105 +186,17 @@ export class AuthService {
       });
   }
 
-  public async createUserWithEmail(email: string, password: string): Promise<void> {
-    await createUserWithEmailAndPassword(this.auth, email, password)
+  public async signInWithGoogle(): Promise<void> {
+    const provider = new GoogleAuthProvider();
+
+    provider.setCustomParameters({ prompt: 'select_account' });
+
+    await signInWithPopup(this.auth, provider)
       .then(async () => {
         await this.authSuccessNavigation();
       })
-      .catch(async (error: AuthError) => {
-        console.error(error);
-
-        if (error.code === 'auth/email-already-in-use') {
-          await fetchSignInMethodsForEmail(this.auth, email).then((methods) => {
-            // TODO: implement account link options
-            if (methods[0] === 'apple.com') {
-              this.notificationService.showError(
-                "This email address is already in use with an Apple account. Please sign in using the 'Sign in with Apple' button."
-              );
-            } else if (methods[0] === 'google.com') {
-              this.notificationService.showError(
-                "This email address is already in use with a Google account. Please sign in using the 'Sign in with Google' button."
-              );
-            } else {
-              // (method) password
-              this.notificationService.showError(
-                'This email address is already in use. Please use another or sign in.'
-              );
-            }
-          });
-        } else if (error.code === 'auth/invalid-email') {
-          this.notificationService.showError('Invalid email address');
-        } else {
-          this.notificationService.showError(error.message);
-        }
-      });
-  }
-
-  public async sendPasswordResetEmail(email: string): Promise<void> {
-    await sendPasswordResetEmail(this.auth, email)
-      .then(() => {
-        this.notificationService.showSuccess('Password reset email has been sent');
-      })
       .catch((error: AuthError) => {
-        console.error(error);
-        this.notificationService.showError(error.message);
-      });
-  }
-
-  public async confirmPasswordReset(oobCode: string, newPassword: string): Promise<void> {
-    await verifyPasswordResetCode(this.auth, oobCode)
-      .then(async () => {
-        await confirmPasswordReset(this.auth, oobCode, newPassword)
-          .then(async () => {
-            await this.router.navigate([Paths.Auth, Paths.SignIn]).then(() => {
-              this.notificationService.showSuccess('Password has been reset!');
-            });
-          })
-          .catch((error: AuthError) => {
-            console.error(error);
-            this.notificationService.showError(error.message);
-          });
-      })
-      .catch((error: AuthError) => {
-        console.error(error);
-        this.notificationService.showError(error.message);
-      });
-  }
-
-  public async verifyEmail(oobCode: string): Promise<void> {
-    await applyActionCode(this.auth, oobCode)
-      .then(async () => {
-        await this.router.navigate([Paths.Dashboard]).then(() => {
-          this.notificationService.showSuccess('Email verified');
-        });
-      })
-      .catch((error: AuthError) => {
-        console.error(error);
-        this.notificationService.showError(error.message);
-      });
-  }
-
-  public async recoverEmail(oobCode: string): Promise<void> {
-    await checkActionCode(this.auth, oobCode)
-      .then(async (info: ActionCodeInfo) => {
-        const recoveredEmail = info.data.email;
-
-        await applyActionCode(this.auth, oobCode)
-          .then(async () => {
-            this.notificationService.showSuccess('Email has been recovered!');
-
-            if (recoveredEmail) {
-              await this.sendPasswordResetEmail(recoveredEmail);
-            }
-          })
-          .catch((error: AuthError) => {
-            console.error(error);
-            this.notificationService.showError(error.message);
-          });
-      })
-      .catch((error: AuthError) => {
-        console.error(error);
-        this.notificationService.showError(error.message);
+        this.handlePopupError(error);
       });
   }
 
@@ -226,7 +213,20 @@ export class AuthService {
       });
   }
 
-  public async authSuccessNavigation(): Promise<void> {
+  public async verifyEmail(oobCode: string): Promise<void> {
+    await applyActionCode(this.auth, oobCode)
+      .then(async () => {
+        await this.router.navigate([Paths.Dashboard]).then(() => {
+          this.notificationService.showSuccess('Email verified');
+        });
+      })
+      .catch((error: AuthError) => {
+        console.error(error);
+        this.notificationService.showError(error.message);
+      });
+  }
+
+  private async authSuccessNavigation(): Promise<void> {
     await this.router.navigate([Paths.Dashboard]).then(() => {
       this.notificationService.showSuccess('Sign in successful');
     });

@@ -26,6 +26,14 @@ export class ForgotPasswordComponent {
     this.titleService.setTitle(data.title + TITLE_SUFFIX);
   }
 
+  public getFormControlError(): string {
+    if (this.email.hasError('email')) {
+      return 'Invalid email';
+    }
+
+    return 'Required';
+  }
+
   public async sendPasswordResetEmail(): Promise<void> {
     if (this.email.valid) {
       this.isLoading = true;
@@ -34,14 +42,6 @@ export class ForgotPasswordComponent {
 
       await this.authService.sendPasswordResetEmail(email).then(() => (this.isLoading = false));
     }
-  }
-
-  public getFormControlError(): string {
-    if (this.email.hasError('email')) {
-      return 'Invalid email';
-    }
-
-    return 'Required';
   }
 
   public get paths(): typeof Paths {

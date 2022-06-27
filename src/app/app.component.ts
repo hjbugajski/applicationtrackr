@@ -16,13 +16,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private themeService: ThemeService
   ) {}
 
+  ngOnDestroy(): void {
+    this.authService.destroyAuthState();
+  }
+
   ngOnInit(): void {
     this.authService.initAuthState();
     this.matIconService.initializeMatIcons();
     this.themeService.initTheme();
-  }
-
-  ngOnDestroy(): void {
-    this.authService.destroyAuthState();
   }
 }

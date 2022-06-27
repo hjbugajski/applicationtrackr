@@ -27,17 +27,17 @@ import { CustomValidators } from '~utils/custom-validators/custom-validators';
   ]
 })
 export class SignInComponent implements OnInit, OnDestroy {
-  public title: string;
-  public currentPath: Paths;
   public appTheme: string;
-  public emailSignInButton: string | undefined;
+  public currentPath: Paths;
   public emailForm: FormGroup;
+  public emailSignInButton: string | undefined;
+  public isAppleLoading: boolean;
+  public isEmailLoading: boolean;
+  public isGoogleLoading: boolean;
   public showEmailPasswordForm: boolean;
   public showForgotPassword: boolean;
-  public isAppleLoading: boolean;
-  public isGoogleLoading: boolean;
-  public isEmailLoading: boolean;
   public signInUpButton: LinkButton | undefined;
+  public title: string;
 
   private appThemeSubscription: Subscription | undefined;
 
@@ -48,14 +48,15 @@ export class SignInComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     private titleService: Title
   ) {
-    this.title = 'Sign in';
-    this.currentPath = Paths.SignIn;
     this.appTheme = this.themeService.appTheme;
+    this.currentPath = Paths.SignIn;
+    this.isAppleLoading = false;
+    this.isEmailLoading = false;
+    this.isGoogleLoading = false;
     this.showEmailPasswordForm = false;
     this.showForgotPassword = false;
-    this.isAppleLoading = false;
-    this.isGoogleLoading = false;
-    this.isEmailLoading = false;
+    this.title = 'Sign in';
+
     this.emailForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email], null, { disabled: true }],
       password: ['', CustomValidators.passwordValidators, null, { disabled: true }]
@@ -66,39 +67,33 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.titleService.setTitle(this.title + TITLE_SUFFIX);
   }
 
-  ngOnInit(): void {
-    this.appThemeSubscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
+  public getFormControlError(control: AbstractControl | null): string {
+    if (control?.hasError('email')) {
+      return 'Invalid email';
+    } else if (control?.hasError('minlength')) {
+      return 'Password length must be at least 8 characters';
+    } else if (control?.hasError('letter')) {
+      return 'Must contain at least one letter';
+    } else if (control?.hasError('number')) {
+      return 'Must contain at least one number';
+    } else if (control?.hasError('symbol')) {
+      return 'Must contain at least one symbol';
+    } else {
+      return 'Required';
+    }
   }
 
   ngOnDestroy(): void {
     this.appThemeSubscription?.unsubscribe();
   }
 
-  private initSignInOrSignUp(): void {
-    const data = this.activatedRoute.snapshot.data as RouteData;
-    this.currentPath = data.path;
-
-    this.title = data.title;
-    this.emailSignInButton = this.title + ' with email';
-
-    if (this.currentPath === Paths.SignIn) {
-      this.showForgotPassword = true;
-      this.signInUpButton = { text: 'No account? Sign up', route: `/${Paths.Auth}/${Paths.SignUp}` };
-    } else {
-      // Sign up
-      this.showForgotPassword = false;
-      this.signInUpButton = { text: 'Have an account? Sign in', route: `/${Paths.Auth}/${Paths.SignIn}` };
-    }
+  ngOnInit(): void {
+    this.appThemeSubscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
   }
 
   public async signInWithApple(): Promise<void> {
     this.isAppleLoading = true;
     await this.authService.signInWithApple().then(() => (this.isAppleLoading = false));
-  }
-
-  public async signInWithGoogle(): Promise<void> {
-    this.isGoogleLoading = true;
-    await this.authService.signInWithGoogle().then(() => (this.isGoogleLoading = false));
   }
 
   public async signInWithEmail(): Promise<void> {
@@ -117,6 +112,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     }
   }
 
+  public async signInWithGoogle(): Promise<void> {
+    this.isGoogleLoading = true;
+    await this.authService.signInWithGoogle().then(() => (this.isGoogleLoading = false));
+  }
+
   public toggleEmailForm(): void {
     this.showEmailPasswordForm = !this.showEmailPasswordForm;
 
@@ -129,19 +129,20 @@ export class SignInComponent implements OnInit, OnDestroy {
     }
   }
 
-  public getFormControlError(control: AbstractControl | null): string {
-    if (control?.hasError('email')) {
-      return 'Invalid email';
-    } else if (control?.hasError('minlength')) {
-      return 'Password length must be at least 8 characters';
-    } else if (control?.hasError('letter')) {
-      return 'Must contain at least one letter';
-    } else if (control?.hasError('number')) {
-      return 'Must contain at least one number';
-    } else if (control?.hasError('symbol')) {
-      return 'Must contain at least one symbol';
+  private initSignInOrSignUp(): void {
+    const data = this.activatedRoute.snapshot.data as RouteData;
+    this.currentPath = data.path;
+
+    this.title = data.title;
+    this.emailSignInButton = this.title + ' with email';
+
+    if (this.currentPath === Paths.SignIn) {
+      this.showForgotPassword = true;
+      this.signInUpButton = { text: 'No account? Sign up', route: `/${Paths.Auth}/${Paths.SignUp}` };
     } else {
-      return 'Required';
+      // Sign up
+      this.showForgotPassword = false;
+      this.signInUpButton = { text: 'Have an account? Sign in', route: `/${Paths.Auth}/${Paths.SignIn}` };
     }
   }
 
