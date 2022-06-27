@@ -4,9 +4,14 @@
   column-gap: 8px;
   row-gap: 8px;
   height: fit-content;
+  padding: 8px;
 
   .mat-card {
     height: fit-content;
+  }
+
+  @media (min-width: 768px) {
+    padding: 16px;
   }
 
   @media (min-width: 992px) {

@@ -65,22 +65,13 @@ $dark: 'dark';
   .board-column {
     overflow: hidden;
     min-width: 275px;
-    border-radius: variables.$border-radius;
+    border-right: 2px solid map.get($theme-colors, 'border');
 
     @if $theme == $dark {
-      border: 2px solid map.get($theme-colors, 'border');
+      background-color: colors.$primer-gray-100;
     } @else {
       // (default) light
-      border: 2px solid map.get($theme-colors, 'border');
-    }
-
-    &:not(:last-child) {
-      margin-right: 8px;
-    }
-
-    &.new-board-column {
-      border: 2px dashed map.get($theme-colors, 'border') !important;
-      background-color: unset;
+      background-color: colors.$cool-gray-10;
     }
 
     .mat-card:not(:last-of-type) {
@@ -110,10 +101,6 @@ $dark: 'dark';
     }
 
     @media (min-width: 768px) {
-      &:not(:last-child) {
-        margin-right: 16px;
-      }
-
       .board-column-header {
         margin-bottom: 8px;
         padding: 8px 8px 0 16px;
@@ -154,21 +141,6 @@ $dark: 'dark';
     &.tag-red {
       background-color: colors.$red-20;
       color: colors.$red-80;
-    }
-  }
-}
-
-@mixin cdk-virtual-scroll-container() {
-  ::ng-deep .cdk-virtual-scroll-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 0 10px 10px;
-    min-width: unset !important;
-    width: calc(100% - 20px);
-
-    @media (min-width: 768px) {
-      padding: 0 16px 16px;
-      width: calc(100% - 32px);
     }
   }
 }

@@ -18,6 +18,23 @@
     height: calc(100vh - 32px);
     padding: 16px;
   }
+
+  &.no-padding {
+    height: calc(100vh - 56px);
+    padding: 0;
+
+    @media (min-width: 600px) {
+      height: calc(100vh - 64px);
+    }
+
+    @media (min-width: 768px) {
+      height: calc(100vh - 64px);
+    }
+
+    @media (min-width: 1280px) {
+      height: 100vh;
+    }
+  }
 }
 
 .spacer {

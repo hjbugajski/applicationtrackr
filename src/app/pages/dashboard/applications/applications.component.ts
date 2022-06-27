@@ -10,7 +10,25 @@ import { TITLE_SUFFIX } from '~constants/title.constant';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationsComponent {
-  public columns = ['Todo', 'In progress', 'Submitted', 'Interview'];
+  public columns = [
+    {
+      title: 'Todo'
+    },
+    {
+      title: 'Submitted'
+    },
+    {
+      title: 'Interviews'
+    },
+    {
+      color: 'at-success',
+      title: 'Offers'
+    },
+    {
+      color: 'at-error',
+      title: 'Rejections'
+    }
+  ];
   public items = Array.from({ length: 50 }).map((_, i) => i);
 
   constructor(private titleService: Title) {

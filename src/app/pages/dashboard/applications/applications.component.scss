@@ -1,3 +1,14 @@
 @use 'components';
 
-@include components.cdk-virtual-scroll-container();
+::ng-deep .cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px 10px;
+  min-width: unset !important;
+  width: calc(100% - 20px);
+
+  @media (min-width: 768px) {
+    padding: 0 16px 16px;
+    width: calc(100% - 32px);
+  }
+}

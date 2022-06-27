@@ -139,6 +139,14 @@ $elevation: $cool-gray-50;
         background-color: rgba($dark-error, $alpha: 0.05);
       }
     }
+
+    .at-background {
+      background-color: $primer-gray-100;
+    }
+
+    .at-alt-background {
+      background-color: $primer-gray-110;
+    }
   } @else {
     // (default) light theme
     .at-primary {
@@ -195,6 +203,14 @@ $elevation: $cool-gray-50;
       &.at-alpha-background {
         background-color: rgba($light-error, $alpha: 0.05);
       }
+    }
+
+    .at-background {
+      background-color: $cool-gray-10;
+    }
+
+    .at-alt-background {
+      background-color: $white;
     }
   }
 

@@ -1,7 +1,8 @@
-<div class="page-container">
-  <div *ngFor="let column of columns" class="board-column">
-    <div class="board-column-header">
-      <span class="board-column-title">{{ column }}</span>
+<!-- <mat-toolbar class="at-background">Toolbar</mat-toolbar> -->
+<div class="page-container no-padding at-alt-background">
+  <div *ngFor="let column of columns" [ngClass]="column.color!!" class="board-column at-alpha-background">
+    <div class="board-column-header at-text" [ngClass]="column.color!!">
+      <span class="board-column-title">{{ column.title }}</span>
       <div class="board-column-actions">
         <button mat-icon-button matTooltip="New application">
           <mat-icon svgIcon="carbon-add"></mat-icon>
@@ -13,12 +14,9 @@
     </div>
     <cdk-virtual-scroll-viewport itemSize="25" class="cdk-container">
       <mat-card *cdkVirtualFor="let item of items">
-        <mat-card-title>Application {{ item }}</mat-card-title>
+        <mat-card-title class="at-text" [ngClass]="column.color!!">Application {{ item }}</mat-card-title>
         <mat-card-content>Content</mat-card-content>
       </mat-card>
     </cdk-virtual-scroll-viewport>
-  </div>
-  <div>
-    <button mat-stroked-button color="primary" class="mat-button-with-left-icon">New column</button>
   </div>
 </div>
