@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
+import { Auth, authState } from '@angular/fire/auth';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { User } from '@firebase/auth';
@@ -27,9 +28,14 @@ export class SettingsComponent implements OnDestroy {
 
   private subscriptions = new Subscription();
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private location: Location) {
+  constructor(
+    private auth: Auth,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private location: Location
+  ) {
     this.subscriptions.add(
-      this.authService.user$.subscribe((user) => {
+      authState(this.auth).subscribe((user) => {
         this.user = user;
         this.provider = user?.providerData[0].providerId as Providers;
       })

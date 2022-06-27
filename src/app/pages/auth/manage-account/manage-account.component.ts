@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Auth, authState } from '@angular/fire/auth';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { TITLE_SUFFIX } from '~constants/title.constant';
 import { Params } from '~enums/params.enum';
@@ -21,7 +22,12 @@ export class ManageAccountComponent {
   public linkButton: LinkButton;
   public queryParams: AuthParams;
 
-  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService, private titleService: Title) {
+  constructor(
+    private auth: Auth,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
+    private titleService: Title
+  ) {
     const routeSnapshot = this.activatedRoute.snapshot;
     const data = routeSnapshot.data as RouteData;
 
@@ -44,8 +50,11 @@ export class ManageAccountComponent {
   }
 
   private setLinkButton(): void {
-    this.authService.isLoggedIn$
-      .pipe(take(1))
+    authState(this.auth)
+      .pipe(
+        map((user) => !!user),
+        take(1)
+      )
       .toPromise()
       .then((isLoggedIn) => {
         this.linkButton = isLoggedIn

@@ -24,7 +24,9 @@
       "~environments/*": ["src/environments/*"],
       "~guards/*": ["src/app/global/guards/*"],
       "~interfaces/*": ["src/app/global/interfaces/*"],
+      "~models/*": ["src/app/global/models/*"],
       "~services/*": ["src/app/global/services/*"],
+      "~state/*": ["src/app/global/state/*"],
       "~utils/*": ["src/app/global/utils/*"]
     }
   },

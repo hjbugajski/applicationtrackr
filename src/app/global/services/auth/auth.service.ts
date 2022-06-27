@@ -4,7 +4,6 @@ import {
   applyActionCode,
   Auth,
   AuthProvider,
-  authState,
   checkActionCode,
   confirmPasswordReset,
   createUserWithEmailAndPassword,
@@ -22,15 +21,16 @@ import {
   updateEmail,
   updatePassword,
   User,
+  UserCredential,
   verifyPasswordResetCode
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { Paths } from '~enums/paths.enum';
 import { Providers } from '~enums/providers.enum';
 import { Error } from '~interfaces/error.interface';
 import { NotificationService } from '~services/notification/notification.service';
+import { UserDataService } from '~state/user-data/user-data.service';
 
 interface AuthError extends Error {
   credential?: any;
@@ -41,12 +41,12 @@ interface AuthError extends Error {
   providedIn: 'root'
 })
 export class AuthService {
-  public isLoggedIn$ = new BehaviorSubject<boolean>(false);
-  public user$ = new BehaviorSubject<User | null>(null);
-
-  private unsubscribeUser: Subscription | undefined;
-
-  constructor(private auth: Auth, private notificationService: NotificationService, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private notificationService: NotificationService,
+    private router: Router,
+    private userDataService: UserDataService
+  ) {}
 
   public async confirmPasswordReset(oobCode: string, newPassword: string): Promise<void> {
     await verifyPasswordResetCode(this.auth, oobCode)
@@ -70,7 +70,8 @@ export class AuthService {
 
   public async createUserWithEmail(email: string, password: string): Promise<void> {
     await createUserWithEmailAndPassword(this.auth, email, password)
-      .then(async () => {
+      .then(async (result: UserCredential) => {
+        await this.userDataService.createUserDoc(result.user);
         await this.authSuccessNavigation();
       })
       .catch(async (error: AuthError) => {
@@ -115,17 +116,6 @@ export class AuthService {
         console.error(error);
         this.notificationService.showError('There was an error deleting account and data. Please try again.');
       });
-  }
-
-  public destroyAuthState(): void {
-    this.unsubscribeUser?.unsubscribe();
-  }
-
-  public initAuthState(): void {
-    this.unsubscribeUser = authState(this.auth).subscribe((user) => {
-      this.isLoggedIn$.next(!!user);
-      this.user$.next(user);
-    });
   }
 
   public async reauthenticateCredential(email: string, password: string): Promise<void> {
@@ -194,7 +184,8 @@ export class AuthService {
     provider.addScope('email');
 
     await signInWithPopup(this.auth, provider)
-      .then(async () => {
+      .then(async (result: UserCredential) => {
+        await this.handleCreateUserDoc(result.user);
         await this.authSuccessNavigation();
       })
       .catch((error: AuthError) => {
@@ -240,7 +231,8 @@ export class AuthService {
     provider.setCustomParameters({ prompt: 'select_account' });
 
     await signInWithPopup(this.auth, provider)
-      .then(async () => {
+      .then(async (result: UserCredential) => {
+        await this.handleCreateUserDoc(result.user);
         await this.authSuccessNavigation();
       })
       .catch((error: AuthError) => {
@@ -304,6 +296,14 @@ export class AuthService {
     await this.router.navigate([Paths.Dashboard]).then(() => {
       this.notificationService.showSuccess('Sign in successful');
     });
+  }
+
+  private async handleCreateUserDoc(user: User): Promise<void> {
+    const userDoc = await this.userDataService.getUserDocSnap(user.uid);
+
+    if (!userDoc.exists()) {
+      await this.userDataService.createUserDoc(user);
+    }
   }
 
   private handlePopupError(error: AuthError): void {
