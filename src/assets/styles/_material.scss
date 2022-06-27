@@ -1,0 +1,260 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+@use 'colors';
+@use 'variables';
+
+$light: 'light';
+$dark: 'dark';
+
+@mixin get-components-styles($theme: $light) {
+  $theme-colors: colors.get-theme-colors($theme);
+
+  .mat-sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .mat-sidenav-content {
+      display: flex;
+      flex-direction: column;
+      height: 100% !important;
+    }
+
+    &.alt-background-color {
+      @if $theme == $dark {
+        background-color: colors.$black;
+      } @else {
+        background-color: colors.$white;
+      }
+    }
+  }
+
+  .mat-sidenav {
+    @if $theme == $dark {
+      border-right: 2px solid map.get($theme-colors, 'border') !important;
+      background-color: colors.$black;
+    } @else {
+      @include mat.elevation(6, colors.$elevation, 0.8);
+    }
+  }
+
+  .mat-toolbar {
+    @if $theme == $dark {
+      border-bottom: 2px solid map.get($theme-colors, 'border');
+    } @else {
+      // (default) light theme
+      @include mat.elevation(6, colors.$elevation, 0.8);
+
+      border: 0 !important;
+    }
+
+    color: map.get($theme-colors, 'text-primary');
+
+    &.absolute-toolbar {
+      position: absolute;
+      z-index: 2;
+    }
+
+    &.ghost-toolbar {
+      background-color: transparent;
+      border-bottom: 0;
+      box-shadow: none;
+    }
+
+    .mat-toolbar-title {
+      font-weight: variables.$font-weight-bold;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 8px;
+    }
+  }
+
+  .mat-card {
+    @if $theme == $dark {
+      border: 2px solid map.get($theme-colors, 'border');
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.overridable-elevation(6, colors.$elevation, 0.8);
+    }
+
+    border-radius: variables.$border-radius !important;
+
+    .mat-card-title {
+      color: map.get($theme-colors, 'text-primary');
+      font-weight: variables.$font-weight-bold;
+      line-height: normal;
+      margin-bottom: 16px;
+    }
+  }
+
+  .mat-button-base {
+    border-radius: variables.$border-radius !important;
+    font-weight: variables.$font-weight-semi-bold;
+
+    &.mat-button-with-left-icon .mat-button-wrapper,
+    &.mat-button-with-right-icon .mat-button-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .mat-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        width: 22px;
+
+        &.google-icon {
+          height: 16.5px;
+          width: 16.5px;
+          padding: 2.75px;
+        }
+      }
+    }
+
+    &.mat-button-with-left-icon .mat-button-wrapper .mat-icon {
+      margin-right: 8px;
+    }
+
+    &.mat-button-with-right-icon .mat-button-wrapper .mat-icon {
+      margin-left: 8px;
+    }
+  }
+
+  .mat-raised-button {
+    @if $theme == $dark {
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.overridable-elevation(6, colors.$elevation, 0.8);
+    }
+  }
+
+  .mat-stroked-button {
+    border-color: inherit !important;
+    border-width: 2px !important;
+  }
+
+  .mat-form-field {
+    margin-bottom: 16px;
+
+    &.two-line-hint {
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 350px) {
+      &.two-line-hint {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+      @if $theme == $dark {
+        background-color: colors.$primer-gray-90;
+      } @else {
+        // (default) light theme
+        background-color: colors.$cool-gray-10;
+      }
+
+      border-radius: variables.$border-radius !important;
+    }
+
+    .mat-form-field-underline {
+      display: none !important;
+    }
+
+    .mat-form-field-label {
+      top: 1.075em !important;
+    }
+  }
+
+  .mat-menu-panel,
+  .mat-select-panel,
+  .mat-dialog-container {
+    @if $theme == $dark {
+      border: 2px solid map.get($theme-colors, 'border');
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.elevation(6, colors.$elevation, 0.8);
+    }
+
+    border-radius: variables.$border-radius !important;
+  }
+
+  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: map.get($theme-colors, 'hover');
+  }
+
+  .mat-list-single-selected-option {
+    background-color: map.get($theme-colors, 'hover') !important;
+    color: map.get($theme-colors, 'text-primary') !important;
+  }
+
+  .mat-slide-toggle-thumb {
+    @if $theme == $dark {
+      border: 2px solid map.get($theme-colors, 'border');
+      box-shadow: none;
+    } @else {
+      // (default) light theme
+      @include mat.elevation(6, colors.$elevation, 0.8);
+    }
+
+    background-color: map.get($theme-colors, 'hover');
+  }
+
+  .mat-tab-nav-bar,
+  .mat-tab-header {
+    border-bottom: 1px solid map.get($theme-colors, 'border');
+  }
+
+  .mat-divider {
+    border-top-width: 2px;
+
+    &.padded-divider {
+      margin: 8px 0 !important;
+    }
+  }
+
+  .mat-step-header {
+    border-radius: variables.$border-radius;
+  }
+
+  .mat-list-base {
+    padding-bottom: 8px;
+  }
+
+  .mat-snackbar {
+    padding: 0;
+    border-radius: variables.$border-radius;
+
+    @if $theme == $dark {
+      box-shadow: none;
+      background-color: colors.$primer-gray-110;
+      color: colors.$primer-gray-10;
+      border: 2px solid map.get($theme-colors, 'border');
+    } @else {
+      // (default) light theme
+      @include mat.elevation(6, colors.$elevation, 0.8);
+
+      background-color: colors.$white;
+      color: colors.$cool-gray-90;
+    }
+  }
+
+  .mat-drawer-backdrop.mat-drawer-shown {
+    @if $theme == $dark {
+      background-color: rgba(colors.$black, 0.6);
+    } @else {
+      // (default) light theme
+      background-color: rgba(colors.$white, 0.6);
+    }
+  }
+}

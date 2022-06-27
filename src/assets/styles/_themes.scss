@@ -1,6 +1,7 @@
 @use '~@angular/material' as mat;
 @use 'colors';
 @use 'components';
+@use 'material';
 @use 'palettes';
 @use 'variables';
 
@@ -45,11 +46,13 @@ $typography: mat.define-typography-config(
 .at-light-theme {
   @include mat.all-component-themes($light-theme);
   @include components.get-components-styles();
+  @include material.get-components-styles();
   @include colors.color-classes();
 }
 
 .at-dark-theme {
   @include mat.all-component-themes($dark-theme);
   @include components.get-components-styles('dark');
+  @include material.get-components-styles('dark');
   @include colors.color-classes('dark');
 }

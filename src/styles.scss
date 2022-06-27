@@ -9,6 +9,15 @@ body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: variables.$font-weight-bold !important;
+}
+
 .at-light-theme {
   h1,
   h2,
@@ -18,15 +27,6 @@ body {
   h6,
   a {
     color: colors.$blue-60;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: variables.$font-weight-bold !important;
   }
 }
 
@@ -42,15 +42,6 @@ body {
   a {
     color: colors.$blue-50;
   }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: variables.$font-weight-bold !important;
-  }
 }
 
 .spacer {
@@ -61,10 +52,8 @@ body {
   width: 100%;
 }
 
-.loading-spinner-in-button {
+.full-height-flex {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 5px;
+  flex-direction: column;
+  height: 100%;
 }
