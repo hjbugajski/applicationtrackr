@@ -3,7 +3,33 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 
-const routes: Routes = [{ path: '', component: DashboardComponent }];
+import { Paths } from '~enums/paths.enum';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: DashboardComponent,
+    children: [
+      { path: '', pathMatch: 'prefix', redirectTo: Paths.Applications },
+      {
+        path: Paths.Analytics,
+        loadChildren: () => import('./analytics/analytics.module').then((m) => m.AnalyticsModule)
+      },
+      {
+        path: Paths.Applications,
+        loadChildren: () => import('./applications/applications.module').then((m) => m.ApplicationsModule)
+      },
+      {
+        path: Paths.JobBoards,
+        loadChildren: () => import('./job-boards/job-boards.module').then((m) => m.JobBoardsModule)
+      },
+      {
+        path: Paths.Offers,
+        loadChildren: () => import('./offers/offers.module').then((m) => m.OffersModule)
+      }
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
