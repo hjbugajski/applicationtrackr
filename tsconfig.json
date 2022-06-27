@@ -16,7 +16,13 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "~components/*": ["src/app/global/components/*"],
+      "~constants/*": ["src/app/global/constants/*"],
+      "~interfaces/*": ["src/app/global/interfaces/*"],
+      "~services/*": ["src/app/global/services/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

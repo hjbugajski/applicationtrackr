@@ -1,5 +1,5 @@
-@use './assets/styles/material/themes';
-@use './assets/styles/colors' as colors;
+@use 'themes';
+@use 'colors' as colors;
 
 html,
 body {
