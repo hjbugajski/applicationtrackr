@@ -200,6 +200,26 @@ $dark: 'dark';
     }
   }
 
+  .mat-form-field-combined {
+    display: block;
+
+    @media (min-width: 425px) {
+      display: grid;
+      grid-template-columns: 1fr 115px;
+
+      .mat-form-field:first-of-type .mat-form-field-flex {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+
+      .mat-form-field:last-of-type .mat-form-field-flex {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-left: 1px solid map.get($theme-colors, 'border');
+      }
+    }
+  }
+
   .mat-menu-panel,
   .mat-select-panel,
   .mat-dialog-container {

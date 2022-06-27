@@ -7,6 +7,8 @@
     "order/properties-alphabetical-order": null,
     "selector-pseudo-element-no-unknown": null,
     "no-empty-source": null,
-    "color-function-notation": null
+    "color-function-notation": null,
+    "property-no-vendor-prefix": null,
+    "no-descending-specificity": null
   }
 }

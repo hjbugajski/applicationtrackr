@@ -97,11 +97,12 @@ export class ApplicationService {
     const applicationDoc: ApplicationDoc = {
       columnDocId: nextColumn.docId,
       company: application.company,
+      compensation: application.compensation ?? null,
       date: application.date,
       link: application.link ?? null,
       location: application.location ?? null,
-      position: application.position,
-      salary: application.salary ?? null
+      payPeriod: application.payPeriod ?? null,
+      position: application.position
     };
 
     await this.createApplication(nextColumn.docId, applicationDoc)
@@ -120,11 +121,12 @@ export class ApplicationService {
   public async updateApplication(columnId: string, applicationId: string, application: ApplicationDoc): Promise<void> {
     await updateDoc(this.getDocRef(columnId, applicationId), {
       company: application.company,
+      compensation: application.compensation ?? null,
       date: application.date,
       link: application.link ?? null,
       location: application.location ?? null,
-      position: application.position,
-      salary: application.salary ?? null
+      payPeriod: application.payPeriod ?? null,
+      position: application.position
     }).catch((error) => {
       throw error;
     });

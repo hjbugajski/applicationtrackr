@@ -37,6 +37,7 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   public applicationForm!: FormGroup;
   public isLoading = false;
+  public payPeriodOptions: string[];
   public state = States.Readonly;
   public viewMore = false;
 
@@ -46,7 +47,9 @@ export class ApplicationInfoFormComponent implements OnInit {
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService
-  ) {}
+  ) {
+    this.payPeriodOptions = ['hour', 'week', 'month', 'year', 'total'];
+  }
 
   public close(): void {
     this.matDialogRef.close();
@@ -102,11 +105,12 @@ export class ApplicationInfoFormComponent implements OnInit {
       const application: ApplicationDoc = {
         columnDocId: newColumn.docId,
         company: this.company?.value as string,
+        compensation: (this.compensation?.value as number) ?? null,
         date: dateToTimestamp(this.date?.value as Date),
         link: (this.link?.value as string) ?? null,
         location: (this.location?.value as string) ?? null,
-        position: this.position?.value as string,
-        salary: (this.salary?.value as number) ?? null
+        payPeriod: this.payPeriod?.value as string,
+        position: this.position?.value as string
       };
 
       this.action === DialogActions.New
@@ -183,22 +187,24 @@ export class ApplicationInfoFormComponent implements OnInit {
   private initEditForm(): void {
     this.column?.setValue(this.currentColumn);
     this.company?.setValue(this.application.company);
+    this.compensation?.setValue(this.application.compensation);
     this.date?.setValue(timestampToDate(this.application.date));
     this.link?.setValue(this.application.link);
     this.location?.setValue(this.application.location);
+    this.payPeriod?.setValue(this.application.payPeriod);
     this.position?.setValue(this.application.position);
-    this.salary?.setValue(this.application.salary);
   }
 
   private initForm(): void {
     this.applicationForm = this.formBuilder.group({
       column: [this.currentColumn, [Validators.required]],
       company: [null, [Validators.required, Validators.maxLength(128)]],
+      compensation: [null, [Validators.maxLength(128)]],
       date: [new Date(), [Validators.required]],
       link: [null, [CustomValidators.url, Validators.maxLength(2000)]],
       location: [null, [Validators.maxLength(128)]],
-      position: [null, [Validators.required, Validators.maxLength(128)]],
-      salary: [null, [Validators.maxLength(128)]]
+      payPeriod: [this.payPeriodOptions[3]],
+      position: [null, [Validators.required, Validators.maxLength(128)]]
     });
 
     if (this.action === DialogActions.Edit) {
@@ -212,6 +218,10 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   public get company(): AbstractControl | null {
     return this.applicationForm.get('company');
+  }
+
+  public get compensation(): AbstractControl | null {
+    return this.applicationForm.get('compensation');
   }
 
   public get date(): AbstractControl | null {
@@ -234,6 +244,10 @@ export class ApplicationInfoFormComponent implements OnInit {
     return this.applicationForm.get('location');
   }
 
+  public get payPeriod(): AbstractControl | null {
+    return this.applicationForm.get('payPeriod');
+  }
+
   public get position(): AbstractControl | null {
     return this.applicationForm.get('position');
   }
@@ -249,9 +263,5 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   public get readonly(): boolean {
     return this.state === States.Readonly;
-  }
-
-  public get salary(): AbstractControl | null {
-    return this.applicationForm.get('salary');
   }
 }

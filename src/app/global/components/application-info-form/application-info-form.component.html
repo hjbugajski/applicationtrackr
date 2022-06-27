@@ -54,20 +54,41 @@
         </a>
       </mat-form-field>
 
-      <!-- Salary Input -->
-      <mat-form-field class="full-width" floatLabel="always">
-        <mat-label>Salary</mat-label>
-        <input
-          formControlName="salary"
-          matInput
-          type="number"
-          placeholder="0"
-          class="number-input"
-          [readonly]="readonly"
-        />
-        <span matPrefix>$&nbsp;</span>
-        <mat-error>{{ getError(salary) }}</mat-error>
-      </mat-form-field>
+      <!-- Compensation Input -->
+      <div class="mat-form-field-combined">
+        <mat-form-field class="full-width" floatLabel="always">
+          <mat-label>Compensation</mat-label>
+          <input
+            formControlName="compensation"
+            matInput
+            type="number"
+            placeholder="0"
+            class="number-input"
+            [readonly]="readonly"
+          />
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>/</span>
+          <mat-error>{{ getError(compensation) }}</mat-error>
+        </mat-form-field>
+
+        <ng-container *ngIf="editing; else payPeriodReadonly">
+          <mat-form-field class="full-width">
+            <mat-label>Pay Period</mat-label>
+            <mat-select formControlName="payPeriod">
+              <mat-option *ngFor="let p of payPeriodOptions" [value]="p">
+                {{ p }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ getError(column) }}</mat-error>
+          </mat-form-field>
+        </ng-container>
+        <ng-template #payPeriodReadonly>
+          <mat-form-field class="full-width" floatLabel="always">
+            <mat-label>Pay Period</mat-label>
+            <input formControlName="payPeriod" matInput type="text" class="number-input" [readonly]="true" />
+          </mat-form-field>
+        </ng-template>
+      </div>
 
       <!-- Date Applied Date Picker -->
       <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
