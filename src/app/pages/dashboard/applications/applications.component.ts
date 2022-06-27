@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Observable, Subscription } from 'rxjs';
 
 import { TITLE_SUFFIX } from '~constants/title.constant';
+import { Column } from '~models/column.model';
+import { ColumnsService } from '~services/columns/columns.service';
+import { UserDataQuery } from '~state/user-data/user-data.query';
 
 @Component({
   selector: 'at-applications',
@@ -9,29 +13,40 @@ import { TITLE_SUFFIX } from '~constants/title.constant';
   styleUrls: ['./applications.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ApplicationsComponent {
-  public columns = [
-    {
-      title: 'Todo'
-    },
-    {
-      title: 'Submitted'
-    },
-    {
-      title: 'Interviews'
-    },
-    {
-      color: 'at-success',
-      title: 'Offers'
-    },
-    {
-      color: 'at-error',
-      title: 'Rejections'
-    }
-  ];
-  public items = Array.from({ length: 50 }).map((_, i) => i);
+export class ApplicationsComponent implements OnDestroy, OnInit {
+  public columns: Observable<Column[]>;
+  public isLoading = true;
 
-  constructor(private titleService: Title) {
+  private subscriptions: Subscription;
+
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private columnsService: ColumnsService,
+    private titleService: Title,
+    private userDataQuery: UserDataQuery
+  ) {
+    this.columns = new Observable<Column[]>();
+    this.subscriptions = new Subscription();
     this.titleService.setTitle('Applications' + TITLE_SUFFIX);
+  }
+
+  ngOnDestroy(): void {
+    this.columnsService.resetColumns();
+    this.subscriptions?.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.userDataQuery.currentJobBoard$.subscribe((currentBoard) => {
+        this.columnsService.resetColumns();
+
+        if (currentBoard) {
+          this.columnsService.initColumns();
+          this.columns = this.columnsService.columns!;
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        }
+      })
+    );
   }
 }
