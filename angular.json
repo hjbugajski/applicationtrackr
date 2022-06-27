@@ -112,6 +112,6 @@
   },
   "defaultProject": "applicationtrackr",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@datorama/akita"
   }
 }
