@@ -1,6 +1,8 @@
 @use '~@angular/material' as mat;
-@use 'palettes' as palettes;
-@use 'components' as components;
+@use 'colors';
+@use 'components';
+@use 'palettes';
+@use 'variables';
 
 @include mat.core();
 
@@ -34,7 +36,7 @@ $dark-theme-warn: mat.define-palette(palettes.$red-palette, 300);
 $dark-theme: create-theme($dark-theme-primary, $dark-theme-accent, $dark-theme-warn, true);
 
 $typography: mat.define-typography-config(
-  $font-family: 'Roboto Mono',
+  $font-family: variables.$font-family,
   $input: mat.define-typography-level(inherit, 1.15, 400)
 );
 
@@ -43,9 +45,11 @@ $typography: mat.define-typography-config(
 .at-light-theme {
   @include mat.all-component-themes($light-theme);
   @include components.get-components-styles();
+  @include colors.color-classes();
 }
 
 .at-dark-theme {
   @include mat.all-component-themes($dark-theme);
   @include components.get-components-styles('dark');
+  @include colors.color-classes('dark');
 }

@@ -1,20 +1,12 @@
+@use 'colors';
 @use 'themes';
-@use 'colors' as colors;
+@use 'variables';
 
 html,
 body {
   font-family: 'Roboto Mono', 'Helvetica Neue', sans-serif !important;
   height: 100%;
   margin: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 700 !important;
 }
 
 .at-light-theme {
@@ -26,6 +18,15 @@ h6 {
   h6,
   a {
     color: colors.$blue-60;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: variables.$font-weight-bold !important;
   }
 }
 
@@ -41,6 +42,15 @@ h6 {
   a {
     color: colors.$blue-40;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: variables.$font-weight-bold !important;
+  }
 }
 
 .spacer {
@@ -49,4 +59,12 @@ h6 {
 
 .full-width {
   width: 100%;
+}
+
+.loading-spinner-in-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
 }

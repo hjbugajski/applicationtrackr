@@ -72,11 +72,62 @@ $yellow: #f1c21b;
 
 $elevation: $cool-gray-50;
 
-@function get-theme-colors($theme: 'light') {
+@mixin color-classes($theme: 'light') {
   @if $theme == 'dark' {
-    @return ('text-primary': $blue-40, 'border': $primer-gray-80, 'hover': $primer-gray-90);
+    .text-primary {
+      color: $blue-40;
+    }
+
+    .text-accent {
+      color: $purple-40;
+    }
+
+    .text-error {
+      color: $red-40;
+    }
+
+    .text-success {
+      color: $green-40;
+    }
   } @else {
     // (default) light theme
-    @return ('text-primary': $blue-60, 'border': $cool-gray-20, 'hover': $cool-gray-10);
+    .text-primary {
+      color: $blue-60;
+    }
+
+    .text-accent {
+      color: $purple-60;
+    }
+
+    .text-error {
+      color: $red-60;
+    }
+
+    .text-success {
+      color: $green-60;
+    }
+  }
+}
+
+@function get-theme-colors($theme: 'light') {
+  @if $theme == 'dark' {
+    @return (
+      'text-primary': $blue-40,
+      'text-accent': $purple-40,
+      'text-error': $red-40,
+      'text-success': $green-40,
+      'border': $primer-gray-80,
+      'hover': $primer-gray-90
+    );
+  } @else {
+    // (default) light theme
+    @return (
+      'text-primary': $blue-60,
+      'text-accent': $purple-60,
+      'text-error': $red-60,
+      'text-success': $green-60,
+      'border': $cool-gray-20,
+      'hover': $cool-gray-10
+    );
   }
 }
