@@ -111,9 +111,9 @@
               undone. Your account and data cannot be recovered.
             </div>
           </at-alert>
-          <mat-stepper orientation="vertical" color="warn" linear #authStepper>
+          <mat-stepper orientation="vertical" color="warn" [linear]="true" #authStepper>
             <!-- Step 1: Re-authenticate -->
-            <mat-step [editable]="false" [optional]="false">
+            <mat-step [editable]="false" [completed]="stepOneCompleted">
               <ng-template matStepLabel>Re-authenticate</ng-template>
               <ng-template matStepContent>
                 <ng-container [ngSwitch]="provider">
@@ -147,7 +147,7 @@
             </mat-step>
 
             <!-- Step 2: Confirm deletion -->
-            <mat-step [editable]="false" [optional]="false">
+            <mat-step [editable]="false">
               <ng-template matStepLabel>Confirm deletion</ng-template>
               <ng-template matStepContent>
                 <p>To delete your account, type <span class="at-error at-text">delete account and data</span>.</p>

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
@@ -23,6 +23,7 @@ export class SettingsComponent implements OnDestroy {
   public isUpdateEmailLoading = false;
   public provider: Providers | undefined;
   public reauthenticated = false;
+  public stepOneCompleted = false;
   public updateEmailForm: FormGroup;
   public user: User | null = null;
 
@@ -31,6 +32,7 @@ export class SettingsComponent implements OnDestroy {
   constructor(
     private auth: Auth,
     private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private location: Location
   ) {
@@ -83,6 +85,8 @@ export class SettingsComponent implements OnDestroy {
   }
 
   public goToNextStep(stepper: MatStepper): void {
+    this.stepOneCompleted = true;
+    this.changeDetectorRef.detectChanges();
     stepper.next();
   }
 
