@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @use 'colors';
 @use 'variables';
 
@@ -19,38 +19,20 @@ $dark: 'dark';
     .mat-sidenav-content {
       display: flex;
       flex-direction: column;
-      height: 100% !important;
-    }
-
-    &.alt-background-color {
-      @if $theme == $dark {
-        background-color: colors.$black;
-      } @else {
-        background-color: colors.$white;
-      }
+      height: 100vh !important;
     }
   }
 
   .mat-sidenav {
+    border-right: 2px solid map.get($theme-colors, 'border') !important;
+
     @if $theme == $dark {
-      border-right: 2px solid map.get($theme-colors, 'border') !important;
       background-color: colors.$black;
-    } @else {
-      @include mat.elevation(6, colors.$elevation, 0.8);
     }
   }
 
   .mat-toolbar {
-    @if $theme == $dark {
-      border-bottom: 2px solid map.get($theme-colors, 'border');
-    } @else {
-      // (default) light theme
-      @include mat.elevation(6, colors.$elevation, 0.8);
-
-      border: 0 !important;
-    }
-
-    color: map.get($theme-colors, 'text-primary');
+    border-bottom: 2px solid map.get($theme-colors, 'border');
 
     &.absolute-toolbar {
       position: absolute;
@@ -73,22 +55,35 @@ $dark: 'dark';
   }
 
   .mat-card {
-    @if $theme == $dark {
-      border: 2px solid map.get($theme-colors, 'border');
-      box-shadow: none;
-    } @else {
-      // (default) light theme
-      @include mat.overridable-elevation(6, colors.$elevation, 0.8);
-    }
-
+    box-shadow: none !important;
+    border: 2px solid map.get($theme-colors, 'border');
     border-radius: variables.$border-radius !important;
 
     .mat-card-title {
       color: map.get($theme-colors, 'text-primary');
       font-weight: variables.$font-weight-bold;
+      font-size: 18px;
       line-height: normal;
       margin-bottom: 16px;
+
+      .title-with-tag {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .tag {
+          margin-left: 8px;
+        }
+      }
+
+      .mat-card-subtitle {
+        margin: 4px 0 0;
+      }
     }
+  }
+
+  .mat-card.with-table {
+    padding: 0 16px 8px;
   }
 
   .mat-button-base {
@@ -123,15 +118,6 @@ $dark: 'dark';
 
     &.mat-button-with-right-icon .mat-button-wrapper .mat-icon {
       margin-left: 8px;
-    }
-  }
-
-  .mat-raised-button {
-    @if $theme == $dark {
-      box-shadow: none;
-    } @else {
-      // (default) light theme
-      @include mat.overridable-elevation(6, colors.$elevation, 0.8);
     }
   }
 
@@ -178,15 +164,9 @@ $dark: 'dark';
   .mat-menu-panel,
   .mat-select-panel,
   .mat-dialog-container {
-    @if $theme == $dark {
-      border: 2px solid map.get($theme-colors, 'border');
-      box-shadow: none;
-    } @else {
-      // (default) light theme
-      @include mat.elevation(6, colors.$elevation, 0.8);
-    }
-
+    border: 2px solid map.get($theme-colors, 'border');
     border-radius: variables.$border-radius !important;
+    box-shadow: none !important;
   }
 
   .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
@@ -199,14 +179,8 @@ $dark: 'dark';
   }
 
   .mat-slide-toggle-thumb {
-    @if $theme == $dark {
-      border: 2px solid map.get($theme-colors, 'border');
-      box-shadow: none;
-    } @else {
-      // (default) light theme
-      @include mat.elevation(6, colors.$elevation, 0.8);
-    }
-
+    border: 2px solid map.get($theme-colors, 'border');
+    box-shadow: none !important;
     background-color: map.get($theme-colors, 'hover');
   }
 
@@ -233,17 +207,15 @@ $dark: 'dark';
 
   .mat-snackbar {
     padding: 0;
+    border: 2px solid map.get($theme-colors, 'border');
     border-radius: variables.$border-radius;
+    box-shadow: none;
 
     @if $theme == $dark {
-      box-shadow: none;
       background-color: colors.$primer-gray-110;
       color: colors.$primer-gray-10;
-      border: 2px solid map.get($theme-colors, 'border');
     } @else {
       // (default) light theme
-      @include mat.elevation(6, colors.$elevation, 0.8);
-
       background-color: colors.$white;
       color: colors.$cool-gray-90;
     }
@@ -256,5 +228,9 @@ $dark: 'dark';
       // (default) light theme
       background-color: rgba(colors.$white, 0.6);
     }
+  }
+
+  .mat-dialog-container-with-toolbar .mat-dialog-container {
+    padding: 16px 24px 24px;
   }
 }

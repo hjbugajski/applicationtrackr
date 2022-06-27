@@ -1,0 +1,41 @@
+.page-container {
+  display: flex;
+  flex: 1 1 auto;
+  overflow: auto;
+  height: calc(100vh - 56px - 8px);
+  padding: 0 8px 8px;
+
+  @media (min-width: 600px) {
+    height: calc(100vh - 64px - 8px);
+  }
+
+  @media (min-width: 768px) {
+    height: calc(100vh - 64px - 16px);
+    padding: 0 16px 16px;
+  }
+
+  @media (min-width: 1280px) {
+    height: calc(100vh - 32px);
+    padding: 16px;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height-flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.button-row {
+  .mat-button-base:not(:last-of-type) {
+    margin-right: 8px;
+  }
+}

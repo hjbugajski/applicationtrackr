@@ -13,6 +13,162 @@ $dark: 'dark';
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 5px;
+    padding: 5px 0;
+  }
+
+  .dialog-header-with-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .mat-icon {
+      margin-bottom: 16px;
+    }
+
+    .dialog-header {
+      font-size: 20px;
+      font-weight: variables.$font-weight-bold;
+    }
+  }
+
+  .dialog-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .dialog-title {
+      color: map.get($theme-colors, 'text-primary');
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .mat-icon:hover {
+      cursor: pointer;
+    }
+  }
+
+  .button-row-container-end {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+
+    .mat-button-base:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+
+  .board-column {
+    overflow: hidden;
+    min-width: 275px;
+    border-radius: variables.$border-radius;
+
+    @if $theme == $dark {
+      border: 2px solid map.get($theme-colors, 'border');
+    } @else {
+      // (default) light
+      border: 2px solid map.get($theme-colors, 'border');
+    }
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+
+    &.new-board-column {
+      border: 2px dashed map.get($theme-colors, 'border') !important;
+      background-color: unset;
+    }
+
+    .mat-card:not(:last-of-type) {
+      margin-bottom: 8px;
+    }
+
+    .board-column-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      padding: 5px 5px 0 10px;
+
+      .board-column-title {
+        font-size: 16px;
+        font-weight: variables.$font-weight-bold;
+      }
+    }
+
+    .cdk-container {
+      height: calc(100% - 50px);
+    }
+
+    @media (min-width: 375px) {
+      min-width: 325px;
+    }
+
+    @media (min-width: 768px) {
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+
+      .board-column-header {
+        margin-bottom: 8px;
+        padding: 8px 8px 0 16px;
+      }
+
+      .cdk-container {
+        height: calc(100% - 52px);
+      }
+    }
+  }
+
+  .tag {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    white-space: nowrap;
+    background-color: colors.$cool-gray-20;
+    color: colors.$cool-gray-80;
+
+    &.tag-green {
+      background-color: colors.$green-20;
+      color: colors.$green-80;
+    }
+
+    &.tag-purple {
+      background-color: colors.$purple-20;
+      color: colors.$purple-80;
+    }
+
+    &.tag-blue {
+      background-color: colors.$blue-20;
+      color: colors.$blue-80;
+    }
+
+    &.tag-red {
+      background-color: colors.$red-20;
+      color: colors.$red-80;
+    }
+  }
+}
+
+@mixin cdk-virtual-scroll-container() {
+  ::ng-deep .cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 10px;
+    min-width: unset !important;
+    width: calc(100% - 20px);
+
+    @media (min-width: 768px) {
+      padding: 0 16px 16px;
+      width: calc(100% - 32px);
+    }
   }
 }
