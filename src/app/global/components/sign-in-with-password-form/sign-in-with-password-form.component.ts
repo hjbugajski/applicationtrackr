@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective } from '@an
 
 import { AuthModes } from '~enums/auth-modes.enum';
 import { AuthService } from '~services/auth/auth.service';
-import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom-validators/custom-validators';
+import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom-validators';
 
 @Component({
   selector: 'at-sign-in-with-password-form',

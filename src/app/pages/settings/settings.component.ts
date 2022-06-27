@@ -1,14 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormControlName,
-  FormGroup,
-  FormGroupDirective,
-  Validators
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { User } from '@firebase/auth';
 import { Subscription } from 'rxjs';
@@ -17,7 +9,7 @@ import { AuthModes } from '~enums/auth-modes.enum';
 import { Colors } from '~enums/colors.enum';
 import { Providers } from '~enums/providers.enum';
 import { AuthService } from '~services/auth/auth.service';
-import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom-validators/custom-validators';
+import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom-validators';
 
 @Component({
   selector: 'at-settings',

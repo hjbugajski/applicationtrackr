@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 
 import { AuthService } from '~services/auth/auth.service';
-import { CustomValidators, getEmailError } from '~utils/custom-validators/custom-validators';
+import { CustomValidators, getEmailError } from '~utils/custom-validators';
 
 @Component({
   selector: 'at-forgot-password-form',

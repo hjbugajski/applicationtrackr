@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirectiv
 import { AuthModes } from '~enums/auth-modes.enum';
 import { AuthParams } from '~interfaces/auth-params.interface';
 import { AuthService } from '~services/auth/auth.service';
-import { CustomValidators, getPasswordError } from '~utils/custom-validators/custom-validators';
+import { CustomValidators, getPasswordError } from '~utils/custom-validators';
 
 @Component({
   selector: 'at-reset-password-form',
