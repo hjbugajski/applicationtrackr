@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { lastValueFrom, Observable } from 'rxjs';
@@ -35,7 +35,7 @@ export class ApplicationInfoFormComponent implements OnInit {
   @Input() public currentColumn!: Column;
   @ViewChildren(MatInput) public matInputs: QueryList<MatInput> | undefined;
 
-  public applicationForm!: FormGroup;
+  public applicationForm!: UntypedFormGroup;
   public isLoading = false;
   public payPeriodOptions: string[];
   public state = States.Readonly;
@@ -43,7 +43,7 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   constructor(
     private applicationService: ApplicationService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService

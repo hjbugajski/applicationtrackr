@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import { AbstractControl, FormGroupDirective, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { AuthModes } from '~enums/auth-modes.enum';
 import { AuthService } from '~services/auth/auth.service';
@@ -17,10 +17,10 @@ export class SignInWithPasswordFormComponent implements OnChanges {
   @Output() public reauthenticated = new EventEmitter<void>();
   @Input() public showForm = false;
 
-  public emailForm: FormGroup;
+  public emailForm: UntypedFormGroup;
   public isLoading = false;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private formBuilder: UntypedFormBuilder) {
     this.emailForm = this.formBuilder.group({
       email: ['', CustomValidators.emailValidators, null, { disabled: true }],
       password: ['', CustomValidators.passwordValidators, null, { disabled: true }]

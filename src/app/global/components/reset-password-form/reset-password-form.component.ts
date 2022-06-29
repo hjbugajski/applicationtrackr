@@ -1,5 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroupDirective,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup
+} from '@angular/forms';
 
 import { AuthModes } from '~enums/auth-modes.enum';
 import { AuthParams } from '~interfaces/auth-params.interface';
@@ -18,9 +24,9 @@ export class ResetPasswordFormComponent implements OnInit {
   @Input() public queryParams: AuthParams = { mode: '', oobCode: '' };
 
   public isLoading: boolean;
-  public passwordForm!: FormGroup;
+  public passwordForm!: UntypedFormGroup;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private formBuilder: UntypedFormBuilder) {
     this.isLoading = false;
   }
 
@@ -62,7 +68,7 @@ export class ResetPasswordFormComponent implements OnInit {
     this.confirmPassword?.setValidators(CustomValidators.matchValue(this.newPassword));
 
     if (this.authMode === AuthModes.Update) {
-      this.passwordForm.addControl('currentPassword', new FormControl('', CustomValidators.passwordValidators));
+      this.passwordForm.addControl('currentPassword', new UntypedFormControl('', CustomValidators.passwordValidators));
     }
   }
 

@@ -110,8 +110,7 @@
       }
     }
   },
-  "defaultProject": "applicationtrackr",
   "cli": {
-    "defaultCollection": "@datorama/akita"
+    "schematicCollections": ["@datorama/akita"]
   }
 }

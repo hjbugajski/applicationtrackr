@@ -1,7 +1,14 @@
 import { Location } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroupDirective,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators
+} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { User } from '@firebase/auth';
 import { Subscription } from 'rxjs';
@@ -18,13 +25,13 @@ import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnDestroy {
-  public confirmDeleteControl: FormControl;
+  public confirmDeleteControl: UntypedFormControl;
   public isLoading = false;
   public isUpdateEmailLoading = false;
   public provider: Providers | undefined;
   public reauthenticated = false;
   public stepOneCompleted = false;
-  public updateEmailForm: FormGroup;
+  public updateEmailForm: UntypedFormGroup;
   public user: User | null = null;
 
   private subscriptions = new Subscription();
@@ -33,7 +40,7 @@ export class SettingsComponent implements OnDestroy {
     private auth: Auth,
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private location: Location
   ) {
     this.subscriptions.add(
@@ -47,7 +54,7 @@ export class SettingsComponent implements OnDestroy {
       newEmail: ['', CustomValidators.emailValidators],
       password: ['', CustomValidators.passwordValidators]
     });
-    this.confirmDeleteControl = new FormControl('', [
+    this.confirmDeleteControl = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern('delete account and data')
     ]);

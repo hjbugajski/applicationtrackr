@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormControl } from '@angular/forms';
 
 import { AuthService } from '~services/auth/auth.service';
 import { CustomValidators, getEmailError } from '~utils/custom-validators';
@@ -14,11 +14,11 @@ export class ForgotPasswordFormComponent implements OnInit {
   @Input() public hint: string | undefined;
   @Input() public readonly: boolean | undefined;
 
-  public email: FormControl;
+  public email: UntypedFormControl;
   public isLoading: boolean;
 
   constructor(private authService: AuthService) {
-    this.email = new FormControl('', CustomValidators.emailValidators);
+    this.email = new UntypedFormControl('', CustomValidators.emailValidators);
     this.isLoading = false;
   }
 

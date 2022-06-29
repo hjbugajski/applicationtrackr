@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Timestamp } from '@firebase/firestore';
 import { lastValueFrom, Observable } from 'rxjs';
@@ -22,11 +22,11 @@ export class JobBoardDialogComponent {
   public button: string;
   public header: string;
   public isLoading: boolean;
-  public jobBoardForm: FormGroup;
+  public jobBoardForm: UntypedFormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public providedData: DocumentDialog,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<JobBoardDialogComponent>,
