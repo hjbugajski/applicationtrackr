@@ -3,7 +3,7 @@ import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { JobBoard } from '~models/job-board.model';
-import { UserData } from '~state/user-data/user-data.model';
+import { User } from '~models/user.model';
 
 export const applicationConverter = {
   toFirestore: (application: Application): Application => {
@@ -33,12 +33,12 @@ export const jobBoardConverter = {
 };
 
 export const userDataConverter = {
-  toFirestore: (user: UserData) => {
+  toFirestore: (user: User) => {
     return {
       currentJobBoard: user.currentJobBoard
     };
   },
-  fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): UserData => {
-    return new UserData(snapshot);
+  fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): User => {
+    return new User(snapshot);
   }
 };

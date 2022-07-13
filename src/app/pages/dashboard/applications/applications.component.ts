@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { TITLE_SUFFIX } from '~constants/title.constant';
 import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
-import { UserDataQuery } from '~state/user-data/user-data.query';
+import { UserStore } from '~store/user.store';
 
 @Component({
   selector: 'at-applications',
@@ -20,11 +20,7 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
 
   private subscriptions: Subscription;
 
-  constructor(
-    private columnsService: ColumnsService,
-    private titleService: Title,
-    private userDataQuery: UserDataQuery
-  ) {
+  constructor(private columnsService: ColumnsService, private titleService: Title, private userStore: UserStore) {
     this.columns = new Observable<Column[]>();
     this.columnsIds = [];
     this.isLoaded = new BehaviorSubject<boolean>(false);
@@ -52,7 +48,7 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.subscriptions.add(
       /* eslint-disable */
-      this.userDataQuery.currentJobBoard$.subscribe(async (currentBoard) => {
+      this.userStore.currentJobBoard$.subscribe(async (currentBoard) => {
         /* eslint-enable */
         this.isLoaded.next(false);
         this.columnsService.resetColumns();

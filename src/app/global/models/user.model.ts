@@ -3,7 +3,7 @@ import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { UserDoc } from '~interfaces/user-doc.interface';
 import { JobBoard } from '~models/job-board.model';
 
-export class UserData {
+export class User {
   public currentJobBoard: JobBoard | null;
   public uid: string | null;
 

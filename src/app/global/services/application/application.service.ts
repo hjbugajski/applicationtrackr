@@ -17,7 +17,7 @@ import { ApplicationDoc } from '~interfaces/application-doc.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
-import { UserDataQuery } from '~state/user-data/user-data.query';
+import { UserStore } from '~store/user.store';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +25,7 @@ import { UserDataQuery } from '~state/user-data/user-data.query';
 export class ApplicationService {
   public isApplicationsLoading: BehaviorSubject<boolean>;
 
-  constructor(
-    private columnsService: ColumnsService,
-    private firestore: Firestore,
-    private userDataQuery: UserDataQuery
-  ) {
+  constructor(private columnsService: ColumnsService, private firestore: Firestore, private userStore: UserStore) {
     this.isApplicationsLoading = new BehaviorSubject<boolean>(false);
   }
 
@@ -38,9 +34,9 @@ export class ApplicationService {
       collection(
         this.firestore,
         Collections.Users,
-        this.userDataQuery.uid!,
+        this.userStore.uid!,
         Collections.JobBoards,
-        this.userDataQuery.currentJobBoard!.docId!,
+        this.userStore.currentJobBoard!.docId!,
         Collections.Columns,
         columnId,
         Collections.Applications
@@ -59,9 +55,9 @@ export class ApplicationService {
     const docRef = doc(
       this.firestore,
       Collections.Users,
-      this.userDataQuery.uid!,
+      this.userStore.uid!,
       Collections.JobBoards,
-      this.userDataQuery.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!.docId!,
       Collections.Columns,
       columnId,
       Collections.Applications,
@@ -81,9 +77,9 @@ export class ApplicationService {
     return doc(
       this.firestore,
       Collections.Users,
-      this.userDataQuery.uid!,
+      this.userStore.uid!,
       Collections.JobBoards,
-      this.userDataQuery.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!.docId!,
       Collections.Columns,
       columnId,
       Collections.Applications,

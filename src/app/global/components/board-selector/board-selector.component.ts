@@ -6,8 +6,8 @@ import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { JobBoard } from '~models/job-board.model';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
-import { UserDataQuery } from '~state/user-data/user-data.query';
-import { UserDataService } from '~state/user-data/user-data.service';
+import { UserService } from '~services/user/user.service';
+import { UserStore } from '~store/user.store';
 
 @Component({
   selector: 'at-board-selector',
@@ -25,8 +25,8 @@ export class BoardSelectorComponent implements OnInit, OnDestroy {
   constructor(
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
-    private userDataQuery: UserDataQuery,
-    private userDataService: UserDataService
+    private userStore: UserStore,
+    private userService: UserService
   ) {
     this.jobBoards = this.jobBoardsService.jobBoards.pipe(
       map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title! > b.title! ? -1 : 1)))
@@ -48,13 +48,13 @@ export class BoardSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.userDataQuery.currentJobBoard$.subscribe((value) => {
-        this.currentJobBoard = value;
+      this.userStore.currentJobBoard$.subscribe((value) => {
+        this.currentJobBoard = value ?? undefined;
       })
     );
   }
 
   public async onSelectionChange(board: JobBoard): Promise<void> {
-    await this.userDataService.updateCurrentJobBoard(board);
+    await this.userService.updateCurrentJobBoard(board);
   }
 }

@@ -11,7 +11,7 @@ import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { JobBoard } from '~models/job-board.model';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
-import { UserDataQuery } from '~state/user-data/user-data.query';
+import { UserStore } from '~store/user.store';
 
 @Component({
   selector: 'at-job-boards',
@@ -25,7 +25,7 @@ export class JobBoardsComponent {
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
     private title: Title,
-    private userDataQuery: UserDataQuery
+    private userStore: UserStore
   ) {
     this.title.setTitle('Job Boards' + TITLE_SUFFIX);
     this.jobBoards = this.jobBoardsService.jobBoards.pipe(
@@ -62,6 +62,6 @@ export class JobBoardsComponent {
   }
 
   public isCurrentBoard(board: JobBoard): boolean {
-    return board.docId === this.userDataQuery.currentJobBoard?.docId;
+    return board.docId === this.userStore.currentJobBoard?.docId;
   }
 }

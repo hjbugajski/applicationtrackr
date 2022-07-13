@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 import { Collections } from '~enums/collections.enum';
 import { Updates } from '~enums/updates.enum';
 import { Column } from '~models/column.model';
-import { UserDataQuery } from '~state/user-data/user-data.query';
+import { UserStore } from '~store/user.store';
 import { columnConverter } from '~utils/firestore-converters';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class ColumnsService {
   public columns: Observable<Column[]> | undefined;
   public columnsIds!: string[];
 
-  constructor(private firestore: Firestore, private userDataQuery: UserDataQuery) {}
+  constructor(private firestore: Firestore, private userStore: UserStore) {}
 
   public async initColumns(): Promise<void> {
     this.columns = collectionData(query(this.columnsCollection, orderBy('sortOrder', 'asc')));
@@ -46,9 +46,9 @@ export class ColumnsService {
     const docRef = doc(
       this.firestore,
       Collections.Users,
-      this.userDataQuery.uid!,
+      this.userStore.uid!,
       Collections.JobBoards,
-      this.userDataQuery.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!.docId!,
       Collections.Columns,
       column
     ).withConverter(columnConverter);
@@ -62,9 +62,9 @@ export class ColumnsService {
     return collection(
       this.firestore,
       Collections.Users,
-      this.userDataQuery.uid!,
+      this.userStore.uid!,
       Collections.JobBoards,
-      this.userDataQuery.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!.docId!,
       Collections.Columns
     ).withConverter(columnConverter);
   }

@@ -30,7 +30,7 @@ import { Paths } from '~enums/paths.enum';
 import { Providers } from '~enums/providers.enum';
 import { Error } from '~interfaces/error.interface';
 import { NotificationService } from '~services/notification/notification.service';
-import { UserDataService } from '~state/user-data/user-data.service';
+import { UserService } from '~services/user/user.service';
 
 interface AuthError extends Error {
   credential?: any;
@@ -45,7 +45,7 @@ export class AuthService {
     private auth: Auth,
     private notificationService: NotificationService,
     private router: Router,
-    private userDataService: UserDataService
+    private userService: UserService
   ) {}
 
   public async confirmPasswordReset(oobCode: string, newPassword: string): Promise<void> {
@@ -71,7 +71,7 @@ export class AuthService {
   public async createUserWithEmail(email: string, password: string): Promise<void> {
     await createUserWithEmailAndPassword(this.auth, email, password)
       .then(async (result: UserCredential) => {
-        await this.userDataService.createUserDoc(result.user);
+        await this.userService.createUserDoc(result.user);
         await this.authSuccessNavigation();
       })
       .catch(async (error: AuthError) => {
@@ -299,10 +299,10 @@ export class AuthService {
   }
 
   private async handleCreateUserDoc(user: User): Promise<void> {
-    const userDoc = await this.userDataService.getUserDocSnap(user.uid);
+    const userDoc = await this.userService.getUserDocSnap(user.uid);
 
     if (!userDoc.exists()) {
-      await this.userDataService.createUserDoc(user);
+      await this.userService.createUserDoc(user);
     }
   }
 

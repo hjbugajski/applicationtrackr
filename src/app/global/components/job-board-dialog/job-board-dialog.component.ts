@@ -11,7 +11,7 @@ import { DocumentDialog } from '~interfaces/document-dialog.interface';
 import { JobBoard } from '~models/job-board.model';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { NotificationService } from '~services/notification/notification.service';
-import { UserDataQuery } from '~state/user-data/user-data.query';
+import { UserStore } from '~store/user.store';
 
 @Component({
   selector: 'at-new-job-board-dialog',
@@ -31,7 +31,7 @@ export class JobBoardDialogComponent {
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<JobBoardDialogComponent>,
     private notificationService: NotificationService,
-    private userDataQuery: UserDataQuery
+    private userStore: UserStore
   ) {
     this.button = this.providedData.action === DialogActions.New ? 'Add' : 'Save';
     this.header = this.providedData.action === DialogActions.New ? 'New' : 'Edit';
@@ -78,7 +78,7 @@ export class JobBoardDialogComponent {
       const date = this.date?.value as Date;
 
       if (this.providedData.action === DialogActions.New) {
-        await this.jobBoardsService.createJobBoard(this.userDataQuery.uid!, title, date).then(() => {
+        await this.jobBoardsService.createJobBoard(this.userStore.uid!, title, date).then(() => {
           this.isLoading = false;
           this.notificationService.showSuccess('Job board added!');
           this.matDialogRef.close();

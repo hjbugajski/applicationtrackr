@@ -23,7 +23,7 @@ import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationService } from '~services/application/application.service';
 import { NotificationService } from '~services/notification/notification.service';
-import { UserDataQuery } from '~state/user-data/user-data.query';
+import { UserStore } from '~store/user.store';
 import { applicationConverter, columnConverter } from '~utils/firestore-converters';
 
 @Component({
@@ -51,7 +51,7 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
     private firestore: Firestore,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
-    private userDataQuery: UserDataQuery
+    private userStore: UserStore
   ) {
     this.isLoaded = new BehaviorSubject<boolean>(false);
   }
@@ -88,9 +88,9 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
     this.columnRef = doc(
       this.firestore,
       Collections.Users,
-      this.userDataQuery.uid!,
+      this.userStore.uid!,
       Collections.JobBoards,
-      this.userDataQuery.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!.docId!,
       Collections.Columns,
       this.column
     ).withConverter(columnConverter);
@@ -122,9 +122,9 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
     return collection(
       this.firestore,
       Collections.Users,
-      this.userDataQuery.uid!,
+      this.userStore.uid!,
       Collections.JobBoards,
-      this.userDataQuery.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!.docId!,
       Collections.Columns,
       this.column,
       Collections.Applications

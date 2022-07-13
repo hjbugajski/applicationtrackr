@@ -111,7 +111,6 @@
     }
   },
   "cli": {
-    "schematicCollections": ["@datorama/akita"],
     "analytics": false
   }
 }

@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { MatIconService } from '~services/mat-icon/mat-icon.service';
 import { ThemeService } from '~services/theme/theme.service';
-import { UserDataService } from '~state/user-data/user-data.service';
+import { UserService } from '~services/user/user.service';
+import { UserStore } from '~store/user.store';
 
 @Component({
   selector: 'at-root',
@@ -22,7 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private jobBoardsService: JobBoardsService,
     private matIconService: MatIconService,
     private themeService: ThemeService,
-    private userDataService: UserDataService
+    private userService: UserService,
+    private userStore: UserStore
   ) {
     this.subscriptions = new Subscription();
     this.matIconService.initializeMatIcons();
@@ -38,12 +40,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       authState(this.auth).subscribe((user) => {
         if (user) {
-          this.userDataService.uid = user.uid;
-          this.unsubscribeUserDocData = this.userDataService.subscribeToUserDocData(user.uid);
+          this.userStore.uid = user.uid;
+          this.unsubscribeUserDocData = this.userService.subscribeToUserDocData(user.uid);
           this.jobBoardsService.initJobBoards();
         } else {
           this.unsubscribeUserDocData();
-          this.userDataService.resetUserData();
+          this.userService.resetUserData();
           this.jobBoardsService.resetJobBoards();
         }
       })
