@@ -13,7 +13,6 @@ import {
   query,
   updateDoc
 } from '@angular/fire/firestore';
-import { Timestamp } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 
 import { COLUMNS } from '~constants/documents.constant';
@@ -21,6 +20,7 @@ import { Collections } from '~enums/collections.enum';
 import { JobBoard } from '~models/job-board.model';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
+import { dateToTimestamp } from '~utils/date.util';
 import { jobBoardConverter } from '~utils/firestore-converters';
 
 @Injectable({
@@ -62,7 +62,7 @@ export class JobBoardsService {
 
     await this.createColumns(uid, docRef.id);
 
-    return { date: Timestamp.fromDate(date!), docId: docRef.id, title: title! };
+    return { date: dateToTimestamp(date!), docId: docRef.id, title: title! };
   }
 
   public async deleteJobBoard(docId: string): Promise<void> {

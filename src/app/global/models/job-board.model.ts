@@ -1,5 +1,4 @@
-import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
-import { Timestamp } from '@firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 
 import { JobBoardDoc } from '~interfaces/job-board-doc.interface';
 

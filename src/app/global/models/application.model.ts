@@ -1,5 +1,4 @@
-import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
-import { Timestamp } from '@firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 
 import { ApplicationDoc } from '~interfaces/application-doc.interface';
 

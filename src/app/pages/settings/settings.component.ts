@@ -1,9 +1,8 @@
 import { Location } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { Auth, authState } from '@angular/fire/auth';
+import { Auth, authState, User } from '@angular/fire/auth';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { User } from '@firebase/auth';
 import { Subscription } from 'rxjs';
 
 import { AuthModes } from '~enums/auth-modes.enum';

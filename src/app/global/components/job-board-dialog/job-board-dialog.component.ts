@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Timestamp } from '@firebase/firestore';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
@@ -12,7 +11,7 @@ import { JobBoard } from '~models/job-board.model';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
-import { timestampToDate } from '~utils/date.util';
+import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-new-job-board-dialog',
@@ -86,7 +85,7 @@ export class JobBoardDialogComponent {
       } else {
         // DialogActions.Edit
         const data = this.providedData.data as JobBoard;
-        const timestamp = Timestamp.fromDate(date);
+        const timestamp = dateToTimestamp(date);
 
         await this.jobBoardsService.updateJobBoard({ date: timestamp, docId: data.docId, title }).then(() => {
           this.isLoading = false;

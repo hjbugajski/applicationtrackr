@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
-import { Timestamp } from '@firebase/firestore';
 import { lastValueFrom, map, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
