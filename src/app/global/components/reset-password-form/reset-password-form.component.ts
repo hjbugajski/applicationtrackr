@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormGroupDirective,
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup
-} from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
 
 import { AuthModes } from '~enums/auth-modes.enum';
 import { AuthParams } from '~interfaces/auth-params.interface';
 import { AuthService } from '~services/auth/auth.service';
 import { CustomValidators, getPasswordError } from '~utils/custom-validators';
+
+interface PasswordForm {
+  newPassword: FormControl<string | null>;
+  confirmPassword: FormControl<string | null>;
+  currentPassword?: FormControl<string | null>;
+}
 
 @Component({
   selector: 'at-reset-password-form',
@@ -24,9 +24,12 @@ export class ResetPasswordFormComponent implements OnInit {
   @Input() public queryParams: AuthParams = { mode: '', oobCode: '' };
 
   public isLoading: boolean;
-  public passwordForm!: UntypedFormGroup;
+  public passwordForm = new FormGroup<PasswordForm>({
+    newPassword: new FormControl('', CustomValidators.passwordValidators),
+    confirmPassword: new FormControl('', CustomValidators.passwordValidators)
+  });
 
-  constructor(private authService: AuthService, private formBuilder: UntypedFormBuilder) {
+  constructor(private authService: AuthService) {
     this.isLoading = false;
   }
 
@@ -34,7 +37,7 @@ export class ResetPasswordFormComponent implements OnInit {
     if (this.passwordForm.valid) {
       this.isLoading = true;
 
-      const newPasswordValue = this.newPassword?.value as string;
+      const newPasswordValue = this.newPassword.value!;
 
       if (this.authMode === AuthModes.Reset) {
         await this.authService.confirmPasswordReset(this.queryParams.oobCode, newPasswordValue).then(() => {
@@ -42,7 +45,7 @@ export class ResetPasswordFormComponent implements OnInit {
           this.resetForm(formDirective);
         });
       } else if (this.authMode === AuthModes.Update) {
-        const currentPasswordValue = this.currentPassword?.value as string;
+        const currentPasswordValue = this.currentPassword!.value!;
 
         await this.authService.updateUserPassword(this.email, currentPasswordValue, newPasswordValue).then(() => {
           this.isLoading = false;
@@ -61,14 +64,10 @@ export class ResetPasswordFormComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.passwordForm = this.formBuilder.group({
-      newPassword: ['', CustomValidators.passwordValidators],
-      confirmPassword: ['', CustomValidators.passwordValidators]
-    });
-    this.confirmPassword?.setValidators(CustomValidators.matchValue(this.newPassword));
+    this.confirmPassword.addValidators(CustomValidators.matchValue(this.newPassword));
 
     if (this.authMode === AuthModes.Update) {
-      this.passwordForm.addControl('currentPassword', new UntypedFormControl('', CustomValidators.passwordValidators));
+      this.passwordForm.addControl('currentPassword', new FormControl('', CustomValidators.passwordValidators));
     }
   }
 
@@ -81,15 +80,15 @@ export class ResetPasswordFormComponent implements OnInit {
     return AuthModes;
   }
 
-  public get confirmPassword(): AbstractControl | null {
-    return this.passwordForm.get('confirmPassword');
+  public get confirmPassword(): AbstractControl<string | null> {
+    return this.passwordForm.controls.confirmPassword;
   }
 
-  public get currentPassword(): AbstractControl | null {
-    return this.passwordForm.get('currentPassword');
+  public get currentPassword(): AbstractControl<string | null> | undefined {
+    return this.passwordForm.controls.currentPassword;
   }
 
-  public get newPassword(): AbstractControl | null {
-    return this.passwordForm.get('newPassword');
+  public get newPassword(): AbstractControl<string | null> {
+    return this.passwordForm.controls.newPassword;
   }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormGroupDirective, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
 
 import { AuthModes } from '~enums/auth-modes.enum';
 import { AuthService } from '~services/auth/auth.service';
@@ -17,15 +17,13 @@ export class SignInWithPasswordFormComponent implements OnChanges {
   @Output() public reauthenticated = new EventEmitter<void>();
   @Input() public showForm = false;
 
-  public emailForm: UntypedFormGroup;
+  public emailForm = new FormGroup({
+    email: new FormControl('', CustomValidators.emailValidators),
+    password: new FormControl('', CustomValidators.passwordValidators)
+  });
   public isLoading = false;
 
-  constructor(private authService: AuthService, private formBuilder: UntypedFormBuilder) {
-    this.emailForm = this.formBuilder.group({
-      email: ['', CustomValidators.emailValidators, null, { disabled: true }],
-      password: ['', CustomValidators.passwordValidators, null, { disabled: true }]
-    });
-
+  constructor(private authService: AuthService) {
     this.emailForm.disable();
   }
 
@@ -49,8 +47,8 @@ export class SignInWithPasswordFormComponent implements OnChanges {
 
   public async signInWithEmail(formDirective: FormGroupDirective): Promise<void> {
     if (this.emailForm.valid) {
-      const email = this.email?.value as string;
-      const password = this.password?.value as string;
+      const email = this.email.value!;
+      const password = this.password.value!;
 
       this.isLoading = true;
 
@@ -79,11 +77,11 @@ export class SignInWithPasswordFormComponent implements OnChanges {
     formDirective.resetForm();
   }
 
-  public get email(): AbstractControl | null {
-    return this.emailForm.get('email');
+  public get email(): AbstractControl<string | null> {
+    return this.emailForm.controls.email;
   }
 
-  public get password(): AbstractControl | null {
-    return this.emailForm.get('password');
+  public get password(): AbstractControl<string | null> {
+    return this.emailForm.controls.password;
   }
 }

@@ -1,14 +1,7 @@
 import { Location } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
-import {
-  AbstractControl,
-  FormGroupDirective,
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators
-} from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { User } from '@firebase/auth';
 import { Subscription } from 'rxjs';
@@ -25,13 +18,19 @@ import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnDestroy {
-  public confirmDeleteControl: UntypedFormControl;
+  public confirmDeleteControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern('delete account and data')
+  ]);
   public isLoading = false;
   public isUpdateEmailLoading = false;
   public provider: Providers | undefined;
   public reauthenticated = false;
   public stepOneCompleted = false;
-  public updateEmailForm: UntypedFormGroup;
+  public updateEmailForm = new FormGroup({
+    newEmail: new FormControl('', CustomValidators.emailValidators),
+    password: new FormControl('', CustomValidators.passwordValidators)
+  });
   public user: User | null = null;
 
   private subscriptions = new Subscription();
@@ -40,24 +39,14 @@ export class SettingsComponent implements OnDestroy {
     private auth: Auth,
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
-    private formBuilder: UntypedFormBuilder,
     private location: Location
   ) {
     this.subscriptions.add(
       authState(this.auth).subscribe((user) => {
         this.user = user;
-        this.provider = user?.providerData[0].providerId as Providers;
+        this.provider = user!.providerData[0].providerId as Providers;
       })
     );
-
-    this.updateEmailForm = this.formBuilder.group({
-      newEmail: ['', CustomValidators.emailValidators],
-      password: ['', CustomValidators.passwordValidators]
-    });
-    this.confirmDeleteControl = new UntypedFormControl('', [
-      Validators.required,
-      Validators.pattern('delete account and data')
-    ]);
   }
 
   public async deleteUser(): Promise<void> {
@@ -79,11 +68,11 @@ export class SettingsComponent implements OnDestroy {
     }
   }
 
-  public getEmailError(control: AbstractControl | null): string {
+  public getEmailError(control: AbstractControl): string {
     return getEmailError(control);
   }
 
-  public getPasswordError(control: AbstractControl | null): string {
+  public getPasswordError(control: AbstractControl): string {
     return getPasswordError(control);
   }
 
@@ -111,13 +100,9 @@ export class SettingsComponent implements OnDestroy {
 
   public async updateUserEmail(formDirective: FormGroupDirective): Promise<void> {
     if (this.updateEmailForm.valid) {
-      const currentEmailValue = this.user!.email as string;
-      const newEmailValue = this.newEmail?.value as string;
-      const passwordValue = this.password?.value as string;
-
       this.isUpdateEmailLoading = true;
 
-      await this.authService.updateUserEmail(currentEmailValue, newEmailValue, passwordValue).then(() => {
+      await this.authService.updateUserEmail(this.user!.email!, this.newEmail.value!, this.password.value!).then(() => {
         this.isUpdateEmailLoading = false;
         this.updateEmailForm.reset();
         formDirective.resetForm();
@@ -133,12 +118,12 @@ export class SettingsComponent implements OnDestroy {
     return Colors;
   }
 
-  public get newEmail(): AbstractControl | null {
-    return this.updateEmailForm.get('newEmail');
+  public get newEmail(): AbstractControl<string | null> {
+    return this.updateEmailForm.controls.newEmail;
   }
 
-  public get password(): AbstractControl | null {
-    return this.updateEmailForm.get('password');
+  public get password(): AbstractControl<string | null> {
+    return this.updateEmailForm.controls.password;
   }
 
   public get providerDisplay(): string {

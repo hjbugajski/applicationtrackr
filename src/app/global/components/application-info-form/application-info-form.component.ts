@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { lastValueFrom, Observable } from 'rxjs';
@@ -35,7 +35,16 @@ export class ApplicationInfoFormComponent implements OnInit {
   @Input() public currentColumn!: Column;
   @ViewChildren(MatInput) public matInputs: QueryList<MatInput> | undefined;
 
-  public applicationForm!: UntypedFormGroup;
+  public applicationForm = new FormGroup({
+    column: new FormControl<Column | null>(null, [Validators.required]),
+    company: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
+    compensation: new FormControl<number | null>(null, [Validators.maxLength(128)]),
+    date: new FormControl<Date | null>(null, [Validators.required]),
+    link: new FormControl<string | null>(null, [CustomValidators.url, Validators.maxLength(2000)]),
+    location: new FormControl<string | null>(null, [Validators.maxLength(128)]),
+    payPeriod: new FormControl<string | null>(null),
+    position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
+  });
   public isLoading = false;
   public payPeriodOptions: string[];
   public state = States.Readonly;
@@ -43,7 +52,6 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   constructor(
     private applicationService: ApplicationService,
-    private formBuilder: UntypedFormBuilder,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService
@@ -59,18 +67,18 @@ export class ApplicationInfoFormComponent implements OnInit {
     return a.docId === b.docId;
   };
 
-  public getError(control: AbstractControl | null): string {
-    if (control?.hasError('maxlength')) {
+  public getError(control: AbstractControl): string {
+    if (control.hasError('maxlength')) {
       return 'Length must be less than 128';
     } else {
       return 'Required';
     }
   }
 
-  public getLinkError(control: AbstractControl | null): string {
-    if (control?.hasError('maxlength')) {
+  public getLinkError(control: AbstractControl): string {
+    if (control.hasError('maxlength')) {
       return 'Length must be less than 2000';
-    } else if (control?.hasError('url')) {
+    } else if (control.hasError('url')) {
       return 'Invalid URL';
     } else {
       return 'Required';
@@ -100,17 +108,17 @@ export class ApplicationInfoFormComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.isLoading = true;
 
-      const newColumn = this.column?.value as Column;
+      const newColumn = this.column.value!;
 
       const application: ApplicationDoc = {
         columnDocId: newColumn.docId,
-        company: this.company?.value as string,
-        compensation: (this.compensation?.value as number) ?? null,
-        date: dateToTimestamp(this.date?.value as Date),
-        link: (this.link?.value as string) ?? null,
-        location: (this.location?.value as string) ?? null,
-        payPeriod: this.payPeriod?.value as string,
-        position: this.position?.value as string
+        company: this.company.value!,
+        compensation: this.compensation.value,
+        date: dateToTimestamp(this.date.value!),
+        link: this.link.value,
+        location: this.location.value,
+        payPeriod: this.payPeriod.value,
+        position: this.position.value!
       };
 
       this.action === DialogActions.New
@@ -150,7 +158,7 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   public toggleViewMore(): void {
     this.viewMore = true;
-    this.company?.markAsUntouched();
+    this.company.markAsUntouched();
     this.matInputs!.first.focus();
   }
 
@@ -185,26 +193,23 @@ export class ApplicationInfoFormComponent implements OnInit {
   }
 
   private initEditForm(): void {
-    this.column?.setValue(this.currentColumn);
-    this.company?.setValue(this.application.company);
-    this.compensation?.setValue(this.application.compensation);
-    this.date?.setValue(timestampToDate(this.application.date));
-    this.link?.setValue(this.application.link);
-    this.location?.setValue(this.application.location);
-    this.payPeriod?.setValue(this.application.payPeriod);
-    this.position?.setValue(this.application.position);
+    this.applicationForm.setValue({
+      column: this.currentColumn,
+      company: this.application.company,
+      compensation: this.application.compensation,
+      date: timestampToDate(this.application.date),
+      link: this.application.link,
+      location: this.application.location,
+      payPeriod: this.application.payPeriod,
+      position: this.application.position
+    });
   }
 
   private initForm(): void {
-    this.applicationForm = this.formBuilder.group({
-      column: [this.currentColumn, [Validators.required]],
-      company: [null, [Validators.required, Validators.maxLength(128)]],
-      compensation: [null, [Validators.maxLength(128)]],
-      date: [new Date(), [Validators.required]],
-      link: [null, [CustomValidators.url, Validators.maxLength(2000)]],
-      location: [null, [Validators.maxLength(128)]],
-      payPeriod: [this.payPeriodOptions[3]],
-      position: [null, [Validators.required, Validators.maxLength(128)]]
+    this.applicationForm.patchValue({
+      column: this.currentColumn,
+      date: new Date(),
+      payPeriod: this.payPeriodOptions[3]
     });
 
     if (this.action === DialogActions.Edit) {
@@ -212,20 +217,20 @@ export class ApplicationInfoFormComponent implements OnInit {
     }
   }
 
-  public get column(): AbstractControl | null {
-    return this.applicationForm.get('column');
+  public get column(): AbstractControl<Column | null> {
+    return this.applicationForm.controls.column;
   }
 
-  public get company(): AbstractControl | null {
-    return this.applicationForm.get('company');
+  public get company(): AbstractControl<string | null> {
+    return this.applicationForm.controls.company;
   }
 
-  public get compensation(): AbstractControl | null {
-    return this.applicationForm.get('compensation');
+  public get compensation(): AbstractControl<number | null> {
+    return this.applicationForm.controls.compensation;
   }
 
-  public get date(): AbstractControl | null {
-    return this.applicationForm.get('date');
+  public get date(): AbstractControl<Date | null> {
+    return this.applicationForm.controls.date;
   }
 
   public get dialogActions(): typeof DialogActions {
@@ -236,20 +241,20 @@ export class ApplicationInfoFormComponent implements OnInit {
     return this.state === States.Editing;
   }
 
-  public get link(): AbstractControl | null {
-    return this.applicationForm.get('link');
+  public get link(): AbstractControl<string | null> {
+    return this.applicationForm.controls.link;
   }
 
-  public get location(): AbstractControl | null {
-    return this.applicationForm.get('location');
+  public get location(): AbstractControl<string | null> {
+    return this.applicationForm.controls.location;
   }
 
-  public get payPeriod(): AbstractControl | null {
-    return this.applicationForm.get('payPeriod');
+  public get payPeriod(): AbstractControl<string | null> {
+    return this.applicationForm.controls.payPeriod;
   }
 
-  public get position(): AbstractControl | null {
-    return this.applicationForm.get('position');
+  public get position(): AbstractControl<string | null> {
+    return this.applicationForm.controls.position;
   }
 
   public get primaryButtonText(): string {

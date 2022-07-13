@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Timestamp } from '@firebase/firestore';
 import { lastValueFrom, Observable } from 'rxjs';
@@ -12,6 +12,7 @@ import { JobBoard } from '~models/job-board.model';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
+import { timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-new-job-board-dialog',
@@ -22,11 +23,13 @@ export class JobBoardDialogComponent {
   public button: string;
   public header: string;
   public isLoading: boolean;
-  public jobBoardForm: UntypedFormGroup;
+  public jobBoardForm = new FormGroup({
+    date: new FormControl<Date | null>(null, [Validators.required]),
+    title: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
+  });
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public providedData: DocumentDialog,
-    private formBuilder: UntypedFormBuilder,
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<JobBoardDialogComponent>,
@@ -36,10 +39,7 @@ export class JobBoardDialogComponent {
     this.button = this.providedData.action === DialogActions.New ? 'Add' : 'Save';
     this.header = this.providedData.action === DialogActions.New ? 'New' : 'Edit';
     this.isLoading = false;
-    this.jobBoardForm = this.formBuilder.group({
-      date: [new Date(), [Validators.required]],
-      title: [null, [Validators.required, Validators.maxLength(128)]]
-    });
+    this.jobBoardForm.controls.date.setValue(new Date());
 
     this.initForm();
   }
@@ -62,8 +62,8 @@ export class JobBoardDialogComponent {
     }
   }
 
-  public getError(control: AbstractControl | null): string {
-    if (control?.hasError('maxlength')) {
+  public getError(control: AbstractControl): string {
+    if (control.hasError('maxlength')) {
       return 'Length must be less than 128';
     } else {
       return 'Required';
@@ -74,8 +74,8 @@ export class JobBoardDialogComponent {
     if (this.jobBoardForm.valid) {
       this.isLoading = true;
 
-      const title = this.title?.value as string;
-      const date = this.date?.value as Date;
+      const title = this.title.value!;
+      const date = this.date.value!;
 
       if (this.providedData.action === DialogActions.New) {
         await this.jobBoardsService.createJobBoard(this.userStore.uid!, title, date).then(() => {
@@ -97,20 +97,20 @@ export class JobBoardDialogComponent {
     }
   }
 
-  public get date(): AbstractControl | null {
-    return this.jobBoardForm.get('date');
+  public get date(): AbstractControl<Date | null> {
+    return this.jobBoardForm.controls.date;
   }
 
-  public get title(): AbstractControl | null {
-    return this.jobBoardForm.get('title');
+  public get title(): AbstractControl<string | null> {
+    return this.jobBoardForm.controls.title;
   }
 
   private initForm(): void {
     const data = this.providedData.data as JobBoard;
 
     if (this.providedData.action === DialogActions.Edit) {
-      this.title?.setValue(data.title);
-      this.date?.setValue(data.date?.toDate());
+      this.title.setValue(data.title);
+      this.date.setValue(timestampToDate(data.date!));
     }
   }
 }
