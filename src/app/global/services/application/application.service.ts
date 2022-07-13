@@ -52,19 +52,7 @@ export class ApplicationService {
   }
 
   public async deleteApplication(columnId: string, applicationId: string): Promise<void> {
-    const docRef = doc(
-      this.firestore,
-      Collections.Users,
-      this.userStore.uid!,
-      Collections.JobBoards,
-      this.userStore.currentJobBoard!.docId!,
-      Collections.Columns,
-      columnId,
-      Collections.Applications,
-      applicationId
-    );
-
-    await deleteDoc(docRef)
+    await deleteDoc(this.getDocRef(columnId, applicationId))
       .then(async () => {
         await this.columnsService.updateTotal(columnId, Updates.Delete);
       })
@@ -93,11 +81,11 @@ export class ApplicationService {
     const applicationDoc: ApplicationDoc = {
       columnDocId: nextColumn.docId,
       company: application.company,
-      compensation: application.compensation ?? null,
+      compensation: application.compensation,
       date: application.date,
-      link: application.link ?? null,
-      location: application.location ?? null,
-      payPeriod: application.payPeriod ?? null,
+      link: application.link,
+      location: application.location,
+      payPeriod: application.payPeriod,
       position: application.position
     };
 
@@ -117,11 +105,11 @@ export class ApplicationService {
   public async updateApplication(columnId: string, applicationId: string, application: ApplicationDoc): Promise<void> {
     await updateDoc(this.getDocRef(columnId, applicationId), {
       company: application.company,
-      compensation: application.compensation ?? null,
+      compensation: application.compensation,
       date: application.date,
-      link: application.link ?? null,
-      location: application.location ?? null,
-      payPeriod: application.payPeriod ?? null,
+      link: application.link,
+      location: application.location,
+      payPeriod: application.payPeriod,
       position: application.position
     }).catch((error) => {
       throw error;
