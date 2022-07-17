@@ -1,5 +1,5 @@
-<ng-container *ngIf="isLoaded | async; else loading">
-  <div cdkScrollable class="page-container no-padding at-alt-background">
+<div cdkScrollable class="page-container no-padding at-alt-background">
+  <ng-container *ngIf="isLoaded | async; else loading">
     <at-board-column
       *ngFor="let column of columnsIds; let i = index"
       [attr.id]="'at-board-column-' + i"
@@ -10,8 +10,19 @@
       [dragDropId]="'column-' + i"
       class="board-column at-alpha-background"
     ></at-board-column>
-  </div>
-</ng-container>
-<ng-template #loading>
-  <p>Loading...</p>
-</ng-template>
+  </ng-container>
+  <ng-template #loading>
+    <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="board-column at-alpha-background">
+      <div class="board-column-header at-text">
+        <div class="board-column-title-container">
+          <span class="board-column-title">Loading...</span>
+        </div>
+        <div class="board-column-actions">
+          <button mat-icon-button [disabled]="true">
+            <mat-icon svgIcon="carbon-add"></mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

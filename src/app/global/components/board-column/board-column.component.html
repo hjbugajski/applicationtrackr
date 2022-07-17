@@ -49,4 +49,15 @@
     </mat-card>
   </cdk-virtual-scroll-viewport>
 </ng-container>
-<ng-template #loading> Loading... </ng-template>
+<ng-template #loading>
+  <div class="board-column-header at-text">
+    <div class="board-column-title-container">
+      <span class="board-column-title">Loading...</span>
+    </div>
+    <div class="board-column-actions">
+      <button mat-icon-button [disabled]="true">
+        <mat-icon svgIcon="carbon-add"></mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>
