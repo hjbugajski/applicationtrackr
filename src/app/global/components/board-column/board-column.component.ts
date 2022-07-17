@@ -26,10 +26,14 @@ import { NotificationService } from '~services/notification/notification.service
 import { UserStore } from '~store/user.store';
 import { applicationConverter, columnConverter } from '~utils/firestore-converters';
 
+/* eslint @angular-eslint/no-host-metadata-property: "off" */
 @Component({
   selector: 'at-board-column',
   templateUrl: './board-column.component.html',
-  styleUrls: ['./board-column.component.scss']
+  styleUrls: ['./board-column.component.scss'],
+  host: {
+    class: 'board-column at-alpha-background'
+  }
 })
 export class BoardColumnComponent implements OnInit, OnDestroy {
   @Input() public column!: string;
