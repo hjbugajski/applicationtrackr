@@ -55,7 +55,7 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
 
         if (currentBoard) {
           await this.columnsService.initColumns().then(() => {
-            this.columns = this.columnsService.columns!;
+            this.columns = this.columnsService.columns$!;
             this.columnsIds = this.columnsService.columnsIds!;
             this.isLoaded.next(true);
           });
