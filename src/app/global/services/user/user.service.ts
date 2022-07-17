@@ -25,13 +25,13 @@ export class UserService {
   public async createUserDoc(user: User): Promise<void> {
     const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
 
-    await setDoc(doc(this.firestore, 'users', user.uid), {
+    await setDoc(doc(this.firestore, Collections.Users, user.uid), {
       currentJobBoard: { date: newBoard.date, docId: newBoard.docId, title: newBoard.title }
     });
   }
 
   public async getUserDocSnap(uid: string): Promise<DocumentSnapshot<DocumentData>> {
-    return await getDoc(doc(this.firestore, 'users', uid));
+    return await getDoc(doc(this.firestore, Collections.Users, uid).withConverter(userDataConverter));
   }
 
   public resetUserData(): void {
