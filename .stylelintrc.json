@@ -9,6 +9,7 @@
     "no-empty-source": null,
     "color-function-notation": null,
     "property-no-vendor-prefix": null,
-    "no-descending-specificity": null
+    "no-descending-specificity": null,
+    "function-no-unknown": null
   }
 }
