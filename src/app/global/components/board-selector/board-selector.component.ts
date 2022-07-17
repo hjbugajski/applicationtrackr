@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map, Observable, Subscription } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
@@ -14,13 +14,11 @@ import { UserStore } from '~store/user.store';
   templateUrl: './board-selector.component.html',
   styleUrls: ['./board-selector.component.scss']
 })
-export class BoardSelectorComponent implements OnInit, OnDestroy {
+export class BoardSelectorComponent {
   @Input() public mode = 'select';
 
-  public currentJobBoard: JobBoard | undefined;
+  public currentJobBoard: Observable<JobBoard | null>;
   public jobBoards: Observable<JobBoard[]>;
-
-  private subscriptions: Subscription;
 
   constructor(
     private jobBoardsService: JobBoardsService,
@@ -28,10 +26,10 @@ export class BoardSelectorComponent implements OnInit, OnDestroy {
     private userStore: UserStore,
     private userService: UserService
   ) {
+    this.currentJobBoard = this.userStore.currentJobBoard$;
     this.jobBoards = this.jobBoardsService.jobBoards.pipe(
       map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title! > b.title! ? -1 : 1)))
     );
-    this.subscriptions = new Subscription();
   }
 
   public newBoard(): void {
@@ -40,18 +38,6 @@ export class BoardSelectorComponent implements OnInit, OnDestroy {
       disableClose: true,
       panelClass: 'at-dialog'
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.userStore.currentJobBoard$.subscribe((value) => {
-        this.currentJobBoard = value ?? undefined;
-      })
-    );
   }
 
   public async onSelectionChange(board: JobBoard): Promise<void> {

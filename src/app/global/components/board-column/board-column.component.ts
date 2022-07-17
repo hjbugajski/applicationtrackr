@@ -69,6 +69,12 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
     }
   }
 
+  public keydown(event: KeyboardEvent, application: Application): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.openApplication(application);
+    }
+  }
+
   public newApplication(): void {
     this.matDialog.open(NewApplicationDialogComponent, {
       data: {

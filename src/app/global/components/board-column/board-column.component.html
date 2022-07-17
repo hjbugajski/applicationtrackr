@@ -29,8 +29,9 @@
       class="application-card"
       [ngClass]="columnDoc.color!!"
       (click)="openApplication(application)"
-      (keyup.enter)="openApplication(application)"
+      role="button"
       tabindex="0"
+      (keydown)="keydown($event, application)"
     >
       <mat-card-title class="application-card-title at-text" [ngClass]="columnDoc.color!!">
         {{ application.company }}
