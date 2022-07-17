@@ -9,13 +9,7 @@
     </mat-card-title>
     <mat-card-content>
       <div class="button-grid">
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="editJobBoard(jobBoard)"
-          class="mat-button-with-left-icon full-width"
-        >
-          <mat-icon svgIcon="carbon-edit"></mat-icon>
+        <button mat-stroked-button color="primary" (click)="editJobBoard(jobBoard)" class="mat-button-with-left-icon">
           Edit
         </button>
         <button
@@ -23,9 +17,8 @@
           color="warn"
           [disabled]="isCurrentBoard(jobBoard)"
           (click)="deleteJobBoard(jobBoard.docId!)"
-          class="mat-button-with-left-icon full-width"
+          class="mat-button-with-left-icon"
         >
-          <mat-icon svgIcon="carbon-trash-can"></mat-icon>
           Delete
         </button>
       </div>
