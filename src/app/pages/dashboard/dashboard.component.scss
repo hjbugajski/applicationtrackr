@@ -1,8 +1,58 @@
-@use 'colors' as colors;
+@use 'variables';
 
 :host {
   .mat-sidenav {
     border: 0;
     width: 250px !important;
+  }
+
+  .at-toolbar .mat-button-base:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  ::ng-deep {
+    .mat-drawer-inner-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidenav-mat-selection-list {
+      padding: 0 8px 16px;
+
+      .mat-list-item,
+      .mat-ripple {
+        border-radius: variables.$border-radius;
+      }
+
+      .mat-list-item {
+        height: 48px !important;
+
+        &:not(:last-of-type) {
+          margin-bottom: 4px;
+        }
+
+        .mat-list-item-content {
+          padding: 0 8px;
+        }
+      }
+    }
+  }
+
+  .sidenav-item-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .padded-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 8px 0;
+  }
+
+  .sidenav-item-container-end {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
   }
 }
