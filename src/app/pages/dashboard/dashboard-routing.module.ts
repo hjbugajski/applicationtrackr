@@ -11,10 +11,10 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', pathMatch: 'prefix', redirectTo: Paths.Applications },
-      {
-        path: Paths.Analytics,
-        loadChildren: () => import('./analytics/analytics.module').then((m) => m.AnalyticsModule)
-      },
+      // {
+      //   path: Paths.Analytics,
+      //   loadChildren: () => import('./analytics/analytics.module').then((m) => m.AnalyticsModule)
+      // },
       {
         path: Paths.Applications,
         loadChildren: () => import('./applications/applications.module').then((m) => m.ApplicationsModule)
