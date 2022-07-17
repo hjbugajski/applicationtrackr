@@ -1,10 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { TITLE_SUFFIX } from '~constants/title.constant';
 import { AuthModes } from '~enums/auth-modes.enum';
 import { Paths } from '~enums/paths.enum';
 import { Themes } from '~enums/themes.enum';
@@ -36,7 +34,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   private appThemeSubscription: Subscription | undefined;
 
-  constructor(private activatedRoute: ActivatedRoute, private themeService: ThemeService, private titleService: Title) {
+  constructor(private activatedRoute: ActivatedRoute, private themeService: ThemeService) {
     this.appTheme = this.themeService.appTheme;
     this.currentPath = Paths.SignIn;
     this.emailPasswordAuthMode = AuthModes.SignIn;
@@ -45,7 +43,6 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.title = 'Sign in';
 
     this.initSignInOrSignUp();
-    this.titleService.setTitle(this.title + TITLE_SUFFIX);
   }
 
   ngOnDestroy(): void {

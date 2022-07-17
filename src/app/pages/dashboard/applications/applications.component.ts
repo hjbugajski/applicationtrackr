@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-import { TITLE_SUFFIX } from '~constants/title.constant';
 import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
 import { UserStore } from '~store/user.store';
@@ -20,12 +18,11 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
 
   private subscriptions: Subscription;
 
-  constructor(private columnsService: ColumnsService, private titleService: Title, private userStore: UserStore) {
+  constructor(private columnsService: ColumnsService, private userStore: UserStore) {
     this.columns = new Observable<Column[]>();
     this.columnsIds = [];
     this.isLoaded = new BehaviorSubject<boolean>(false);
     this.subscriptions = new Subscription();
-    this.titleService.setTitle('Applications' + TITLE_SUFFIX);
   }
 
   public getDragDropConnectedArray(index: number): string[] {

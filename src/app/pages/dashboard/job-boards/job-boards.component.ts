@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
 import { lastValueFrom, map, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-dialog.component';
-import { TITLE_SUFFIX } from '~constants/title.constant';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { JobBoard } from '~models/job-board.model';
@@ -21,13 +19,7 @@ import { UserStore } from '~store/user.store';
 export class JobBoardsComponent {
   public jobBoards: Observable<JobBoard[]>;
 
-  constructor(
-    private jobBoardsService: JobBoardsService,
-    private matDialog: MatDialog,
-    private title: Title,
-    private userStore: UserStore
-  ) {
-    this.title.setTitle('Job Boards' + TITLE_SUFFIX);
+  constructor(private jobBoardsService: JobBoardsService, private matDialog: MatDialog, private userStore: UserStore) {
     this.jobBoards = this.jobBoardsService.jobBoards.pipe(
       map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title! > b.title! ? -1 : 1)))
     );
