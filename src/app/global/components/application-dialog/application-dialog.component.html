@@ -39,4 +39,9 @@
       ></at-application-info-form>
     </ng-template>
   </mat-tab>
+  <mat-tab label="Offer">
+    <ng-template matTabContent>
+      <at-application-offer-form [application]="application" [currentColumn]="column"></at-application-offer-form>
+    </ng-template>
+  </mat-tab>
 </mat-tab-group>

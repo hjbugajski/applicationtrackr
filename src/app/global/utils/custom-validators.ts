@@ -2,6 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@ang
 
 export class CustomValidators {
   public static emailValidators = [Validators.required, Validators.maxLength(320), CustomValidators.email];
+  public static numberValidators = [Validators.min(Number.MIN_SAFE_INTEGER), Validators.max(Number.MAX_SAFE_INTEGER)];
   public static passwordValidators = [
     Validators.required,
     Validators.minLength(8),

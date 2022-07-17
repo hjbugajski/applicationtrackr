@@ -6,7 +6,9 @@ import { lastValueFrom, Observable } from 'rxjs';
 
 import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
+import { PAY_PERIOD_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
+import { FormStates } from '~enums/form-states.enum';
 import { ApplicationDoc } from '~interfaces/application-doc.interface';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
@@ -16,11 +18,6 @@ import { NotificationService } from '~services/notification/notification.service
 import { CustomValidators } from '~utils/custom-validators';
 import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 import { expandCollapse, ngIfAnimation } from '~utils/transitions.util';
-
-enum States {
-  Editing,
-  Readonly
-}
 
 @Component({
   selector: 'at-application-info-form',
@@ -38,7 +35,7 @@ export class ApplicationInfoFormComponent implements OnInit {
   public applicationForm = new FormGroup({
     column: new FormControl<Column | null>(null, [Validators.required]),
     company: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
-    compensation: new FormControl<number | null>(null, [Validators.maxLength(128)]),
+    compensation: new FormControl<number | null>(null, CustomValidators.numberValidators),
     date: new FormControl<Date | null>(null, [Validators.required]),
     link: new FormControl<string | null>(null, [CustomValidators.url, Validators.maxLength(2000)]),
     location: new FormControl<string | null>(null, [Validators.maxLength(128)]),
@@ -46,8 +43,8 @@ export class ApplicationInfoFormComponent implements OnInit {
     position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
   });
   public isLoading = false;
-  public payPeriodOptions: string[];
-  public state = States.Readonly;
+  public payPeriodOptions = PAY_PERIOD_OPTIONS;
+  public state = FormStates.Readonly;
   public viewMore = false;
 
   constructor(
@@ -55,13 +52,7 @@ export class ApplicationInfoFormComponent implements OnInit {
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService
-  ) {
-    this.payPeriodOptions = ['hour', 'week', 'month', 'year', 'total'];
-  }
-
-  public close(): void {
-    this.matDialogRef.close();
-  }
+  ) {}
 
   public columnCompare = (a: Column, b: Column) => {
     return a.docId === b.docId;
@@ -70,6 +61,8 @@ export class ApplicationInfoFormComponent implements OnInit {
   public getError(control: AbstractControl): string {
     if (control.hasError('maxlength')) {
       return 'Length must be less than 128';
+    } else if (control.hasError('max')) {
+      return 'Number is too big';
     } else {
       return 'Required';
     }
@@ -87,11 +80,11 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.action === DialogActions.New) {
-      this.state = States.Editing;
+      this.state = FormStates.Editing;
       this.viewMore = false;
     } else {
       // DialogActions.Edit
-      this.state = States.Readonly;
+      this.state = FormStates.Readonly;
       this.viewMore = true;
     }
 
@@ -100,7 +93,7 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   public async primaryButtonClick(): Promise<void> {
     if (this.action === DialogActions.Edit && !this.editing) {
-      this.state = States.Editing;
+      this.state = FormStates.Editing;
 
       return;
     }
@@ -117,6 +110,7 @@ export class ApplicationInfoFormComponent implements OnInit {
         date: dateToTimestamp(this.date.value!),
         link: this.link.value,
         location: this.location.value,
+        offer: null,
         payPeriod: this.payPeriod.value,
         position: this.position.value!
       };
@@ -133,7 +127,7 @@ export class ApplicationInfoFormComponent implements OnInit {
         this.matDialogRef.close();
       } else {
         // DialogActions.Edit
-        this.state = States.Readonly;
+        this.state = FormStates.Readonly;
       }
     } else {
       const data: ConfirmationDialog = {
@@ -150,7 +144,7 @@ export class ApplicationInfoFormComponent implements OnInit {
         } else {
           // DialogActions.Edit
           this.initEditForm();
-          this.state = States.Readonly;
+          this.state = FormStates.Readonly;
         }
       }
     }
@@ -182,7 +176,7 @@ export class ApplicationInfoFormComponent implements OnInit {
       .updateApplication(this.currentColumn.docId, this.application.docId, application)
       .then(() => {
         this.isLoading = false;
-        this.state = States.Readonly;
+        this.state = FormStates.Readonly;
         this.notificationService.showSuccess('Application updated!');
       })
       .catch((error) => {
@@ -238,7 +232,7 @@ export class ApplicationInfoFormComponent implements OnInit {
   }
 
   public get editing(): boolean {
-    return this.state === States.Editing;
+    return this.state === FormStates.Editing;
   }
 
   public get link(): AbstractControl<string | null> {
@@ -267,6 +261,6 @@ export class ApplicationInfoFormComponent implements OnInit {
   }
 
   public get readonly(): boolean {
-    return this.state === States.Readonly;
+    return this.state === FormStates.Readonly;
   }
 }

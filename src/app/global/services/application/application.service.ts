@@ -12,8 +12,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
-import { Updates } from '~enums/updates.enum';
-import { ApplicationDoc } from '~interfaces/application-doc.interface';
+import { ApplicationDoc, ApplicationOffer } from '~interfaces/application-doc.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
@@ -44,7 +43,7 @@ export class ApplicationService {
       application
     )
       .then(async () => {
-        await this.columnsService.updateTotal(columnId, Updates.Add);
+        await this.columnsService.updateTotal(columnId, 1);
       })
       .catch((error) => {
         throw error;
@@ -54,7 +53,7 @@ export class ApplicationService {
   public async deleteApplication(columnId: string, applicationId: string): Promise<void> {
     await deleteDoc(this.getDocRef(columnId, applicationId))
       .then(async () => {
-        await this.columnsService.updateTotal(columnId, Updates.Delete);
+        await this.columnsService.updateTotal(columnId, -1);
       })
       .catch((error) => {
         throw error;
@@ -85,6 +84,7 @@ export class ApplicationService {
       date: application.date,
       link: application.link,
       location: application.location,
+      offer: application.offer,
       payPeriod: application.payPeriod,
       position: application.position
     };
@@ -112,6 +112,12 @@ export class ApplicationService {
       payPeriod: application.payPeriod,
       position: application.position
     }).catch((error) => {
+      throw error;
+    });
+  }
+
+  public async updateApplicationOffer(columnId: string, applicationId: string, offer: ApplicationOffer): Promise<void> {
+    await updateDoc(this.getDocRef(columnId, applicationId), { offer }).catch((error) => {
       throw error;
     });
   }
