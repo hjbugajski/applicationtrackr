@@ -241,7 +241,7 @@ $dark: 'dark';
 
       &.at-black-white {
         @if $theme == $dark {
-          border-color: colors.$white;
+          border-color: colors.$primer-gray-20;
         } @else {
           // (default) light
           border-color: colors.$black;

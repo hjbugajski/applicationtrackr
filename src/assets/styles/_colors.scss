@@ -142,7 +142,7 @@ $elevation: $cool-gray-50;
 
     .at-black-white {
       &.at-text {
-        color: $white !important;
+        color: $primer-gray-20 !important;
       }
     }
 
@@ -258,7 +258,7 @@ $elevation: $cool-gray-50;
 @function get-theme-colors($theme: 'light') {
   @if $theme == 'dark' {
     @return (
-      'text': $white,
+      'text': $primer-gray-30,
       'invert-text': $black,
       'primary': $blue-40,
       'accent': $purple-40,
@@ -271,7 +271,7 @@ $elevation: $cool-gray-50;
     // (default) light theme
     @return (
       'text': $black,
-      'invert-text': $white,
+      'invert-text': $primer-gray-20,
       'primary': $blue-60,
       'accent': $purple-60,
       'error': $red-60,

@@ -118,7 +118,7 @@ $light-theme-foreground-palette: (
 );
 
 $dark-theme-foreground-palette: (
-  base: colors.$primer-gray-10,
+  base: colors.$primer-gray-20,
   divider: colors.$primer-gray-80,
   dividers: colors.$primer-gray-80,
   disabled: colors.$primer-gray-70,
@@ -126,9 +126,9 @@ $dark-theme-foreground-palette: (
   disabled-text: colors.$primer-gray-70,
   hint-text: colors.$primer-gray-30,
   secondary-text: colors.$primer-gray-30,
-  icon: colors.$primer-gray-10,
-  icons: colors.$primer-gray-10,
-  text: colors.$primer-gray-10,
+  icon: colors.$primer-gray-20,
+  icons: colors.$primer-gray-20,
+  text: colors.$primer-gray-20,
   slider-min: colors.$primer-gray-40,
   slider-off: colors.$primer-gray-40,
   slider-off-active: colors.$primer-gray-40

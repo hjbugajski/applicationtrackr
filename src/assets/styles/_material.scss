@@ -17,16 +17,6 @@ $dark: 'dark';
   &:focus,
   &.mat-tab-label-active {
     color: $color;
-    border-color: $color;
-  }
-
-  &:focus {
-    @if $theme == $dark {
-      background-color: rgba($background-dark, $alpha: 0.05) !important;
-    } @else {
-      // (default) light
-      background-color: rgba($background-light, $alpha: 0.05) !important;
-    }
   }
 }
 
@@ -253,20 +243,27 @@ $dark: 'dark';
   .mat-tab-group {
     .mat-tab-nav-bar,
     .mat-tab-header {
-      border-bottom: 0;
+      border-bottom: 2px solid map.get($theme-colors, 'border');
     }
 
     .mat-tab-label {
-      @include border($theme-colors);
+      // @include border($theme-colors);
       @include tab-label-color($theme, map.get($theme-colors, 'primary'), colors.$dark-primary, colors.$light-primary);
 
       padding: 8px 16px;
+      margin-bottom: 10px;
       height: unset;
       min-width: unset;
       opacity: 1;
+      border-radius: variables.$border-radius;
 
       &:not(:last-of-type) {
         margin-right: 16px;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: map.get($theme-colors, 'hover') !important;
       }
     }
 
@@ -279,17 +276,29 @@ $dark: 'dark';
           colors.$light-primary
         );
       }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'primary');
+      }
     }
 
     &.at-accent {
       * > * .mat-tab-label {
         @include tab-label-color($theme, map.get($theme-colors, 'accent'), colors.$dark-accent, colors.$light-accent);
       }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'accent');
+      }
     }
 
     &.at-error {
       * > * .mat-tab-label {
         @include tab-label-color($theme, map.get($theme-colors, 'error'), colors.$dark-error, colors.$light-error);
+      }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'error');
       }
     }
 
@@ -302,11 +311,19 @@ $dark: 'dark';
           colors.$light-success
         );
       }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'success');
+      }
     }
 
     &.at-black-white {
       * > * .mat-tab-label {
-        @include tab-label-color($theme, map.get($theme-colors, 'text'), colors.$white, colors.$black);
+        @include tab-label-color($theme, map.get($theme-colors, 'text'), colors.$primer-gray-20, colors.$black);
+      }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'text');
       }
     }
   }
@@ -316,7 +333,9 @@ $dark: 'dark';
   }
 
   .mat-ink-bar {
-    display: none;
+    height: 4px;
+    border-top-left-radius: variables.$border-radius;
+    border-top-right-radius: variables.$border-radius;
   }
 
   .mat-divider {
@@ -389,7 +408,7 @@ $dark: 'dark';
 
       .dialog-sub-title {
         @if $theme == $dark {
-          color: colors.$white;
+          color: colors.$primer-gray-20;
         } @else {
           // (default) light theme
           color: colors.$black;
