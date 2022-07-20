@@ -8,5 +8,6 @@ export const environment = {
     storageBucket: 'applicationtrackr.appspot.com',
     messagingSenderId: '977416508007',
     appId: '1:977416508007:web:f7c748b52583fdd6213ac2'
-  }
+  },
+  useEmulators: false
 };

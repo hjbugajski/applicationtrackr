@@ -4,7 +4,6 @@ import {
   collection,
   collectionData,
   CollectionReference,
-  deleteDoc,
   doc,
   DocumentData,
   DocumentReference,
@@ -17,7 +16,9 @@ import { Observable } from 'rxjs';
 
 import { COLUMNS } from '~constants/documents.constant';
 import { Collections } from '~enums/collections.enum';
+import { ReferenceTypes } from '~enums/reference-types.enum';
 import { JobBoard } from '~models/job-board.model';
+import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
 import { dateToTimestamp } from '~utils/date.util';
@@ -30,6 +31,7 @@ export class JobBoardsService {
   public jobBoards: Observable<JobBoard[]>;
 
   constructor(
+    private firebaseFunctionsService: FirebaseFunctionsService,
     private firestore: Firestore,
     private notificationService: NotificationService,
     private userStore: UserStore
@@ -66,7 +68,8 @@ export class JobBoardsService {
   }
 
   public async deleteJobBoard(docId: string): Promise<void> {
-    await deleteDoc(doc(this.firestore, Collections.Users, this.userStore.uid!, Collections.JobBoards, docId))
+    await this.firebaseFunctionsService
+      .recursiveDelete(`${Collections.JobBoards}/${docId}`, ReferenceTypes.Doc)
       .then(() => {
         this.notificationService.showSuccess('Job board deleted.');
       })
