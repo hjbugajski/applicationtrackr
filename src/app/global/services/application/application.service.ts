@@ -35,7 +35,7 @@ export class ApplicationService {
         Collections.Users,
         this.userStore.uid!,
         Collections.JobBoards,
-        this.userStore.currentJobBoard!.docId!,
+        this.userStore.currentJobBoard!,
         Collections.Columns,
         columnId,
         Collections.Applications
@@ -66,7 +66,7 @@ export class ApplicationService {
       Collections.Users,
       this.userStore.uid!,
       Collections.JobBoards,
-      this.userStore.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!,
       Collections.Columns,
       columnId,
       Collections.Applications,

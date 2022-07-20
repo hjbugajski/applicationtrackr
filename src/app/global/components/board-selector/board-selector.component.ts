@@ -17,8 +17,8 @@ import { UserStore } from '~store/user.store';
 export class BoardSelectorComponent {
   @Input() public mode = 'select';
 
-  public currentJobBoard: Observable<JobBoard | null>;
-  public jobBoards: Observable<JobBoard[]>;
+  public currentJobBoard$: Observable<string | null>;
+  public jobBoards$: Observable<JobBoard[]>;
 
   constructor(
     private jobBoardsService: JobBoardsService,
@@ -26,8 +26,8 @@ export class BoardSelectorComponent {
     private userStore: UserStore,
     private userService: UserService
   ) {
-    this.currentJobBoard = this.userStore.currentJobBoard$;
-    this.jobBoards = this.jobBoardsService.jobBoards.pipe(
+    this.currentJobBoard$ = this.userStore.currentJobBoard$;
+    this.jobBoards$ = this.jobBoardsService.jobBoards.pipe(
       map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title! > b.title! ? -1 : 1)))
     );
   }

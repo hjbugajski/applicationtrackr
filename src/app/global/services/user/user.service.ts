@@ -26,7 +26,7 @@ export class UserService {
     const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
 
     await setDoc(doc(this.firestore, Collections.Users, user.uid), {
-      currentJobBoard: { date: newBoard.date, docId: newBoard.docId, title: newBoard.title }
+      currentJobBoard: newBoard.docId
     });
   }
 
@@ -48,7 +48,7 @@ export class UserService {
 
   public async updateCurrentJobBoard(newBoard: JobBoard): Promise<void> {
     await updateDoc(doc(this.firestore, Collections.Users, this.userStore.uid!), {
-      currentJobBoard: { date: newBoard.date, docId: newBoard.docId, title: newBoard.title }
+      currentJobBoard: newBoard.docId
     });
   }
 }

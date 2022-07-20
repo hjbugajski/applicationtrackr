@@ -63,6 +63,6 @@ export class JobBoardsComponent {
   }
 
   public isCurrentBoard(board: JobBoard): boolean {
-    return board.docId === this.userStore.currentJobBoard?.docId;
+    return board.docId === this.userStore.currentJobBoard;
   }
 }

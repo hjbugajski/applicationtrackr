@@ -1,10 +1,10 @@
-<ng-container *ngIf="currentJobBoard; else loading">
+<ng-container *ngIf="currentJobBoard$; else loading">
   <ng-container *ngIf="mode === 'select'; else menuMode">
     <mat-form-field class="full-width">
       <mat-label>Current job board</mat-label>
-      <mat-select [value]="(currentJobBoard | async)?.docId ?? ''">
+      <mat-select [value]="(currentJobBoard$ | async) ?? ''">
         <mat-option
-          *ngFor="let jobBoard of jobBoards | async"
+          *ngFor="let jobBoard of jobBoards$ | async"
           [value]="jobBoard.docId"
           (click)="onSelectionChange(jobBoard)"
         >
@@ -16,7 +16,9 @@
   </ng-container>
   <ng-template #menuMode>
     <button mat-button [matMenuTriggerFor]="jobBoardMenu" class="mat-button-with-right-icon job-board-menu">
-      <span class="text">{{ (currentJobBoard | async)?.title }}</span>
+      <ng-container *ngFor="let jobBoard of jobBoards$ | async">
+        <span *ngIf="jobBoard.docId === (currentJobBoard$ | async)" class="text">{{ jobBoard.title }}</span>
+      </ng-container>
       <mat-icon svgIcon="carbon-caret-down"></mat-icon>
     </button>
     <mat-menu #jobBoardMenu="matMenu">
@@ -24,9 +26,9 @@
       <mat-divider></mat-divider>
       <button
         mat-menu-item
-        *ngFor="let jobBoard of jobBoards | async"
+        *ngFor="let jobBoard of jobBoards$ | async"
         (click)="onSelectionChange(jobBoard)"
-        [ngClass]="{ 'mat-list-single-selected-option': (currentJobBoard | async)?.docId === jobBoard.docId }"
+        [ngClass]="{ 'mat-list-single-selected-option': (currentJobBoard$ | async) === jobBoard.docId }"
       >
         {{ jobBoard.title }}
       </button>

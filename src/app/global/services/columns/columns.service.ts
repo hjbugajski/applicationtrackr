@@ -54,7 +54,7 @@ export class ColumnsService {
       Collections.Users,
       this.userStore.uid!,
       Collections.JobBoards,
-      this.userStore.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!,
       Collections.Columns,
       column
     ).withConverter(columnConverter);
@@ -68,7 +68,7 @@ export class ColumnsService {
       Collections.Users,
       this.userStore.uid!,
       Collections.JobBoards,
-      this.userStore.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!,
       Collections.Columns
     ).withConverter(columnConverter);
   }

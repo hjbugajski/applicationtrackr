@@ -100,7 +100,7 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
       Collections.Users,
       this.userStore.uid!,
       Collections.JobBoards,
-      this.userStore.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!,
       Collections.Columns,
       this.column
     ).withConverter(columnConverter);
@@ -134,7 +134,7 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
       Collections.Users,
       this.userStore.uid!,
       Collections.JobBoards,
-      this.userStore.currentJobBoard!.docId!,
+      this.userStore.currentJobBoard!,
       Collections.Columns,
       this.column,
       Collections.Applications

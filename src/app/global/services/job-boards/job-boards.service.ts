@@ -91,16 +91,10 @@ export class JobBoardsService {
     await updateDoc(doc(this.firestore, Collections.Users, this.userStore.uid!, Collections.JobBoards, data.docId!), {
       date: data.date,
       title: data.title
-    })
-      .then(() => {
-        if (data.docId === this.userStore.currentJobBoard?.docId) {
-          this.userStore.currentJobBoard = data;
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was a problem updating the job board. Please try again.');
-      });
+    }).catch((error) => {
+      console.error(error);
+      this.notificationService.showError('There was a problem updating the job board. Please try again.');
+    });
   }
 
   private get jobBoardCollection(): CollectionReference<JobBoard> {
