@@ -21,7 +21,7 @@ export class JobBoardsComponent {
   public jobBoards: Observable<JobBoard[]>;
 
   constructor(private jobBoardsService: JobBoardsService, private matDialog: MatDialog, private userStore: UserStore) {
-    this.jobBoards = this.jobBoardsService.jobBoards.pipe(
+    this.jobBoards = this.jobBoardsService.jobBoards$.pipe(
       map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title > b.title ? -1 : 1)))
     );
   }

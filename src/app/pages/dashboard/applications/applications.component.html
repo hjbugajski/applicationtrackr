@@ -1,13 +1,14 @@
 <div cdkScrollable class="page-container no-padding at-alt-background">
   <ng-container *ngIf="isLoaded | async; else loading">
     <at-board-column
-      *ngFor="let column of columnsIds; let i = index"
+      *ngFor="let column of columns$ | async; let i = index"
       [attr.id]="'at-board-column-' + i"
       [id]="'at-board-column-' + i"
-      [column]="column"
-      [columns]="columns!"
-      [dragDropConnectedArray]="getDragDropConnectedArray(i)"
+      [column]="column.docId"
+      [columns]="columns$"
+      [dragDropConnectedArray]="getDragDropConnectedArray((columns$ | async)!, i)"
       [dragDropId]="'column-' + i"
+      [ngClass]="column.color ?? ''"
     ></at-board-column>
   </ng-container>
   <ng-template #loading>

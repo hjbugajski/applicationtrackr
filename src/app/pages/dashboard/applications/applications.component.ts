@@ -12,23 +12,21 @@ import { UserStore } from '~store/user.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationsComponent implements OnDestroy, OnInit {
-  public columns: Observable<Column[]>;
-  public columnsIds: string[];
+  public columns$: Observable<Column[]>;
   public isLoaded: BehaviorSubject<boolean>;
 
   private subscriptions: Subscription;
 
   constructor(private columnsService: ColumnsService, private userStore: UserStore) {
-    this.columns = new Observable<Column[]>();
-    this.columnsIds = [];
+    this.columns$ = new Observable<Column[]>();
     this.isLoaded = new BehaviorSubject<boolean>(false);
     this.subscriptions = new Subscription();
   }
 
-  public getDragDropConnectedArray(index: number): string[] {
+  public getDragDropConnectedArray(columns: Column[], index: number): string[] {
     const array: string[] = [];
 
-    this.columnsIds.forEach((column, i) => {
+    columns?.forEach((column, i) => {
       if (i !== index) {
         array.push('column-' + i.toString());
       }
@@ -38,7 +36,6 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.columnsService.resetColumns();
     this.subscriptions?.unsubscribe();
   }
 
@@ -51,11 +48,9 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
         this.columnsService.resetColumns();
 
         if (currentBoard) {
-          await this.columnsService.initColumns().then(() => {
-            this.columns = this.columnsService.columns$!;
-            this.columnsIds = this.columnsService.columnsIds!;
-            this.isLoaded.next(true);
-          });
+          this.columnsService.initColumns();
+          this.columns$ = this.columnsService.columns$;
+          this.isLoaded.next(true);
         }
       })
     );

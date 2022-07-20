@@ -1,6 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -50,7 +49,6 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
   private unsubscribe!: Unsubscribe;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private applicationService: ApplicationService,
     private firestore: Firestore,
     private matDialog: MatDialog,
@@ -108,10 +106,6 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
     this.unsubscribe = onSnapshot(this.columnRef, (snapshot) => {
       this.columnDoc = snapshot.data()!;
       this.isLoaded.next(true);
-
-      if (this.columnDoc.color) {
-        this.document.getElementById(this.id)?.classList.add(this.columnDoc.color);
-      }
     });
     this.applications = collectionData(query(this.applicationsCollection, orderBy('company', 'asc')));
   }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Unsubscribe } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
@@ -14,9 +14,9 @@ import { UserStore } from '~store/user.store';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
   private subscriptions: Subscription;
-  private unsubscribeUserDocData!: Unsubscribe;
+  private unsubscribeUserDocData: Unsubscribe | undefined;
 
   constructor(
     private auth: Auth,
@@ -26,20 +26,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private userStore: UserStore
   ) {
-    this.subscriptions = new Subscription();
     this.matIconService.initializeMatIcons();
+    this.subscriptions = new Subscription();
     this.themeService.initTheme();
-  }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-
-    if (this.unsubscribeUserDocData) {
-      this.unsubscribeUserDocData();
-    }
-  }
-
-  ngOnInit(): void {
     this.subscriptions.add(
       authState(this.auth).subscribe((user) => {
         if (user) {
@@ -47,8 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
           this.unsubscribeUserDocData = this.userService.subscribeToUserDocData(user.uid);
           this.jobBoardsService.initJobBoards();
         } else {
-          this.userService.resetUserData();
           this.jobBoardsService.resetJobBoards();
+          this.userService.resetUserData();
 
           if (this.unsubscribeUserDocData) {
             this.unsubscribeUserDocData();
@@ -56,5 +46,15 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    this.jobBoardsService.resetJobBoards();
+    this.userService.resetUserData();
+
+    if (this.unsubscribeUserDocData) {
+      this.unsubscribeUserDocData();
+    }
   }
 }

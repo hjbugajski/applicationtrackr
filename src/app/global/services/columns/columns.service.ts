@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
   collection,
-  collectionData,
+  collectionChanges,
   CollectionReference,
   doc,
   Firestore,
-  getDocs,
   increment,
   orderBy,
+  Query,
   query,
   updateDoc
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
 import { Column } from '~models/column.model';
@@ -22,30 +22,20 @@ import { columnConverter } from '~utils/firestore-converters';
   providedIn: 'root'
 })
 export class ColumnsService {
-  public columns: Column[];
   public columns$: Observable<Column[]>;
-  public columnsIds: string[];
 
   constructor(private firestore: Firestore, private userStore: UserStore) {
-    this.columns = [];
     this.columns$ = new Observable<Column[]>();
-    this.columnsIds = [];
   }
 
-  public async initColumns(): Promise<void> {
-    this.columns$ = collectionData(query(this.columnsCollection, orderBy('sortOrder', 'asc')));
-    const snapshot = await getDocs(query(this.columnsCollection, orderBy('sortOrder', 'asc')));
-
-    snapshot.forEach((doc) => {
-      this.columns.push(doc.data());
-      this.columnsIds.push(doc.id);
-    });
+  public initColumns(): void {
+    this.columns$ = collectionChanges(this.columnQuery, { events: ['added', 'removed'] }).pipe(
+      map((value) => value.map((item) => item.doc.data()))
+    );
   }
 
   public resetColumns(): void {
-    this.columns = [];
     this.columns$ = new Observable<Column[]>();
-    this.columnsIds = [];
   }
 
   public async updateTotal(column: string, incrementValue: number): Promise<void> {
@@ -60,6 +50,10 @@ export class ColumnsService {
     ).withConverter(columnConverter);
 
     await updateDoc(docRef, { total: increment(incrementValue) });
+  }
+
+  public get columnQuery(): Query<Column> {
+    return query(this.columnsCollection, orderBy('sortOrder', 'asc'));
   }
 
   private get columnsCollection(): CollectionReference<Column> {

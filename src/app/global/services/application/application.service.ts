@@ -9,7 +9,6 @@ import {
   Firestore,
   updateDoc
 } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
 import { ApplicationDoc, ApplicationOffer } from '~interfaces/application-doc.interface';
@@ -23,16 +22,12 @@ import { UserStore } from '~store/user.store';
   providedIn: 'root'
 })
 export class ApplicationService {
-  public isApplicationsLoading: BehaviorSubject<boolean>;
-
   constructor(
     private columnsService: ColumnsService,
     private firestore: Firestore,
     private jobBoardsService: JobBoardsService,
     private userStore: UserStore
-  ) {
-    this.isApplicationsLoading = new BehaviorSubject<boolean>(false);
-  }
+  ) {}
 
   public async createApplication(columnId: string, application: ApplicationDoc): Promise<void> {
     await addDoc(
@@ -83,8 +78,6 @@ export class ApplicationService {
   }
 
   public async moveApplication(prevColumnId: string, nextColumn: Column, application: Application): Promise<void> {
-    this.isApplicationsLoading.next(true);
-
     const applicationDoc: ApplicationDoc = {
       columnDocId: nextColumn.docId,
       company: application.company,
@@ -106,8 +99,6 @@ export class ApplicationService {
       .catch((error) => {
         throw error;
       });
-
-    this.isApplicationsLoading.next(false);
   }
 
   public async updateApplication(columnId: string, applicationId: string, application: ApplicationDoc): Promise<void> {

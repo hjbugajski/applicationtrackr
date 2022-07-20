@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { getDocs } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 
 import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
@@ -25,7 +26,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
   templateUrl: './application-offer-form.component.html',
   styleUrls: ['./application-offer-form.component.scss']
 })
-export class ApplicationOfferFormComponent implements OnInit {
+export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
   @Input() public application!: Application;
   @Input() public currentColumn!: Column;
 
@@ -43,13 +44,17 @@ export class ApplicationOfferFormComponent implements OnInit {
   public payPeriodOptions = PAY_PERIOD_OPTIONS;
   public state = FormStates.Readonly;
 
+  private subscriptions: Subscription;
+
   constructor(
     private applicationService: ApplicationService,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService
-  ) {}
+  ) {
+    this.subscriptions = new Subscription();
+  }
 
   public getError(control: AbstractControl): string {
     if (control.hasError('maxlength')) {
@@ -62,26 +67,38 @@ export class ApplicationOfferFormComponent implements OnInit {
   }
 
   public async moveApplication(): Promise<void> {
-    const newColumn = this.columnsService.columns.find((column) => column.title.toLowerCase().includes('offer'));
-    const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
-      autoFocus: false,
-      disableClose: true,
-      panelClass: 'overlay-spinner-dialog'
-    });
+    await getDocs(this.columnsService.columnQuery)
+      .then(async (snapshot) => {
+        const newColumn = snapshot.docs.find((column) => column.data().title.toLowerCase().includes('offer'))?.data();
 
-    await this.applicationService
-      .moveApplication(this.currentColumn.docId, newColumn!, this.application)
-      .then(() => {
-        this.notificationService.showSuccess('Application successfully moved!');
-        overlayDialog.close();
+        const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
+          autoFocus: false,
+          disableClose: true,
+          panelClass: 'overlay-spinner-dialog'
+        });
+
+        await this.applicationService
+          .moveApplication(this.currentColumn.docId, newColumn!, this.application)
+          .then(() => {
+            this.notificationService.showSuccess('Application successfully moved!');
+            overlayDialog.close();
+          })
+          .catch((error) => {
+            console.error(error);
+            overlayDialog.close();
+            this.notificationService.showError('There was an error moving the application. Please try again.');
+          });
+
+        this.matDialogRef.close();
       })
       .catch((error) => {
         console.error(error);
-        overlayDialog.close();
         this.notificationService.showError('There was an error moving the application. Please try again.');
       });
+  }
 
-    this.matDialogRef.close();
+  ngOnDestroy(): void {
+    this.subscriptions?.unsubscribe();
   }
 
   ngOnInit(): void {

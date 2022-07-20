@@ -27,7 +27,7 @@ export class BoardSelectorComponent {
     private userService: UserService
   ) {
     this.currentJobBoard$ = this.userStore.currentJobBoard$;
-    this.jobBoards$ = this.jobBoardsService.jobBoards.pipe(
+    this.jobBoards$ = this.jobBoardsService.jobBoards$.pipe(
       map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title > b.title ? -1 : 1)))
     );
   }

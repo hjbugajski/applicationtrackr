@@ -29,7 +29,7 @@ import { jobBoardConverter } from '~utils/firestore-converters';
   providedIn: 'root'
 })
 export class JobBoardsService {
-  public jobBoards: Observable<JobBoard[]>;
+  public jobBoards$: Observable<JobBoard[]>;
 
   constructor(
     private firebaseFunctionsService: FirebaseFunctionsService,
@@ -37,7 +37,7 @@ export class JobBoardsService {
     private notificationService: NotificationService,
     private userStore: UserStore
   ) {
-    this.jobBoards = new Observable<JobBoard[]>();
+    this.jobBoards$ = new Observable<JobBoard[]>();
   }
 
   public async createColumns(uid: string, boardId: string): Promise<void> {
@@ -82,11 +82,11 @@ export class JobBoardsService {
   }
 
   public initJobBoards(): void {
-    this.jobBoards = collectionData(query(this.jobBoardCollection, orderBy('date', 'desc')));
+    this.jobBoards$ = collectionData(query(this.jobBoardCollection, orderBy('date', 'desc')));
   }
 
   public resetJobBoards(): void {
-    this.jobBoards = new Observable<JobBoard[]>();
+    this.jobBoards$ = new Observable<JobBoard[]>();
   }
 
   public async updateJobBoard(data: Partial<JobBoard>): Promise<void> {
