@@ -8,6 +8,7 @@ import {
   DocumentData,
   DocumentReference,
   Firestore,
+  increment,
   orderBy,
   query,
   updateDoc
@@ -58,13 +59,14 @@ export class JobBoardsService {
       collection(this.firestore, Collections.Users, uid, Collections.JobBoards),
       {
         date,
-        title
+        title,
+        total: 0
       }
     );
 
     await this.createColumns(uid, docRef.id);
 
-    return { date: dateToTimestamp(date!), docId: docRef.id, title: title! };
+    return { date: dateToTimestamp(date!), docId: docRef.id, title: title!, total: 0 };
   }
 
   public async deleteJobBoard(docId: string): Promise<void> {
@@ -87,13 +89,21 @@ export class JobBoardsService {
     this.jobBoards = new Observable<JobBoard[]>();
   }
 
-  public async updateJobBoard(data: JobBoard): Promise<void> {
+  public async updateJobBoard(data: Partial<JobBoard>): Promise<void> {
     await updateDoc(doc(this.firestore, Collections.Users, this.userStore.uid!, Collections.JobBoards, data.docId!), {
       date: data.date,
       title: data.title
     }).catch((error) => {
       console.error(error);
       this.notificationService.showError('There was a problem updating the job board. Please try again.');
+    });
+  }
+
+  public async updateJobBoardTotal(docId: string, incrementValue: number): Promise<void> {
+    await updateDoc(doc(this.firestore, Collections.Users, this.userStore.uid!, Collections.JobBoards, docId), {
+      total: increment(incrementValue)
+    }).catch((error) => {
+      console.error(error);
     });
   }
 

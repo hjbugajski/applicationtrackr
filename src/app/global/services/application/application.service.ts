@@ -16,6 +16,7 @@ import { ApplicationDoc, ApplicationOffer } from '~interfaces/application-doc.in
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
+import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { UserStore } from '~store/user.store';
 
 @Injectable({
@@ -24,7 +25,12 @@ import { UserStore } from '~store/user.store';
 export class ApplicationService {
   public isApplicationsLoading: BehaviorSubject<boolean>;
 
-  constructor(private columnsService: ColumnsService, private firestore: Firestore, private userStore: UserStore) {
+  constructor(
+    private columnsService: ColumnsService,
+    private firestore: Firestore,
+    private jobBoardsService: JobBoardsService,
+    private userStore: UserStore
+  ) {
     this.isApplicationsLoading = new BehaviorSubject<boolean>(false);
   }
 
@@ -44,6 +50,7 @@ export class ApplicationService {
     )
       .then(async () => {
         await this.columnsService.updateTotal(columnId, 1);
+        await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, 1);
       })
       .catch((error) => {
         throw error;
@@ -54,6 +61,7 @@ export class ApplicationService {
     await deleteDoc(this.getDocRef(columnId, applicationId))
       .then(async () => {
         await this.columnsService.updateTotal(columnId, -1);
+        await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, -1);
       })
       .catch((error) => {
         throw error;

@@ -5,7 +5,8 @@
         {{ jobBoard.title }}
         <div *ngIf="isCurrentBoard(jobBoard)" class="tag tag-success">Current</div>
       </div>
-      <mat-card-subtitle>{{ convertToDate(jobBoard.date!) }}</mat-card-subtitle>
+      <mat-card-subtitle>Start date: {{ convertToDate(jobBoard.date) }}</mat-card-subtitle>
+      <mat-card-subtitle>Applications: {{ jobBoard.total }}</mat-card-subtitle>
     </mat-card-title>
     <mat-card-content>
       <div class="button-grid">

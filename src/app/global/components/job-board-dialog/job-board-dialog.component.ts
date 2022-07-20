@@ -109,7 +109,7 @@ export class JobBoardDialogComponent {
 
     if (this.providedData.action === DialogActions.Edit) {
       this.title.setValue(data.title);
-      this.date.setValue(timestampToDate(data.date!));
+      this.date.setValue(timestampToDate(data.date));
     }
   }
 }
