@@ -33,7 +33,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.unsubscribeUserDocData();
+
+    if (this.unsubscribeUserDocData) {
+      this.unsubscribeUserDocData();
+    }
   }
 
   ngOnInit(): void {
@@ -44,9 +47,12 @@ export class AppComponent implements OnInit, OnDestroy {
           this.unsubscribeUserDocData = this.userService.subscribeToUserDocData(user.uid);
           this.jobBoardsService.initJobBoards();
         } else {
-          this.unsubscribeUserDocData();
           this.userService.resetUserData();
           this.jobBoardsService.resetJobBoards();
+
+          if (this.unsubscribeUserDocData) {
+            this.unsubscribeUserDocData();
+          }
         }
       })
     );

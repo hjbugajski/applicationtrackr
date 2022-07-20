@@ -3,7 +3,7 @@
     <mat-card-title>
       <div class="title-with-tag">
         {{ jobBoard.title }}
-        <div *ngIf="isCurrentBoard(jobBoard)" class="tag tag-green">Current</div>
+        <div *ngIf="isCurrentBoard(jobBoard)" class="tag tag-success">Current</div>
       </div>
       <mat-card-subtitle>{{ convertToDate(jobBoard.date!) }}</mat-card-subtitle>
     </mat-card-title>

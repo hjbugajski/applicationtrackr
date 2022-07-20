@@ -1,4 +1,4 @@
-<div *ngIf="currentColumn.title !== 'Offer'" class="margin-bottom">
+<div *ngIf="!currentColumn.title.toLowerCase().includes('offer')" class="margin-bottom">
   <at-alert class="at-primary at-text" [color]="colors.Primary">
     <div class="alert-container">
       Received an offer? You can move it to the offer column.

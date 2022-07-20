@@ -5,6 +5,7 @@ import { lastValueFrom, map, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-dialog.component';
+import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { JobBoard } from '~models/job-board.model';
@@ -41,7 +42,15 @@ export class JobBoardsComponent {
       .afterClosed() as Observable<DialogActions>;
 
     if ((await lastValueFrom<DialogActions>(dialogAfterClosed)) === DialogActions.Delete) {
-      await this.jobBoardsService.deleteJobBoard(docId);
+      const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
+        autoFocus: false,
+        disableClose: true,
+        panelClass: 'overlay-spinner-dialog'
+      });
+
+      await this.jobBoardsService.deleteJobBoard(docId).then(() => {
+        overlayDialog.close();
+      });
     }
   }
 

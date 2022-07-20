@@ -4,7 +4,7 @@
     <span class="dialog-header">Delete {{ data.item }}?</span>
   </div>
   <p *ngIf="data.message">{{ data.message }}</p>
-  <div mat-dialog-actions [align]="'end'">
+  <div class="button-row-container-end">
     <button mat-button matDialogClose="true">Cancel</button>
     <button mat-flat-button color="warn" (click)="close(dialogActions.Delete)">Delete</button>
   </div>

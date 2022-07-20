@@ -43,7 +43,10 @@ export class SettingsComponent implements OnDestroy {
     this.subscriptions.add(
       authState(this.auth).subscribe((user) => {
         this.user = user;
-        this.provider = user!.providerData[0].providerId as Providers;
+
+        if (user) {
+          this.provider = user.providerData[0].providerId as Providers;
+        }
       })
     );
   }

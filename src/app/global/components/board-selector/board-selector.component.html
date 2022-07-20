@@ -1,7 +1,7 @@
 <ng-container *ngIf="currentJobBoard; else loading">
   <ng-container *ngIf="mode === 'select'; else menuMode">
     <mat-form-field class="full-width">
-      <mat-label>Current Job board</mat-label>
+      <mat-label>Current job board</mat-label>
       <mat-select [value]="(currentJobBoard | async)?.docId ?? ''">
         <mat-option
           *ngFor="let jobBoard of jobBoards | async"

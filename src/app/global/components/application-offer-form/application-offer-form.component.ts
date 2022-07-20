@@ -62,7 +62,7 @@ export class ApplicationOfferFormComponent implements OnInit {
   }
 
   public async moveApplication(): Promise<void> {
-    const newColumn = this.columnsService.columns.find((column) => column.title === 'Offer');
+    const newColumn = this.columnsService.columns.find((column) => column.title.toLowerCase().includes('offer'));
     const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
       autoFocus: false,
       disableClose: true,

@@ -1,11 +1,11 @@
 <ng-container [ngSwitch]="queryParams.mode">
   <ng-container *ngSwitchCase="params.ResetPassword">
-    <mat-card-title>Reset password</mat-card-title>
+    <mat-card-title class="auth-card-title">Reset password</mat-card-title>
     <at-reset-password-form [queryParams]="queryParams"></at-reset-password-form>
   </ng-container>
 
   <ng-container *ngSwitchCase="params.VerifyEmail">
-    <mat-card-title>Verify email</mat-card-title>
+    <mat-card-title class="auth-card-title">Verify email</mat-card-title>
     <mat-card-content>Click the button below to verify your email address.</mat-card-content>
     <button
       mat-flat-button
@@ -22,7 +22,7 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="params.RecoverEmail">
-    <mat-card-title>Recover email</mat-card-title>
+    <mat-card-title class="auth-card-title">Recover email</mat-card-title>
     <mat-card-content>Click the button below to recover your email address.</mat-card-content>
     <button
       mat-flat-button
@@ -39,7 +39,7 @@
   </ng-container>
 
   <ng-container *ngSwitchDefault>
-    <mat-card-title>Unauthorized</mat-card-title>
+    <mat-card-title class="auth-card-title">Unauthorized</mat-card-title>
   </ng-container>
 </ng-container>
 <a mat-button class="full-width back-button" [routerLink]="linkButton.route">{{ linkButton.text }}</a>

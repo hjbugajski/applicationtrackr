@@ -13,7 +13,7 @@
     <mat-error>{{ getError(date) }}</mat-error>
   </mat-form-field>
 </form>
-<div mat-dialog-actions [align]="'end'">
+<div class="button-row-container-end">
   <button mat-button (click)="close()">Cancel</button>
   <button mat-flat-button color="primary" [disabled]="jobBoardForm.invalid || isLoading" (click)="submit()">
     <div *ngIf="isLoading; else text" class="loading-spinner-in-button">

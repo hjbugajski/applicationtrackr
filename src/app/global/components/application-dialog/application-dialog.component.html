@@ -1,7 +1,7 @@
 <div mat-dialog-title class="dialog-toolbar">
   <div class="dialog-title-container">
-    <div class="dialog-title at-text" [ngClass]="column.color!">{{ application.company }}</div>
-    <div class="dialog-sub-title">{{ application.position }}</div>
+    <h1 class="dialog-title at-text" [ngClass]="column.color!">{{ application.company }}</h1>
+    <h2 class="dialog-sub-title">{{ application.position }}</h2>
   </div>
   <span class="spacer"></span>
   <div class="button-row">
@@ -28,7 +28,7 @@
     </mat-menu>
   </div>
 </div>
-<mat-tab-group mat-dialog-content [ngClass]="column.color!">
+<mat-tab-group mat-dialog-content [ngClass]="column.color!" class="mat-dialog-content-with-tabs">
   <mat-tab label="Info">
     <ng-template matTabContent>
       <at-application-info-form
