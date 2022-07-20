@@ -1,11 +1,9 @@
 @use 'sass:map';
 @use 'colors';
+@use 'mixins';
 @use 'variables';
 
-$light: 'light';
-$dark: 'dark';
-
-@mixin get-components-styles($theme: $light) {
+@mixin get-components-styles($theme: variables.$light) {
   $theme-colors: colors.get-theme-colors($theme);
 
   .loading-spinner-in-button {
@@ -28,25 +26,9 @@ $dark: 'dark';
     }
 
     .dialog-header {
-      font-size: 20px;
+      @include mixins.font-size(20px);
+
       font-weight: variables.$font-weight-bold;
-    }
-  }
-
-  .dialog-toolbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 16px;
-
-    .dialog-title {
-      color: map.get($theme-colors, 'primary');
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .mat-icon:hover {
-      cursor: pointer;
     }
   }
 
@@ -67,7 +49,7 @@ $dark: 'dark';
     min-width: 275px;
     border-right: 2px solid map.get($theme-colors, 'border');
 
-    @if $theme == $dark {
+    @if $theme == variables.$dark {
       background-color: colors.$primer-gray-100;
     } @else {
       // (default) light
@@ -92,20 +74,21 @@ $dark: 'dark';
         align-items: center;
 
         .board-column-title {
-          font-size: 16px;
+          @include mixins.font-size(16px);
+
           font-weight: variables.$font-weight-bold;
         }
 
         .board-column-application-count {
+          @include mixins.font-size(12px);
+
           display: inline-flex;
           margin-left: 8px;
-          padding: 4px 6px;
+          padding: 2px 6px;
           border-radius: 6px;
-          font-size: 12px;
-          line-height: 12px;
           font-weight: variables.$font-weight-semi-bold;
 
-          @if $theme == $dark {
+          @if $theme == variables.$dark {
             background-color: colors.$primer-gray-80;
             color: colors.$primer-gray-20;
           } @else {
@@ -158,35 +141,48 @@ $dark: 'dark';
   }
 
   .tag {
+    @include mixins.font-size(12px);
+
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding: 4px 6px;
-    border-radius: 6px;
-    font-size: 12px;
-    line-height: 12px;
+    padding: 2px 6px;
+    border-radius: 100px;
     white-space: nowrap;
-    background-color: colors.$cool-gray-20;
-    color: colors.$cool-gray-80;
 
-    &.tag-green {
-      background-color: colors.$green-20;
-      color: colors.$green-80;
+    @if $theme == variables.$dark {
+      background-color: rgba(colors.$cool-gray-40, $alpha: 0.05);
+      border: 2px solid colors.$cool-gray-40;
+      color: colors.$cool-gray-40;
+    } @else {
+      // light
+      background-color: rgba(colors.$cool-gray-60, $alpha: 0.05);
+      border: 2px solid colors.$cool-gray-60;
+      color: colors.$cool-gray-60;
     }
 
-    &.tag-purple {
-      background-color: colors.$purple-20;
-      color: colors.$purple-80;
+    &.tag-success {
+      background-color: rgba(map.get($theme-colors, 'success'), $alpha: 0.05);
+      border: 2px solid map.get($theme-colors, 'success');
+      color: map.get($theme-colors, 'success');
     }
 
-    &.tag-blue {
-      background-color: colors.$blue-20;
-      color: colors.$blue-80;
+    &.tag-accent {
+      background-color: rgba(map.get($theme-colors, 'accent'), $alpha: 0.05);
+      border: 2px solid map.get($theme-colors, 'accent');
+      color: map.get($theme-colors, 'accent');
     }
 
-    &.tag-red {
-      background-color: colors.$red-20;
-      color: colors.$red-80;
+    &.tag-primary {
+      background-color: rgba(map.get($theme-colors, 'primary'), $alpha: 0.05);
+      border: 2px solid map.get($theme-colors, 'primary');
+      color: map.get($theme-colors, 'primary');
+    }
+
+    &.tag-error {
+      background-color: rgba(map.get($theme-colors, 'error'), $alpha: 0.05);
+      border: 2px solid map.get($theme-colors, 'error');
+      color: map.get($theme-colors, 'error');
     }
   }
 
@@ -204,48 +200,23 @@ $dark: 'dark';
       outline: none;
 
       &.at-primary {
-        @if $theme == $dark {
-          border-color: colors.$dark-primary;
-        } @else {
-          // (default) light
-          border-color: colors.$light-primary;
-        }
+        border: 2px solid map.get($theme-colors, 'primary');
       }
 
       &.at-accent {
-        @if $theme == $dark {
-          border-color: colors.$dark-accent;
-        } @else {
-          // (default) light
-          border-color: colors.$light-accent;
-        }
+        border: 2px solid map.get($theme-colors, 'accent');
       }
 
       &.at-success {
-        @if $theme == $dark {
-          border-color: colors.$dark-success;
-        } @else {
-          // (default) light
-          border-color: colors.$light-success;
-        }
+        border: 2px solid map.get($theme-colors, 'success');
       }
 
       &.at-error {
-        @if $theme == $dark {
-          border-color: colors.$dark-error;
-        } @else {
-          // (default) light
-          border-color: colors.$light-error;
-        }
+        border: 2px solid map.get($theme-colors, 'error');
       }
 
       &.at-black-white {
-        @if $theme == $dark {
-          border-color: colors.$primer-gray-20;
-        } @else {
-          // (default) light
-          border-color: colors.$black;
-        }
+        border: 2px solid map.get($theme-colors, 'text');
       }
     }
 
@@ -254,10 +225,17 @@ $dark: 'dark';
       flex-direction: row;
       align-items: flex-start;
 
+      @if $theme == variables.$dark {
+        color: colors.$primer-gray-30;
+      } @else {
+        // (default) light theme
+        color: colors.$cool-gray-100;
+      }
+
       .small-icon {
         display: inline-flex;
-        width: 16px;
-        height: 16px;
+        width: 16px !important;
+        height: 16px !important;
         font-size: 16px;
         margin-top: 2px;
         margin-right: 8px;

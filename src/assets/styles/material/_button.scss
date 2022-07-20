@@ -1,0 +1,56 @@
+@use 'variables';
+
+@mixin styles($theme-colors, $theme) {
+  .mat-icon-button:not(a) .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mat-icon-button.button-link,
+  .mat-icon-button.button-link .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mat-button-base {
+    border-radius: variables.$border-radius !important;
+    font-weight: variables.$font-weight-semi-bold;
+
+    &.mat-button-with-left-icon .mat-button-wrapper,
+    &.mat-button-with-right-icon .mat-button-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .mat-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        width: 22px;
+
+        &.google-icon {
+          height: 16.5px;
+          width: 16.5px;
+          padding: 2.75px;
+        }
+      }
+    }
+
+    &.mat-button-with-left-icon .mat-button-wrapper .mat-icon {
+      margin-right: 8px;
+    }
+
+    &.mat-button-with-right-icon .mat-button-wrapper .mat-icon {
+      margin-left: 8px;
+    }
+  }
+
+  .mat-stroked-button {
+    border-color: inherit !important;
+    border-width: 2px !important;
+  }
+}

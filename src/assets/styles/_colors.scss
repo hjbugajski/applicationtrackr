@@ -258,7 +258,7 @@ $elevation: $cool-gray-50;
 @function get-theme-colors($theme: 'light') {
   @if $theme == 'dark' {
     @return (
-      'text': $primer-gray-30,
+      'text': $primer-gray-20,
       'invert-text': $black,
       'primary': $blue-40,
       'accent': $purple-40,
@@ -271,7 +271,7 @@ $elevation: $cool-gray-50;
     // (default) light theme
     @return (
       'text': $black,
-      'invert-text': $primer-gray-20,
+      'invert-text': $white,
       'primary': $blue-60,
       'accent': $purple-60,
       'error': $red-60,

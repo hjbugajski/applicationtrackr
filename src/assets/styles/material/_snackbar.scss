@@ -1,0 +1,20 @@
+@use 'colors';
+@use 'mixins';
+@use 'variables';
+
+@mixin styles($theme-colors, $theme) {
+  .mat-snackbar {
+    @include mixins.border($theme-colors, none !important);
+
+    padding: 0;
+
+    @if $theme == variables.$dark {
+      background-color: colors.$primer-gray-110;
+      color: colors.$primer-gray-10;
+    } @else {
+      // (default) light theme
+      background-color: colors.$white;
+      color: colors.$cool-gray-90;
+    }
+  }
+}

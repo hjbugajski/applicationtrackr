@@ -1,0 +1,60 @@
+@use 'sass:map';
+@use 'colors';
+@use 'variables';
+
+@mixin styles($theme-colors, $theme) {
+  .mat-form-field {
+    margin-bottom: 16px;
+
+    &.two-line-hint {
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 350px) {
+      &.two-line-hint {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+      @if $theme == variables.$dark {
+        background-color: colors.$primer-gray-90;
+      } @else {
+        // (default) light theme
+        background-color: colors.$cool-gray-10;
+      }
+
+      border-radius: variables.$border-radius !important;
+    }
+
+    .mat-form-field-underline {
+      display: none !important;
+    }
+
+    .mat-form-field-label {
+      top: 1.075em !important;
+    }
+  }
+
+  .mat-form-field-combined {
+    display: block;
+
+    @media (min-width: 425px) {
+      display: grid;
+      grid-template-columns: 1fr 115px;
+
+      .mat-form-field:first-of-type .mat-form-field-flex {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+
+      .mat-form-field:last-of-type .mat-form-field-flex {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-left: 1px solid map.get($theme-colors, 'border');
+      }
+    }
+  }
+}

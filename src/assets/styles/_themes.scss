@@ -38,7 +38,7 @@ $dark-theme: create-theme($dark-theme-primary, $dark-theme-accent, $dark-theme-w
 
 $typography: mat.define-typography-config(
   $font-family: variables.$font-family,
-  $input: mat.define-typography-level(14px, 1.15, 400)
+  $input: mat.define-typography-level(14px, 1.25, 400)
 );
 
 @include mat.core($typography);
@@ -52,7 +52,7 @@ $typography: mat.define-typography-config(
 
 .at-dark-theme {
   @include mat.all-component-themes($dark-theme);
-  @include components.get-components-styles('dark');
-  @include material.get-components-styles('dark');
-  @include colors.color-classes('dark');
+  @include components.get-components-styles(variables.$dark);
+  @include material.get-components-styles(variables.$dark);
+  @include colors.color-classes(variables.$dark);
 }

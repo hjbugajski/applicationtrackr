@@ -1,0 +1,32 @@
+@use 'sass:map';
+@use 'mixins';
+@use 'variables';
+
+@mixin styles($theme-colors, $theme) {
+  .mat-menu-panel,
+  .mat-select-panel {
+    @include mixins.border($theme-colors, none !important);
+  }
+
+  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: map.get($theme-colors, 'hover');
+  }
+
+  .mat-menu-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    .mat-divider {
+      margin: 0 !important;
+    }
+  }
+
+  .mat-list-single-selected-option {
+    background-color: map.get($theme-colors, 'hover') !important;
+    color: map.get($theme-colors, 'primary') !important;
+  }
+
+  .mat-list-base {
+    padding-bottom: 8px;
+  }
+}

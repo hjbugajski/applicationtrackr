@@ -1,0 +1,5 @@
+@use 'variables';
+
+.mat-tooltip {
+  border-radius: variables.$border-radius;
+}

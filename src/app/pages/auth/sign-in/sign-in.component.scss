@@ -1,6 +1,11 @@
 @use 'colors';
+@use 'mixins';
 
 :host {
+  .auth-card-title {
+    @include mixins.font-size(20px);
+  }
+
   .mat-button-base:not(:last-child) {
     margin-bottom: 16px;
   }

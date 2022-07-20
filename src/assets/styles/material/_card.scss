@@ -1,0 +1,48 @@
+@use 'sass:map';
+@use 'colors';
+@use 'mixins';
+@use 'variables';
+
+@mixin styles($theme-colors, $theme) {
+  .mat-card {
+    @include mixins.border($theme-colors, none !important);
+
+    .mat-card-title {
+      @include mixins.font-size(18px);
+
+      color: map.get($theme-colors, 'primary');
+      font-weight: variables.$font-weight-bold;
+      margin-bottom: 16px;
+
+      .title-with-tag {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .tag {
+          margin-left: 8px;
+        }
+      }
+
+      .mat-card-subtitle {
+        font-weight: variables.$font-weight-semi-bold;
+        margin: 0;
+
+        &:first-of-type {
+          margin-top: 8px;
+        }
+
+        @if $theme == variables.$dark {
+          color: colors.$primer-gray-30;
+        } @else {
+          // (default) light theme
+          color: colors.$cool-gray-100;
+        }
+      }
+    }
+  }
+
+  .mat-card.with-table {
+    padding: 0 16px 8px;
+  }
+}

@@ -1,0 +1,93 @@
+@use 'sass:map';
+@use 'mixins';
+@use 'variables';
+
+@mixin styles($theme-colors, $theme) {
+  .mat-tab-group {
+    .mat-tab-nav-bar,
+    .mat-tab-header {
+      border-bottom: 2px solid map.get($theme-colors, 'border');
+    }
+
+    .mat-tab-label {
+      // @include border($theme-colors);
+      @include mixins.tab-label-color(map.get($theme-colors, 'primary'));
+
+      padding: 8px 16px;
+      margin-bottom: 10px;
+      height: unset;
+      min-width: unset;
+      opacity: 1;
+      border-radius: variables.$border-radius;
+
+      &:not(:last-of-type) {
+        margin-right: 16px;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: map.get($theme-colors, 'hover') !important;
+      }
+    }
+
+    &.at-primary {
+      * > * .mat-tab-label {
+        @include mixins.tab-label-color(map.get($theme-colors, 'primary'));
+      }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'primary');
+      }
+    }
+
+    &.at-accent {
+      * > * .mat-tab-label {
+        @include mixins.tab-label-color(map.get($theme-colors, 'accent'));
+      }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'accent');
+      }
+    }
+
+    &.at-error {
+      * > * .mat-tab-label {
+        @include mixins.tab-label-color(map.get($theme-colors, 'error'));
+      }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'error');
+      }
+    }
+
+    &.at-success {
+      * > * .mat-tab-label {
+        @include mixins.tab-label-color(map.get($theme-colors, 'success'));
+      }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'success');
+      }
+    }
+
+    &.at-black-white {
+      * > * .mat-tab-label {
+        @include mixins.tab-label-color(map.get($theme-colors, 'text'));
+      }
+
+      * > * .mat-ink-bar {
+        background-color: map.get($theme-colors, 'text');
+      }
+    }
+  }
+
+  .mat-tab-header-pagination {
+    box-shadow: none !important;
+  }
+
+  .mat-ink-bar {
+    height: 4px;
+    border-top-left-radius: variables.$border-radius;
+    border-top-right-radius: variables.$border-radius;
+  }
+}
