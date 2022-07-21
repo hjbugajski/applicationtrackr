@@ -21,7 +21,7 @@
     border-right: 2px solid map.get($at-palette, 'border') !important;
 
     @if $theme == variables.$dark {
-      background-color: colors.$primer-gray-110 !important;
+      background-color: colors.$dark-gray-10 !important;
     }
   }
 
@@ -31,10 +31,10 @@
 
   .mat-drawer-backdrop.mat-drawer-shown {
     @if $theme == variables.$dark {
-      background-color: rgba(colors.$black, 0.6);
+      background-color: rgba(colors.$dark-gray-10, 0.6);
     } @else {
       // (default) light theme
-      background-color: rgba(colors.$white, 0.6);
+      background-color: rgba(colors.$light-gray-0, 0.6);
     }
   }
 }

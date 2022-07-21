@@ -21,7 +21,7 @@
     margin-bottom: 24px;
 
     @if $theme == variables.$dark {
-      background-color: colors.$primer-gray-110;
+      background-color: colors.$dark-gray-10;
     } @else {
       // (default) light theme
       background-color: colors.$white;
@@ -59,7 +59,7 @@
           @include mixins.font-size(16px);
 
           @if $theme == variables.$dark {
-            color: colors.$primer-gray-30;
+            color: colors.$dark-gray-2;
           } @else {
             // (default) light theme
             color: colors.$light-gray-9;

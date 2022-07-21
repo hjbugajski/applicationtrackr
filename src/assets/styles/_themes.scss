@@ -31,9 +31,9 @@ $light-theme-accent: mat.define-palette(palettes.$purple-palette);
 $light-theme-warn: mat.define-palette(palettes.$red-palette);
 $light-theme: create-theme($light-theme-primary, $light-theme-accent, $light-theme-warn);
 
-$dark-theme-primary: mat.define-palette(palettes.$blue-palette, 300);
-$dark-theme-accent: mat.define-palette(palettes.$purple-palette, 300);
-$dark-theme-warn: mat.define-palette(palettes.$red-palette, 400);
+$dark-theme-primary: mat.define-palette(palettes.$dark-blue-palette, 300);
+$dark-theme-accent: mat.define-palette(palettes.$dark-purple-palette, 300);
+$dark-theme-warn: mat.define-palette(palettes.$dark-red-palette, 400);
 $dark-theme: create-theme($dark-theme-primary, $dark-theme-accent, $dark-theme-warn, true);
 
 $typography: mat.define-typography-config(

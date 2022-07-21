@@ -52,7 +52,7 @@
     border-right: 2px solid map.get($at-palette, 'border');
 
     @if $theme == variables.$dark {
-      background-color: colors.$primer-gray-100;
+      background-color: colors.$dark-gray-9;
     } @else {
       // (default) light
       background-color: colors.$light-gray-0;
@@ -153,7 +153,7 @@
       align-items: flex-start;
 
       @if $theme == variables.$dark {
-        color: colors.$primer-gray-30;
+        color: colors.$dark-gray-2;
       } @else {
         // (default) light theme
         color: colors.$light-gray-9;

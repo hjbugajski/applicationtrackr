@@ -9,8 +9,8 @@
     padding: 0;
 
     @if $theme == variables.$dark {
-      background-color: colors.$primer-gray-110;
-      color: colors.$primer-gray-10;
+      background-color: colors.$dark-gray-10;
+      color: colors.$dark-gray-0;
     } @else {
       // (default) light theme
       background-color: colors.$white;
