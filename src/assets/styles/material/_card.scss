@@ -3,14 +3,14 @@
 @use 'mixins';
 @use 'variables';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-card {
-    @include mixins.border($theme-colors, none !important);
+    @include mixins.border($at-palette, none !important);
 
     .mat-card-title {
       @include mixins.font-size(18px);
 
-      color: map.get($theme-colors, 'primary');
+      color: map.get($at-palette, 'primary');
       font-weight: variables.$font-weight-bold;
       margin-bottom: 16px;
 

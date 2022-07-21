@@ -1,6 +1,27 @@
 @use 'variables';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
+  @each $key in map-keys($at-palette-keys) {
+    .mat-button.mat-#{$key} {
+      color: map-get($at-palette, $key);
+    }
+
+    .mat-flat-button,
+    .mat-raised-button,
+    .mat-fab,
+    .mat-mini-fab {
+      &.mat-#{$key} {
+        background-color: map-get($at-palette, $key);
+        color: map-get($at-palette, contrast, $key);
+      }
+    }
+
+    .mat-stroked-button.mat-#{$key} {
+      border-color: map-get($at-palette, $key) !important;
+      color: map-get($at-palette, $key) !important;
+    }
+  }
+
   .mat-icon-button:not(a) .mat-button-wrapper {
     display: flex;
     justify-content: center;

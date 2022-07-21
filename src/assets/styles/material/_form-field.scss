@@ -2,7 +2,7 @@
 @use 'colors';
 @use 'variables';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-form-field {
     margin-bottom: 16px;
 
@@ -53,7 +53,7 @@
       .mat-form-field:last-of-type .mat-form-field-flex {
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
-        border-left: 1px solid map.get($theme-colors, 'border');
+        border-left: 1px solid map.get($at-palette, 'border');
       }
     }
   }

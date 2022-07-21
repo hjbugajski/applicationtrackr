@@ -2,7 +2,7 @@
 @use 'colors';
 @use 'variables';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-sidenav-container {
     position: absolute;
     top: 0;
@@ -18,7 +18,7 @@
   }
 
   .mat-sidenav {
-    border-right: 2px solid map.get($theme-colors, 'border') !important;
+    border-right: 2px solid map.get($at-palette, 'border') !important;
 
     @if $theme == variables.$dark {
       background-color: colors.$primer-gray-110 !important;

@@ -2,9 +2,9 @@
 @use 'mixins';
 @use 'variables';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-snackbar {
-    @include mixins.border($theme-colors, none !important);
+    @include mixins.border($at-palette, none !important);
 
     padding: 0;
 

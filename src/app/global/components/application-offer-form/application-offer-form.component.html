@@ -1,8 +1,8 @@
 <div *ngIf="!currentColumn.title.toLowerCase().includes('offer')" class="margin-bottom">
-  <at-alert class="at-primary at-text" [color]="colors.Primary">
+  <at-alert class="at-text" [ngClass]="currentColumn.color!" [color]="currentColumn.color!">
     <div class="alert-container">
       Received an offer? You can move it to the offer column.
-      <button mat-flat-button color="primary" (click)="moveApplication()">Move</button>
+      <button mat-flat-button [color]="currentColumn.color" (click)="moveApplication()">Move</button>
     </div>
   </at-alert>
 </div>
@@ -115,7 +115,12 @@
 <!-- Buttons -->
 <div class="button-row-container-end">
   <button *ngIf="editing" mat-button (click)="secondaryButtonClick()">Cancel</button>
-  <button mat-flat-button color="primary" (click)="primaryButtonClick()" [disabled]="offerForm.invalid || isLoading">
+  <button
+    mat-flat-button
+    [color]="currentColumn.color"
+    (click)="primaryButtonClick()"
+    [disabled]="offerForm.invalid || isLoading"
+  >
     <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
       <mat-spinner color="accent" diameter="24"></mat-spinner>
     </div>

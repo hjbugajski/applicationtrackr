@@ -1,9 +1,9 @@
 @use 'sass:map';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-slide-toggle-thumb {
-    border: 2px solid map.get($theme-colors, 'border');
+    border: 2px solid map.get($at-palette, 'border');
     box-shadow: none !important;
-    background-color: map.get($theme-colors, 'hover');
+    background-color: map.get($at-palette, 'hover');
   }
 }

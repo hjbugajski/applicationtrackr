@@ -5,16 +5,16 @@
   </div>
   <span class="spacer"></span>
   <div class="button-row">
-    <button matTooltip="Menu" mat-icon-button class="at-text at-black-white" [matMenuTriggerFor]="optionsMenu">
+    <button matTooltip="Menu" mat-icon-button class="at-text neutral" [matMenuTriggerFor]="optionsMenu">
       <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
     </button>
-    <button matTooltip="Close" mat-icon-button (click)="close()" class="at-text at-black-white">
+    <button matTooltip="Close" mat-icon-button (click)="close()" class="at-text neutral">
       <mat-icon>close</mat-icon>
     </button>
 
     <mat-menu #optionsMenu="matMenu" xPosition="before">
       <button mat-menu-item [matMenuTriggerFor]="columnsMenu">Move</button>
-      <button mat-menu-item class="at-text at-error" (click)="deleteApplication()">Delete</button>
+      <button mat-menu-item class="at-text error" (click)="deleteApplication()">Delete</button>
     </mat-menu>
     <mat-menu #columnsMenu="matMenu">
       <button

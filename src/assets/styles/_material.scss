@@ -13,21 +13,22 @@
 @use './material/tab';
 @use './material/toolbar';
 @use './material/tooltip';
-@use 'colors';
+@use 'palettes';
 @use 'mixins';
 @use 'variables';
 
 @mixin get-components-styles($theme: variables.$light) {
-  $theme-colors: colors.get-theme-colors($theme);
+  $at-palette: palettes.get-at-palette($theme);
+  $at-palette-keys: palettes.get-at-palette-keys($theme);
 
-  @include button.styles($theme-colors, $theme);
-  @include card.styles($theme-colors, $theme);
-  @include dialog.styles($theme-colors, $theme);
-  @include form-field.styles($theme-colors, $theme);
-  @include menu-list-select.styles($theme-colors, $theme);
-  @include sidenav.styles($theme-colors, $theme);
-  @include slide-toggle.styles($theme-colors, $theme);
-  @include snackbar.styles($theme-colors, $theme);
-  @include tab.styles($theme-colors, $theme);
-  @include toolbar.styles($theme-colors, $theme);
+  @include button.styles($at-palette, $at-palette-keys, $theme);
+  @include card.styles($at-palette, $at-palette-keys, $theme);
+  @include dialog.styles($at-palette, $at-palette-keys, $theme);
+  @include form-field.styles($at-palette, $at-palette-keys, $theme);
+  @include menu-list-select.styles($at-palette, $at-palette-keys, $theme);
+  @include sidenav.styles($at-palette, $at-palette-keys, $theme);
+  @include slide-toggle.styles($at-palette, $at-palette-keys, $theme);
+  @include snackbar.styles($at-palette, $at-palette-keys, $theme);
+  @include tab.styles($at-palette, $at-palette-keys, $theme);
+  @include toolbar.styles($at-palette, $at-palette-keys, $theme);
 }

@@ -44,15 +44,21 @@ $typography: mat.define-typography-config(
 @include mat.core($typography);
 
 .at-light-theme {
+  $at-palette: palettes.get-at-palette(variables.$light);
+  $at-palette-keys: palettes.get-at-palette-keys(variables.$light);
+
   @include mat.all-component-themes($light-theme);
   @include components.get-components-styles();
   @include material.get-components-styles();
-  @include colors.color-classes();
+  @include colors.color-classes($at-palette, $at-palette-keys, variables.$light);
 }
 
 .at-dark-theme {
+  $at-palette: palettes.get-at-palette(variables.$dark);
+  $at-palette-keys: palettes.get-at-palette-keys(variables.$dark);
+
   @include mat.all-component-themes($dark-theme);
   @include components.get-components-styles(variables.$dark);
   @include material.get-components-styles(variables.$dark);
-  @include colors.color-classes(variables.$dark);
+  @include colors.color-classes($at-palette, $at-palette-keys, variables.$dark);
 }

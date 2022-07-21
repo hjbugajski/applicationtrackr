@@ -101,11 +101,11 @@
 
         <mat-divider></mat-divider>
 
-        <h2 class="mat-card-secondary-title at-error at-text">Danger zone</h2>
+        <h2 class="mat-card-secondary-title error at-text">Danger zone</h2>
         <!-- Delete account -->
         <mat-list>
           <div matSubheader>Delete account</div>
-          <at-alert class="at-error at-text" [color]="colors.Error">
+          <at-alert class="error at-text" [color]="colors.Error">
             <div message>
               This action will delete your account and all data associated with your account. This action cannot be
               undone. Your account and data cannot be recovered.
@@ -150,7 +150,7 @@
             <mat-step [editable]="false">
               <ng-template matStepLabel>Confirm deletion</ng-template>
               <ng-template matStepContent>
-                <p>To delete your account, type <span class="at-error at-text">delete account and data</span>.</p>
+                <p>To delete your account, type <span class="error at-text">delete account and data</span>.</p>
                 <form (ngSubmit)="deleteUser()">
                   <mat-form-field class="full-width">
                     <mat-label>Confirmation</mat-label>

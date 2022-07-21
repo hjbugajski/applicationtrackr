@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $red-100: #2d0709;
 $red-90: #520408;
 $red-80: #750e13;
@@ -74,78 +76,34 @@ $light-primary: $blue-60;
 $light-accent: $purple-60;
 $light-success: $green-60;
 $light-error: $red-60;
+$light-border: $cool-gray-20;
 
 $dark-primary: $blue-40;
 $dark-accent: $purple-40;
 $dark-success: $green-40;
 $dark-error: $red-50;
+$dark-border: $primer-gray-80;
 
 $elevation: $cool-gray-50;
 
-@mixin color-classes($theme: 'light') {
+@mixin color-classes($at-palette, $at-palette-keys, $theme) {
+  @each $key in map-keys($at-palette-keys) {
+    .#{$key} {
+      &.at-border {
+        border: 2px solid map-get($at-palette, $key);
+      }
+
+      &.at-text {
+        color: map-get($at-palette, $key) !important;
+      }
+
+      &:not(.neutral).at-alpha-background {
+        background-color: rgba(map-get($at-palette, $key), $alpha: 0.05);
+      }
+    }
+  }
+
   @if $theme == 'dark' {
-    .at-primary {
-      &.at-border {
-        border: 2px solid $dark-primary;
-      }
-
-      &.at-text {
-        color: $dark-primary !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($dark-primary, $alpha: 0.05);
-      }
-    }
-
-    .at-accent {
-      &.at-border {
-        border: 2px solid $dark-accent;
-      }
-
-      &.at-text {
-        color: $dark-accent !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($dark-accent, $alpha: 0.05);
-      }
-    }
-
-    .at-success {
-      &.at-border {
-        border: 2px solid $dark-success;
-      }
-
-      &.at-text {
-        color: $dark-success !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($dark-success, $alpha: 0.05);
-      }
-    }
-
-    .at-error {
-      &.at-border {
-        border: 2px solid $dark-error;
-      }
-
-      &.at-text {
-        color: $dark-error !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($dark-error, $alpha: 0.05);
-      }
-    }
-
-    .at-black-white {
-      &.at-text {
-        color: $primer-gray-20 !important;
-      }
-    }
-
     .at-background {
       background-color: $primer-gray-100;
     }
@@ -155,68 +113,6 @@ $elevation: $cool-gray-50;
     }
   } @else {
     // (default) light theme
-    .at-primary {
-      &.at-border {
-        border: 2px solid $light-primary;
-      }
-
-      &.at-text {
-        color: $light-primary !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($light-primary, $alpha: 0.05);
-      }
-    }
-
-    .at-accent {
-      &.at-border {
-        border: 2px solid $light-accent;
-      }
-
-      &.at-text {
-        color: $light-accent !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($light-accent, $alpha: 0.05);
-      }
-    }
-
-    .at-success {
-      &.at-border {
-        border: 2px solid $light-success;
-      }
-
-      &.at-text {
-        color: $light-success !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($light-success, $alpha: 0.05);
-      }
-    }
-
-    .at-error {
-      &.at-border {
-        border: 2px solid $light-error;
-      }
-
-      &.at-text {
-        color: $light-error !important;
-      }
-
-      &.at-alpha-background {
-        background-color: rgba($light-error, $alpha: 0.05);
-      }
-    }
-
-    .at-black-white {
-      &.at-text {
-        color: $black !important;
-      }
-    }
-
     .at-background {
       background-color: $cool-gray-10;
     }
@@ -226,7 +122,7 @@ $elevation: $cool-gray-50;
     }
   }
 
-  .at-orange {
+  .orange {
     &.at-border {
       border: 2px solid $orange;
     }
@@ -240,7 +136,7 @@ $elevation: $cool-gray-50;
     }
   }
 
-  .at-yellow {
+  .yellow {
     &.at-border {
       border: 2px solid $yellow;
     }
@@ -252,32 +148,5 @@ $elevation: $cool-gray-50;
     &.at-alpha-background {
       background-color: rgba($yellow, $alpha: 0.05);
     }
-  }
-}
-
-@function get-theme-colors($theme: 'light') {
-  @if $theme == 'dark' {
-    @return (
-      'text': $primer-gray-20,
-      'invert-text': $black,
-      'primary': $blue-40,
-      'accent': $purple-40,
-      'error': $red-50,
-      'success': $green-40,
-      'border': $primer-gray-80,
-      'hover': $primer-gray-90
-    );
-  } @else {
-    // (default) light theme
-    @return (
-      'text': $black,
-      'invert-text': $white,
-      'primary': $blue-60,
-      'accent': $purple-60,
-      'error': $red-60,
-      'success': $green-60,
-      'border': $cool-gray-20,
-      'hover': $cool-gray-10
-    );
   }
 }

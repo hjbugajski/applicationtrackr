@@ -3,9 +3,9 @@
 @use 'mixins';
 @use 'variables';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-dialog-container {
-    @include mixins.border($theme-colors, none !important);
+    @include mixins.border($at-palette, none !important);
 
     max-height: 100vh;
   }
@@ -13,7 +13,7 @@
   .mat-dialog-title {
     @include mixins.font-size(20px);
 
-    color: map.get($theme-colors, 'primary');
+    color: map.get($at-palette, 'primary');
     font-weight: variables.$font-weight-bold !important;
     position: sticky;
     top: 0;
@@ -50,7 +50,7 @@
         .dialog-title {
           @include mixins.font-size(20px);
 
-          color: map.get($theme-colors, 'primary');
+          color: map.get($at-palette, 'primary');
           font-weight: variables.$font-weight-bold !important;
           margin-bottom: 8px;
         }
@@ -106,7 +106,7 @@
       overflow: scroll;
 
       .mat-dialog-container {
-        @include mixins.border($theme-colors, none !important);
+        @include mixins.border($at-palette, none !important);
       }
     }
   }

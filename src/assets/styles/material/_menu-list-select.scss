@@ -2,14 +2,14 @@
 @use 'mixins';
 @use 'variables';
 
-@mixin styles($theme-colors, $theme) {
+@mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-menu-panel,
   .mat-select-panel {
-    @include mixins.border($theme-colors, none !important);
+    @include mixins.border($at-palette, none !important);
   }
 
   .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
-    background: map.get($theme-colors, 'hover');
+    background: map.get($at-palette, 'hover');
   }
 
   .mat-menu-content {
@@ -22,8 +22,8 @@
   }
 
   .mat-list-single-selected-option {
-    background-color: map.get($theme-colors, 'hover') !important;
-    color: map.get($theme-colors, 'primary') !important;
+    background-color: map.get($at-palette, 'hover') !important;
+    color: map.get($at-palette, 'primary') !important;
   }
 
   .mat-list-base {

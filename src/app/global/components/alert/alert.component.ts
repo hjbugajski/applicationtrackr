@@ -8,5 +8,5 @@ import { Colors } from '~enums/colors.enum';
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent {
-  @Input() public color = Colors.Primary;
+  @Input() public color: Colors | string = Colors.Primary;
 }

@@ -2,7 +2,7 @@
   <div class="board-column-header at-text" [ngClass]="columnDoc.color!!">
     <div class="board-column-title-container">
       <span class="board-column-title">{{ columnDoc.title }}</span>
-      <span class="board-column-application-count" [ngClass]="columnDoc.color!!">{{ columnDoc.total }}</span>
+      <span class="board-column-application-count tag" [ngClass]="columnDoc.color!!">{{ columnDoc.total }}</span>
     </div>
     <div class="board-column-actions">
       <button mat-icon-button matTooltip="New application" (click)="newApplication()">

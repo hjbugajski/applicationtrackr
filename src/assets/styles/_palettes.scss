@@ -1,4 +1,6 @@
+@use 'sass:map';
 @use 'colors';
+@use 'variables';
 
 $red-palette: (
   50: colors.$red-10,
@@ -169,3 +171,62 @@ $dark-theme-background-palette: (
   disabled-list-option: colors.$primer-gray-110,
   tooltip: colors.$primer-gray-80
 );
+
+$at-light-palette: (
+  primary: colors.$light-primary,
+  accent: colors.$light-accent,
+  success: colors.$light-success,
+  error: colors.$light-error,
+  neutral: colors.$black,
+  border: colors.$light-border,
+  hover: colors.$cool-gray-10,
+  contrast: (
+    primary: colors.$white,
+    accent: colors.$white,
+    success: colors.$white,
+    error: colors.$white,
+    neutral: colors.$white,
+    border: colors.$white,
+    hover: colors.$black
+  )
+);
+
+$at-dark-palette: (
+  primary: colors.$dark-primary,
+  accent: colors.$dark-accent,
+  success: colors.$dark-success,
+  error: colors.$dark-error,
+  neutral: colors.$primer-gray-20,
+  border: colors.$dark-border,
+  hover: colors.$primer-gray-90,
+  contrast: (
+    primary: colors.$black,
+    accent: colors.$black,
+    success: colors.$black,
+    error: colors.$black,
+    neutral: colors.$black,
+    border: colors.$black,
+    hover: colors.$primer-gray-20
+  )
+);
+
+$at-light-palette-keys: map-remove($at-light-palette, contrast);
+$at-dark-palette-keys: map-remove($at-dark-palette, contrast);
+
+@function get-at-palette($theme: variables.$light) {
+  @if $theme == variables.$dark {
+    @return $at-dark-palette;
+  } @else {
+    // (default) light theme
+    @return $at-light-palette;
+  }
+}
+
+@function get-at-palette-keys($theme: variables.$light) {
+  @if $theme == variables.$dark {
+    @return $at-dark-palette-keys;
+  } @else {
+    // (default) light theme
+    @return $at-light-palette-keys;
+  }
+}

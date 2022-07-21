@@ -1,8 +1,8 @@
 @use 'sass:map';
 @use 'variables';
 
-@mixin border($theme-colors, $box-shadow: unset) {
-  border: 2px solid map.get($theme-colors, 'border');
+@mixin border($at-palette, $box-shadow: unset) {
+  border: 2px solid map.get($at-palette, 'border');
   border-radius: variables.$border-radius !important;
   box-shadow: $box-shadow;
 }

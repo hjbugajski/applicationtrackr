@@ -1,10 +1,12 @@
 @use 'sass:map';
 @use 'colors';
 @use 'mixins';
+@use 'palettes';
 @use 'variables';
 
 @mixin get-components-styles($theme: variables.$light) {
-  $theme-colors: colors.get-theme-colors($theme);
+  $at-palette: palettes.get-at-palette($theme);
+  $at-palette-keys: palettes.get-at-palette-keys($theme);
 
   .loading-spinner-in-button {
     display: flex;
@@ -47,7 +49,7 @@
   .board-column {
     overflow: hidden;
     min-width: 275px;
-    border-right: 2px solid map.get($theme-colors, 'border');
+    border-right: 2px solid map.get($at-palette, 'border');
 
     @if $theme == variables.$dark {
       background-color: colors.$primer-gray-100;
@@ -80,42 +82,8 @@
         }
 
         .board-column-application-count {
-          @include mixins.font-size(12px);
-
-          display: inline-flex;
           margin-left: 8px;
-          padding: 2px 6px;
-          border-radius: 6px;
-          font-weight: variables.$font-weight-semi-bold;
-
-          @if $theme == variables.$dark {
-            background-color: colors.$primer-gray-80;
-            color: colors.$primer-gray-20;
-          } @else {
-            // (default) light
-            background-color: colors.$cool-gray-20;
-            color: colors.$cool-gray-80;
-          }
-
-          &.at-success {
-            background-color: map.get($theme-colors, 'success');
-            color: map.get($theme-colors, 'invert-text');
-          }
-
-          &.at-error {
-            background-color: map.get($theme-colors, 'error');
-            color: map.get($theme-colors, 'invert-text');
-          }
-
-          &.at-accent {
-            background-color: map.get($theme-colors, 'accent');
-            color: map.get($theme-colors, 'invert-text');
-          }
-
-          &.at-primary {
-            background-color: map.get($theme-colors, 'primary');
-            color: map.get($theme-colors, 'invert-text');
-          }
+          font-weight: variables.$font-weight-semi-bold !important;
         }
       }
     }
@@ -150,39 +118,12 @@
     border-radius: 100px;
     white-space: nowrap;
 
-    @if $theme == variables.$dark {
-      background-color: rgba(colors.$cool-gray-40, $alpha: 0.05);
-      border: 2px solid colors.$cool-gray-40;
-      color: colors.$cool-gray-40;
-    } @else {
-      // light
-      background-color: rgba(colors.$cool-gray-60, $alpha: 0.05);
-      border: 2px solid colors.$cool-gray-60;
-      color: colors.$cool-gray-60;
-    }
-
-    &.tag-success {
-      background-color: rgba(map.get($theme-colors, 'success'), $alpha: 0.05);
-      border: 2px solid map.get($theme-colors, 'success');
-      color: map.get($theme-colors, 'success');
-    }
-
-    &.tag-accent {
-      background-color: rgba(map.get($theme-colors, 'accent'), $alpha: 0.05);
-      border: 2px solid map.get($theme-colors, 'accent');
-      color: map.get($theme-colors, 'accent');
-    }
-
-    &.tag-primary {
-      background-color: rgba(map.get($theme-colors, 'primary'), $alpha: 0.05);
-      border: 2px solid map.get($theme-colors, 'primary');
-      color: map.get($theme-colors, 'primary');
-    }
-
-    &.tag-error {
-      background-color: rgba(map.get($theme-colors, 'error'), $alpha: 0.05);
-      border: 2px solid map.get($theme-colors, 'error');
-      color: map.get($theme-colors, 'error');
+    @each $key in map-keys($at-palette-keys) {
+      &.#{$key} {
+        border: 2px solid map-get($at-palette, $key);
+        background-color: rgba(map-get($at-palette, $key), $alpha: 0.05);
+        color: map-get($at-palette, $key);
+      }
     }
   }
 
@@ -199,24 +140,10 @@
     &:focus {
       outline: none;
 
-      &.at-primary {
-        border: 2px solid map.get($theme-colors, 'primary');
-      }
-
-      &.at-accent {
-        border: 2px solid map.get($theme-colors, 'accent');
-      }
-
-      &.at-success {
-        border: 2px solid map.get($theme-colors, 'success');
-      }
-
-      &.at-error {
-        border: 2px solid map.get($theme-colors, 'error');
-      }
-
-      &.at-black-white {
-        border: 2px solid map.get($theme-colors, 'text');
+      @each $key in map-keys($at-palette-keys) {
+        &.#{$key} {
+          border: 2px solid map-get($at-palette, $key);
+        }
       }
     }
 
