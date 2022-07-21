@@ -1,59 +1,14 @@
 @use 'sass:map';
 
-$red-100: #2d0709;
-$red-90: #520408;
-$red-80: #750e13;
-$red-70: #a2191f;
-$red-60: #da1e28;
-$red-50: #fa4d56;
-$red-40: #ff8389;
-$red-30: #ffb3b8;
-$red-20: #ffd7d9;
-$red-10: #fff1f1;
-
-$purple-100: #1c0f30;
-$purple-90: #31135e;
-$purple-80: #491d8b;
-$purple-70: #6929c4;
-$purple-60: #8a3ffc;
-$purple-50: #a56eff;
-$purple-40: #be95ff;
-$purple-30: #d4bbff;
-$purple-20: #e8daff;
-$purple-10: #f6f2ff;
-
-$blue-100: #001141;
-$blue-90: #001d6c;
-$blue-80: #002d9c;
-$blue-70: #0043ce;
-$blue-60: #0f62fe;
-$blue-50: #4589ff;
-$blue-40: #78a9ff;
-$blue-30: #a6c8ff;
-$blue-20: #d0e2ff;
-$blue-10: #edf5ff;
-
-$green-100: #071908;
-$green-90: #022d0d;
-$green-80: #044317;
-$green-70: #0e6027;
-$green-60: #198038;
-$green-50: #24a148;
-$green-40: #42be65;
-$green-30: #6fdc8c;
-$green-20: #a7f0ba;
-$green-10: #defbe6;
-
-$cool-gray-100: #121619;
-$cool-gray-90: #21272a;
-$cool-gray-80: #343a3f;
-$cool-gray-70: #4d5358;
-$cool-gray-60: #697077;
-$cool-gray-50: #878d96;
-$cool-gray-40: #a2a9b0;
-$cool-gray-30: #c1c7cd;
-$cool-gray-20: #dde1e6;
-$cool-gray-10: #f2f4f8;
+$light-purple-9: #1c0f30;
+$light-purple-8: #31135e;
+$light-purple-7: #491d8b;
+$light-purple-6: #6929c4;
+$light-purple-5: #8a3ffc;
+$light-purple-4: #a56eff;
+$light-purple-2: #d4bbff;
+$light-purple-1: #e8daff;
+$light-purple-0: #f6f2ff;
 
 $primer-gray-110: #090c10;
 $primer-gray-100: #0d1117;
@@ -67,24 +22,114 @@ $primer-gray-30: #b1bac4;
 $primer-gray-20: #c9d1d9;
 $primer-gray-10: #f0f6fc;
 
+$light-gray-0: #f6f8fa;
+$light-gray-1: #eaeef2;
+$light-gray-2: #d0d7de;
+$light-gray-3: #afb8c1;
+$light-gray-4: #8c959f;
+$light-gray-5: #6e7781;
+$light-gray-6: #57606a;
+$light-gray-7: #424a53;
+$light-gray-8: #32383f;
+$light-gray-9: #24292f;
+$light-gray-10: #1b1f24;
+
+$light-blue-0: #ddf4ff;
+$light-blue-1: #b6e3ff;
+$light-blue-2: #80ccff;
+$light-blue-3: #54aeff;
+$light-blue-4: #218bff;
+$light-blue-5: #0969da;
+$light-blue-6: #0550ae;
+$light-blue-7: #033d8b;
+$light-blue-8: #0a3069;
+$light-blue-9: #002155;
+
+$light-green-0: #dafbe1;
+$light-green-1: #aceebb;
+$light-green-2: #6fdd8b;
+$light-green-3: #4ac26b;
+$light-green-4: #2da44e;
+$light-green-5: #1a7f37;
+$light-green-6: #116329;
+$light-green-7: #044f1e;
+$light-green-8: #003d16;
+$light-green-9: #002d11;
+
+$light-yellow-0: #fff8c5;
+$light-yellow-1: #fae17d;
+$light-yellow-2: #eac54f;
+$light-yellow-3: #d4a72c;
+$light-yellow-4: #bf8700;
+$light-yellow-5: #9a6700;
+$light-yellow-6: #7d4e00;
+$light-yellow-7: #633c01;
+$light-yellow-8: #4d2d00;
+$light-yellow-9: #3b2300;
+
+$light-orange-0: #fff1e5;
+$light-orange-1: #ffd8b5;
+$light-orange-2: #ffb77c;
+$light-orange-3: #fb8f44;
+$light-orange-4: #e16f24;
+$light-orange-5: #bc4c00;
+$light-orange-6: #953800;
+$light-orange-7: #762c00;
+$light-orange-8: #5c2200;
+$light-orange-9: #471700;
+
+$light-red-0: #ffebe9;
+$light-red-1: #ffcecb;
+$light-red-2: #ffaba8;
+$light-red-3: #ff8182;
+$light-red-4: #fa4549;
+$light-red-5: #cf222e;
+$light-red-6: #a40e26;
+$light-red-7: #82071e;
+$light-red-8: #660018;
+$light-red-9: #4c0014;
+
+$light-purple-0: #fbefff;
+$light-purple-1: #ecd8ff;
+$light-purple-2: #d8b9ff;
+$light-purple-3: #c297ff;
+$light-purple-4: #a475f9;
+$light-purple-5: #8250df;
+$light-purple-6: #6639ba;
+$light-purple-7: #512a97;
+$light-purple-8: #3e1f79;
+$light-purple-9: #2e1461;
+
+$light-pink-0: #ffeff7;
+$light-pink-1: #ffd3eb;
+$light-pink-2: #ffadda;
+$light-pink-3: #ff80c8;
+$light-pink-4: #e85aad;
+$light-pink-5: #bf3989;
+$light-pink-6: #99286e;
+$light-pink-7: #772057;
+$light-pink-8: #611347;
+$light-pink-9: #4d0336;
+
+$light-coral-0: #fff0eb;
+$light-coral-1: #ffd6cc;
+$light-coral-2: #ffb4a1;
+$light-coral-3: #fd8c73;
+$light-coral-4: #ec6547;
+$light-coral-5: #c4432b;
+$light-coral-6: #9e2f1c;
+$light-coral-7: #801f0f;
+$light-coral-8: #691105;
+$light-coral-9: #510901;
+
 $black: #000;
 $white: #fff;
-$orange: #ff832b;
-$yellow: #f1c21b;
 
-$light-primary: $blue-60;
-$light-accent: $purple-60;
-$light-success: $green-60;
-$light-error: $red-60;
-$light-border: $cool-gray-20;
-
-$dark-primary: $blue-40;
-$dark-accent: $purple-40;
-$dark-success: $green-40;
-$dark-error: $red-50;
+$dark-primary: #78a9ff;
+$dark-accent: #be95ff;
+$dark-success: #42be65;
+$dark-error: #fa4d56;
 $dark-border: $primer-gray-80;
-
-$elevation: $cool-gray-50;
 
 @mixin color-classes($at-palette, $at-palette-keys, $theme) {
   @each $key in map-keys($at-palette-keys) {
@@ -114,39 +159,11 @@ $elevation: $cool-gray-50;
   } @else {
     // (default) light theme
     .at-background {
-      background-color: $cool-gray-10;
+      background-color: $light-gray-0;
     }
 
     .at-alt-background {
       background-color: $white;
-    }
-  }
-
-  .orange {
-    &.at-border {
-      border: 2px solid $orange;
-    }
-
-    &.at-text {
-      color: $orange !important;
-    }
-
-    &.at-alpha-background {
-      background-color: rgba($orange, $alpha: 0.05);
-    }
-  }
-
-  .yellow {
-    &.at-border {
-      border: 2px solid $yellow;
-    }
-
-    &.at-text {
-      color: $yellow !important;
-    }
-
-    &.at-alpha-background {
-      background-color: rgba($yellow, $alpha: 0.05);
     }
   }
 }

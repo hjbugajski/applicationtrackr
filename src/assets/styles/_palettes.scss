@@ -3,16 +3,16 @@
 @use 'variables';
 
 $red-palette: (
-  50: colors.$red-10,
-  100: colors.$red-20,
-  200: colors.$red-30,
-  300: colors.$red-40,
-  400: colors.$red-50,
-  500: colors.$red-60,
-  600: colors.$red-70,
-  700: colors.$red-80,
-  800: colors.$red-90,
-  900: colors.$red-100,
+  50: colors.$light-red-0,
+  100: colors.$light-red-1,
+  200: colors.$light-red-2,
+  300: colors.$light-red-3,
+  400: colors.$dark-error,
+  500: colors.$light-red-5,
+  600: colors.$light-red-6,
+  700: colors.$light-red-7,
+  800: colors.$light-red-8,
+  900: colors.$light-red-9,
   contrast: (
     50: colors.$black,
     100: colors.$black,
@@ -28,16 +28,16 @@ $red-palette: (
 );
 
 $purple-palette: (
-  50: colors.$purple-10,
-  100: colors.$purple-20,
-  200: colors.$purple-30,
-  300: colors.$purple-40,
-  400: colors.$purple-50,
-  500: colors.$purple-60,
-  600: colors.$purple-70,
-  700: colors.$purple-80,
-  800: colors.$purple-90,
-  900: colors.$purple-100,
+  50: colors.$light-purple-0,
+  100: colors.$light-purple-1,
+  200: colors.$light-purple-2,
+  300: colors.$dark-accent,
+  400: colors.$light-purple-4,
+  500: colors.$light-purple-5,
+  600: colors.$light-purple-6,
+  700: colors.$light-purple-7,
+  800: colors.$light-purple-8,
+  900: colors.$light-purple-9,
   contrast: (
     50: colors.$black,
     100: colors.$black,
@@ -53,16 +53,16 @@ $purple-palette: (
 );
 
 $blue-palette: (
-  50: colors.$blue-10,
-  100: colors.$blue-20,
-  200: colors.$blue-30,
-  300: colors.$blue-40,
-  400: colors.$blue-50,
-  500: colors.$blue-60,
-  600: colors.$blue-70,
-  700: colors.$blue-80,
-  800: colors.$blue-90,
-  900: colors.$blue-100,
+  50: colors.$light-blue-0,
+  100: colors.$light-blue-1,
+  200: colors.$light-blue-2,
+  300: colors.$dark-primary,
+  400: colors.$light-blue-4,
+  500: colors.$light-blue-5,
+  600: colors.$light-blue-6,
+  700: colors.$light-blue-7,
+  800: colors.$light-blue-8,
+  900: colors.$light-blue-9,
   contrast: (
     50: colors.$black,
     100: colors.$black,
@@ -78,16 +78,16 @@ $blue-palette: (
 );
 
 $green-palette: (
-  50: colors.$green-10,
-  100: colors.$green-20,
-  200: colors.$green-30,
-  300: colors.$green-40,
-  400: colors.$green-50,
-  500: colors.$green-60,
-  600: colors.$green-70,
-  700: colors.$green-80,
-  800: colors.$green-90,
-  900: colors.$green-100,
+  50: colors.$light-green-0,
+  100: colors.$light-green-1,
+  200: colors.$light-green-2,
+  300: colors.$dark-primary,
+  400: colors.$light-green-4,
+  500: colors.$light-green-5,
+  600: colors.$light-green-6,
+  700: colors.$light-green-7,
+  800: colors.$light-green-8,
+  900: colors.$light-green-9,
   contrast: (
     50: colors.$black,
     100: colors.$black,
@@ -103,20 +103,20 @@ $green-palette: (
 );
 
 $light-theme-foreground-palette: (
-  base: colors.$cool-gray-100,
-  divider: colors.$cool-gray-20,
-  dividers: colors.$cool-gray-20,
-  disabled: colors.$cool-gray-30,
-  disabled-button: colors.$cool-gray-40,
-  disabled-text: colors.$cool-gray-30,
-  hint-text: colors.$cool-gray-100,
-  secondary-text: colors.$cool-gray-100,
-  icon: colors.$cool-gray-100,
-  icons: colors.$cool-gray-100,
-  text: colors.$cool-gray-100,
-  slider-min: colors.$cool-gray-40,
-  slider-off: colors.$cool-gray-40,
-  slider-off-active: colors.$cool-gray-40
+  base: colors.$light-gray-9,
+  divider: colors.$light-gray-1,
+  dividers: colors.$light-gray-1,
+  disabled: colors.$light-gray-2,
+  disabled-button: colors.$light-gray-3,
+  disabled-text: colors.$light-gray-2,
+  hint-text: colors.$light-gray-9,
+  secondary-text: colors.$light-gray-9,
+  icon: colors.$light-gray-9,
+  icons: colors.$light-gray-9,
+  text: colors.$light-gray-9,
+  slider-min: colors.$light-gray-3,
+  slider-off: colors.$light-gray-3,
+  slider-off-active: colors.$light-gray-3
 );
 
 $dark-theme-foreground-palette: (
@@ -139,19 +139,19 @@ $dark-theme-foreground-palette: (
 $light-theme-background-palette: (
   status-bar: colors.$white,
   app-bar: colors.$white,
-  background: colors.$cool-gray-10,
-  hover: colors.$cool-gray-10,
+  background: colors.$light-gray-0,
+  hover: colors.$light-gray-1,
   card: colors.$white,
   dialog: colors.$white,
-  disabled-button: colors.$cool-gray-20,
-  raised-button: colors.$cool-gray-10,
-  focused-button: colors.$cool-gray-100,
-  selected-button: colors.$cool-gray-20,
-  selected-disabled-button: colors.$cool-gray-20,
-  disabled-button-toggle: colors.$cool-gray-20,
-  unselected-chip: colors.$cool-gray-10,
+  disabled-button: colors.$light-gray-1,
+  raised-button: colors.$light-gray-0,
+  focused-button: colors.$light-gray-9,
+  selected-button: colors.$light-gray-1,
+  selected-disabled-button: colors.$light-gray-1,
+  disabled-button-toggle: colors.$light-gray-1,
+  unselected-chip: colors.$light-gray-0,
   disabled-list-option: colors.$white,
-  tooltip: colors.$cool-gray-90
+  tooltip: colors.$light-gray-8
 );
 
 $dark-theme-background-palette: (
@@ -173,21 +173,29 @@ $dark-theme-background-palette: (
 );
 
 $at-light-palette: (
-  primary: colors.$light-primary,
-  accent: colors.$light-accent,
-  success: colors.$light-success,
-  error: colors.$light-error,
-  neutral: colors.$black,
-  border: colors.$light-border,
-  hover: colors.$cool-gray-10,
+  primary: colors.$light-blue-5,
+  accent: colors.$light-purple-5,
+  accent-alt: colors.$light-pink-5,
+  success: colors.$light-green-5,
+  attention: colors.$light-yellow-5,
+  severe: colors.$light-orange-5,
+  severe-alt: colors.$light-coral-5,
+  danger: colors.$light-red-5,
+  neutral: colors.$light-gray-9,
+  border: colors.$light-gray-1,
+  hover: colors.$light-gray-1,
   contrast: (
     primary: colors.$white,
     accent: colors.$white,
+    accent-alt: colors.$white,
     success: colors.$white,
-    error: colors.$white,
+    attention: colors.$white,
+    severe: colors.$white,
+    severe-alt: colors.$white,
+    danger: colors.$white,
     neutral: colors.$white,
     border: colors.$white,
-    hover: colors.$black
+    hover: colors.$light-gray-9
   )
 );
 
@@ -195,7 +203,7 @@ $at-dark-palette: (
   primary: colors.$dark-primary,
   accent: colors.$dark-accent,
   success: colors.$dark-success,
-  error: colors.$dark-error,
+  danger: colors.$dark-error,
   neutral: colors.$primer-gray-20,
   border: colors.$dark-border,
   hover: colors.$primer-gray-90,
@@ -203,7 +211,7 @@ $at-dark-palette: (
     primary: colors.$black,
     accent: colors.$black,
     success: colors.$black,
-    error: colors.$black,
+    danger: colors.$black,
     neutral: colors.$black,
     border: colors.$black,
     hover: colors.$primer-gray-20

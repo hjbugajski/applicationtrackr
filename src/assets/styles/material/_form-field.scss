@@ -23,10 +23,11 @@
         background-color: colors.$primer-gray-90;
       } @else {
         // (default) light theme
-        background-color: colors.$cool-gray-10;
+        background-color: colors.$light-gray-0;
       }
 
       border-radius: variables.$border-radius !important;
+      border: 2px solid map.get($at-palette, 'border');
     }
 
     .mat-form-field-underline {

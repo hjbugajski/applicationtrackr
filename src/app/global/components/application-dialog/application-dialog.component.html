@@ -14,7 +14,7 @@
 
     <mat-menu #optionsMenu="matMenu" xPosition="before">
       <button mat-menu-item [matMenuTriggerFor]="columnsMenu">Move</button>
-      <button mat-menu-item class="at-text error" (click)="deleteApplication()">Delete</button>
+      <button mat-menu-item class="at-text danger" (click)="deleteApplication()">Delete</button>
     </mat-menu>
     <mat-menu #columnsMenu="matMenu">
       <button

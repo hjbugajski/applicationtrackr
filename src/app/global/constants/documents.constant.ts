@@ -26,7 +26,7 @@ export const COLUMNS: ColumnDoc[] = [
     total: 0
   },
   {
-    color: 'error',
+    color: 'danger',
     sortOrder: 4,
     title: 'Rejected',
     total: 0

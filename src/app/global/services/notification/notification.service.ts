@@ -28,7 +28,7 @@ export class NotificationService {
   }
 
   public showError(message: string, title = 'Error'): void {
-    this.show(Colors.Error, title, message, 0);
+    this.show(Colors.Danger, title, message, 0);
   }
 
   public showSuccess(message: string, title = 'Success'): void {
