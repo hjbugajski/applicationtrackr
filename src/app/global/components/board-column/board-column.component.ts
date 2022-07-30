@@ -13,16 +13,19 @@ import {
   Unsubscribe
 } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, lastValueFrom, Observable, Subscription } from 'rxjs';
 
 import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { NewApplicationDialogComponent } from '~components/new-application-dialog/new-application-dialog.component';
 import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
+import { COLUMN_SORT_OPTIONS } from '~constants/forms.constants';
 import { Collections } from '~enums/collections.enum';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
+import { SortOption } from '~interfaces/sort-option.interface';
+import { Sort } from '~interfaces/sort.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationService } from '~services/application/application.service';
@@ -48,11 +51,14 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
   @Input() public dragDropId!: string;
   @Input() public id!: string;
 
-  public applications!: Observable<Application[]>;
+  public applications$!: Observable<Application[]>;
   public column!: Column;
   public columnRef!: DocumentReference<Column>;
-  public isLoaded: BehaviorSubject<boolean>;
+  public isLoaded$: BehaviorSubject<boolean>;
+  public selectedSortOption: SortOption | undefined;
+  public sortOptions = COLUMN_SORT_OPTIONS;
 
+  private subscriptions: Subscription;
   private unsubscribe!: Unsubscribe;
 
   constructor(
@@ -63,7 +69,8 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private userStore: UserStore
   ) {
-    this.isLoaded = new BehaviorSubject<boolean>(false);
+    this.isLoaded$ = new BehaviorSubject<boolean>(false);
+    this.subscriptions = new Subscription();
   }
 
   public async deleteColumn(): Promise<void> {
@@ -143,6 +150,7 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -161,11 +169,23 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
 
       if (data) {
         this.column = data;
-        this.colorClass = this.column.color ?? '';
-        this.isLoaded.next(true);
+        this.colorClass = this.column.color;
+        this.selectedSortOption = this.sortOptions.find(
+          (sortOption) =>
+            sortOption.value.field === this.column.applicationSort.field &&
+            sortOption.value.direction === this.column.applicationSort.direction
+        );
+        this.isLoaded$.next(true);
       }
     });
-    this.applications = collectionData(query(this.applicationsCollection, orderBy('company', 'asc')));
+
+    this.subscriptions.add(
+      this.isLoaded$.pipe(distinctUntilChanged()).subscribe((isLoaded) => {
+        if (isLoaded) {
+          this.setApplications(this.column.applicationSort);
+        }
+      })
+    );
   }
 
   public openApplication(application: Application): void {
@@ -186,6 +206,29 @@ export class BoardColumnComponent implements OnInit, OnDestroy {
       disableClose: true,
       panelClass: 'at-dialog'
     });
+  }
+
+  public async sort(sortOption: SortOption): Promise<void> {
+    if (this.selectedSortOption === sortOption) {
+      return;
+    }
+
+    this.selectedSortOption = sortOption;
+    this.setApplications(sortOption.value);
+    await this.updateApplicationSort();
+  }
+
+  public async updateApplicationSort(): Promise<void> {
+    await this.columnsService
+      .updateApplicationSort(this.columnId, this.selectedSortOption?.value ?? this.sortOptions[0].value)
+      .catch((error) => {
+        console.log(error);
+        this.notificationService.showError('There was an error updating the default sort. Please try again.');
+      });
+  }
+
+  private setApplications(sort: Sort): void {
+    this.applications$ = collectionData(query(this.applicationsCollection, orderBy(sort.field, sort.direction)));
   }
 
   private get applicationsCollection(): CollectionReference<Application> {

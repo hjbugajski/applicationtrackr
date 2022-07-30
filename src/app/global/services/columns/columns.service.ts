@@ -19,6 +19,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { Collections } from '~enums/collections.enum';
 import { ReferenceTypes } from '~enums/reference-types.enum';
 import { ColumnDoc } from '~interfaces/column-doc.interface';
+import { Sort } from '~interfaces/sort.interface';
 import { Column } from '~models/column.model';
 import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
 import { UserStore } from '~store/user.store';
@@ -100,6 +101,12 @@ export class ColumnsService {
     this.columnsSubscription.unsubscribe();
   }
 
+  public async updateApplicationSort(columnId: string, value: Sort): Promise<void> {
+    await updateDoc(this.getDocRef(columnId), { applicationSort: value }).catch((error) => {
+      throw error;
+    });
+  }
+
   public async updateColumn(columnId: string, columnDoc: ColumnDoc): Promise<void> {
     await updateDoc(this.getDocRef(columnId), {
       color: columnDoc.color,
@@ -110,12 +117,16 @@ export class ColumnsService {
     });
   }
 
-  public async updateSortOrder(column: string, value: number): Promise<void> {
-    await updateDoc(this.getDocRef(column), { sortOrder: value });
+  public async updateSortOrder(columnId: string, value: number): Promise<void> {
+    await updateDoc(this.getDocRef(columnId), { sortOrder: value }).catch((error) => {
+      throw error;
+    });
   }
 
-  public async updateTotal(column: string, incrementValue: number): Promise<void> {
-    await updateDoc(this.getDocRef(column), { total: increment(incrementValue) });
+  public async updateTotal(columnId: string, incrementValue: number): Promise<void> {
+    await updateDoc(this.getDocRef(columnId), { total: increment(incrementValue) }).catch((error) => {
+      throw error;
+    });
   }
 
   public get columnQuery(): Query<Column> {

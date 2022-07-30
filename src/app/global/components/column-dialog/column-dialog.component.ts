@@ -124,8 +124,12 @@ export class ColumnDialogComponent implements AfterViewInit {
 
       if (this.providedData.action === DialogActions.New) {
         const columnDoc: ColumnDoc = {
+          applicationSort: {
+            direction: 'asc',
+            field: 'company'
+          },
           color,
-          sortOrder: 0,
+          sortOrder: this.columnsService.columns$.getValue().length,
           title,
           total: 0
         };
@@ -139,6 +143,7 @@ export class ColumnDialogComponent implements AfterViewInit {
         // DialogActions.Edit
         const data = this.providedData.data as Column;
         const columnDoc: ColumnDoc = {
+          applicationSort: data.applicationSort,
           color,
           sortOrder: data.sortOrder,
           title,
