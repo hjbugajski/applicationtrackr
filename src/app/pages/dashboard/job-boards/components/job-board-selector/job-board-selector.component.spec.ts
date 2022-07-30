@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoardSelectorComponent } from './board-selector.component';
+import { JobBoardSelectorComponent } from './job-board-selector.component';
 
-describe('BoardSelectorComponent', () => {
-  let component: BoardSelectorComponent;
-  let fixture: ComponentFixture<BoardSelectorComponent>;
+describe('JobBoardSelectorComponent', () => {
+  let component: JobBoardSelectorComponent;
+  let fixture: ComponentFixture<JobBoardSelectorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BoardSelectorComponent]
+      declarations: [JobBoardSelectorComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BoardSelectorComponent);
+    fixture = TestBed.createComponent(JobBoardSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

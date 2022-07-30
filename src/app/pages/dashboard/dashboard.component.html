@@ -20,7 +20,7 @@
       <ng-container *ngIf="(sidenavService.showMenuButton | async) === false">
         <mat-divider></mat-divider>
         <div class="padded-container">
-          <at-board-selector></at-board-selector>
+          <at-job-board-selector></at-job-board-selector>
         </div>
       </ng-container>
 
@@ -41,7 +41,7 @@
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon svgIcon="carbon-menu"></mat-icon>
       </button>
-      <at-board-selector mode="menu"></at-board-selector>
+      <at-job-board-selector mode="menu"></at-job-board-selector>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

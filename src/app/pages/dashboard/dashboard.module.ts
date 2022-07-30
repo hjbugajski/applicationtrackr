@@ -13,13 +13,13 @@ import { RouterModule } from '@angular/router';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 
-import { BoardSelectorModule } from '~components/board-selector/board-selector.module';
+import { JobBoardSelectorModule } from '~components/job-board-selector/job-board-selector.module';
 import { ThemePickerModule } from '~components/theme-picker/theme-picker.module';
 
 @NgModule({
   declarations: [DashboardComponent],
   imports: [
-    BoardSelectorModule,
+    JobBoardSelectorModule,
     CommonModule,
     DashboardRoutingModule,
     MatButtonModule,

@@ -10,11 +10,11 @@ import { UserService } from '~services/user/user.service';
 import { UserStore } from '~store/user.store';
 
 @Component({
-  selector: 'at-board-selector',
-  templateUrl: './board-selector.component.html',
-  styleUrls: ['./board-selector.component.scss']
+  selector: 'at-job-board-selector',
+  templateUrl: './job-board-selector.component.html',
+  styleUrls: ['./job-board-selector.component.scss']
 })
-export class BoardSelectorComponent {
+export class JobBoardSelectorComponent {
   @Input() public mode = 'select';
 
   public currentJobBoard$: Observable<string | null>;

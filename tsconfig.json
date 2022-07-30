@@ -18,7 +18,11 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "~components/*": ["src/app/global/components/*", "src/app/pages/dashboard/applications/components/*"],
+      "~components/*": [
+        "src/app/global/components/*",
+        "src/app/pages/dashboard/applications/components/*",
+        "src/app/pages/dashboard/job-boards/components/*"
+      ],
       "~constants/*": ["src/app/global/constants/*"],
       "~enums/*": ["src/app/global/enums/*"],
       "~environments/*": ["src/environments/*"],

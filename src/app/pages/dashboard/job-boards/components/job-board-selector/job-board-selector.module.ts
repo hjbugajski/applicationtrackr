@@ -11,12 +11,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
-import { BoardSelectorComponent } from './board-selector.component';
+import { JobBoardSelectorComponent } from './job-board-selector.component';
 
 import { JobBoardDialogModule } from '~components/job-board-dialog/job-board-dialog.module';
 
 @NgModule({
-  declarations: [BoardSelectorComponent],
+  declarations: [JobBoardSelectorComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -32,6 +32,6 @@ import { JobBoardDialogModule } from '~components/job-board-dialog/job-board-dia
     JobBoardDialogModule,
     ReactiveFormsModule
   ],
-  exports: [BoardSelectorComponent]
+  exports: [JobBoardSelectorComponent]
 })
-export class BoardSelectorModule {}
+export class JobBoardSelectorModule {}
