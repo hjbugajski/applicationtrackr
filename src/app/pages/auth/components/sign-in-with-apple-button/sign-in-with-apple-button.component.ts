@@ -14,10 +14,11 @@ import { ThemeService } from '~services/theme/theme.service';
 })
 export class SignInWithAppleButtonComponent implements OnDestroy {
   @Input() public authMode: AuthModes = AuthModes.SignIn;
+  @Input() public fullWidth = true;
   @Input() public prefix = 'Sign in';
   @Output() public reauthenticated = new EventEmitter<void>();
 
-  public appTheme = Themes.Light;
+  public appTheme: Themes | string = Themes.Light;
   public isLoading = false;
 
   private themeSubscription: Subscription;

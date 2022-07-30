@@ -1,0 +1,50 @@
+@use 'mixins';
+
+:host {
+  .theme-list {
+    display: grid;
+    gap: 16px;
+    padding: 0;
+
+    .theme-list-item {
+      height: fit-content;
+      border-width: 2px;
+      border-radius: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .theme-list-item-content {
+        display: block;
+        padding: 0;
+
+        .text {
+          @include mixins.font-size(16px);
+
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 6px 8px 8px;
+
+          .mat-icon {
+            margin-right: 8px;
+          }
+        }
+
+        img {
+          width: 100% !important;
+          border-width: 0 0 2px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 425px) {
+    .theme-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

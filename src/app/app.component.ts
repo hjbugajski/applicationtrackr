@@ -3,6 +3,7 @@ import { Auth, authState } from '@angular/fire/auth';
 import { Unsubscribe } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 
+import { Themes } from '~enums/themes.enum';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { MatIconService } from '~services/mat-icon/mat-icon.service';
 import { ThemeService } from '~services/theme/theme.service';
@@ -46,15 +47,36 @@ export class AppComponent implements OnDestroy {
         }
       })
     );
+
+    this.subscriptions.add(
+      this.userStore.appearance$.subscribe((value) => {
+        if (value) {
+          this.themeService.setTheme(value);
+        }
+      })
+    );
+
+    this.themeService.prefersColorSchemeDark.addEventListener('change', (event) => {
+      if (this.userStore.appearance === null || this.userStore.appearance === Themes.System) {
+        this.themeService.setTheme(event.matches ? Themes.Dark : Themes.Light);
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     this.jobBoardsService.resetJobBoards();
     this.userService.resetUserData();
+    this.removeListeners();
 
     if (this.unsubscribeUserDocData) {
       this.unsubscribeUserDocData();
+    }
+  }
+
+  private removeListeners(): void {
+    if (this.themeService.prefersColorSchemeDark.eventListeners) {
+      this.themeService.prefersColorSchemeDark.removeAllListeners!('change');
     }
   }
 }

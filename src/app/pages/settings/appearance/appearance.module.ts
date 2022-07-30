@@ -1,13 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
 
 import { AppearanceComponent } from './appearance.component';
 
-import { ThemePickerModule } from '~components/theme-picker/theme-picker.module';
-
 @NgModule({
   declarations: [AppearanceComponent],
-  imports: [CommonModule, RouterModule.forChild([{ path: '', component: AppearanceComponent }]), ThemePickerModule]
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatRadioModule,
+    RouterModule.forChild([{ path: '', component: AppearanceComponent }])
+  ]
 })
 export class AppearanceModule {}

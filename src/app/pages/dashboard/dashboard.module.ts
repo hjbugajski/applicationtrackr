@@ -14,14 +14,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 
 import { JobBoardSelectorModule } from '~components/job-board-selector/job-board-selector.module';
-import { ThemePickerModule } from '~components/theme-picker/theme-picker.module';
 
 @NgModule({
   declarations: [DashboardComponent],
   imports: [
-    JobBoardSelectorModule,
     CommonModule,
     DashboardRoutingModule,
+    JobBoardSelectorModule,
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
@@ -30,8 +29,7 @@ import { ThemePickerModule } from '~components/theme-picker/theme-picker.module'
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
-    RouterModule,
-    ThemePickerModule
+    RouterModule
   ]
 })
 export class DashboardModule {}

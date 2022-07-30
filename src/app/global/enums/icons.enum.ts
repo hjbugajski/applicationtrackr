@@ -5,6 +5,7 @@ export enum Icons {
   CarbonArrowLeft = 'carbon-arrow-left',
   CarbonCaretDown = 'carbon-caret-down',
   CarbonChartMultitype = 'carbon-chart-multitype',
+  CarbonCheckMarkFilled = 'carbon-checkmark-filled',
   CarbonCloseOutline = 'carbon-close-outline',
   CarbonColorPalette = 'carbon-color-palette',
   CarbonCompass = 'carbon-compass',
@@ -25,5 +26,8 @@ export enum Icons {
   CarbonTemplate = 'carbon-template',
   CarbonTrashCam = 'carbon-trash-can',
   CarbonUserAvatar = 'carbon-user-avatar',
-  GoogleLogo = 'google-logo'
+  DarkTheme = 'applicationtrackr-dark-theme',
+  GoogleLogo = 'google-logo',
+  LightTheme = 'applicationtrackr-light-theme',
+  SystemTheme = 'applicationtrackr-system-theme'
 }

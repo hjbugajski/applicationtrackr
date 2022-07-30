@@ -84,6 +84,7 @@
             <at-sign-in-with-apple-button
               *ngSwitchCase="providers.Apple"
               [authMode]="authModes.Reauthenticate"
+              [fullWidth]="false"
               prefix="Sign in"
               (reauthenticated)="goToNextStep(authStepper)"
             ></at-sign-in-with-apple-button>
@@ -92,6 +93,7 @@
             <at-sign-in-with-google-button
               *ngSwitchCase="providers.Google"
               [authMode]="authModes.Reauthenticate"
+              [fullWidth]="false"
               prefix="Sign in"
               (reauthenticated)="goToNextStep(authStepper)"
             ></at-sign-in-with-google-button>

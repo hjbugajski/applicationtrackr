@@ -25,10 +25,13 @@
 <ng-template #sidenavItems>
   <h1>Settings</h1>
   <div class="settings-container-sidenav">
+    <div class="settings-sidenav-section-header">General</div>
     <a routerLink="account" routerLinkActive="active" class="settings-sidenav-item">
       <mat-icon svgIcon="carbon-user-avatar"></mat-icon>
       Account
     </a>
+    <mat-divider></mat-divider>
+    <div class="settings-sidenav-section-header">Application</div>
     <a routerLink="appearance" routerLinkActive="active" class="settings-sidenav-item">
       <mat-icon svgIcon="carbon-color-palette"></mat-icon>
       Appearance

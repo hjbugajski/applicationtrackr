@@ -7,11 +7,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 
-import { ThemePickerModule } from '~components/theme-picker/theme-picker.module';
-
 @NgModule({
   declarations: [AuthComponent],
-  imports: [AuthRoutingModule, CommonModule, MatCardModule, MatIconModule, MatSidenavModule, ThemePickerModule],
+  imports: [AuthRoutingModule, CommonModule, MatCardModule, MatIconModule, MatSidenavModule],
   exports: [AuthComponent]
 })
 export class AuthModule {}

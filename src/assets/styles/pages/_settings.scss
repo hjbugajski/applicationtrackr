@@ -21,7 +21,7 @@
   }
 
   .settings-sidenav-item {
-    @include mixins.font-size(16px);
+    @include mixins.font-size(14px);
 
     display: flex;
     flex-direction: row;
@@ -40,6 +40,10 @@
       cursor: pointer;
     }
 
+    &:focus {
+      outline: 2px solid map.get($at-palette, 'primary');
+    }
+
     &.active {
       background-color: map.get($at-palette, 'hover');
       color: map.get($at-palette, 'primary');
@@ -47,13 +51,24 @@
 
     .mat-icon {
       margin-right: 12px;
-      font-size: 20px;
+      font-size: 18px;
 
       &,
       svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
       }
     }
+  }
+
+  .settings-sidenav-section-header {
+    @include mixins.font-size(12px);
+
+    margin-bottom: 10px;
+    font-weight: variables.$font-weight-semi-bold;
+  }
+
+  .theme-list-item:focus {
+    outline: 2px solid map.get($at-palette, 'primary');
   }
 }

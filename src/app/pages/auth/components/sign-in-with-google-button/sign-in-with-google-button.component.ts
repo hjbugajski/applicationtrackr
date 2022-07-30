@@ -11,6 +11,7 @@ import { AuthService } from '~services/auth/auth.service';
 })
 export class SignInWithGoogleButtonComponent {
   @Input() public authMode: AuthModes = AuthModes.SignIn;
+  @Input() public fullWidth = true;
   @Input() public prefix = 'Sign in';
   @Output() public reauthenticated = new EventEmitter<void>();
 

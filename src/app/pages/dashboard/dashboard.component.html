@@ -26,12 +26,13 @@
 
       <div class="spacer"></div>
       <div class="sidenav-item-container-end">
-        <at-theme-picker></at-theme-picker>
-        <a mat-icon-button matTooltip="Settings" [routerLink]="['/', paths.Settings]" class="button-link">
-          <mat-icon [svgIcon]="'carbon-settings'"></mat-icon>
+        <a mat-button [routerLink]="['/', paths.Settings]" class="button-link mat-button-with-top-icon">
+          <mat-icon svgIcon="carbon-settings"></mat-icon>
+          Settings
         </a>
-        <button mat-icon-button matTooltip="Sign out" (click)="signOut()">
-          <mat-icon [svgIcon]="'carbon-logout'"></mat-icon>
+        <button mat-button (click)="signOut()" class="mat-button-with-top-icon">
+          <mat-icon svgIcon="carbon-logout"></mat-icon>
+          Sign out
         </button>
       </div>
     </div>
