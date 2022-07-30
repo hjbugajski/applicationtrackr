@@ -1,19 +1,45 @@
 @use 'colors';
 @use 'mixins';
+@use 'variables';
 
 :host {
-  .settings-card .mat-card-title {
-    @include mixins.font-size(20px);
-
-    margin-bottom: 16px;
+  .mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 1;
   }
 
-  .content {
-    margin-top: 56px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 8px;
-    max-width: 500px;
+  .settings-container {
+    position: absolute;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  ::ng-deep .mat-sidenav {
+    border: 0 !important;
+    width: 282px;
+
+    .mat-drawer-inner-container {
+      padding: 16px !important;
+      box-sizing: border-box;
+    }
+  }
+
+  .mat-sidenav-content {
+    padding: 16px;
+    height: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  h1 {
+    @include mixins.font-size(28px);
+
+    margin-bottom: 24px;
+    font-weight: variables.$font-weight-semi-bold !important;
   }
 
   .spinner-container {
@@ -22,80 +48,23 @@
     padding-top: 16px;
   }
 
-  .mat-card-secondary-title {
-    @include mixins.font-size(18px);
-
-    padding-top: 16px !important;
-  }
-
-  .account-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  .account-details-avatar {
-    height: 72px;
-    width: 72px;
-    margin-bottom: 16px;
-  }
-
-  .account-details-email {
-    @include mixins.font-size(18px);
-
-    margin-bottom: 8px;
-  }
-
-  .mat-list-base {
-    &:not(:last-child) {
-      padding-bottom: 32px;
-    }
-
-    &:first-of-type {
-      padding-bottom: 16px;
-    }
-  }
-
-  .mat-list-item {
-    height: auto !important;
-
-    &:not(:last-child) {
-      margin-bottom: 16px;
-    }
-  }
-
-  ::ng-deep {
-    .mat-list-item-content,
-    .mat-subheader {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
-
-    .at-alert {
-      margin-bottom: 16px;
-    }
-
-    .mat-step-header {
-      padding-left: 8px !important;
-      padding-right: 0 !important;
-    }
-
-    .mat-vertical-content {
-      padding-right: 0 !important;
-    }
-
-    .mat-vertical-content-container {
-      margin-left: 20px !important;
-      margin-top: 8px;
-    }
+  .settings-container-sidenav {
+    margin-bottom: 32px;
   }
 
   @media (min-width: 600px) {
-    .content {
-      margin-top: 64px;
-      padding: 16px;
+    .settings-container {
+      top: 64px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .settings-container-sidenav {
+      margin-bottom: 0;
+    }
+
+    .mat-sidenav-content {
+      padding-top: 75px;
     }
   }
 }

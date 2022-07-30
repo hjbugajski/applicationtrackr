@@ -10,9 +10,11 @@
   </mat-menu>
 </ng-container>
 <ng-template #listLayout>
-  <mat-list-item *ngFor="let theme of themesArray" (click)="setTheme(theme.class)">
-    <span>{{ theme.viewValue }}</span>
-    <span class="spacer"></span>
-    <mat-radio-button [checked]="appTheme === theme.class" (change)="setTheme(theme.class)"></mat-radio-button>
-  </mat-list-item>
+  <mat-list>
+    <mat-list-item *ngFor="let theme of themesArray" (click)="setTheme(theme.class)">
+      <span>{{ theme.viewValue }}</span>
+      <span class="spacer"></span>
+      <mat-radio-button [checked]="appTheme === theme.class" (change)="setTheme(theme.class)"></mat-radio-button>
+    </mat-list-item>
+  </mat-list>
 </ng-template>

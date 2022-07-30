@@ -12,6 +12,7 @@ import { CustomValidators, getEmailError } from '~utils/custom-validators';
 export class ForgotPasswordFormComponent implements OnInit {
   @Input() public emailValue: string | undefined;
   @Input() public hint: string | undefined;
+  @Input() public maxWidth = false;
   @Input() public readonly: boolean | undefined;
 
   public email = new FormControl('', { nonNullable: true, validators: CustomValidators.emailValidators });

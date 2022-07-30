@@ -21,6 +21,7 @@ export class ResetPasswordFormComponent implements OnInit {
   @Input() public authMode: AuthModes = AuthModes.Reset;
   @Input() public buttonText = 'Reset';
   @Input() public email = '';
+  @Input() public maxWidth = false;
   @Input() public queryParams: AuthParams = { mode: '', oobCode: '' };
 
   public isLoading: boolean;

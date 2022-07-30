@@ -4,6 +4,7 @@
 @use 'material';
 @use 'palettes';
 @use 'variables';
+@use './pages/settings';
 
 @include mat.core();
 
@@ -51,6 +52,7 @@ $typography: mat.define-typography-config(
   @include components.get-components-styles();
   @include material.get-components-styles();
   @include colors.color-classes($at-palette, $at-palette-keys, variables.$light);
+  @include settings.get-styles(variables.$light);
 }
 
 .at-dark-theme {
@@ -61,4 +63,5 @@ $typography: mat.define-typography-config(
   @include components.get-components-styles(variables.$dark);
   @include material.get-components-styles(variables.$dark);
   @include colors.color-classes($at-palette, $at-palette-keys, variables.$dark);
+  @include settings.get-styles(variables.$dark);
 }

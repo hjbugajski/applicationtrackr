@@ -14,6 +14,7 @@ export class SignInWithPasswordFormComponent implements OnChanges {
   @Input() public authMode: AuthModes = AuthModes.SignIn;
   @Input() public buttonColor = 'primary';
   @Input() public buttonText = 'Sign in';
+  @Input() public maxWidth = false;
   @Output() public reauthenticated = new EventEmitter<void>();
   @Input() public showForm = false;
 
