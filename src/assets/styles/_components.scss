@@ -28,7 +28,7 @@
     }
   }
 
-  .board-column {
+  .column {
     overflow: hidden;
     min-width: 275px;
     border-right: 2px solid map.get($at-palette, 'border');
@@ -44,7 +44,7 @@
       margin-bottom: 8px;
     }
 
-    .board-column-header {
+    .column-header {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -52,24 +52,24 @@
       margin-bottom: 5px;
       padding: 5px 5px 0 10px;
 
-      .board-column-title-container {
+      .column-title-container {
         display: flex;
         flex-direction: row;
         align-items: center;
 
-        .board-column-title {
+        .column-title {
           @include mixins.font-size(16px);
 
           font-weight: variables.$font-weight-bold;
         }
 
-        .board-column-application-count {
+        .column-application-count {
           margin-left: 8px;
           font-weight: variables.$font-weight-semi-bold !important;
         }
       }
 
-      .board-column-actions {
+      .column-actions {
         min-width: 80px;
       }
     }
@@ -83,7 +83,7 @@
     }
 
     @media (min-width: 768px) {
-      .board-column-header {
+      .column-header {
         margin-bottom: 8px;
         padding: 8px 8px 0 16px;
       }

@@ -1,10 +1,10 @@
 <ng-container *ngIf="isLoaded$ | async; else loading">
-  <div class="board-column-header at-text" [ngClass]="column.color">
-    <div class="board-column-title-container">
-      <span class="board-column-title">{{ column.title }}</span>
-      <span class="board-column-application-count tag" [ngClass]="column.color">{{ column.total }}</span>
+  <div class="column-header at-text" [ngClass]="column.color">
+    <div class="column-title-container">
+      <span class="column-title">{{ column.title }}</span>
+      <span class="column-application-count tag" [ngClass]="column.color">{{ column.total }}</span>
     </div>
-    <div class="board-column-actions">
+    <div class="column-actions">
       <button mat-icon-button matTooltip="New application" (click)="newApplication()">
         <mat-icon svgIcon="carbon-add"></mat-icon>
       </button>
@@ -70,11 +70,11 @@
   </cdk-virtual-scroll-viewport>
 </ng-container>
 <ng-template #loading>
-  <div class="board-column-header at-text">
-    <div class="board-column-title-container">
-      <span class="board-column-title">Loading...</span>
+  <div class="column-header at-text">
+    <div class="column-title-container">
+      <span class="column-title">Loading...</span>
     </div>
-    <div class="board-column-actions">
+    <div class="column-actions">
       <button mat-icon-button [disabled]="true">
         <mat-icon svgIcon="carbon-add"></mat-icon>
       </button>

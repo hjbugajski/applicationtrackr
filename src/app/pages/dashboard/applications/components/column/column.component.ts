@@ -36,14 +36,14 @@ import { applicationConverter, columnConverter } from '~utils/firestore-converte
 
 /* eslint @angular-eslint/no-host-metadata-property: "off" */
 @Component({
-  selector: 'at-board-column',
-  templateUrl: './board-column.component.html',
-  styleUrls: ['./board-column.component.scss'],
+  selector: 'at-column',
+  templateUrl: './column.component.html',
+  styleUrls: ['./column.component.scss'],
   host: {
-    class: 'board-column at-alpha-background'
+    class: 'column at-alpha-background'
   }
 })
-export class BoardColumnComponent implements OnInit, OnDestroy {
+export class ColumnComponent implements OnInit, OnDestroy {
   @HostBinding('class') colorClass = '';
   @Input() public columnId!: string;
   @Input() public columns!: BehaviorSubject<Column[]>;

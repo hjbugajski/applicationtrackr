@@ -1,15 +1,15 @@
 <div cdkScrollable class="page-container no-padding at-alt-background">
   <ng-container *ngIf="isLoaded | async; else loading">
-    <at-board-column
+    <at-column
       *ngFor="let column of columns$ | async; let i = index"
-      [attr.id]="'at-board-column-' + i"
-      [id]="'at-board-column-' + i"
+      [attr.id]="'at-column-' + i"
+      [id]="'at-column-' + i"
       [columnId]="column.docId"
       [columns]="columns$"
       [dragDropConnectedArray]="getDragDropConnectedArray((columns$ | async)!, i)"
       [dragDropId]="'column-' + i"
       [ngClass]="column.color"
-    ></at-board-column>
+    ></at-column>
     <div class="add-column-button-container">
       <button mat-stroked-button color="neutral" class="add-column-button full-width" (click)="addNewColumn()">
         New column
@@ -17,12 +17,12 @@
     </div>
   </ng-container>
   <ng-template #loading>
-    <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="board-column at-alpha-background">
-      <div class="board-column-header at-text">
-        <div class="board-column-title-container">
-          <span class="board-column-title">Loading...</span>
+    <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="column at-alpha-background">
+      <div class="column-header at-text">
+        <div class="column-title-container">
+          <span class="column-title">Loading...</span>
         </div>
-        <div class="board-column-actions">
+        <div class="column-actions">
           <button mat-icon-button [disabled]="true">
             <mat-icon svgIcon="carbon-add"></mat-icon>
           </button>

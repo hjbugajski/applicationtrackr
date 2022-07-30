@@ -6,14 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
 import { ApplicationsComponent } from './applications.component';
-
-import { BoardColumnModule } from '~components/board-column/board-column.module';
-import { ColumnDialogModule } from '~components/column-dialog/column-dialog.module';
+import { ColumnDialogModule } from './components/column-dialog/column-dialog.module';
+import { ColumnModule } from './components/column/column.module';
 
 @NgModule({
   declarations: [ApplicationsComponent],
   imports: [
-    BoardColumnModule,
+    ColumnModule,
     ColumnDialogModule,
     CommonModule,
     MatButtonModule,
