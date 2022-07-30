@@ -171,8 +171,8 @@ $light-theme-foreground-palette: (
 
 $dark-theme-foreground-palette: (
   base: colors.$dark-gray-1,
-  divider: colors.$dark-gray-7,
-  dividers: colors.$dark-gray-7,
+  divider: colors.$dark-gray-8,
+  dividers: colors.$dark-gray-8,
   disabled: colors.$dark-gray-6,
   disabled-button: colors.$dark-gray-6,
   disabled-text: colors.$dark-gray-6,
@@ -190,7 +190,7 @@ $light-theme-background-palette: (
   status-bar: colors.$white,
   app-bar: colors.$white,
   background: colors.$light-gray-0,
-  hover: colors.$light-gray-1,
+  hover: colors.$light-gray-0,
   card: colors.$white,
   dialog: colors.$white,
   disabled-button: colors.$light-gray-1,
@@ -208,7 +208,7 @@ $dark-theme-background-palette: (
   status-bar: colors.$dark-gray-10,
   app-bar: colors.$dark-gray-10,
   background: colors.$dark-gray-9,
-  hover: colors.$dark-gray-8,
+  hover: colors.$dark-gray-9,
   card: colors.$dark-gray-10,
   dialog: colors.$dark-gray-10,
   disabled-button: colors.$dark-gray-7,
@@ -233,7 +233,7 @@ $at-light-palette: (
   danger: colors.$light-red-5,
   neutral: colors.$light-gray-9,
   border: colors.$light-gray-1,
-  hover: colors.$light-gray-1,
+  hover: colors.$light-gray-0,
   contrast: (
     primary: colors.$white,
     accent: colors.$white,
@@ -260,7 +260,7 @@ $at-dark-palette: (
   danger: colors.$dark-red-4,
   neutral: colors.$dark-gray-1,
   border: colors.$dark-gray-8,
-  hover: colors.$dark-gray-8,
+  hover: colors.$dark-gray-9,
   contrast: (
     primary: colors.$black,
     accent: colors.$black,

@@ -92,7 +92,7 @@
 
       <!-- Date Applied Date Picker -->
       <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
-        <mat-label>Date Applied</mat-label>
+        <mat-label>Date</mat-label>
         <input formControlName="date" matInput [matDatepicker]="datePicker" [readonly]="readonly" />
         <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="!editing"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
