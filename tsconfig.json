@@ -20,6 +20,7 @@
     "paths": {
       "~components/*": [
         "src/app/global/components/*",
+        "src/app/pages/auth/components/*",
         "src/app/pages/dashboard/applications/components/*",
         "src/app/pages/dashboard/job-boards/components/*"
       ],
