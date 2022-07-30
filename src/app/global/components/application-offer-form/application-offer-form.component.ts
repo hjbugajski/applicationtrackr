@@ -131,7 +131,6 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
         .then(() => {
           this.isLoading = false;
           this.state = FormStates.Readonly;
-          this.notificationService.showSuccess('Offer updated!');
         })
         .catch((error) => {
           console.error(error);
@@ -150,7 +149,13 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
         item: 'edits'
       };
       const dialogAfterClosed = this.matDialog
-        .open(ConfirmationDialogComponent, { autoFocus: false, data, disableClose: true, width: '315px' })
+        .open(ConfirmationDialogComponent, {
+          autoFocus: false,
+          data,
+          disableClose: true,
+          width: '315px',
+          panelClass: 'at-dialog-with-padding'
+        })
         .afterClosed();
 
       if ((await lastValueFrom(dialogAfterClosed)) === DialogActions.Discard) {

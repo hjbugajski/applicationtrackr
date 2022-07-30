@@ -52,7 +52,13 @@ export class JobBoardDialogComponent {
         item: this.providedData.action === DialogActions.New ? 'job board' : 'edits'
       };
       const dialogAfterClosed = this.matDialog
-        .open(ConfirmationDialogComponent, { autoFocus: false, data, disableClose: true, width: '315px' })
+        .open(ConfirmationDialogComponent, {
+          autoFocus: false,
+          data,
+          disableClose: true,
+          width: '315px',
+          panelClass: 'at-dialog-with-padding'
+        })
         .afterClosed() as Observable<DialogActions>;
 
       if ((await lastValueFrom(dialogAfterClosed)) === DialogActions.Discard) {
@@ -89,7 +95,6 @@ export class JobBoardDialogComponent {
 
         await this.jobBoardsService.updateJobBoard({ date: timestamp, docId: data.docId, title }).then(() => {
           this.isLoading = false;
-          this.notificationService.showSuccess('Job board updated!');
           this.matDialogRef.close();
         });
       }

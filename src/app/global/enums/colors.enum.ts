@@ -1,10 +1,11 @@
 export enum Colors {
   Accent = 'accent',
   AccentAlt = 'accent-alt',
+  Attention = 'attention',
   Danger = 'danger',
+  Neutral = 'neutral',
+  Primary = 'primary',
   Severe = 'severe',
   SevereAlt = 'severe-alt',
-  Primary = 'primary',
-  Success = 'success',
-  Attention = 'attention'
+  Success = 'success'
 }

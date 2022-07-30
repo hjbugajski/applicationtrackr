@@ -1,5 +1,5 @@
 export interface ColumnDoc {
-  color?: string;
+  color: string;
   sortOrder: number;
   title: string;
   total: number;

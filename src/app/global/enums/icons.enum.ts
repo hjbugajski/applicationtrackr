@@ -8,6 +8,7 @@ export enum Icons {
   CarbonCloseOutline = 'carbon-close-outline',
   CarbonColorPalette = 'carbon-color-palette',
   CarbonCompass = 'carbon-compass',
+  CarbonDraggable = 'carbon-draggable',
   CarbonEdit = 'carbon-edit',
   CarbonEmail = 'carbon-email',
   CarbonLaunch = 'carbon-launch',

@@ -8,11 +8,13 @@ import { RouterModule } from '@angular/router';
 import { ApplicationsComponent } from './applications.component';
 
 import { BoardColumnModule } from '~components/board-column/board-column.module';
+import { ColumnDialogModule } from '~components/column-dialog/column-dialog.module';
 
 @NgModule({
   declarations: [ApplicationsComponent],
   imports: [
     BoardColumnModule,
+    ColumnDialogModule,
     CommonModule,
     MatButtonModule,
     MatIconModule,

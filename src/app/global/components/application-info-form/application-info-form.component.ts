@@ -2,7 +2,7 @@ import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { lastValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 
 import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
@@ -28,7 +28,7 @@ import { expandCollapse, ngIfAnimation } from '~utils/transitions.util';
 export class ApplicationInfoFormComponent implements OnInit {
   @Input() public action!: DialogActions;
   @Input() public application!: Application;
-  @Input() public columns!: Observable<Column[]>;
+  @Input() public columns!: BehaviorSubject<Column[]>;
   @Input() public currentColumn!: Column;
   @ViewChildren(MatInput) public matInputs: QueryList<MatInput> | undefined;
 
@@ -135,7 +135,13 @@ export class ApplicationInfoFormComponent implements OnInit {
         item: this.action === DialogActions.New ? 'application' : 'edits'
       };
       const dialogAfterClosed = this.matDialog
-        .open(ConfirmationDialogComponent, { autoFocus: false, data, disableClose: true, width: '315px' })
+        .open(ConfirmationDialogComponent, {
+          autoFocus: false,
+          data,
+          disableClose: true,
+          width: '315px',
+          panelClass: 'at-dialog-with-padding'
+        })
         .afterClosed() as Observable<DialogActions>;
 
       if ((await lastValueFrom(dialogAfterClosed)) === DialogActions.Discard) {
@@ -177,7 +183,6 @@ export class ApplicationInfoFormComponent implements OnInit {
       .then(() => {
         this.isLoading = false;
         this.state = FormStates.Readonly;
-        this.notificationService.showSuccess('Application updated!');
       })
       .catch((error) => {
         console.error(error);

@@ -1,0 +1,62 @@
+<ng-container *ngIf="action === dialogActions.Reorder; else form">
+  <h1 mat-dialog-title>Reorder columns</h1>
+  <mat-dialog-content>
+    <div cdkDropList role="list" class="reorder-column-list" (cdkDropListDropped)="drop($event)">
+      <div
+        #reorderItem
+        *ngFor="let col of reorderColumns; let i = index"
+        cdkDrag
+        cdkDragPreviewClass="reorder-column-list-cdk-drag-preview"
+        role="listitem"
+        tabindex="0"
+        class="reorder-column-list-box"
+        (keydown)="handleListKeyDown($event, i)"
+      >
+        <div class="inner-container at-text at-alpha-background" [ngClass]="col.color">
+          <mat-icon svgIcon="carbon-draggable"></mat-icon>
+          {{ col.title }}
+        </div>
+      </div>
+    </div>
+    <div class="button-row-container-end">
+      <button mat-button (click)="reorderClose()">Cancel</button>
+      <button mat-flat-button color="primary" [disabled]="!isReordered || isLoading" (click)="submitReorder()">
+        <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
+          <mat-spinner color="accent" diameter="24"></mat-spinner>
+        </div>
+        <ng-template #text>Save</ng-template>
+      </button>
+    </div>
+  </mat-dialog-content>
+</ng-container>
+<ng-template #form>
+  <h1 mat-dialog-title>{{ action === dialogActions.New ? 'New' : 'Edit' }} column</h1>
+  <mat-dialog-content>
+    <form [formGroup]="columnForm" class="form-grid">
+      <mat-form-field class="full-width">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput type="text" />
+        <mat-error>{{ getError(title) }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Color</mat-label>
+        <mat-select formControlName="color">
+          <mat-option *ngFor="let c of colorOptions" [value]="c.value" class="at-text" [ngClass]="c.value">
+            {{ c.viewValue }}
+          </mat-option>
+        </mat-select>
+        <mat-error>{{ getError(color) }}</mat-error>
+      </mat-form-field>
+    </form>
+    <div class="button-row-container-end">
+      <button mat-button (click)="formClose()">Cancel</button>
+      <button mat-flat-button color="primary" [disabled]="columnForm.invalid || isLoading" (click)="submit()">
+        <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
+          <mat-spinner color="accent" diameter="24"></mat-spinner>
+        </div>
+        <ng-template #text>{{ action === dialogActions.New ? 'Add' : 'Save' }}</ng-template>
+      </button>
+    </div>
+  </mat-dialog-content>
+</ng-template>

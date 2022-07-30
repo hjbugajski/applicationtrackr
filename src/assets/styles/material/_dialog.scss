@@ -8,17 +8,19 @@
     @include mixins.border($at-palette, none !important);
 
     max-height: 100vh;
+    padding: 0;
   }
 
   .mat-dialog-title {
     @include mixins.font-size(20px);
 
+    padding: 24px;
+    margin: 0;
     color: map.get($at-palette, 'primary');
     font-weight: variables.$font-weight-bold !important;
     position: sticky;
     top: 0;
     z-index: 10;
-    margin-bottom: 24px;
 
     @if $theme == variables.$dark {
       background-color: colors.$dark-gray-10;
@@ -26,6 +28,11 @@
       // (default) light theme
       background-color: colors.$white;
     }
+  }
+
+  .mat-dialog-content {
+    margin: 0;
+    padding: 0 24px 24px;
   }
 
   .mat-dialog-container-with-toolbar {
@@ -72,9 +79,31 @@
     }
   }
 
+  .dialog-header-with-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .mat-icon {
+      margin-bottom: 16px;
+    }
+
+    .dialog-header {
+      @include mixins.font-size(20px);
+
+      font-weight: variables.$font-weight-bold;
+    }
+  }
+
   .mat-dialog-content-with-tabs {
     margin: 0;
     padding-bottom: 24px;
+  }
+
+  .at-dialog-with-padding .mat-dialog-container {
+    padding: 24px;
   }
 
   .overlay-spinner-dialog .mat-dialog-container {

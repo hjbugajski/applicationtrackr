@@ -38,7 +38,13 @@ export class JobBoardsComponent {
     };
 
     const dialogAfterClosed = this.matDialog
-      .open(ConfirmationDialogComponent, { autoFocus: false, data, disableClose: true, width: '350px' })
+      .open(ConfirmationDialogComponent, {
+        autoFocus: false,
+        data,
+        disableClose: true,
+        width: '350px',
+        panelClass: 'at-dialog-with-padding'
+      })
       .afterClosed() as Observable<DialogActions>;
 
     if ((await lastValueFrom<DialogActions>(dialogAfterClosed)) === DialogActions.Delete) {

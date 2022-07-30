@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { onSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Unsubscribe } from 'firebase/auth';
-import { lastValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
@@ -23,7 +23,7 @@ import { applicationConverter } from '~utils/firestore-converters';
 export class ApplicationDialogComponent implements OnDestroy {
   public application: Application;
   public column: Column;
-  public columns: Observable<Column[]>;
+  public columns: BehaviorSubject<Column[]>;
 
   private unsubscribeApplication!: Unsubscribe;
 
@@ -35,7 +35,7 @@ export class ApplicationDialogComponent implements OnDestroy {
     private notificationService: NotificationService
   ) {
     this.application = this.dialogData.application;
-    this.column = this.dialogData.columnDoc;
+    this.column = this.dialogData.column;
     this.columns = this.dialogData.columns;
 
     this.initApplicationDoc();
@@ -53,7 +53,12 @@ export class ApplicationDialogComponent implements OnDestroy {
     };
 
     const dialogAfterClosed = this.matDialog
-      .open(ConfirmationDialogComponent, { data, disableClose: true, width: '350px' })
+      .open(ConfirmationDialogComponent, {
+        data,
+        disableClose: true,
+        width: '350px',
+        panelClass: 'at-dialog-with-padding'
+      })
       .afterClosed() as Observable<DialogActions>;
 
     if ((await lastValueFrom<DialogActions>(dialogAfterClosed)) === DialogActions.Delete) {

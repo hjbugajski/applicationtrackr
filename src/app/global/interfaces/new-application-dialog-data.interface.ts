@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { Column } from '~models/column.model';
 
 export interface NewApplicationDialogData {
   column: Column;
-  columns: Observable<Column[]>;
+  columns: BehaviorSubject<Column[]>;
 }
