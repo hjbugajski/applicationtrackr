@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormGroupDirective } from '@an
 
 import { AuthModes } from '~enums/auth-modes.enum';
 import { AuthService } from '~services/auth/auth.service';
+import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom-validators';
 
 @Component({
@@ -24,7 +25,7 @@ export class SignInWithPasswordFormComponent implements OnChanges {
   });
   public isLoading = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private notificationService: NotificationService) {
     this.emailForm.disable();
   }
 
@@ -64,11 +65,18 @@ export class SignInWithPasswordFormComponent implements OnChanges {
           this.resetForm(formDirective);
         });
       } else {
-        await this.authService.reauthenticateCredential(email, password).then(() => {
-          this.isLoading = false;
-          this.resetForm(formDirective);
-          this.reauthenticated.emit();
-        });
+        await this.authService
+          .reauthenticateCredential(email, password)
+          .then(() => {
+            this.isLoading = false;
+            this.resetForm(formDirective);
+            this.reauthenticated.emit();
+          })
+          .catch((error) => {
+            this.isLoading = false;
+            console.error(error);
+            this.notificationService.showError('There was an error with re-authentication. Please try again.');
+          });
       }
     }
   }

@@ -122,8 +122,7 @@ export class AuthService {
     const credential = EmailAuthProvider.credential(email, password);
 
     await reauthenticateWithCredential(this.auth.currentUser!, credential).catch((error) => {
-      console.error(error);
-      this.notificationService.showError('There was an error with re-authentication. Please try again.');
+      throw error;
     });
   }
 
