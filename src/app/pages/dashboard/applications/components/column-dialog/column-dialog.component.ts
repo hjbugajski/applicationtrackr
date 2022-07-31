@@ -1,8 +1,9 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, ElementRef, Inject, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { getDocs } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { lastValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { COLOR_OPTIONS } from '~constants/forms.constants';
@@ -19,7 +20,7 @@ import { NotificationService } from '~services/notification/notification.service
   templateUrl: './column-dialog.component.html',
   styleUrls: ['./column-dialog.component.scss']
 })
-export class ColumnDialogComponent implements AfterViewInit {
+export class ColumnDialogComponent implements AfterViewInit, OnInit {
   @ViewChildren('reorderItem') reorderItems!: QueryList<ElementRef<HTMLElement>>;
 
   public action: DialogActions | string;
@@ -28,9 +29,10 @@ export class ColumnDialogComponent implements AfterViewInit {
     color: new FormControl<string | null>(null, [Validators.required]),
     title: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
   });
+  public columns: Column[] = [];
+  public isLoaded: BehaviorSubject<boolean>;
   public isLoading: boolean;
   public isReordered: boolean;
-  public reorderColumns: Column[] = [];
 
   private activeReorderItem = 0;
 
@@ -42,15 +44,15 @@ export class ColumnDialogComponent implements AfterViewInit {
     private notificationService: NotificationService
   ) {
     this.action = this.providedData.action;
+    this.isLoaded = new BehaviorSubject<boolean>(false);
     this.isLoading = false;
     this.isReordered = false;
-    this.columnsService.columns$.getValue().forEach((column) => this.reorderColumns.push(column));
 
     this.initForm();
   }
 
   public drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.reorderColumns, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
     this.activeReorderItem = event.currentIndex;
     this.isReordered = true;
     this.setFocus();
@@ -99,7 +101,7 @@ export class ColumnDialogComponent implements AfterViewInit {
       toIndex = fromIndex - 1;
     }
 
-    moveItemInArray(this.reorderColumns, fromIndex, toIndex);
+    moveItemInArray(this.columns, fromIndex, toIndex);
     this.activeReorderItem = toIndex;
     this.isReordered = true;
     this.setFocus();
@@ -108,6 +110,13 @@ export class ColumnDialogComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.reorderItems.changes.subscribe(() => {
       this.setFocus();
+    });
+  }
+
+  async ngOnInit(): Promise<void> {
+    await getDocs(this.columnsService.columnQuery).then((snapshot) => {
+      this.columns = snapshot.docs.map((doc) => doc.data());
+      this.isLoaded.next(true);
     });
   }
 
@@ -129,7 +138,7 @@ export class ColumnDialogComponent implements AfterViewInit {
             field: 'company'
           },
           color,
-          sortOrder: this.columnsService.columns$.getValue().length,
+          sortOrder: this.columns.length,
           title,
           total: 0
         };
@@ -162,9 +171,9 @@ export class ColumnDialogComponent implements AfterViewInit {
     this.isLoading = true;
 
     try {
-      for (let i = 0; i < this.reorderColumns.length; i++) {
-        if (this.reorderColumns[i].sortOrder !== i) {
-          await this.columnsService.updateSortOrder(this.reorderColumns[i].docId, i);
+      for (let i = 0; i < this.columns.length; i++) {
+        if (this.columns[i].sortOrder !== i) {
+          await this.columnsService.updateSortOrder(this.columns[i].docId, i);
         }
       }
     } catch (error) {

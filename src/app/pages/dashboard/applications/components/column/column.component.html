@@ -34,9 +34,7 @@
     </div>
   </div>
   <cdk-virtual-scroll-viewport
-    [id]="dragDropId"
     cdkDropList
-    [cdkDropListConnectedTo]="dragDropConnectedArray"
     [cdkDropListData]="column"
     (cdkDropListDropped)="drop($event)"
     itemSize="25"

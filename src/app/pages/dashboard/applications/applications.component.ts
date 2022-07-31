@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
-import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
 import { UserStore } from '~store/user.store';
 
@@ -15,13 +14,13 @@ import { UserStore } from '~store/user.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationsComponent implements OnDestroy, OnInit {
-  public columns$: BehaviorSubject<Column[]>;
+  public columnIds$: Observable<string[]>;
   public isLoaded: BehaviorSubject<boolean>;
 
   private subscriptions: Subscription;
 
   constructor(private columnsService: ColumnsService, private matDialog: MatDialog, private userStore: UserStore) {
-    this.columns$ = new BehaviorSubject<Column[]>([]);
+    this.columnIds$ = new Observable<string[]>();
     this.isLoaded = new BehaviorSubject<boolean>(false);
     this.subscriptions = new Subscription();
   }
@@ -32,18 +31,6 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
       disableClose: true,
       panelClass: 'at-dialog'
     });
-  }
-
-  public getDragDropConnectedArray(columns: Column[], index: number): string[] {
-    const array: string[] = [];
-
-    columns?.forEach((column, i) => {
-      if (i !== index) {
-        array.push('column-' + i.toString());
-      }
-    });
-
-    return array;
   }
 
   ngOnDestroy(): void {
@@ -69,7 +56,7 @@ export class ApplicationsComponent implements OnDestroy, OnInit {
 
     if (canBeReloaded) {
       this.columnsService.initColumns();
-      this.columns$ = this.columnsService.columns$;
+      this.columnIds$ = this.columnsService.columnIds$;
       this.isLoaded.next(true);
     }
   }

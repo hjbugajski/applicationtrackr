@@ -10,7 +10,8 @@ import {
   onSnapshot,
   orderBy,
   query,
-  Unsubscribe
+  Unsubscribe,
+  where
 } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, distinctUntilChanged, lastValueFrom, Observable, Subscription } from 'rxjs';
@@ -46,10 +47,6 @@ import { applicationConverter, columnConverter } from '~utils/firestore-converte
 export class ColumnComponent implements OnInit, OnDestroy {
   @HostBinding('class') colorClass = '';
   @Input() public columnId!: string;
-  @Input() public columns!: BehaviorSubject<Column[]>;
-  @Input() public dragDropConnectedArray!: string[];
-  @Input() public dragDropId!: string;
-  @Input() public id!: string;
 
   public applications$!: Observable<Application[]>;
   public column!: Column;
@@ -76,7 +73,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
   public async deleteColumn(): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
-      message: `Column ${this.column.title} will be deleted. This action cannot be undone.`,
+      message: `Column <strong class="at-text danger">${this.column.title}</strong> and all associated applications will be deleted. This action cannot be undone.`,
       item: 'column'
     };
 
@@ -139,10 +136,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
   public newApplication(): void {
     this.matDialog.open(NewApplicationDialogComponent, {
-      data: {
-        column: this.column,
-        columns: this.columns
-      },
+      data: { column: this.column },
       disableClose: true,
       panelClass: 'at-dialog'
     });
@@ -192,8 +186,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
     this.matDialog.open(ApplicationDialogComponent, {
       data: {
         application: application,
-        column: this.column,
-        columns: this.columns
+        column: this.column
       },
       disableClose: true,
       panelClass: ['at-dialog', 'mat-dialog-container-with-toolbar']
@@ -228,7 +221,9 @@ export class ColumnComponent implements OnInit, OnDestroy {
   }
 
   private setApplications(sort: Sort): void {
-    this.applications$ = collectionData(query(this.applicationsCollection, orderBy(sort.field, sort.direction)));
+    this.applications$ = collectionData(
+      query(this.applicationsCollection, where('columnDocId', '==', this.columnId), orderBy(sort.field, sort.direction))
+    );
   }
 
   private get applicationsCollection(): CollectionReference<Application> {
@@ -238,8 +233,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
       this.userStore.uid!,
       Collections.JobBoards,
       this.userStore.currentJobBoard!,
-      Collections.Columns,
-      this.columnId,
       Collections.Applications
     ).withConverter(applicationConverter);
   }

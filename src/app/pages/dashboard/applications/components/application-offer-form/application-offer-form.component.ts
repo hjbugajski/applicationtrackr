@@ -1,12 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { getDocs } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 
-import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
-import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
 import { PAY_PERIOD_OPTIONS } from '~constants/forms.constants';
 import { Colors } from '~enums/colors.enum';
 import { DialogActions } from '~enums/dialog-actions.enum';
@@ -16,7 +13,6 @@ import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationService } from '~services/application/application.service';
-import { ColumnsService } from '~services/columns/columns.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators } from '~utils/custom-validators';
 import { dateToTimestamp, timestampToDate } from '~utils/date.util';
@@ -48,9 +44,7 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
 
   constructor(
     private applicationService: ApplicationService,
-    private columnsService: ColumnsService,
     private matDialog: MatDialog,
-    private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService
   ) {
     this.subscriptions = new Subscription();
@@ -64,37 +58,6 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
     } else {
       return 'Required';
     }
-  }
-
-  public async moveApplication(): Promise<void> {
-    await getDocs(this.columnsService.columnQuery)
-      .then(async (snapshot) => {
-        const newColumn = snapshot.docs.find((column) => column.data().title.toLowerCase().includes('offer'))?.data();
-
-        const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
-          autoFocus: false,
-          disableClose: true,
-          panelClass: 'overlay-spinner-dialog'
-        });
-
-        await this.applicationService
-          .moveApplication(this.currentColumn.docId, newColumn!, this.application)
-          .then(() => {
-            this.notificationService.showSuccess('Application successfully moved!');
-            overlayDialog.close();
-          })
-          .catch((error) => {
-            console.error(error);
-            overlayDialog.close();
-            this.notificationService.showError('There was an error moving the application. Please try again.');
-          });
-
-        this.matDialogRef.close();
-      })
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error moving the application. Please try again.');
-      });
   }
 
   ngOnDestroy(): void {
@@ -127,7 +90,7 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
       };
 
       await this.applicationService
-        .updateApplicationOffer(this.currentColumn.docId, this.application.docId, offer)
+        .updateApplicationOffer(this.application.docId, offer)
         .then(() => {
           this.isLoading = false;
           this.state = FormStates.Readonly;

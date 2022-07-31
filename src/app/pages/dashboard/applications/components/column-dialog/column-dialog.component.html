@@ -1,10 +1,10 @@
 <ng-container *ngIf="action === dialogActions.Reorder; else form">
   <h1 mat-dialog-title>Reorder columns</h1>
-  <mat-dialog-content>
+  <mat-dialog-content *ngIf="isLoaded | async">
     <div cdkDropList role="list" class="reorder-column-list" (cdkDropListDropped)="drop($event)">
       <div
         #reorderItem
-        *ngFor="let col of reorderColumns; let i = index"
+        *ngFor="let col of columns; let i = index"
         cdkDrag
         cdkDragPreviewClass="reorder-column-list-cdk-drag-preview"
         role="listitem"
@@ -42,8 +42,13 @@
       <mat-form-field class="full-width">
         <mat-label>Color</mat-label>
         <mat-select formControlName="color">
-          <mat-option *ngFor="let c of colorOptions" [value]="c.value" class="at-text" [ngClass]="c.value">
-            {{ c.viewValue }}
+          <mat-option
+            *ngFor="let colorOption of colorOptions"
+            [value]="colorOption.value"
+            class="at-text"
+            [ngClass]="colorOption.value"
+          >
+            {{ colorOption.viewValue }}
           </mat-option>
         </mat-select>
         <mat-error>{{ getError(color) }}</mat-error>

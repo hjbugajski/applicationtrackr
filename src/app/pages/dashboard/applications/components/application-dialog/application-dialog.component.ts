@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { onSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Unsubscribe } from 'firebase/auth';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
@@ -12,6 +12,7 @@ import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationService } from '~services/application/application.service';
+import { ColumnsService } from '~services/columns/columns.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { applicationConverter } from '~utils/firestore-converters';
 
@@ -23,20 +24,21 @@ import { applicationConverter } from '~utils/firestore-converters';
 export class ApplicationDialogComponent implements OnDestroy {
   public application: Application;
   public column: Column;
-  public columns: BehaviorSubject<Column[]>;
+  public columns: Observable<Column[]>;
 
   private unsubscribeApplication!: Unsubscribe;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private dialogData: ApplicationDialogData,
     private applicationService: ApplicationService,
+    private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService
   ) {
     this.application = this.dialogData.application;
     this.column = this.dialogData.column;
-    this.columns = this.dialogData.columns;
+    this.columns = this.columnsService.columns$;
 
     this.initApplicationDoc();
   }
@@ -48,7 +50,7 @@ export class ApplicationDialogComponent implements OnDestroy {
   public async deleteApplication(): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
-      message: `Application for ${this.application.company} will be deleted. This action cannot be undone.`,
+      message: `Application for <strong class="at-text danger">${this.application.company}</strong> will be deleted. This action cannot be undone.`,
       item: 'application'
     };
 
@@ -114,7 +116,7 @@ export class ApplicationDialogComponent implements OnDestroy {
   }
 
   private initApplicationDoc(): void {
-    const docRef = this.applicationService.getDocRef(this.column.docId, this.application.docId);
+    const docRef = this.applicationService.getDocRef(this.application.docId);
 
     this.unsubscribeApplication = onSnapshot(docRef.withConverter(applicationConverter), (doc) => {
       if (doc.exists()) {

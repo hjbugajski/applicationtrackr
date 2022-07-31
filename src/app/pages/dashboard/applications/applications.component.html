@@ -1,15 +1,6 @@
-<div cdkScrollable class="page-container no-padding at-alt-background">
+<div cdkScrollable cdkDropListGroup class="page-container no-padding at-alt-background">
   <ng-container *ngIf="isLoaded | async; else loading">
-    <at-column
-      *ngFor="let column of columns$ | async; let i = index"
-      [attr.id]="'at-column-' + i"
-      [id]="'at-column-' + i"
-      [columnId]="column.docId"
-      [columns]="columns$"
-      [dragDropConnectedArray]="getDragDropConnectedArray((columns$ | async)!, i)"
-      [dragDropId]="'column-' + i"
-      [ngClass]="column.color"
-    ></at-column>
+    <at-column *ngFor="let columnId of columnIds$ | async; let i = index" [columnId]="columnId"></at-column>
     <div class="add-column-button-container">
       <button mat-stroked-button color="neutral" class="add-column-button full-width" (click)="addNewColumn()">
         New column

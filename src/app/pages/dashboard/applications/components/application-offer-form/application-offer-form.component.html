@@ -1,11 +1,3 @@
-<div *ngIf="!currentColumn.title.toLowerCase().includes('offer')" class="margin-bottom">
-  <at-alert class="at-text" [ngClass]="currentColumn.color" [color]="currentColumn.color">
-    <div class="alert-container">
-      Received an offer? You can move it to the offer column.
-      <button mat-flat-button [color]="currentColumn.color" (click)="moveApplication()">Move</button>
-    </div>
-  </at-alert>
-</div>
 <form [formGroup]="offerForm">
   <div class="form-grid">
     <!-- Compensation Input -->

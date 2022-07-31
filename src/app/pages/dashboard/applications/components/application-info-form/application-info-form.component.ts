@@ -2,7 +2,7 @@ import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
@@ -14,6 +14,7 @@ import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationService } from '~services/application/application.service';
+import { ColumnsService } from '~services/columns/columns.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators } from '~utils/custom-validators';
 import { dateToTimestamp, timestampToDate } from '~utils/date.util';
@@ -28,7 +29,6 @@ import { expandCollapse, ngIfAnimation } from '~utils/transitions.util';
 export class ApplicationInfoFormComponent implements OnInit {
   @Input() public action!: DialogActions;
   @Input() public application!: Application;
-  @Input() public columns!: BehaviorSubject<Column[]>;
   @Input() public currentColumn!: Column;
   @ViewChildren(MatInput) public matInputs: QueryList<MatInput> | undefined;
 
@@ -42,6 +42,7 @@ export class ApplicationInfoFormComponent implements OnInit {
     payPeriod: new FormControl<string | null>(null),
     position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
   });
+  public columns$: Observable<Column[]>;
   public isLoading = false;
   public payPeriodOptions = PAY_PERIOD_OPTIONS;
   public state = FormStates.Readonly;
@@ -49,10 +50,13 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   constructor(
     private applicationService: ApplicationService,
+    private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
     private notificationService: NotificationService
-  ) {}
+  ) {
+    this.columns$ = this.columnsService.columns$;
+  }
 
   public columnCompare = (a: Column, b: Column) => {
     return a.docId === b.docId;
@@ -179,7 +183,7 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   private async editApplication(application: ApplicationDoc): Promise<void> {
     await this.applicationService
-      .updateApplication(this.currentColumn.docId, this.application.docId, application)
+      .updateApplication(this.application.docId, application)
       .then(() => {
         this.isLoading = false;
         this.state = FormStates.Readonly;

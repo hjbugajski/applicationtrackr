@@ -37,8 +37,6 @@ export class ApplicationService {
         this.userStore.uid!,
         Collections.JobBoards,
         this.userStore.currentJobBoard!,
-        Collections.Columns,
-        columnId,
         Collections.Applications
       ),
       application
@@ -53,7 +51,7 @@ export class ApplicationService {
   }
 
   public async deleteApplication(columnId: string, applicationId: string): Promise<void> {
-    await deleteDoc(this.getDocRef(columnId, applicationId))
+    await deleteDoc(this.getDocRef(applicationId))
       .then(async () => {
         await this.columnsService.updateTotal(columnId, -1);
         await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, -1);
@@ -63,46 +61,31 @@ export class ApplicationService {
       });
   }
 
-  public getDocRef(columnId: string, applicationId: string): DocumentReference<DocumentData> {
+  public getDocRef(applicationId: string): DocumentReference<DocumentData> {
     return doc(
       this.firestore,
       Collections.Users,
       this.userStore.uid!,
       Collections.JobBoards,
       this.userStore.currentJobBoard!,
-      Collections.Columns,
-      columnId,
       Collections.Applications,
       applicationId
     );
   }
 
   public async moveApplication(prevColumnId: string, nextColumn: Column, application: Application): Promise<void> {
-    const applicationDoc: ApplicationDoc = {
-      columnDocId: nextColumn.docId,
-      company: application.company,
-      compensation: application.compensation,
-      date: application.date,
-      link: application.link,
-      location: application.location,
-      offer: application.offer,
-      payPeriod: application.payPeriod,
-      position: application.position
-    };
-
-    await this.createApplication(nextColumn.docId, applicationDoc)
+    await updateDoc(this.getDocRef(application.docId), { columnDocId: nextColumn.docId })
       .then(async () => {
-        await this.deleteApplication(prevColumnId, application.docId).catch((error) => {
-          throw error;
-        });
+        await this.columnsService.updateTotal(prevColumnId, -1);
+        await this.columnsService.updateTotal(nextColumn.docId, 1);
       })
       .catch((error) => {
         throw error;
       });
   }
 
-  public async updateApplication(columnId: string, applicationId: string, application: ApplicationDoc): Promise<void> {
-    await updateDoc(this.getDocRef(columnId, applicationId), {
+  public async updateApplication(applicationId: string, application: ApplicationDoc): Promise<void> {
+    await updateDoc(this.getDocRef(applicationId), {
       company: application.company,
       compensation: application.compensation,
       date: application.date,
@@ -115,8 +98,8 @@ export class ApplicationService {
     });
   }
 
-  public async updateApplicationOffer(columnId: string, applicationId: string, offer: ApplicationOffer): Promise<void> {
-    await updateDoc(this.getDocRef(columnId, applicationId), { offer }).catch((error) => {
+  public async updateApplicationOffer(applicationId: string, offer: ApplicationOffer): Promise<void> {
+    await updateDoc(this.getDocRef(applicationId), { offer }).catch((error) => {
       throw error;
     });
   }

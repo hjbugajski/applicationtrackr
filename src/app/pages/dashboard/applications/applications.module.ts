@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,7 @@ import { ColumnModule } from './components/column/column.module';
     ColumnModule,
     ColumnDialogModule,
     CommonModule,
+    DragDropModule,
     MatButtonModule,
     MatIconModule,
     RouterModule.forChild([{ path: '', component: ApplicationsComponent }]),
