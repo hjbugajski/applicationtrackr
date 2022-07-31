@@ -3,7 +3,7 @@
     <mat-icon svgIcon="carbon-trash-can" class="danger at-text"></mat-icon>
     <span class="dialog-header">Delete {{ data.item }}?</span>
   </div>
-  <p *ngIf="data.message" class="delete-data-message">{{ data.message }}</p>
+  <p *ngIf="data.message" class="delete-data-message" [innerHTML]="data.message"></p>
   <div class="button-row-container-end">
     <button mat-button matDialogClose="true">Cancel</button>
     <button mat-flat-button color="warn" (click)="close(dialogActions.Delete)">Delete</button>

@@ -30,10 +30,10 @@ export class JobBoardsComponent {
     return new Date(timestamp.seconds * 1000).toLocaleDateString();
   }
 
-  public async deleteJobBoard(docId: string): Promise<void> {
+  public async deleteJobBoard(jobBoard: JobBoard): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
-      message: 'This job board and all respective applications will be deleted. This action cannot be undone.',
+      message: `Job board <strong class="at-text danger">${jobBoard.title}</strong> and all associated columns and applications will be deleted. This action cannot be undone.`,
       item: 'job board'
     };
 
@@ -54,7 +54,7 @@ export class JobBoardsComponent {
         panelClass: 'overlay-spinner-dialog'
       });
 
-      await this.jobBoardsService.deleteJobBoard(docId).then(() => {
+      await this.jobBoardsService.deleteJobBoard(jobBoard.docId).then(() => {
         overlayDialog.close();
       });
     }
