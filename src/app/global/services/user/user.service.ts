@@ -23,6 +23,15 @@ import { userDataConverter } from '~utils/firestore-converters';
 export class UserService {
   constructor(private firestore: Firestore, private jobBoardsService: JobBoardsService, private userStore: UserStore) {}
 
+  public async createExistingUserDoc(user: User): Promise<void> {
+    const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
+
+    await updateDoc(doc(this.firestore, Collections.Users, user.uid), {
+      appearance: Themes.System,
+      currentJobBoard: newBoard.docId
+    });
+  }
+
   public async createUserDoc(user: User): Promise<void> {
     const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
 

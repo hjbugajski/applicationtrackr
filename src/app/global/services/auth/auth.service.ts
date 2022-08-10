@@ -24,11 +24,13 @@ import {
   UserCredential,
   verifyPasswordResetCode
 } from '@angular/fire/auth';
+import { getDocs, query } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
 import { Paths } from '~enums/paths.enum';
 import { Providers } from '~enums/providers.enum';
 import { Error } from '~interfaces/error.interface';
+import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserService } from '~services/user/user.service';
 
@@ -43,6 +45,7 @@ interface AuthError extends Error {
 export class AuthService {
   constructor(
     private auth: Auth,
+    private jobBoardsService: JobBoardsService,
     private notificationService: NotificationService,
     private router: Router,
     private userService: UserService
@@ -194,7 +197,8 @@ export class AuthService {
 
   public async signInWithEmail(email: string, password: string): Promise<void> {
     await signInWithEmailAndPassword(this.auth, email, password)
-      .then(async () => {
+      .then(async (result) => {
+        await this.handleCreateUserDoc(result.user);
         await this.authSuccessNavigation();
       })
       .catch(async (error: AuthError) => {
@@ -299,9 +303,12 @@ export class AuthService {
 
   private async handleCreateUserDoc(user: User): Promise<void> {
     const userDoc = await this.userService.getUserDocSnap(user.uid);
+    const jobBoardsCollection = await getDocs(query(this.jobBoardsService.jobBoardCollection));
 
     if (!userDoc.exists()) {
       await this.userService.createUserDoc(user);
+    } else if (jobBoardsCollection.docs.length === 0) {
+      await this.userService.createExistingUserDoc(user);
     }
   }
 

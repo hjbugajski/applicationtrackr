@@ -107,7 +107,7 @@ export class JobBoardsService {
     });
   }
 
-  private get jobBoardCollection(): CollectionReference<JobBoard> {
+  public get jobBoardCollection(): CollectionReference<JobBoard> {
     return collection(this.firestore, Collections.Users, this.userStore.uid!, Collections.JobBoards).withConverter(
       jobBoardConverter
     );
