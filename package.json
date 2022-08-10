@@ -12,7 +12,35 @@
     "prettier:check": "npx prettier --ignore-path .gitignore --check .",
     "prettier:write": "npx prettier --ignore-path .gitignore --write .",
     "stylelint": "npx stylelint **/*.scss --ignore-path .gitignore",
-    "stylelint:fix": "npx stylelint **/*.scss --ignore-path .gitignore --fix"
+    "stylelint:fix": "npx stylelint **/*.scss --ignore-path .gitignore --fix",
+    "bump": "bump ./src/app/pages/settings/about/about.component.html",
+    "bump:beta": "bump ./src/app/pages/settings/about/about.component.html",
+    "bump:beta:patch": "bump prepatch ./src/app/pages/settings/about/about.component.html",
+    "bump:beta:minor": "bump preminor ./src/app/pages/settings/about/about.component.html",
+    "bump:beta:major": "bump premajor ./src/app/pages/settings/about/about.component.html",
+    "bump:patch": "bump patch ./src/app/pages/settings/about/about.component.html",
+    "bump:minor": "bump minor ./src/app/pages/settings/about/about.component.html",
+    "bump:major": "bump major ./src/app/pages/settings/about/about.component.html",
+    "release": "standard-version",
+    "release:beta": "standard-version --prerelease beta",
+    "release:beta:custom": "standard-version --prerelease beta --release-as",
+    "release:beta:patch": "standard-version --prerelease beta --release-as patch",
+    "release:beta:minor": "standard-version --prerelease beta --release-as minor",
+    "release:beta:major": "standard-version --prerelease beta --release-as major",
+    "release:custom": "standard-version --release-as",
+    "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "prerelease": "npm run bump:patch",
+    "prerelease:beta": "npm run bump:beta:patch",
+    "prerelease:beta:custom": "npm run bump:beta",
+    "prerelease:beta:patch": "npm run bump:beta:patch",
+    "prerelease:beta:minor": "npm run bump:beta:minor",
+    "prerelease:beta:major": "npm run bump:beta:major",
+    "prerelease:custom": "npm run bump",
+    "prerelease:patch": "npm run bump:patch",
+    "prerelease:minor": "npm run bump:minor",
+    "prerelease:major": "npm run bump:major"
   },
   "private": true,
   "dependencies": {
@@ -61,6 +89,7 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "standard-version": "^9.5.0",
     "stylelint": "^14.9.1",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-prettier-scss": "^0.0.1",
@@ -68,6 +97,12 @@
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-config-standard-scss": "^5.0.0",
-    "typescript": "~4.7.4"
+    "typescript": "~4.7.4",
+    "version-bump-prompt": "^6.1.0"
+  },
+  "standard-version": {
+    "scripts": {
+      "postcommit": "git add .; git commit --amend --no-edit;"
+    }
   }
 }
