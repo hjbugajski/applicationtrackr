@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 
@@ -14,7 +13,6 @@ import { PrivacyPolicyComponent } from './privacy-policy.component';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    MatSidenavModule,
     MatToolbarModule,
     RouterModule.forChild([{ path: '', component: PrivacyPolicyComponent }])
   ],

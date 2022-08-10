@@ -21,6 +21,8 @@
         *ngFor="let col of columns | async"
         mat-menu-item
         [disabled]="col.docId === column.docId"
+        [class.at-text]="col.docId !== column.docId"
+        [ngClass]="col.color"
         (click)="moveApplication(col)"
       >
         {{ col.title }}

@@ -25,18 +25,12 @@
       }
 
       .mat-card-subtitle {
+        color: map-get($at-palette, 'muted');
         font-weight: variables.$font-weight-semi-bold;
         margin: 0;
 
         &:first-of-type {
           margin-top: 8px;
-        }
-
-        @if $theme == variables.$dark {
-          color: colors.$dark-gray-2;
-        } @else {
-          // (default) light theme
-          color: colors.$light-gray-9;
         }
       }
     }

@@ -107,8 +107,8 @@
       >
         <mat-label>Column</mat-label>
         <mat-select formControlName="column" [compareWith]="columnCompare">
-          <mat-option *ngFor="let c of columns$ | async" [value]="c">
-            {{ c.title }}
+          <mat-option *ngFor="let col of columns$ | async" [value]="col" class="at-text" [ngClass]="col.color">
+            {{ col.title }}
           </mat-option>
         </mat-select>
         <mat-error>{{ getError(column) }}</mat-error>

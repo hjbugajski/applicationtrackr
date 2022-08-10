@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       // },
       {
         icon: Icons.CarbonTemplate,
-        viewValue: 'Job Boards',
+        viewValue: 'Job boards',
         route: Paths.JobBoards
       }
     ];

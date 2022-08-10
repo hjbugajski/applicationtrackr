@@ -56,9 +56,9 @@
 }
 
 .button-row {
-  .mat-button-base:not(:last-of-type) {
-    margin-right: 8px;
-  }
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
 }
 
 .form-grid {

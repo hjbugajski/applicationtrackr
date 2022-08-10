@@ -33,7 +33,7 @@ export class JobBoardsComponent {
   public async deleteJobBoard(jobBoard: JobBoard): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
-      message: `Job board <strong class="at-text danger">${jobBoard.title}</strong> and all associated columns and applications will be deleted. This action cannot be undone.`,
+      message: `Job board <strong class="at-text danger">${jobBoard.title}</strong>, all associated columns, and all associated applications will be deleted. This action cannot be undone.`,
       item: 'job board'
     };
 

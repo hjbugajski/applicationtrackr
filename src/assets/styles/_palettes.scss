@@ -159,8 +159,8 @@ $light-theme-foreground-palette: (
   disabled: colors.$light-gray-2,
   disabled-button: colors.$light-gray-3,
   disabled-text: colors.$light-gray-2,
-  hint-text: colors.$light-gray-9,
-  secondary-text: colors.$light-gray-9,
+  hint-text: colors.$light-gray-6,
+  secondary-text: colors.$light-gray-6,
   icon: colors.$light-gray-9,
   icons: colors.$light-gray-9,
   text: colors.$light-gray-9,
@@ -176,8 +176,8 @@ $dark-theme-foreground-palette: (
   disabled: colors.$dark-gray-6,
   disabled-button: colors.$dark-gray-6,
   disabled-text: colors.$dark-gray-6,
-  hint-text: colors.$dark-gray-2,
-  secondary-text: colors.$dark-gray-2,
+  hint-text: colors.$dark-gray-3,
+  secondary-text: colors.$dark-gray-3,
   icon: colors.$dark-gray-1,
   icons: colors.$dark-gray-1,
   text: colors.$dark-gray-1,
@@ -232,8 +232,11 @@ $at-light-palette: (
   severe-alt: colors.$light-coral-5,
   danger: colors.$light-red-5,
   neutral: colors.$light-gray-9,
+  muted: colors.$light-gray-6,
   border: colors.$light-gray-1,
   hover: colors.$light-gray-0,
+  canvas: colors.$white,
+  canvas-inset: colors.$light-gray-0,
   contrast: (
     primary: colors.$white,
     accent: colors.$white,
@@ -244,8 +247,11 @@ $at-light-palette: (
     severe-alt: colors.$white,
     danger: colors.$white,
     neutral: colors.$white,
-    border: colors.$white,
-    hover: colors.$light-gray-9
+    muted: colors.$white,
+    border: colors.$light-gray-9,
+    hover: colors.$light-gray-9,
+    canvas: colors.$light-gray-9,
+    canvas-inset: colors.$light-gray-9
   )
 );
 
@@ -259,8 +265,11 @@ $at-dark-palette: (
   severe-alt: colors.$dark-coral-3,
   danger: colors.$dark-red-4,
   neutral: colors.$dark-gray-1,
+  muted: colors.$dark-gray-3,
   border: colors.$dark-gray-8,
   hover: colors.$dark-gray-9,
+  canvas: colors.$dark-gray-9,
+  canvas-inset: colors.$dark-gray-10,
   contrast: (
     primary: colors.$black,
     accent: colors.$black,
@@ -271,8 +280,11 @@ $at-dark-palette: (
     severe-alt: colors.$black,
     danger: colors.$black,
     neutral: colors.$black,
-    border: colors.$black,
-    hover: colors.$dark-gray-1
+    muted: colors.$black,
+    border: colors.$dark-gray-1,
+    hover: colors.$dark-gray-1,
+    canvas: colors.$dark-gray-1,
+    canvas-inset: colors.$dark-gray-1
   )
 );
 

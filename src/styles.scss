@@ -20,6 +20,8 @@ h6 {
 }
 
 .at-light-theme {
+  color: colors.$light-gray-9;
+
   h1,
   h2,
   h3,
@@ -33,6 +35,7 @@ h6 {
 
 .at-dark-theme {
   background-color: colors.$dark-gray-10;
+  color: colors.$dark-gray-1;
 
   h1,
   h2,

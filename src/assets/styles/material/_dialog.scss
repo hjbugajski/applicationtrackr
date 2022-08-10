@@ -65,13 +65,7 @@
         .dialog-sub-title {
           @include mixins.font-size(16px);
 
-          @if $theme == variables.$dark {
-            color: colors.$dark-gray-2;
-          } @else {
-            // (default) light theme
-            color: colors.$light-gray-9;
-          }
-
+          color: map-get($at-palette, 'muted');
           font-weight: variables.$font-weight-semi-bold !important;
           margin-bottom: 0;
         }
@@ -132,7 +126,6 @@
       max-width: 80vw !important;
       min-width: 750px !important;
       height: auto !important;
-      overflow: scroll;
 
       .mat-dialog-container {
         @include mixins.border($at-palette, none !important);
