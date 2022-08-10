@@ -1,0 +1,46 @@
+<mat-toolbar>
+  <a mat-button routerLink="dashboard" class="mat-button-with-left-icon">
+    <mat-icon svgIcon="carbon-arrow-left"></mat-icon>
+    Dashboard
+  </a>
+  <div class="spacer"></div>
+  <button mat-button class="mat-button-with-right-icon" (click)="signOut()">
+    Sign out
+    <mat-icon svgIcon="carbon-logout"></mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="settings-container">
+  <mat-sidenav mode="side" [opened]="opened">
+    <ng-container *ngTemplateOutlet="sidenavItems"></ng-container>
+  </mat-sidenav>
+  <mat-sidenav-content class="at-alt-background">
+    <ng-container *ngIf="!opened">
+      <ng-container *ngTemplateOutlet="sidenavItems"></ng-container>
+    </ng-container>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #sidenavItems>
+  <h1>Settings</h1>
+  <div class="settings-container-sidenav">
+    <div class="settings-sidenav-section-header">General</div>
+    <a [routerLink]="paths.Account" routerLinkActive="active" class="settings-sidenav-item">
+      <mat-icon svgIcon="carbon-user-avatar"></mat-icon>
+      Account
+    </a>
+    <mat-divider></mat-divider>
+    <div class="settings-sidenav-section-header">Application</div>
+    <a [routerLink]="paths.Appearance" routerLinkActive="active" class="settings-sidenav-item">
+      <mat-icon svgIcon="carbon-color-palette"></mat-icon>
+      Appearance
+    </a>
+    <mat-divider></mat-divider>
+    <div class="settings-sidenav-section-header">Miscellaneous</div>
+    <a [routerLink]="paths.About" routerLinkActive="active" class="settings-sidenav-item">
+      <mat-icon svgIcon="carbon-information"></mat-icon>
+      About
+    </a>
+  </div>
+</ng-template>

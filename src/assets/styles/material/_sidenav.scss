@@ -1,0 +1,40 @@
+@use 'sass:map';
+@use 'colors';
+@use 'variables';
+
+@mixin styles($at-palette, $at-palette-keys, $theme) {
+  .mat-sidenav-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .mat-sidenav-content {
+      display: flex;
+      flex-direction: column;
+      height: 100vh !important;
+    }
+  }
+
+  .mat-sidenav {
+    border-right: 2px solid map.get($at-palette, 'border') !important;
+
+    @if $theme == variables.$dark {
+      background-color: colors.$dark-gray-10 !important;
+    }
+  }
+
+  .mat-drawer {
+    box-shadow: none !important;
+  }
+
+  .mat-drawer-backdrop.mat-drawer-shown {
+    @if $theme == variables.$dark {
+      background-color: rgba(colors.$dark-gray-10, 0.6);
+    } @else {
+      // (default) light theme
+      background-color: rgba(colors.$light-gray-0, 0.6);
+    }
+  }
+}

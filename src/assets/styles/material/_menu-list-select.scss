@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use 'mixins';
+@use 'variables';
+
+@mixin styles($at-palette, $at-palette-keys, $theme) {
+  .mat-menu-panel,
+  .mat-select-panel {
+    @include mixins.border($at-palette, none !important);
+  }
+
+  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: map.get($at-palette, 'hover');
+  }
+
+  .mat-menu-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    .mat-divider {
+      margin: 0 !important;
+    }
+  }
+
+  .mat-list-single-selected-option {
+    color: map.get($at-palette, 'primary') !important;
+    background-color: map.get($at-palette, 'hover') !important;
+  }
+
+  .mat-list-base {
+    padding-bottom: 8px;
+  }
+
+  .mat-menu-item.with-icon {
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px !important;
+      height: 20px !important;
+      margin-right: 12px !important;
+    }
+  }
+
+  .mat-list-item:focus {
+    outline: 2px solid map.get($at-palette, 'primary');
+  }
+}

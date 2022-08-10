@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'colors';
+@use 'global';
+@use 'themes';
+@use 'variables';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: variables.$font-family !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: variables.$font-weight-bold !important;
+}
+
+.at-light-theme {
+  color: colors.$light-gray-9;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  a {
+    color: colors.$light-blue-5;
+  }
+}
+
+.at-dark-theme {
+  color: colors.$dark-gray-1;
+  background-color: colors.$dark-gray-10;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  a {
+    color: colors.$dark-blue-3;
+  }
+}

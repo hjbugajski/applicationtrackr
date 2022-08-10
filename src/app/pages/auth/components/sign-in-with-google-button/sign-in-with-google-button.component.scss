@@ -1,0 +1,15 @@
+@use 'colors';
+
+.google-button-dark {
+  color: colors.$black;
+  background-color: colors.$white;
+
+  &:hover,
+  &:focus {
+    background-color: colors.$light-gray-0;
+  }
+
+  &.is-disabled {
+    background-color: transparent;
+  }
+}

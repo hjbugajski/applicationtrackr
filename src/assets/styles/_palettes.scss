@@ -1,0 +1,310 @@
+@use 'sass:map';
+@use 'colors';
+@use 'variables';
+
+$red-palette: (
+  50: colors.$light-red-0,
+  100: colors.$light-red-1,
+  200: colors.$light-red-2,
+  300: colors.$light-red-3,
+  400: colors.$light-red-4,
+  500: colors.$light-red-5,
+  600: colors.$light-red-6,
+  700: colors.$light-red-7,
+  800: colors.$light-red-8,
+  900: colors.$light-red-9,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$dark-red-palette: (
+  50: colors.$dark-red-0,
+  100: colors.$dark-red-1,
+  200: colors.$dark-red-2,
+  300: colors.$dark-red-3,
+  400: colors.$dark-red-4,
+  500: colors.$dark-red-5,
+  600: colors.$dark-red-6,
+  700: colors.$dark-red-7,
+  800: colors.$dark-red-8,
+  900: colors.$dark-red-9,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$purple-palette: (
+  50: colors.$light-purple-0,
+  100: colors.$light-purple-1,
+  200: colors.$light-purple-2,
+  300: colors.$light-purple-3,
+  400: colors.$light-purple-4,
+  500: colors.$light-purple-5,
+  600: colors.$light-purple-6,
+  700: colors.$light-purple-7,
+  800: colors.$light-purple-8,
+  900: colors.$light-purple-9,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$dark-purple-palette: (
+  50: colors.$dark-purple-0,
+  100: colors.$dark-purple-1,
+  200: colors.$dark-purple-2,
+  300: colors.$dark-purple-3,
+  400: colors.$dark-purple-4,
+  500: colors.$dark-purple-5,
+  600: colors.$dark-purple-6,
+  700: colors.$dark-purple-7,
+  800: colors.$dark-purple-8,
+  900: colors.$dark-purple-9,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$blue-palette: (
+  50: colors.$light-blue-0,
+  100: colors.$light-blue-1,
+  200: colors.$light-blue-2,
+  300: colors.$light-blue-3,
+  400: colors.$light-blue-4,
+  500: colors.$light-blue-5,
+  600: colors.$light-blue-6,
+  700: colors.$light-blue-7,
+  800: colors.$light-blue-8,
+  900: colors.$light-blue-9,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$dark-blue-palette: (
+  50: colors.$dark-blue-0,
+  100: colors.$dark-blue-1,
+  200: colors.$dark-blue-2,
+  300: colors.$dark-blue-3,
+  400: colors.$dark-blue-4,
+  500: colors.$dark-blue-5,
+  600: colors.$dark-blue-6,
+  700: colors.$dark-blue-7,
+  800: colors.$dark-blue-8,
+  900: colors.$dark-blue-9,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: colors.$black,
+    500: colors.$white,
+    600: colors.$white,
+    700: colors.$white,
+    800: colors.$white,
+    900: colors.$white
+  )
+);
+
+$light-theme-foreground-palette: (
+  base: colors.$light-gray-9,
+  divider: colors.$light-gray-1,
+  dividers: colors.$light-gray-1,
+  disabled: colors.$light-gray-2,
+  disabled-button: colors.$light-gray-3,
+  disabled-text: colors.$light-gray-2,
+  hint-text: colors.$light-gray-6,
+  secondary-text: colors.$light-gray-6,
+  icon: colors.$light-gray-9,
+  icons: colors.$light-gray-9,
+  text: colors.$light-gray-9,
+  slider-min: colors.$light-gray-3,
+  slider-off: colors.$light-gray-3,
+  slider-off-active: colors.$light-gray-3
+);
+
+$dark-theme-foreground-palette: (
+  base: colors.$dark-gray-1,
+  divider: colors.$dark-gray-8,
+  dividers: colors.$dark-gray-8,
+  disabled: colors.$dark-gray-6,
+  disabled-button: colors.$dark-gray-6,
+  disabled-text: colors.$dark-gray-6,
+  hint-text: colors.$dark-gray-3,
+  secondary-text: colors.$dark-gray-3,
+  icon: colors.$dark-gray-1,
+  icons: colors.$dark-gray-1,
+  text: colors.$dark-gray-1,
+  slider-min: colors.$dark-gray-3,
+  slider-off: colors.$dark-gray-3,
+  slider-off-active: colors.$dark-gray-3
+);
+
+$light-theme-background-palette: (
+  status-bar: colors.$white,
+  app-bar: colors.$white,
+  background: colors.$light-gray-0,
+  hover: colors.$light-gray-0,
+  card: colors.$white,
+  dialog: colors.$white,
+  disabled-button: colors.$light-gray-1,
+  raised-button: colors.$light-gray-0,
+  focused-button: colors.$light-gray-9,
+  selected-button: colors.$light-gray-1,
+  selected-disabled-button: colors.$light-gray-1,
+  disabled-button-toggle: colors.$light-gray-1,
+  unselected-chip: colors.$light-gray-0,
+  disabled-list-option: colors.$white,
+  tooltip: colors.$light-gray-8
+);
+
+$dark-theme-background-palette: (
+  status-bar: colors.$dark-gray-10,
+  app-bar: colors.$dark-gray-10,
+  background: colors.$dark-gray-9,
+  hover: colors.$dark-gray-9,
+  card: colors.$dark-gray-10,
+  dialog: colors.$dark-gray-10,
+  disabled-button: colors.$dark-gray-7,
+  raised-button: colors.$dark-gray-8,
+  focused-button: colors.$dark-gray-0,
+  selected-button: colors.$dark-gray-7,
+  selected-disabled-button: colors.$dark-gray-7,
+  disabled-button-toggle: colors.$dark-gray-7,
+  unselected-chip: colors.$dark-gray-7,
+  disabled-list-option: colors.$dark-gray-10,
+  tooltip: colors.$dark-gray-7
+);
+
+$at-light-palette: (
+  primary: colors.$light-blue-5,
+  accent: colors.$light-purple-5,
+  accent-alt: colors.$light-pink-5,
+  success: colors.$light-green-5,
+  attention: colors.$light-yellow-5,
+  severe: colors.$light-orange-5,
+  severe-alt: colors.$light-coral-5,
+  danger: colors.$light-red-5,
+  neutral: colors.$light-gray-9,
+  muted: colors.$light-gray-6,
+  border: colors.$light-gray-1,
+  hover: colors.$light-gray-0,
+  canvas: colors.$white,
+  canvas-inset: colors.$light-gray-0,
+  contrast: (
+    primary: colors.$white,
+    accent: colors.$white,
+    accent-alt: colors.$white,
+    success: colors.$white,
+    attention: colors.$white,
+    severe: colors.$white,
+    severe-alt: colors.$white,
+    danger: colors.$white,
+    neutral: colors.$white,
+    muted: colors.$white,
+    border: colors.$light-gray-9,
+    hover: colors.$light-gray-9,
+    canvas: colors.$light-gray-9,
+    canvas-inset: colors.$light-gray-9
+  )
+);
+
+$at-dark-palette: (
+  primary: colors.$dark-blue-3,
+  accent: colors.$dark-purple-3,
+  accent-alt: colors.$dark-pink-3,
+  success: colors.$dark-green-3,
+  attention: colors.$dark-yellow-3,
+  severe: colors.$dark-orange-3,
+  severe-alt: colors.$dark-coral-3,
+  danger: colors.$dark-red-4,
+  neutral: colors.$dark-gray-1,
+  muted: colors.$dark-gray-3,
+  border: colors.$dark-gray-8,
+  hover: colors.$dark-gray-9,
+  canvas: colors.$dark-gray-9,
+  canvas-inset: colors.$dark-gray-10,
+  contrast: (
+    primary: colors.$black,
+    accent: colors.$black,
+    accent-alt: colors.$black,
+    success: colors.$black,
+    attention: colors.$black,
+    severe: colors.$black,
+    severe-alt: colors.$black,
+    danger: colors.$black,
+    neutral: colors.$black,
+    muted: colors.$black,
+    border: colors.$dark-gray-1,
+    hover: colors.$dark-gray-1,
+    canvas: colors.$dark-gray-1,
+    canvas-inset: colors.$dark-gray-1
+  )
+);
+
+$at-light-palette-keys: map.remove($at-light-palette, contrast);
+$at-dark-palette-keys: map.remove($at-dark-palette, contrast);
+
+@function get-at-palette($theme: variables.$light) {
+  @if $theme == variables.$dark {
+    @return $at-dark-palette;
+  } @else {
+    // (default) light theme
+    @return $at-light-palette;
+  }
+}
+
+@function get-at-palette-keys($theme: variables.$light) {
+  @if $theme == variables.$dark {
+    @return $at-dark-palette-keys;
+  } @else {
+    // (default) light theme
+    @return $at-light-palette-keys;
+  }
+}

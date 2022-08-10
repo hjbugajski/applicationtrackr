@@ -1,0 +1,28 @@
+<div class="job-boards-container">
+  <mat-card *ngFor="let jobBoard of jobBoards | async">
+    <mat-card-title>
+      <div class="title-with-tag">
+        {{ jobBoard.title }}
+        <div *ngIf="isCurrentBoard(jobBoard)" class="tag success">Current</div>
+      </div>
+      <mat-card-subtitle>Start date: {{ convertToDate(jobBoard.date) }}</mat-card-subtitle>
+      <mat-card-subtitle>Applications: {{ jobBoard.total }}</mat-card-subtitle>
+    </mat-card-title>
+    <mat-card-content>
+      <div class="button-grid">
+        <button mat-stroked-button color="primary" (click)="editJobBoard(jobBoard)" class="mat-button-with-left-icon">
+          Edit
+        </button>
+        <button
+          mat-stroked-button
+          color="warn"
+          [disabled]="isCurrentBoard(jobBoard)"
+          (click)="deleteJobBoard(jobBoard)"
+          class="mat-button-with-left-icon"
+        >
+          Delete
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

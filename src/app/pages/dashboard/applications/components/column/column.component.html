@@ -1,0 +1,81 @@
+<ng-container *ngIf="isLoaded$ | async; else loading">
+  <div class="column-header at-text" [ngClass]="column.color">
+    <div class="column-title-container">
+      <span class="column-title">{{ column.title }}</span>
+      <span class="column-application-count tag" [ngClass]="column.color">{{ column.total }}</span>
+    </div>
+    <div class="column-actions">
+      <button mat-icon-button matTooltip="New application" (click)="newApplication()">
+        <mat-icon svgIcon="carbon-add"></mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Menu" [matMenuTriggerFor]="columOptionsMenu">
+        <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
+      </button>
+
+      <mat-menu #columOptionsMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="editColumn()">Edit</button>
+        <button mat-menu-item (click)="reorderColumn()">Reorder</button>
+        <button mat-menu-item [matMenuTriggerFor]="sortApplicationsMenu">Sort</button>
+        <button mat-menu-item class="at-text danger" (click)="deleteColumn()">Delete</button>
+      </mat-menu>
+
+      <mat-menu #sortApplicationsMenu="matMenu">
+        <ng-container *ngFor="let sortOption of sortOptions; let i = index">
+          <button
+            mat-menu-item
+            [class.mat-list-single-selected-option]="sortOption === selectedSortOption"
+            (click)="sort(sortOption)"
+          >
+            {{ sortOption.viewValue }}
+          </button>
+          <mat-divider *ngIf="i % 2 !== 0 && i + 1 !== sortOptions.length"></mat-divider>
+        </ng-container>
+      </mat-menu>
+    </div>
+  </div>
+  <cdk-virtual-scroll-viewport
+    cdkDropList
+    [cdkDropListData]="column"
+    (cdkDropListDropped)="drop($event)"
+    itemSize="25"
+    class="cdk-container"
+  >
+    <mat-card
+      *cdkVirtualFor="let application of applications$ | async"
+      cdkDrag
+      [cdkDragData]="application"
+      class="application-card"
+      [ngClass]="column.color"
+      (click)="openApplication(application)"
+      role="button"
+      tabindex="0"
+      (keydown)="keydown($event, application)"
+    >
+      <mat-card-title class="application-card-title at-text" [ngClass]="column.color">
+        {{ application.company }}
+      </mat-card-title>
+      <mat-card-content>
+        <div class="icon-subtitle">
+          <mat-icon svgIcon="carbon-portfolio" class="small-icon"></mat-icon>
+          {{ application.position }}
+        </div>
+        <div *ngIf="application.location" class="icon-subtitle">
+          <mat-icon svgIcon="carbon-location" class="small-icon"></mat-icon>
+          {{ application.location }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </cdk-virtual-scroll-viewport>
+</ng-container>
+<ng-template #loading>
+  <div class="column-header at-text">
+    <div class="column-title-container">
+      <span class="column-title">Loading...</span>
+    </div>
+    <div class="column-actions">
+      <button mat-icon-button [disabled]="true">
+        <mat-icon svgIcon="carbon-add"></mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>

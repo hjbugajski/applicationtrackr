@@ -14,12 +14,26 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
+    "target": "es2020",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "~components/*": [
+        "src/app/global/components/*",
+        "src/app/pages/auth/components/*",
+        "src/app/pages/dashboard/applications/components/*",
+        "src/app/pages/dashboard/job-boards/components/*"
+      ],
+      "~constants/*": ["src/app/global/constants/*"],
+      "~enums/*": ["src/app/global/enums/*"],
+      "~environments/*": ["src/environments/*"],
+      "~guards/*": ["src/app/global/guards/*"],
+      "~interfaces/*": ["src/app/global/interfaces/*"],
+      "~models/*": ["src/app/global/models/*"],
+      "~services/*": ["src/app/global/services/*"],
+      "~store/*": ["src/app/global/store/*"],
+      "~utils/*": ["src/app/global/utils/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

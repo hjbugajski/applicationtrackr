@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{ header }} job board</h1>
+<mat-dialog-content>
+  <form [formGroup]="jobBoardForm" class="form-grid">
+    <mat-form-field class="full-width">
+      <mat-label>Title</mat-label>
+      <input formControlName="title" matInput type="text" />
+      <mat-error>{{ getError(title) }}</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Start date</mat-label>
+      <input formControlName="date" matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>{{ getError(date) }}</mat-error>
+    </mat-form-field>
+  </form>
+  <div class="button-row-container-end">
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-flat-button color="primary" [disabled]="jobBoardForm.invalid || isLoading" (click)="submit()">
+      <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
+        <mat-spinner color="accent" diameter="24"></mat-spinner>
+      </div>
+      <ng-template #text>{{ button }}</ng-template>
+    </button>
+  </div>
+</mat-dialog-content>

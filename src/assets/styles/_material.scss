@@ -1,0 +1,34 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use './material/button';
+@use './material/card';
+@use './material/dialog';
+@use './material/divider';
+@use './material/form-field';
+@use './material/menu-list-select';
+@use './material/sidenav';
+@use './material/slide-toggle';
+@use './material/snackbar';
+@use './material/step';
+@use './material/tab';
+@use './material/toolbar';
+@use './material/tooltip';
+@use 'palettes';
+@use 'mixins';
+@use 'variables';
+
+@mixin get-components-styles($theme: variables.$light) {
+  $at-palette: palettes.get-at-palette($theme);
+  $at-palette-keys: palettes.get-at-palette-keys($theme);
+
+  @include button.styles($at-palette, $at-palette-keys, $theme);
+  @include card.styles($at-palette, $at-palette-keys, $theme);
+  @include dialog.styles($at-palette, $at-palette-keys, $theme);
+  @include form-field.styles($at-palette, $at-palette-keys, $theme);
+  @include menu-list-select.styles($at-palette, $at-palette-keys, $theme);
+  @include sidenav.styles($at-palette, $at-palette-keys, $theme);
+  @include slide-toggle.styles($at-palette, $at-palette-keys, $theme);
+  @include snackbar.styles($at-palette, $at-palette-keys, $theme);
+  @include tab.styles($at-palette, $at-palette-keys, $theme);
+  @include toolbar.styles($at-palette, $at-palette-keys, $theme);
+}

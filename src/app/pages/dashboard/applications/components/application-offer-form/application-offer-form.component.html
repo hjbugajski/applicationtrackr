@@ -1,0 +1,121 @@
+<form [formGroup]="offerForm">
+  <div class="form-grid">
+    <!-- Compensation Input -->
+    <div class="mat-form-field-combined">
+      <mat-form-field class="full-width" floatLabel="always">
+        <mat-label>Compensation</mat-label>
+        <input
+          formControlName="compensation"
+          matInput
+          type="number"
+          placeholder="0"
+          class="number-input"
+          [readonly]="readonly"
+        />
+        <span matPrefix>$&nbsp;</span>
+        <span matSuffix>/</span>
+        <mat-error>{{ getError(compensation) }}</mat-error>
+      </mat-form-field>
+
+      <ng-container *ngIf="editing; else payPeriodReadonly">
+        <mat-form-field class="full-width">
+          <mat-label>Pay Period</mat-label>
+          <mat-select formControlName="payPeriod">
+            <mat-option *ngFor="let p of payPeriodOptions" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+          <mat-error>{{ getError(payPeriod) }}</mat-error>
+        </mat-form-field>
+      </ng-container>
+      <ng-template #payPeriodReadonly>
+        <mat-form-field class="full-width" floatLabel="always">
+          <mat-label>Pay Period</mat-label>
+          <input formControlName="payPeriod" matInput type="text" class="number-input" [readonly]="true" />
+        </mat-form-field>
+      </ng-template>
+    </div>
+
+    <!-- Bonus Input -->
+    <mat-form-field class="full-width" floatLabel="always">
+      <mat-label>Bonus</mat-label>
+      <input formControlName="bonus" matInput type="number" placeholder="0" [readonly]="readonly" />
+      <span matPrefix>$&nbsp;</span>
+      <mat-error>{{ getError(bonus) }}</mat-error>
+    </mat-form-field>
+
+    <!-- Benefits Input -->
+    <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+      <mat-label>Benefits</mat-label>
+      <input formControlName="benefits" matInput type="text" placeholder="No benefits" [readonly]="readonly" />
+      <mat-error>{{ getError(benefits) }}</mat-error>
+    </mat-form-field>
+
+    <!-- PTO Input -->
+    <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+      <mat-label>Paid time off</mat-label>
+      <input formControlName="pto" matInput type="text" placeholder="No PTO" [readonly]="readonly" />
+      <mat-error>{{ getError(pto) }}</mat-error>
+    </mat-form-field>
+
+    <!-- Deadline Date Picker -->
+    <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+      <mat-label>Deadline</mat-label>
+      <input
+        formControlName="deadline"
+        matInput
+        placeholder="No deadline"
+        [matDatepicker]="deadlineDatePicker"
+        [readonly]="readonly"
+      />
+      <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker" [disabled]="!editing"></mat-datepicker-toggle>
+      <mat-datepicker #deadlineDatePicker></mat-datepicker>
+      <mat-error>{{ getError(deadline) }}</mat-error>
+    </mat-form-field>
+
+    <!-- Start Date Date Picker -->
+    <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+      <mat-label>Start date</mat-label>
+      <input
+        formControlName="startDate"
+        matInput
+        placeholder="No start date"
+        [matDatepicker]="startDatePicker"
+        [readonly]="readonly"
+      />
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker" [disabled]="!editing"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+      <mat-error>{{ getError(startDate) }}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Notes Input -->
+  <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+    <mat-label>Notes</mat-label>
+    <textarea
+      formControlName="notes"
+      matInput
+      type="text"
+      placeholder="No notes"
+      rows="5"
+      [readonly]="readonly"
+    ></textarea>
+    <mat-error>{{ getError(notes) }}</mat-error>
+  </mat-form-field>
+</form>
+
+<!-- Buttons -->
+<div class="button-row-container-end">
+  <button *ngIf="editing" mat-button (click)="secondaryButtonClick()">Cancel</button>
+  <button
+    mat-flat-button
+    [color]="currentColumn.color"
+    (click)="primaryButtonClick()"
+    [disabled]="offerForm.invalid || isLoading"
+  >
+    <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
+      <mat-spinner color="accent" diameter="24"></mat-spinner>
+    </div>
+    <ng-template #text>{{ editing ? 'Save' : 'Edit' }}</ng-template>
+  </button>
+</div>

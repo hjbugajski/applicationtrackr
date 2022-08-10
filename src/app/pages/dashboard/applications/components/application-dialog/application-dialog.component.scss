@@ -1,0 +1,50 @@
+@use 'global';
+
+::ng-deep {
+  .mat-tab-body {
+    margin-top: 24px !important;
+  }
+
+  .mat-icon-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 20px;
+
+    svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+  }
+
+  .number-input::-webkit-outer-spin-button,
+  .number-input::-webkit-inner-spin-button {
+    display: none;
+  }
+
+  .number-input {
+    -moz-appearance: textfield;
+  }
+}
+
+:host {
+  .button-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    width: fit-content;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 375px) {
+    .dialog-toolbar {
+      flex-direction: column-reverse;
+    }
+
+    .button-row {
+      width: 100%;
+    }
+  }
+}

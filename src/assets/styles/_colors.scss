@@ -1,0 +1,251 @@
+@use 'sass:map';
+
+$light-purple-9: #1c0f30;
+$light-purple-8: #31135e;
+$light-purple-7: #491d8b;
+$light-purple-6: #6929c4;
+$light-purple-5: #8a3ffc;
+$light-purple-4: #a56eff;
+$light-purple-2: #d4bbff;
+$light-purple-1: #e8daff;
+$light-purple-0: #f6f2ff;
+
+$light-gray-0: #f6f8fa;
+$light-gray-1: #eaeef2;
+$light-gray-2: #d0d7de;
+$light-gray-3: #afb8c1;
+$light-gray-4: #8c959f;
+$light-gray-5: #6e7781;
+$light-gray-6: #57606a;
+$light-gray-7: #424a53;
+$light-gray-8: #32383f;
+$light-gray-9: #24292f;
+$light-gray-10: #1b1f24;
+
+$light-blue-0: #ddf4ff;
+$light-blue-1: #b6e3ff;
+$light-blue-2: #80ccff;
+$light-blue-3: #54aeff;
+$light-blue-4: #218bff;
+$light-blue-5: #0969da;
+$light-blue-6: #0550ae;
+$light-blue-7: #033d8b;
+$light-blue-8: #0a3069;
+$light-blue-9: #002155;
+
+$light-green-0: #dafbe1;
+$light-green-1: #aceebb;
+$light-green-2: #6fdd8b;
+$light-green-3: #4ac26b;
+$light-green-4: #2da44e;
+$light-green-5: #1a7f37;
+$light-green-6: #116329;
+$light-green-7: #044f1e;
+$light-green-8: #003d16;
+$light-green-9: #002d11;
+
+$light-yellow-0: #fff8c5;
+$light-yellow-1: #fae17d;
+$light-yellow-2: #eac54f;
+$light-yellow-3: #d4a72c;
+$light-yellow-4: #bf8700;
+$light-yellow-5: #9a6700;
+$light-yellow-6: #7d4e00;
+$light-yellow-7: #633c01;
+$light-yellow-8: #4d2d00;
+$light-yellow-9: #3b2300;
+
+$light-orange-0: #fff1e5;
+$light-orange-1: #ffd8b5;
+$light-orange-2: #ffb77c;
+$light-orange-3: #fb8f44;
+$light-orange-4: #e16f24;
+$light-orange-5: #bc4c00;
+$light-orange-6: #953800;
+$light-orange-7: #762c00;
+$light-orange-8: #5c2200;
+$light-orange-9: #471700;
+
+$light-red-0: #ffebe9;
+$light-red-1: #ffcecb;
+$light-red-2: #ffaba8;
+$light-red-3: #ff8182;
+$light-red-4: #fa4549;
+$light-red-5: #cf222e;
+$light-red-6: #a40e26;
+$light-red-7: #82071e;
+$light-red-8: #660018;
+$light-red-9: #4c0014;
+
+$light-purple-0: #fbefff;
+$light-purple-1: #ecd8ff;
+$light-purple-2: #d8b9ff;
+$light-purple-3: #c297ff;
+$light-purple-4: #a475f9;
+$light-purple-5: #8250df;
+$light-purple-6: #6639ba;
+$light-purple-7: #512a97;
+$light-purple-8: #3e1f79;
+$light-purple-9: #2e1461;
+
+$light-pink-0: #ffeff7;
+$light-pink-1: #ffd3eb;
+$light-pink-2: #ffadda;
+$light-pink-3: #ff80c8;
+$light-pink-4: #e85aad;
+$light-pink-5: #bf3989;
+$light-pink-6: #99286e;
+$light-pink-7: #772057;
+$light-pink-8: #611347;
+$light-pink-9: #4d0336;
+
+$light-coral-0: #fff0eb;
+$light-coral-1: #ffd6cc;
+$light-coral-2: #ffb4a1;
+$light-coral-3: #fd8c73;
+$light-coral-4: #ec6547;
+$light-coral-5: #c4432b;
+$light-coral-6: #9e2f1c;
+$light-coral-7: #801f0f;
+$light-coral-8: #691105;
+$light-coral-9: #510901;
+
+$dark-gray-0: #f0f6fc;
+$dark-gray-1: #c9d1d9;
+$dark-gray-2: #b1bac4;
+$dark-gray-3: #8b949e;
+$dark-gray-4: #6e7681;
+$dark-gray-5: #484f58;
+$dark-gray-6: #30363d;
+$dark-gray-7: #21262d;
+$dark-gray-8: #161b22;
+$dark-gray-9: #0d1117;
+$dark-gray-10: #010409;
+
+$dark-blue-0: #cae8ff;
+$dark-blue-1: #a5d6ff;
+$dark-blue-2: #79c0ff;
+$dark-blue-3: #58a6ff;
+$dark-blue-4: #388bfd;
+$dark-blue-5: #1f6feb;
+$dark-blue-6: #1158c7;
+$dark-blue-7: #0d419d;
+$dark-blue-8: #0c2d6b;
+$dark-blue-9: #051d4d;
+
+$dark-green-0: #aff5b4;
+$dark-green-1: #7ee787;
+$dark-green-2: #56d364;
+$dark-green-3: #3fb950;
+$dark-green-4: #2ea043;
+$dark-green-5: #238636;
+$dark-green-6: #196c2e;
+$dark-green-7: #0f5323;
+$dark-green-8: #033a16;
+$dark-green-9: #04260f;
+
+$dark-yellow-0: #f8e3a1;
+$dark-yellow-1: #f2cc60;
+$dark-yellow-2: #e3b341;
+$dark-yellow-3: #d29922;
+$dark-yellow-4: #bb8009;
+$dark-yellow-5: #9e6a03;
+$dark-yellow-6: #845306;
+$dark-yellow-7: #693e00;
+$dark-yellow-8: #4b2900;
+$dark-yellow-9: #341a00;
+
+$dark-orange-0: #ffdfb6;
+$dark-orange-1: #ffc680;
+$dark-orange-2: #ffa657;
+$dark-orange-3: #f0883e;
+$dark-orange-4: #db6d28;
+$dark-orange-5: #bd561d;
+$dark-orange-6: #9b4215;
+$dark-orange-7: #762d0a;
+$dark-orange-8: #5a1e02;
+$dark-orange-9: #3d1300;
+
+$dark-red-0: #ffdcd7;
+$dark-red-1: #ffc1ba;
+$dark-red-2: #ffa198;
+$dark-red-3: #ff7b72;
+$dark-red-4: #f85149;
+$dark-red-5: #da3633;
+$dark-red-6: #b62324;
+$dark-red-7: #8e1519;
+$dark-red-8: #67060c;
+$dark-red-9: #490202;
+
+$dark-purple-0: #eddeff;
+$dark-purple-1: #e2c5ff;
+$dark-purple-2: #d2a8ff;
+$dark-purple-3: #bc8cff;
+$dark-purple-4: #a371f7;
+$dark-purple-5: #8957e5;
+$dark-purple-6: #6e40c9;
+$dark-purple-7: #553098;
+$dark-purple-8: #3c1e70;
+$dark-purple-9: #271052;
+
+$dark-pink-0: #ffdaec;
+$dark-pink-1: #ffbedd;
+$dark-pink-2: #ff9bce;
+$dark-pink-3: #f778ba;
+$dark-pink-4: #db61a2;
+$dark-pink-5: #bf4b8a;
+$dark-pink-6: #9e3670;
+$dark-pink-7: #7d2457;
+$dark-pink-8: #5e103e;
+$dark-pink-9: #42062a;
+
+$dark-coral-0: #ffddd2;
+$dark-coral-1: #ffc2b2;
+$dark-coral-2: #ffa28b;
+$dark-coral-3: #f78166;
+$dark-coral-4: #ea6045;
+$dark-coral-5: #cf462d;
+$dark-coral-6: #ac3220;
+$dark-coral-7: #872012;
+$dark-coral-8: #640d04;
+$dark-coral-9: #460701;
+
+$black: #000;
+$white: #fff;
+
+@mixin color-classes($at-palette, $at-palette-keys, $theme) {
+  @each $key in map-keys($at-palette-keys) {
+    .#{$key} {
+      &.at-border {
+        border: 2px solid map.get($at-palette, $key);
+      }
+
+      &.at-text {
+        color: map.get($at-palette, $key) !important;
+      }
+
+      &:not(.neutral).at-alpha-background {
+        background-color: rgba(map.get($at-palette, $key), $alpha: 0.05);
+      }
+    }
+  }
+
+  @if $theme == 'dark' {
+    .at-background {
+      background-color: $dark-gray-9;
+    }
+
+    .at-alt-background {
+      background-color: $dark-gray-10;
+    }
+  } @else {
+    // (default) light theme
+    .at-background {
+      background-color: $light-gray-0;
+    }
+
+    .at-alt-background {
+      background-color: $white;
+    }
+  }
+}

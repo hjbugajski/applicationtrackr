@@ -1,0 +1,39 @@
+:host {
+  .job-board-menu {
+    .mat-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .text {
+      display: block;
+      max-width: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .mat-form-field {
+    margin-bottom: 0;
+  }
+
+  .spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media (min-width: 375px) {
+    .job-board-menu .text {
+      max-width: 130px;
+    }
+  }
+
+  @media (min-width: 425px) {
+    .job-board-menu .text {
+      max-width: 150px;
+    }
+  }
+}

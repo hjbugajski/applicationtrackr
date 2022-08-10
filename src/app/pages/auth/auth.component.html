@@ -1,0 +1,19 @@
+<mat-sidenav-container>
+  <div class="auth-container">
+    <div class="art-container">
+      <mat-icon [svgIcon]="'carbon-compass'"></mat-icon>
+      <h1 class="title at-text neutral">ApplicationTrackr</h1>
+    </div>
+    <div class="outlet-container">
+      <mat-card>
+        <router-outlet></router-outlet>
+      </mat-card>
+      <div class="privacy-container">
+        <p>
+          By signing up for and by signing in to this service, you accept our
+          <a routerLink="/privacy-policy">privacy policy.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</mat-sidenav-container>

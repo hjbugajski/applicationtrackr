@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "target": "beta-applicationtrackr",
+    "public": "dist/applicationtrackr",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "firestore": {
+    "indexes": "firestore.indexes.json"
+  }
+}

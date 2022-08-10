@@ -1,0 +1,54 @@
+@use 'sass:map';
+@use 'mixins';
+@use 'variables';
+
+@mixin styles($at-palette, $at-palette-keys, $theme) {
+  .mat-tab-group {
+    .mat-tab-nav-bar,
+    .mat-tab-header {
+      border-bottom: 2px solid map.get($at-palette, 'border');
+    }
+
+    .mat-tab-label {
+      @include mixins.tab-label-color(map.get($at-palette, 'primary'));
+
+      min-width: unset;
+      height: unset;
+      margin-bottom: 10px;
+      padding: 8px 16px;
+      border-radius: variables.$border-radius;
+      opacity: 1;
+
+      &:not(:last-of-type) {
+        margin-right: 16px;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: map.get($at-palette, 'hover') !important;
+      }
+    }
+
+    @each $key in map-keys($at-palette-keys) {
+      &.#{$key} {
+        * > * .mat-tab-label {
+          @include mixins.tab-label-color(map.get($at-palette, $key));
+        }
+
+        * > * .mat-ink-bar {
+          background-color: map.get($at-palette, $key);
+        }
+      }
+    }
+  }
+
+  .mat-tab-header-pagination {
+    box-shadow: none !important;
+  }
+
+  .mat-ink-bar {
+    height: 4px;
+    border-top-left-radius: variables.$border-radius;
+    border-top-right-radius: variables.$border-radius;
+  }
+}

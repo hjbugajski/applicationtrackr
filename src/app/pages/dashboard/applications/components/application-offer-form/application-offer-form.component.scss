@@ -1,0 +1,22 @@
+@use 'global';
+
+:host {
+  .margin-bottom {
+    margin-bottom: 16px;
+  }
+
+  .alert-container {
+    display: flex;
+    flex-direction: column;
+    column-gap: 8px;
+    row-gap: 8px;
+  }
+
+  @media (min-width: 425px) {
+    .alert-container {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

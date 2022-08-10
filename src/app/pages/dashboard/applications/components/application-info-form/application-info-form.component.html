@@ -1,0 +1,142 @@
+<form [formGroup]="applicationForm">
+  <div class="form-grid">
+    <!-- Company Input -->
+    <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+      <mat-label>Company</mat-label>
+      <input formControlName="company" matInput type="text" [readonly]="readonly" />
+      <mat-error>{{ getError(company) }}</mat-error>
+    </mat-form-field>
+
+    <!-- Position Input -->
+    <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+      <mat-label>Position</mat-label>
+      <input formControlName="position" matInput type="text" [readonly]="readonly" />
+      <mat-error>{{ getError(position) }}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [@expandCollapse]="viewMore ? 'expanded' : 'collapsed'">
+    <div @ngIfAnimation *ngIf="viewMore" class="form-grid">
+      <!-- Location Input -->
+      <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+        <mat-label>Location</mat-label>
+        <input
+          formControlName="location"
+          matInput
+          type="text"
+          [placeholder]="editing ? '' : 'No location'"
+          [readonly]="readonly"
+        />
+        <mat-error>{{ getError(location) }}</mat-error>
+      </mat-form-field>
+
+      <!-- Application Link Input -->
+      <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+        <mat-label>Application link</mat-label>
+        <input
+          formControlName="link"
+          matInput
+          type="text"
+          [placeholder]="editing ? '' : 'No link'"
+          [readonly]="readonly"
+        />
+        <mat-error>{{ getLinkError(link) }}</mat-error>
+        <a
+          *ngIf="readonly && link?.value"
+          [href]="link.value"
+          target="_blank"
+          rel="noopener,noreferrer"
+          mat-icon-button
+          matSuffix
+          matTooltip="Visit link"
+        >
+          <mat-icon svgIcon="carbon-launch" class="mat-icon-input"></mat-icon>
+        </a>
+      </mat-form-field>
+
+      <!-- Compensation Input -->
+      <div class="mat-form-field-combined">
+        <mat-form-field class="full-width" floatLabel="always">
+          <mat-label>Compensation</mat-label>
+          <input
+            formControlName="compensation"
+            matInput
+            type="number"
+            placeholder="0"
+            class="number-input"
+            [readonly]="readonly"
+          />
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>/</span>
+          <mat-error>{{ getError(compensation) }}</mat-error>
+        </mat-form-field>
+
+        <ng-container *ngIf="editing; else payPeriodReadonly">
+          <mat-form-field class="full-width">
+            <mat-label>Pay Period</mat-label>
+            <mat-select formControlName="payPeriod">
+              <mat-option *ngFor="let p of payPeriodOptions" [value]="p">
+                {{ p }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ getError(payPeriod) }}</mat-error>
+          </mat-form-field>
+        </ng-container>
+        <ng-template #payPeriodReadonly>
+          <mat-form-field class="full-width" floatLabel="always">
+            <mat-label>Pay Period</mat-label>
+            <input formControlName="payPeriod" matInput type="text" class="number-input" [readonly]="true" />
+          </mat-form-field>
+        </ng-template>
+      </div>
+
+      <!-- Date Applied Date Picker -->
+      <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
+        <mat-label>Date</mat-label>
+        <input formControlName="date" matInput [matDatepicker]="datePicker" [readonly]="readonly" />
+        <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="!editing"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
+        <mat-error>{{ getError(date) }}</mat-error>
+      </mat-form-field>
+
+      <!-- Column Select -->
+      <mat-form-field
+        *ngIf="action === dialogActions.New"
+        class="full-width"
+        [floatLabel]="readonly ? 'always' : 'auto'"
+      >
+        <mat-label>Column</mat-label>
+        <mat-select formControlName="column" [compareWith]="columnCompare">
+          <mat-option *ngFor="let col of columns$ | async" [value]="col" class="at-text" [ngClass]="col.color">
+            {{ col.title }}
+          </mat-option>
+        </mat-select>
+        <mat-error>{{ getError(column) }}</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<button *ngIf="!viewMore" mat-button (click)="toggleViewMore()" class="full-width margin-bottom">View more</button>
+
+<!-- Buttons -->
+<div class="button-row-container-end">
+  <button
+    *ngIf="(action === dialogActions.Edit && editing) || action === dialogActions.New"
+    mat-button
+    (click)="secondaryButtonClick()"
+  >
+    Cancel
+  </button>
+  <button
+    mat-flat-button
+    [color]="currentColumn.color"
+    [disabled]="applicationForm.invalid || isLoading"
+    (click)="primaryButtonClick()"
+  >
+    <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
+      <mat-spinner color="accent" diameter="24"></mat-spinner>
+    </div>
+    <ng-template #text>{{ primaryButtonText }}</ng-template>
+  </button>
+</div>

@@ -1,0 +1,5 @@
+@use 'variables';
+
+.mat-step-header {
+  border-radius: variables.$border-radius;
+}

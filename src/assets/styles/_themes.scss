@@ -1,0 +1,65 @@
+@use '@angular/material' as mat;
+@use 'colors';
+@use 'components';
+@use 'material';
+@use 'palettes';
+@use 'variables';
+@use './pages/settings';
+
+@include mat.core;
+
+@function create-theme($primary, $accent, $warn, $is-dark: false) {
+  $foreground: palettes.$light-theme-foreground-palette;
+  $background: palettes.$light-theme-background-palette;
+
+  @if $is-dark {
+    $foreground: palettes.$dark-theme-foreground-palette;
+    $background: palettes.$dark-theme-background-palette;
+  }
+
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: $is-dark,
+    foreground: $foreground,
+    background: $background
+  );
+}
+
+$light-theme-primary: mat.define-palette(palettes.$blue-palette);
+$light-theme-accent: mat.define-palette(palettes.$purple-palette);
+$light-theme-warn: mat.define-palette(palettes.$red-palette);
+$light-theme: create-theme($light-theme-primary, $light-theme-accent, $light-theme-warn);
+$dark-theme-primary: mat.define-palette(palettes.$dark-blue-palette, 300);
+$dark-theme-accent: mat.define-palette(palettes.$dark-purple-palette, 300);
+$dark-theme-warn: mat.define-palette(palettes.$dark-red-palette, 400);
+$dark-theme: create-theme($dark-theme-primary, $dark-theme-accent, $dark-theme-warn, true);
+$typography: mat.define-typography-config(
+  $font-family: variables.$font-family,
+  $input: mat.define-typography-level(14px, 1.25, 400)
+);
+
+@include mat.core($typography);
+
+.at-light-theme {
+  $at-palette: palettes.get-at-palette(variables.$light);
+  $at-palette-keys: palettes.get-at-palette-keys(variables.$light);
+
+  @include mat.all-component-themes($light-theme);
+  @include components.get-components-styles;
+  @include material.get-components-styles;
+  @include colors.color-classes($at-palette, $at-palette-keys, variables.$light);
+  @include settings.get-styles(variables.$light);
+}
+
+.at-dark-theme {
+  $at-palette: palettes.get-at-palette(variables.$dark);
+  $at-palette-keys: palettes.get-at-palette-keys(variables.$dark);
+
+  @include mat.all-component-themes($dark-theme);
+  @include components.get-components-styles(variables.$dark);
+  @include material.get-components-styles(variables.$dark);
+  @include colors.color-classes($at-palette, $at-palette-keys, variables.$dark);
+  @include settings.get-styles(variables.$dark);
+}
