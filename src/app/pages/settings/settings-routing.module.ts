@@ -13,6 +13,11 @@ const routes: Routes = [
     children: [
       { path: '', pathMatch: 'prefix', redirectTo: Paths.Account },
       {
+        path: Paths.About,
+        title: 'About',
+        loadChildren: () => import('./about/about.module').then((m) => m.AboutModule)
+      },
+      {
         path: Paths.Account,
         title: 'Account Settings',
         loadChildren: () => import('./account/account.module').then((m) => m.AccountModule)

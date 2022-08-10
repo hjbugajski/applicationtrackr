@@ -26,15 +26,21 @@
   <h1>Settings</h1>
   <div class="settings-container-sidenav">
     <div class="settings-sidenav-section-header">General</div>
-    <a routerLink="account" routerLinkActive="active" class="settings-sidenav-item">
+    <a [routerLink]="paths.Account" routerLinkActive="active" class="settings-sidenav-item">
       <mat-icon svgIcon="carbon-user-avatar"></mat-icon>
       Account
     </a>
     <mat-divider></mat-divider>
     <div class="settings-sidenav-section-header">Application</div>
-    <a routerLink="appearance" routerLinkActive="active" class="settings-sidenav-item">
+    <a [routerLink]="paths.Appearance" routerLinkActive="active" class="settings-sidenav-item">
       <mat-icon svgIcon="carbon-color-palette"></mat-icon>
       Appearance
+    </a>
+    <mat-divider></mat-divider>
+    <div class="settings-sidenav-section-header">Miscellaneous</div>
+    <a [routerLink]="paths.About" routerLinkActive="active" class="settings-sidenav-item">
+      <mat-icon svgIcon="carbon-information"></mat-icon>
+      About
     </a>
   </div>
 </ng-template>

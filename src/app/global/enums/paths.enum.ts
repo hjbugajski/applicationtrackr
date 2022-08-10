@@ -1,4 +1,5 @@
 export enum Paths {
+  About = 'about',
   Account = 'account',
   Analytics = 'analytics',
   Appearance = 'appearance',

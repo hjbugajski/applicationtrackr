@@ -2,6 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { Paths } from '~enums/paths.enum';
 import { AuthService } from '~services/auth/auth.service';
 
 @Component({
@@ -26,5 +27,9 @@ export class SettingsComponent implements OnDestroy {
 
   public async signOut(): Promise<void> {
     await this.authService.signOut();
+  }
+
+  public get paths(): typeof Paths {
+    return Paths;
   }
 }

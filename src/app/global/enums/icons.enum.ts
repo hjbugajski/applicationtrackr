@@ -12,6 +12,7 @@ export enum Icons {
   CarbonDraggable = 'carbon-draggable',
   CarbonEdit = 'carbon-edit',
   CarbonEmail = 'carbon-email',
+  CarbonInformation = 'carbon-information',
   CarbonLaunch = 'carbon-launch',
   CarbonLocation = 'carbon-location',
   CarbonLogout = 'carbon-logout',
@@ -29,5 +30,7 @@ export enum Icons {
   DarkTheme = 'applicationtrackr-dark-theme',
   GoogleLogo = 'google-logo',
   LightTheme = 'applicationtrackr-light-theme',
-  SystemTheme = 'applicationtrackr-system-theme'
+  RedditLogo = 'reddit-logo',
+  SystemTheme = 'applicationtrackr-system-theme',
+  TwitterLogo = 'twitter-logo'
 }
