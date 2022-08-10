@@ -12,12 +12,12 @@
     .mat-tab-label {
       @include mixins.tab-label-color(map.get($at-palette, 'primary'));
 
-      padding: 8px 16px;
-      margin-bottom: 10px;
-      height: unset;
       min-width: unset;
-      opacity: 1;
+      height: unset;
+      margin-bottom: 10px;
+      padding: 8px 16px;
       border-radius: variables.$border-radius;
+      opacity: 1;
 
       &:not(:last-of-type) {
         margin-right: 16px;
@@ -32,11 +32,11 @@
     @each $key in map-keys($at-palette-keys) {
       &.#{$key} {
         * > * .mat-tab-label {
-          @include mixins.tab-label-color(map-get($at-palette, $key));
+          @include mixins.tab-label-color(map.get($at-palette, $key));
         }
 
         * > * .mat-ink-bar {
-          background-color: map-get($at-palette, $key);
+          background-color: map.get($at-palette, $key);
         }
       }
     }

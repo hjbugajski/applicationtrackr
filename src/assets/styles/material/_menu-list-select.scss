@@ -22,8 +22,8 @@
   }
 
   .mat-list-single-selected-option {
-    background-color: map.get($at-palette, 'hover') !important;
     color: map.get($at-palette, 'primary') !important;
+    background-color: map.get($at-palette, 'hover') !important;
   }
 
   .mat-list-base {
@@ -36,11 +36,11 @@
 
     .mat-icon {
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin-right: 12px !important;
+      justify-content: center;
       width: 20px !important;
       height: 20px !important;
+      margin-right: 12px !important;
     }
   }
 

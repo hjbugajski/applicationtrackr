@@ -2,8 +2,8 @@
 
 :host {
   .mat-sidenav {
-    border: 0;
     width: 250px !important;
+    border: 0;
   }
 
   .at-toolbar .mat-button-base:not(:last-child) {
@@ -40,8 +40,8 @@
 
   .sidenav-item-container {
     display: flex;
-    flex-direction: column;
     flex: 1;
+    flex-direction: column;
   }
 
   .padded-container {

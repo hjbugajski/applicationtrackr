@@ -217,15 +217,15 @@ $white: #fff;
   @each $key in map-keys($at-palette-keys) {
     .#{$key} {
       &.at-border {
-        border: 2px solid map-get($at-palette, $key);
+        border: 2px solid map.get($at-palette, $key);
       }
 
       &.at-text {
-        color: map-get($at-palette, $key) !important;
+        color: map.get($at-palette, $key) !important;
       }
 
       &:not(.neutral).at-alpha-background {
-        background-color: rgba(map-get($at-palette, $key), $alpha: 0.05);
+        background-color: rgba(map.get($at-palette, $key), $alpha: 0.05);
       }
     }
   }

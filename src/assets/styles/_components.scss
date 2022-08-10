@@ -10,8 +10,8 @@
 
   .loading-spinner-in-button {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100%;
     padding: 5px 0;
   }
@@ -19,8 +19,8 @@
   .button-row-container-end {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: flex-end;
     width: 100%;
 
     .mat-button-base:not(:last-child) {
@@ -29,8 +29,8 @@
   }
 
   .column {
-    overflow: hidden;
     min-width: 275px;
+    overflow: hidden;
     border-right: 2px solid map.get($at-palette, 'border');
 
     @if $theme == variables.$dark {
@@ -98,17 +98,17 @@
     @include mixins.font-size(12px);
 
     display: inline-flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     padding: 2px 6px;
-    border-radius: 100px;
     white-space: nowrap;
+    border-radius: 100px;
 
     @each $key in map-keys($at-palette-keys) {
       &.#{$key} {
-        border: 2px solid map-get($at-palette, $key);
-        background-color: rgba(map-get($at-palette, $key), $alpha: 0.05);
-        color: map-get($at-palette, $key);
+        color: map.get($at-palette, $key);
+        background-color: rgba(map.get($at-palette, $key), $alpha: 0.05);
+        border: 2px solid map.get($at-palette, $key);
       }
     }
   }
@@ -128,7 +128,7 @@
 
       @each $key in map-keys($at-palette-keys) {
         &.#{$key} {
-          border: 2px solid map-get($at-palette, $key);
+          border: 2px solid map.get($at-palette, $key);
         }
       }
     }
@@ -137,15 +137,15 @@
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      color: map-get($at-palette, 'muted');
+      color: map.get($at-palette, 'muted');
 
       .small-icon {
         display: inline-flex;
         width: 16px !important;
         height: 16px !important;
-        font-size: 16px;
         margin-top: 2px;
         margin-right: 8px;
+        font-size: 16px;
 
         svg {
           width: 16px !important;
@@ -171,7 +171,7 @@
   }
 
   .reorder-column-list-box {
-    border: 2px solid map-get($at-palette, 'border');
+    border: 2px solid map.get($at-palette, 'border');
     border-radius: variables.$border-radius;
     cursor: grab;
 
@@ -192,8 +192,8 @@
 
     &:focus,
     &:focus:last-child {
+      border-color: map.get($at-palette, 'neutral');
       outline: none;
-      border-color: map-get($at-palette, 'neutral');
     }
 
     .inner-container {
@@ -215,7 +215,7 @@
   .reorder-column-list-cdk-drag-preview {
     @include mixins.font-size(16px);
 
-    border: 2px solid map-get($at-palette, 'border');
+    border: 2px solid map.get($at-palette, 'border');
   }
 
   .cdk-drag-animating {

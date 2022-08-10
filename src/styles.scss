@@ -5,9 +5,9 @@
 
 html,
 body {
-  font-family: variables.$font-family !important;
   height: 100%;
   margin: 0;
+  font-family: variables.$font-family !important;
 }
 
 h1,
@@ -34,8 +34,8 @@ h6 {
 }
 
 .at-dark-theme {
-  background-color: colors.$dark-gray-10;
   color: colors.$dark-gray-1;
+  background-color: colors.$dark-gray-10;
 
   h1,
   h2,

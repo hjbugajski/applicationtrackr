@@ -26,8 +26,8 @@
         background-color: colors.$light-gray-0;
       }
 
-      border-radius: variables.$border-radius !important;
       border: 2px solid map.get($at-palette, 'border');
+      border-radius: variables.$border-radius !important;
     }
 
     .mat-form-field-underline {
@@ -47,15 +47,15 @@
       grid-template-columns: 1fr 115px;
 
       .mat-form-field:first-of-type .mat-form-field-flex {
+        border-right-width: 0;
         border-top-right-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
-        border-right-width: 0;
       }
 
       .mat-form-field:last-of-type .mat-form-field-flex {
+        border-left: 2px solid map.get($at-palette, 'border');
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
-        border-left: 2px solid map.get($at-palette, 'border');
       }
     }
   }

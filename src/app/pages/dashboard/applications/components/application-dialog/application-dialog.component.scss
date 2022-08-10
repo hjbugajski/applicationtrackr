@@ -32,9 +32,9 @@
 :host {
   .button-row {
     display: flex;
-    width: fit-content;
-    justify-content: flex-end;
     flex-wrap: nowrap;
+    justify-content: flex-end;
+    width: fit-content;
     white-space: nowrap;
   }
 

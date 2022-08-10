@@ -1,15 +1,21 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-sass-guidelines", "stylelint-config-prettier"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-rational-order",
+    "stylelint-config-sass-guidelines",
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss"
+  ],
   "rules": {
     "max-nesting-depth": null,
     "selector-max-compound-selectors": null,
-    "function-parentheses-space-inside": "never-single-line",
     "order/properties-alphabetical-order": null,
     "selector-pseudo-element-no-unknown": null,
     "no-empty-source": null,
     "color-function-notation": null,
     "property-no-vendor-prefix": null,
     "no-descending-specificity": null,
-    "function-no-unknown": null
+    "function-no-unknown": null,
+    "scss/dollar-variable-empty-line-before": null
   }
 }

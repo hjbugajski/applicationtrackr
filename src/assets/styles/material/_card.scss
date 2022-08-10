@@ -10,9 +10,9 @@
     .mat-card-title {
       @include mixins.font-size(18px);
 
+      margin-bottom: 16px;
       color: map.get($at-palette, 'primary');
       font-weight: variables.$font-weight-bold;
-      margin-bottom: 16px;
 
       .title-with-tag {
         display: flex;
@@ -25,9 +25,9 @@
       }
 
       .mat-card-subtitle {
-        color: map-get($at-palette, 'muted');
-        font-weight: variables.$font-weight-semi-bold;
         margin: 0;
+        color: map.get($at-palette, 'muted');
+        font-weight: variables.$font-weight-semi-bold;
 
         &:first-of-type {
           margin-top: 8px;

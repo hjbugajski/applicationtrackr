@@ -9,12 +9,12 @@
     padding: 0;
 
     @if $theme == variables.$dark {
-      background-color: colors.$dark-gray-10;
       color: colors.$dark-gray-0;
+      background-color: colors.$dark-gray-10;
     } @else {
       // (default) light theme
-      background-color: colors.$white;
       color: colors.$light-gray-8;
+      background-color: colors.$white;
     }
   }
 }

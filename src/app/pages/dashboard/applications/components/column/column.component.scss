@@ -2,13 +2,13 @@
 
 ::ng-deep {
   .cdk-virtual-scroll-content-wrapper {
-    padding: 0 10px 10px;
-    min-width: unset !important;
     width: calc(100% - 20px);
+    min-width: unset !important;
+    padding: 0 10px 10px;
 
     @media (min-width: 768px) {
-      padding: 0 16px 16px;
       width: calc(100% - 32px);
+      padding: 0 16px 16px;
     }
   }
 }

@@ -18,22 +18,23 @@
 .auth-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 8px 8px 48px;
   height: fit-content;
+  padding: 8px 8px 48px;
 
   .art-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     margin: 16px 0;
 
     .mat-icon {
-      height: 48px;
       width: 48px;
+      height: 48px;
     }
 
     .title {
@@ -50,9 +51,9 @@
   }
 
   .privacy-container {
+    max-width: 380px;
     margin-top: 32px;
     text-align: center;
-    max-width: 380px;
   }
 }
 

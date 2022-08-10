@@ -288,8 +288,8 @@ $at-dark-palette: (
   )
 );
 
-$at-light-palette-keys: map-remove($at-light-palette, contrast);
-$at-dark-palette-keys: map-remove($at-dark-palette, contrast);
+$at-light-palette-keys: map.remove($at-light-palette, contrast);
+$at-dark-palette-keys: map.remove($at-dark-palette, contrast);
 
 @function get-at-palette($theme: variables.$light) {
   @if $theme == variables.$dark {

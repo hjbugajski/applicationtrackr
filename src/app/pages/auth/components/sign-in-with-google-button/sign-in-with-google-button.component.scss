@@ -1,8 +1,8 @@
 @use 'colors';
 
 .google-button-dark {
-  background-color: colors.$white;
   color: colors.$black;
+  background-color: colors.$white;
 
   &:hover,
   &:focus {

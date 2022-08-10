@@ -1,9 +1,9 @@
 .page-container {
   display: flex;
   flex: 1 1 auto;
-  overflow: auto;
   height: calc(100vh - 56px - 8px);
   padding: 0 8px 8px;
+  overflow: auto;
 
   @media (min-width: 600px) {
     height: calc(100vh - 64px - 8px);
