@@ -1,9 +1,12 @@
 {
+  "projects": {
+    "default": "applicationtrackr"
+  },
   "targets": {
     "applicationtrackr": {
       "hosting": {
-        "applicationtrackr": [
-          "applicationtrackr"
+        "beta-applicationtrackr": [
+          "beta-applicationtrackr"
         ]
       }
     }
