@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { lastValueFrom, map, Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-dialog.component';
@@ -21,9 +21,7 @@ export class JobBoardsComponent {
   public jobBoards: Observable<JobBoard[]>;
 
   constructor(private jobBoardsService: JobBoardsService, private matDialog: MatDialog, private userStore: UserStore) {
-    this.jobBoards = this.jobBoardsService.jobBoards$.pipe(
-      map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title > b.title ? -1 : 1)))
-    );
+    this.jobBoards = this.jobBoardsService.jobBoards$;
   }
 
   public convertToDate(timestamp: Timestamp): string {
