@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
@@ -14,13 +14,12 @@ import { UserStore } from '~store/user.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationsComponent implements OnDestroy, OnInit {
-  public columnIds$: Observable<string[]>;
+  public columnIds$!: BehaviorSubject<string[]>;
   public isLoaded: BehaviorSubject<boolean>;
 
   private subscriptions: Subscription;
 
   constructor(private columnsService: ColumnsService, private matDialog: MatDialog, private userStore: UserStore) {
-    this.columnIds$ = new Observable<string[]>();
     this.isLoaded = new BehaviorSubject<boolean>(false);
     this.subscriptions = new Subscription();
   }

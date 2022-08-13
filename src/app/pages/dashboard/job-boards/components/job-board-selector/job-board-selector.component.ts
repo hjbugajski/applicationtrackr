@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
@@ -27,9 +27,7 @@ export class JobBoardSelectorComponent {
     private userService: UserService
   ) {
     this.currentJobBoard$ = this.userStore.currentJobBoard$;
-    this.jobBoards$ = this.jobBoardsService.jobBoards$.pipe(
-      map((jobBoards) => jobBoards.sort((a, b) => 0 - (a.title > b.title ? -1 : 1)))
-    );
+    this.jobBoards$ = this.jobBoardsService.jobBoards$;
   }
 
   public newBoard(): void {
