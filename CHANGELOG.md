@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2022-08-13)
+
+### Bug Fixes
+
+- delete all associated applications when column is deleted ([cb6851b](https://github.com/hjbugajski/applicationtrackr/commit/cb6851bd9bfacb19b3acb05d25369c96514e541d))
+- prevent Safari from zooming in on input selection ([36195e4](https://github.com/hjbugajski/applicationtrackr/commit/36195e4c430d5293a7ba1b8183463218b292803f))
+- revert previous column service changes ([19a1094](https://github.com/hjbugajski/applicationtrackr/commit/19a10944e3c5a79752d47161d1939e2b09339d51))
+- update job boards page layout ([c3ca93a](https://github.com/hjbugajski/applicationtrackr/commit/c3ca93a03f968e550894b66c72715c9b4138d2e1))
+
 ## 1.0.0-beta.0 (2022-08-10)
 
 ### Features
