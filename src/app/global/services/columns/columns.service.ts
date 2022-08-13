@@ -22,6 +22,8 @@ import { Collections } from '~enums/collections.enum';
 import { ColumnDoc } from '~interfaces/column-doc.interface';
 import { Sort } from '~interfaces/sort.interface';
 import { Column } from '~models/column.model';
+import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
+import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { UserStore } from '~store/user.store';
 import { columnConverter } from '~utils/firestore-converters';
 
@@ -35,7 +37,12 @@ export class ColumnsService {
 
   private subscription: Subscription;
 
-  constructor(private firestore: Firestore, private userStore: UserStore) {
+  constructor(
+    private firebaseFunctionsService: FirebaseFunctionsService,
+    private firestore: Firestore,
+    private jobBoardsService: JobBoardsService,
+    private userStore: UserStore
+  ) {
     this.columnIds$ = new BehaviorSubject<string[]>([]);
     this.columns$ = new Observable<Column[]>();
     this.reloadColumns$ = new EventEmitter<void>();
@@ -48,10 +55,17 @@ export class ColumnsService {
     });
   }
 
-  public async deleteColumn(docId: string): Promise<void> {
-    await deleteDoc(this.getDocRef(docId)).catch((error) => {
-      throw error;
-    });
+  public async deleteColumn(column: Column): Promise<void> {
+    await deleteDoc(this.getDocRef(column.docId))
+      .then(async () => {
+        await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, column.total * -1);
+        await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
+          console.log(error);
+        });
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   public initColumns(): void {

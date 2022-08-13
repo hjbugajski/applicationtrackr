@@ -94,7 +94,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
       });
 
       await this.columnsService
-        .deleteColumn(this.column.docId)
+        .deleteColumn(this.column)
         .then(() => {
           this.notificationService.showSuccess('Column deleted.');
           overlayDialog.close();
