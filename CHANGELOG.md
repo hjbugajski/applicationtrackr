@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.2](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-08-16)
+
+### Bug Fixes
+
+- update to firebase function batchDelete ([2d87311](https://github.com/hjbugajski/applicationtrackr/commit/2d8731175266168515ff52a03124e38676368394))
+
 ## [1.0.0-beta.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2022-08-13)
 
 ### Bug Fixes
