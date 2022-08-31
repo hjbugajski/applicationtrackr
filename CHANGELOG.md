@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.3](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-08-31)
+
+### Bug Fixes
+
+- disable application drag and drop between columns on touch devices ([5808a2b](https://github.com/hjbugajski/applicationtrackr/commit/5808a2b7fd053752f7fe0c30a7b5dcc6a451837d))
+
 ## [1.0.0-beta.2](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-08-16)
 
 ### Bug Fixes
