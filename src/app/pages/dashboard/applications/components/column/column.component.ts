@@ -52,6 +52,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
   public column!: Column;
   public columnRef!: DocumentReference<Column>;
   public isLoaded$: BehaviorSubject<boolean>;
+  public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
 
@@ -68,6 +69,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
   ) {
     this.isLoaded$ = new BehaviorSubject<boolean>(false);
     this.subscriptions = new Subscription();
+    this.isTouch = matchMedia('(hover: none)').matches;
   }
 
   public async deleteColumn(): Promise<void> {

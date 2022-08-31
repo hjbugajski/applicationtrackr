@@ -35,6 +35,7 @@
   </div>
   <cdk-virtual-scroll-viewport
     cdkDropList
+    [cdkDropListDisabled]="isTouch"
     [cdkDropListData]="column"
     (cdkDropListDropped)="drop($event)"
     itemSize="25"
