@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.4](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-09-01)
+
+### Bug Fixes
+
+- update sizing, padding, and margins ([99a5243](https://github.com/hjbugajski/applicationtrackr/commit/99a5243d78ce41b9e7e16971da0d5e90cf5d0368))
+
 ## [1.0.0-beta.3](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-08-31)
 
 ### Bug Fixes

@@ -2,12 +2,11 @@
 @use 'variables';
 
 :host {
-  .container {
-    padding: 16px;
-  }
-
   .job-boards-list {
+    width: 100%;
     max-width: 1200px;
+    height: fit-content;
+    margin: 8px 0 128px;
     padding: 0;
 
     .job-boards-list-item {
@@ -43,10 +42,20 @@
   }
 
   @media (min-width: 768px) {
+    .job-boards-list {
+      margin: 16px 0 128px;
+    }
+
     .job-boards-list-item {
       flex-flow: row wrap !important;
       align-items: center;
       justify-content: space-between;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .job-boards-list {
+      margin: 0 0 128px;
     }
   }
 }
