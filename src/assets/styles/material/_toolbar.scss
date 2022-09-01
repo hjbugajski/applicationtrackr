@@ -3,6 +3,7 @@
 
 @mixin styles($at-palette, $at-palette-keys, $theme) {
   .mat-toolbar {
+    min-height: 56px !important;
     border-bottom: 2px solid map.get($at-palette, 'border');
 
     &.absolute-toolbar {
@@ -18,6 +19,10 @@
 
     .mat-toolbar-title {
       font-weight: variables.$font-weight-bold;
+    }
+
+    @media (min-width: 600px) {
+      min-height: 64px !important;
     }
 
     @media (max-width: 768px) {
