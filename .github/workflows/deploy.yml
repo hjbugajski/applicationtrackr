@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm i
+          npm ci
           npm i -g firebase-tools
 
       - name: Build
