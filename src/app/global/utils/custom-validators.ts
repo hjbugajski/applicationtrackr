@@ -17,7 +17,7 @@ export class CustomValidators {
   private static readonly letterRegex = /^(?=.*[a-zA-Z])/;
   private static readonly numberRegex = /^(?=.*[0-9])/;
   private static readonly symbolRegex = /^(?=.*[!@#$%^&_*+=()[\]{}<>,.;:'"\-?/\\])/;
-  private static readonly urlRegex = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/;
+  private static readonly urlRegex = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,7}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/;
 
   public static email(control: AbstractControl): ValidationErrors | null {
     return regexValidator(CustomValidators.emailRegex, 'email', control);

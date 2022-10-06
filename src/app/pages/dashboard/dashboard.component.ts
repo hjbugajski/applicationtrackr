@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 
+import { HelpComponent } from '~components/help/help.component';
 import { Icons } from '~enums/icons.enum';
 import { Paths } from '~enums/paths.enum';
 import { AuthService } from '~services/auth/auth.service';
@@ -27,7 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription;
 
-  constructor(private authService: AuthService, public sidenavService: SidenavService) {
+  constructor(private authService: AuthService, private matDialog: MatDialog, public sidenavService: SidenavService) {
     this.mode = 'side';
     this.opened = true;
     this.subscriptions = new Subscription();
@@ -66,6 +68,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       })
     );
     this.sidenavService.sidenav = this._sidenav!;
+  }
+
+  public openHelpDialog(): void {
+    this.matDialog.open(HelpComponent, { maxWidth: '600px', panelClass: 'at-dialog-with-padding' });
   }
 
   public async signOut(): Promise<void> {

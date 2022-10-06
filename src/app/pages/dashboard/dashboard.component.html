@@ -26,13 +26,14 @@
 
       <div class="spacer"></div>
       <div class="sidenav-item-container-end">
-        <a mat-button [routerLink]="['/', paths.Settings]" class="button-link mat-button-with-top-icon">
+        <button mat-icon-button matTooltip="Help" (click)="openHelpDialog()">
+          <mat-icon svgIcon="carbon-help"></mat-icon>
+        </button>
+        <a mat-icon-button [routerLink]="['/', paths.Settings]" matTooltip="Settings" class="button-link">
           <mat-icon svgIcon="carbon-settings"></mat-icon>
-          Settings
         </a>
-        <button mat-button (click)="signOut()" class="mat-button-with-top-icon">
+        <button mat-icon-button matTooltip="Sign out" (click)="signOut()">
           <mat-icon svgIcon="carbon-logout"></mat-icon>
-          Sign out
         </button>
       </div>
     </div>

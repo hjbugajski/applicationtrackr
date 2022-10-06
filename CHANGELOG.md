@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.5](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-10-06)
+
+### Features
+
+- add help dialog ([745ddb1](https://github.com/hjbugajski/applicationtrackr/commit/745ddb15b8be4de7abb39de2bf32b06641805b67))
+
+### Bug Fixes
+
+- update URL regex to support longer TLDs ([b4740e4](https://github.com/hjbugajski/applicationtrackr/commit/b4740e49bd276d71943bed67ec7e8abfe1430c7e))
+
 ## [1.0.0-beta.4](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-09-01)
 
 ### Bug Fixes
