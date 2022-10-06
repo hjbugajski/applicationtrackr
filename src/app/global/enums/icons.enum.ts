@@ -12,6 +12,7 @@ export enum Icons {
   CarbonDraggable = 'carbon-draggable',
   CarbonEdit = 'carbon-edit',
   CarbonEmail = 'carbon-email',
+  CarbonHelp = 'carbon-help',
   CarbonInformation = 'carbon-information',
   CarbonLaunch = 'carbon-launch',
   CarbonLocation = 'carbon-location',
