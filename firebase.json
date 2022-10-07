@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "target": "beta-applicationtrackr",
+    "target": "app-applicationtrackr",
     "public": "dist/applicationtrackr",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [

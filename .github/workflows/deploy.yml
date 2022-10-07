@@ -26,6 +26,6 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        run: firebase deploy --token "$FIREBASE_TOKEN" --only hosting:beta-applicationtrackr
+        run: firebase deploy --token "$FIREBASE_TOKEN" --only hosting:app-applicationtrackr
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

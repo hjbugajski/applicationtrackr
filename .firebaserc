@@ -5,8 +5,8 @@
   "targets": {
     "applicationtrackr": {
       "hosting": {
-        "beta-applicationtrackr": [
-          "beta-applicationtrackr"
+        "app-applicationtrackr": [
+          "app-applicationtrackr"
         ]
       }
     }
