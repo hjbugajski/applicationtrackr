@@ -6,6 +6,10 @@
     border: 0;
   }
 
+  .ghost-toolbar {
+    gap: 8px;
+  }
+
   .at-toolbar .mat-button-base:not(:last-child) {
     margin-right: 8px;
   }
