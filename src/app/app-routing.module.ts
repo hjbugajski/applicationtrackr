@@ -24,11 +24,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule)
   },
   {
-    path: Paths.PrivacyPolicy,
-    title: 'Privacy Policy',
-    loadChildren: () => import('./pages/privacy-policy/privacy-policy.module').then((m) => m.PrivacyPolicyModule)
-  },
-  {
     path: Paths.Settings,
     title: 'Settings',
     canActivate: [AuthGuard],
