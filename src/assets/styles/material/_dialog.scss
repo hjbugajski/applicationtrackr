@@ -3,9 +3,10 @@
 @use 'mixins';
 @use 'variables';
 
-@mixin styles($at-palette, $at-palette-keys, $theme) {
+.at-light-theme,
+.at-dark-theme {
   .mat-dialog-container {
-    @include mixins.border($at-palette, none !important);
+    @include mixins.border;
 
     max-height: 100vh;
     padding: 0;
@@ -19,15 +20,9 @@
     z-index: 10;
     margin: 0;
     padding: 24px;
-    color: map.get($at-palette, 'primary');
+    color: map.get(colors.$at-palette, 'primary');
     font-weight: variables.$font-weight-bold !important;
-
-    @if $theme == variables.$dark {
-      background-color: colors.$dark-gray-10;
-    } @else {
-      // (default) light theme
-      background-color: colors.$white;
-    }
+    background-color: map.get(colors.$at-palette, canvas);
   }
 
   .mat-dialog-content {
@@ -58,7 +53,7 @@
           @include mixins.font-size(20px);
 
           margin-bottom: 8px;
-          color: map.get($at-palette, 'primary');
+          color: map.get(colors.$at-palette, primary);
           font-weight: variables.$font-weight-bold !important;
         }
 
@@ -66,7 +61,7 @@
           @include mixins.font-size(16px);
 
           margin-bottom: 0;
-          color: map.get($at-palette, 'muted');
+          color: map.get(colors.$at-palette, muted);
           font-weight: variables.$font-weight-semi-bold !important;
         }
       }
@@ -101,7 +96,7 @@
   }
 
   .overlay-spinner-dialog .mat-dialog-container {
-    background: rgba(0, 0, 0, 0%) !important;
+    background: map.get(colors.$at-palette, backdrop) !important;
     border: 0 !important;
     box-shadow: none !important;
   }
@@ -128,7 +123,7 @@
       height: auto !important;
 
       .mat-dialog-container {
-        @include mixins.border($at-palette, none !important);
+        @include mixins.border;
       }
     }
   }

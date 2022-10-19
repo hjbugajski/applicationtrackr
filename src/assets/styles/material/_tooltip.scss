@@ -1,5 +1,8 @@
 @use 'variables';
 
-.mat-tooltip {
-  border-radius: variables.$border-radius;
+.at-light-theme,
+.at-dark-theme {
+  .mat-tooltip {
+    border-radius: variables.$border-radius;
+  }
 }

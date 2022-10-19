@@ -1,230 +1,24 @@
-@use 'sass:map';
-@use 'colors';
-@use 'mixins';
-@use 'palettes';
-@use 'variables';
+@forward './components/application-card';
+@forward './components/column';
+@forward './components/drag-drop';
+@forward './components/tag';
 
-@mixin get-components-styles($theme: variables.$light) {
-  $at-palette: palettes.get-at-palette($theme);
-  $at-palette-keys: palettes.get-at-palette-keys($theme);
+.loading-spinner-in-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 5px 0;
+}
 
-  .loading-spinner-in-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 5px 0;
-  }
+.button-row-container-end {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
 
-  .button-row-container-end {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-
-    .mat-button-base:not(:last-child) {
-      margin-right: 8px;
-    }
-  }
-
-  .column {
-    min-width: 275px;
-    overflow: hidden;
-    border-right: 2px solid map.get($at-palette, 'border');
-
-    @if $theme == variables.$dark {
-      background-color: map.get($at-palette, 'canvas');
-    } @else {
-      // (default) light
-      background-color: map.get($at-palette, 'canvas-inset');
-    }
-
-    .mat-card:not(:last-of-type) {
-      margin-bottom: 8px;
-    }
-
-    .column-header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 5px;
-      padding: 5px 5px 0 10px;
-
-      .column-title-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .column-title {
-          @include mixins.font-size(16px);
-
-          font-weight: variables.$font-weight-bold;
-        }
-
-        .column-application-count {
-          margin-left: 8px;
-          font-weight: variables.$font-weight-semi-bold !important;
-        }
-      }
-
-      .column-actions {
-        min-width: 80px;
-      }
-    }
-
-    .cdk-container {
-      height: calc(100% - 50px);
-    }
-
-    @media (min-width: 375px) {
-      min-width: 325px;
-    }
-
-    @media (min-width: 768px) {
-      .column-header {
-        margin-bottom: 8px;
-        padding: 8px 8px 0 16px;
-      }
-
-      .cdk-container {
-        height: calc(100% - 52px);
-      }
-    }
-  }
-
-  .tag {
-    @include mixins.font-size(12px);
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 6px;
-    white-space: nowrap;
-    border-radius: 100px;
-
-    @each $key in map-keys($at-palette-keys) {
-      &.#{$key} {
-        color: map.get($at-palette, $key);
-        background-color: rgba(map.get($at-palette, $key), $alpha: 0.05);
-        border: 2px solid map.get($at-palette, $key);
-      }
-    }
-  }
-
-  .application-card {
-    .application-card-title {
-      margin-bottom: 8px !important;
-    }
-
-    &:hover {
-      background-color: transparent;
-      cursor: grab;
-    }
-
-    &:focus {
-      outline: none;
-
-      @each $key in map-keys($at-palette-keys) {
-        &.#{$key} {
-          border: 2px solid map.get($at-palette, $key);
-        }
-      }
-    }
-
-    &:last-child {
-      margin-bottom: 128px;
-    }
-
-    .icon-subtitle {
-      display: grid;
-      grid-template-columns: 20px 1fr;
-      color: map.get($at-palette, 'muted');
-      column-gap: 4px;
-
-      .small-icon {
-        display: inline-flex;
-        align-items: center;
-        width: 20px !important;
-        height: 20px !important;
-
-        svg {
-          width: 16px !important;
-          height: 16px !important;
-        }
-      }
-    }
-
-    .mat-card-content {
-      font-weight: variables.$font-weight-semi-bold;
-    }
-  }
-
-  .reorder-column-list {
-    display: block;
-    width: 100%;
-    min-height: 60px;
-    overflow: hidden;
-
-    .cdk-drag-placeholder {
-      opacity: 0;
-    }
-  }
-
-  .reorder-column-list-box {
-    border: 2px solid map.get($at-palette, 'border');
-    border-radius: variables.$border-radius;
-    cursor: grab;
-
-    @if $theme == 'dark' {
-      background-color: map.get($at-palette, 'canvas') !important;
-    } @else {
-      // (default) light
-      background-color: map.get($at-palette, 'canvas-inset') !important;
-    }
-
-    &:not(:last-of-type) {
-      margin-bottom: 8px;
-    }
-
-    &:last-child {
-      box-shadow: unset;
-    }
-
-    &:focus,
-    &:focus:last-child {
-      border-color: map.get($at-palette, 'neutral');
-      outline: none;
-    }
-
-    .inner-container {
-      @include mixins.font-size(14px);
-
-      display: grid;
-      grid-template-columns: 32px 1fr;
-      align-items: center;
-      padding: 16px 8px;
-      font-weight: variables.$font-weight-bold;
-      border-radius: 8px;
-
-      .mat-icon {
-        margin-right: 8px;
-      }
-    }
-  }
-
-  .reorder-column-list-cdk-drag-preview {
-    @include mixins.font-size(16px);
-
-    border: 2px solid map.get($at-palette, 'border');
-  }
-
-  .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-
-  .reorder-column-list.cdk-drop-list-dragging .reorder-column-list-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  .mat-button-base:not(:last-child) {
+    margin-right: 8px;
   }
 }

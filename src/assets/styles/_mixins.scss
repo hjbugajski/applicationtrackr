@@ -1,10 +1,11 @@
 @use 'sass:map';
+@use 'colors';
 @use 'variables';
 
-@mixin border($at-palette, $box-shadow: unset) {
-  border: 2px solid map.get($at-palette, 'border');
+@mixin border() {
+  border: 2px solid map.get(colors.$at-palette, border);
   border-radius: variables.$border-radius !important;
-  box-shadow: $box-shadow;
+  box-shadow: none !important;
 }
 
 @mixin font-size($size) {

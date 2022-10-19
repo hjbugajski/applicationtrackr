@@ -1,15 +1,11 @@
-@use 'components';
+.cdk-virtual-scroll-content-wrapper {
+  width: calc(100% - 20px);
+  min-width: unset !important;
+  padding: 0 10px 10px !important;
 
-::ng-deep {
-  .cdk-virtual-scroll-content-wrapper {
-    width: calc(100% - 20px);
-    min-width: unset !important;
-    padding: 0 10px 10px;
-
-    @media (min-width: 768px) {
-      width: calc(100% - 32px);
-      padding: 0 16px 16px;
-    }
+  @media (min-width: 768px) {
+    width: calc(100% - 32px);
+    padding: 0 16px 16px !important;
   }
 }
 

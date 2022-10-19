@@ -1,5 +1,8 @@
 @use 'variables';
 
-.mat-step-header {
-  border-radius: variables.$border-radius;
+.at-light-theme,
+.at-dark-theme {
+  .mat-step-header {
+    border-radius: variables.$border-radius;
+  }
 }

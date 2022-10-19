@@ -2,7 +2,8 @@
 @use 'colors';
 @use 'variables';
 
-@mixin styles($at-palette, $at-palette-keys, $theme) {
+.at-light-theme,
+.at-dark-theme {
   .mat-form-field {
     margin-bottom: 16px;
 
@@ -19,14 +20,8 @@
 
   .mat-form-field-appearance-fill {
     .mat-form-field-flex {
-      @if $theme == variables.$dark {
-        background-color: colors.$dark-gray-9;
-      } @else {
-        // (default) light theme
-        background-color: colors.$light-gray-0;
-      }
-
-      border: 2px solid map.get($at-palette, 'border');
+      background-color: map.get(colors.$at-palette, canvas-inset) !important;
+      border: 2px solid map.get(colors.$at-palette, border) !important;
       border-radius: variables.$border-radius !important;
     }
 
@@ -53,7 +48,7 @@
       }
 
       .mat-form-field:last-of-type .mat-form-field-flex {
-        border-left: 2px solid map.get($at-palette, 'border');
+        border-left: 2px solid map.get(colors.$at-palette, border);
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
       }

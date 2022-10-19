@@ -1,4 +1,4 @@
-<div cdkScrollable cdkDropListGroup class="page-container no-padding at-alt-background">
+<div cdkScrollable cdkDropListGroup class="page-container no-padding at-background">
   <ng-container *ngIf="isLoaded | async; else loading">
     <at-column *ngFor="let columnId of columnIds$ | async; let i = index" [columnId]="columnId"></at-column>
     <div class="add-column-button-container">

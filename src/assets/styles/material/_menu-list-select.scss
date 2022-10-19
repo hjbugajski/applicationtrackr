@@ -1,15 +1,16 @@
 @use 'sass:map';
+@use 'colors';
 @use 'mixins';
-@use 'variables';
 
-@mixin styles($at-palette, $at-palette-keys, $theme) {
+.at-light-theme,
+.at-dark-theme {
   .mat-menu-panel,
   .mat-select-panel {
-    @include mixins.border($at-palette, none !important);
+    @include mixins.border;
   }
 
   .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
-    background: map.get($at-palette, 'hover');
+    background: map.get(colors.$at-palette, hover) !important;
   }
 
   .mat-menu-content {
@@ -22,8 +23,8 @@
   }
 
   .mat-list-single-selected-option {
-    color: map.get($at-palette, 'primary') !important;
-    background-color: map.get($at-palette, 'hover') !important;
+    color: map.get(colors.$at-palette, primary) !important;
+    background-color: map.get(colors.$at-palette, hover) !important;
   }
 
   .mat-list-base {
@@ -45,6 +46,6 @@
   }
 
   .mat-list-item:focus {
-    outline: 2px solid map.get($at-palette, 'primary');
+    outline: 2px solid map.get(colors.$at-palette, primary);
   }
 }

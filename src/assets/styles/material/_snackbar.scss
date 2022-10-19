@@ -1,20 +1,14 @@
+@use 'sass:map';
 @use 'colors';
 @use 'mixins';
-@use 'variables';
 
-@mixin styles($at-palette, $at-palette-keys, $theme) {
+.at-light-theme,
+.at-dark-theme {
   .mat-snackbar {
-    @include mixins.border($at-palette, none !important);
+    @include mixins.border;
 
     padding: 0;
-
-    @if $theme == variables.$dark {
-      color: colors.$dark-gray-0;
-      background-color: colors.$dark-gray-10;
-    } @else {
-      // (default) light theme
-      color: colors.$light-gray-8;
-      background-color: colors.$white;
-    }
+    color: map.get(colors.$at-palette, contrast, canvas);
+    background-color: map.get(colors.$at-palette, canvas);
   }
 }
