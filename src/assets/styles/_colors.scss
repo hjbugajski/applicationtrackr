@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'variables';
 
 $light-purple-9: #1c0f30;
 $light-purple-8: #31135e;
@@ -213,39 +214,376 @@ $dark-coral-9: #460701;
 $black: #000;
 $white: #fff;
 
-@mixin color-classes($at-palette, $at-palette-keys, $theme) {
-  @each $key in map-keys($at-palette-keys) {
-    .#{$key} {
-      &.at-border {
-        border: 2px solid map.get($at-palette, $key);
-      }
+.at-light-theme {
+  // regular
+  --color-primary: #{$light-blue-5};
+  --color-accent: #{$light-purple-5};
+  --color-accent-alt: #{$light-pink-5};
+  --color-success: #{$light-green-5};
+  --color-attention: #{$light-yellow-5};
+  --color-severe: #{$light-orange-5};
+  --color-severe-alt: #{$light-coral-5};
+  --color-danger: #{$light-red-5};
+  --color-neutral: #{$light-gray-9};
+  --color-muted: #{$light-gray-6};
+  --color-border: #{$light-gray-1};
+  --color-hover: #{$light-gray-0};
+  --color-canvas: #{$white};
+  --color-canvas-inset: #{$light-gray-0};
+  --color-backdrop: rgba(255, 255, 255, 60%);
 
-      &.at-text {
-        color: map.get($at-palette, $key) !important;
-      }
+  // alpha
+  --color-alpha-primary: #{$light-blue-5}0d;
+  --color-alpha-accent: #{$light-purple-5}0d;
+  --color-alpha-accent-alt: #{$light-pink-5}0d;
+  --color-alpha-success: #{$light-green-5}0d;
+  --color-alpha-attention: #{$light-yellow-5}0d;
+  --color-alpha-severe: #{$light-orange-5}0d;
+  --color-alpha-severe-alt: #{$light-coral-5}0d;
+  --color-alpha-danger: #{$light-red-5}0d;
+  --color-alpha-neutral: #{$light-gray-9}0d;
+  --color-alpha-muted: #{$light-gray-6}0d;
+  --color-alpha-border: #{$light-gray-1}0d;
+  --color-alpha-hover: #{$light-gray-0}0d;
+  --color-alpha-canvas: #{$white}0d;
+  --color-alpha-canvas-inset: #{$light-gray-0}0d;
 
-      &:not(.neutral).at-alpha-background {
-        background-color: rgba(map.get($at-palette, $key), $alpha: 0.05);
-      }
-    }
-  }
-
-  @if $theme == 'dark' {
-    .at-background {
-      background-color: $dark-gray-9;
-    }
-
-    .at-alt-background {
-      background-color: $dark-gray-10;
-    }
-  } @else {
-    // (default) light theme
-    .at-background {
-      background-color: $light-gray-0;
-    }
-
-    .at-alt-background {
-      background-color: $white;
-    }
-  }
+  // contrast
+  --color-contrast-primary: #{$white};
+  --color-contrast-accent: #{$white};
+  --color-contrast-accent-alt: #{$white};
+  --color-contrast-success: #{$white};
+  --color-contrast-attention: #{$white};
+  --color-contrast-severe: #{$white};
+  --color-contrast-severe-alt: #{$white};
+  --color-contrast-danger: #{$white};
+  --color-contrast-neutral: #{$white};
+  --color-contrast-muted: #{$white};
+  --color-contrast-border: #{$light-gray-9};
+  --color-contrast-hover: #{$light-gray-9};
+  --color-contrast-canvas: #{$light-gray-9};
+  --color-contrast-canvas-inset: #{$light-gray-9};
 }
+
+.at-dark-theme {
+  // regular
+  --color-primary: #{$dark-blue-3};
+  --color-accent: #{$dark-purple-3};
+  --color-accent-alt: #{$dark-pink-3};
+  --color-success: #{$dark-green-3};
+  --color-attention: #{$dark-yellow-3};
+  --color-severe: #{$dark-orange-3};
+  --color-severe-alt: #{$dark-coral-3};
+  --color-danger: #{$dark-red-4};
+  --color-neutral: #{$dark-gray-1};
+  --color-muted: #{$dark-gray-3};
+  --color-border: #{$dark-gray-8};
+  --color-hover: #{$dark-gray-9};
+  --color-canvas: #{$dark-gray-10};
+  --color-canvas-inset: #{$dark-gray-9};
+  --color-backdrop: rgba(1, 4, 9, 60%);
+
+  // alpha
+  --color-alpha-primary: #{$dark-blue-3}0d;
+  --color-alpha-accent: #{$dark-purple-3}0d;
+  --color-alpha-accent-alt: #{$dark-pink-3}0d;
+  --color-alpha-success: #{$dark-green-3}0d;
+  --color-alpha-attention: #{$dark-yellow-3}0d;
+  --color-alpha-severe: #{$dark-orange-3}0d;
+  --color-alpha-severe-alt: #{$dark-coral-3}0d;
+  --color-alpha-danger: #{$dark-red-4}0d;
+  --color-alpha-neutral: #{$dark-gray-1}0d;
+  --color-alpha-muted: #{$dark-gray-3}0d;
+  --color-alpha-border: #{$dark-gray-8}0d;
+  --color-alpha-hover: #{$dark-gray-9}0d;
+  --color-alpha-canvas: #{$dark-gray-10}0d;
+  --color-alpha-canvas-inset: #{$dark-gray-9}0d;
+
+  // contrast
+  --color-contrast-primary: #{$black};
+  --color-contrast-accent: #{$black};
+  --color-contrast-accent-alt: #{$black};
+  --color-contrast-success: #{$black};
+  --color-contrast-attention: #{$black};
+  --color-contrast-severe: #{$black};
+  --color-contrast-severe-alt: #{$black};
+  --color-contrast-danger: #{$black};
+  --color-contrast-neutral: #{$black};
+  --color-contrast-muted: #{$black};
+  --color-contrast-border: #{$dark-gray-1};
+  --color-contrast-hover: #{$dark-gray-1};
+  --color-contrast-canvas: #{$dark-gray-1};
+  --color-contrast-canvas-inset: #{$dark-gray-1};
+}
+
+$red-palette: (
+  50: $light-red-0,
+  100: $light-red-1,
+  200: $light-red-2,
+  300: $light-red-3,
+  400: $light-red-4,
+  500: $light-red-5,
+  600: $light-red-6,
+  700: $light-red-7,
+  800: $light-red-8,
+  900: $light-red-9,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$dark-red-palette: (
+  50: $dark-red-0,
+  100: $dark-red-1,
+  200: $dark-red-2,
+  300: $dark-red-3,
+  400: $dark-red-4,
+  500: $dark-red-5,
+  600: $dark-red-6,
+  700: $dark-red-7,
+  800: $dark-red-8,
+  900: $dark-red-9,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$purple-palette: (
+  50: $light-purple-0,
+  100: $light-purple-1,
+  200: $light-purple-2,
+  300: $light-purple-3,
+  400: $light-purple-4,
+  500: $light-purple-5,
+  600: $light-purple-6,
+  700: $light-purple-7,
+  800: $light-purple-8,
+  900: $light-purple-9,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$dark-purple-palette: (
+  50: $dark-purple-0,
+  100: $dark-purple-1,
+  200: $dark-purple-2,
+  300: $dark-purple-3,
+  400: $dark-purple-4,
+  500: $dark-purple-5,
+  600: $dark-purple-6,
+  700: $dark-purple-7,
+  800: $dark-purple-8,
+  900: $dark-purple-9,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$blue-palette: (
+  50: $light-blue-0,
+  100: $light-blue-1,
+  200: $light-blue-2,
+  300: $light-blue-3,
+  400: $light-blue-4,
+  500: $light-blue-5,
+  600: $light-blue-6,
+  700: $light-blue-7,
+  800: $light-blue-8,
+  900: $light-blue-9,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$dark-blue-palette: (
+  50: $dark-blue-0,
+  100: $dark-blue-1,
+  200: $dark-blue-2,
+  300: $dark-blue-3,
+  400: $dark-blue-4,
+  500: $dark-blue-5,
+  600: $dark-blue-6,
+  700: $dark-blue-7,
+  800: $dark-blue-8,
+  900: $dark-blue-9,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$light-theme-foreground-palette: (
+  base: $light-gray-9,
+  divider: $light-gray-1,
+  dividers: $light-gray-1,
+  disabled: $light-gray-2,
+  disabled-button: $light-gray-3,
+  disabled-text: $light-gray-2,
+  hint-text: $light-gray-6,
+  secondary-text: $light-gray-6,
+  icon: $light-gray-9,
+  icons: $light-gray-9,
+  text: $light-gray-9,
+  slider-min: $light-gray-3,
+  slider-off: $light-gray-3,
+  slider-off-active: $light-gray-3
+);
+
+$dark-theme-foreground-palette: (
+  base: $dark-gray-1,
+  divider: $dark-gray-8,
+  dividers: $dark-gray-8,
+  disabled: $dark-gray-6,
+  disabled-button: $dark-gray-6,
+  disabled-text: $dark-gray-6,
+  hint-text: $dark-gray-3,
+  secondary-text: $dark-gray-3,
+  icon: $dark-gray-1,
+  icons: $dark-gray-1,
+  text: $dark-gray-1,
+  slider-min: $dark-gray-3,
+  slider-off: $dark-gray-3,
+  slider-off-active: $dark-gray-3
+);
+
+$light-theme-background-palette: (
+  status-bar: $white,
+  app-bar: $white,
+  background: $light-gray-0,
+  hover: $light-gray-0,
+  card: $white,
+  dialog: $white,
+  disabled-button: $light-gray-1,
+  raised-button: $light-gray-0,
+  focused-button: $light-gray-9,
+  selected-button: $light-gray-1,
+  selected-disabled-button: $light-gray-1,
+  disabled-button-toggle: $light-gray-1,
+  unselected-chip: $light-gray-0,
+  disabled-list-option: $white,
+  tooltip: $light-gray-8
+);
+
+$dark-theme-background-palette: (
+  status-bar: $dark-gray-10,
+  app-bar: $dark-gray-10,
+  background: $dark-gray-9,
+  hover: $dark-gray-9,
+  card: $dark-gray-10,
+  dialog: $dark-gray-10,
+  disabled-button: $dark-gray-7,
+  raised-button: $dark-gray-8,
+  focused-button: $dark-gray-0,
+  selected-button: $dark-gray-7,
+  selected-disabled-button: $dark-gray-7,
+  disabled-button-toggle: $dark-gray-7,
+  unselected-chip: $dark-gray-7,
+  disabled-list-option: $dark-gray-10,
+  tooltip: $dark-gray-7
+);
+
+$at-palette: (
+  primary: var(--color-primary),
+  accent: var(--color-accent),
+  accent-alt: var(--color-accent-alt),
+  success: var(--color-success),
+  attention: var(--color-attention),
+  severe: var(--color-severe),
+  severe-alt: var(--color-severe-alt),
+  danger: var(--color-danger),
+  neutral: var(--color-neutral),
+  muted: var(--color-muted),
+  border: var(--color-border),
+  hover: var(--color-hover),
+  canvas: var(--color-canvas),
+  canvas-inset: var(--color-canvas-inset),
+  backdrop: var(--color-backdrop),
+  alpha: (
+    primary: var(--color-alpha-primary),
+    accent: var(--color-alpha-accent),
+    accent-alt: var(--color-alpha-accent-alt),
+    success: var(--color-alpha-success),
+    attention: var(--color-alpha-attention),
+    severe: var(--color-alpha-severe),
+    severe-alt: var(--color-alpha-severe-alt),
+    danger: var(--color-alpha-danger),
+    neutral: var(--color-alpha-neutral),
+    muted: var(--color-alpha-muted),
+    border: var(--color-alpha-border),
+    hover: var(--color-alpha-hover),
+    canvas: var(--color-alpha-canvas),
+    canvas-inset: var(--color-alpha-canvas-inset)
+  ),
+  contrast: (
+    primary: var(--color-contrast-primary),
+    accent: var(--color-contrast-accent),
+    accent-alt: var(--color-contrast-accent-alt),
+    success: var(--color-contrast-success),
+    attention: var(--color-contrast-attention),
+    severe: var(--color-contrast-severe),
+    severe-alt: var(--color-contrast-severe-alt),
+    danger: var(--color-contrast-danger),
+    neutral: var(--color-contrast-neutral),
+    muted: var(--color-contrast-muted),
+    border: var(--color-contrast-border),
+    hover: var(--color-contrast-hover),
+    canvas: var(--color-contrast-canvas),
+    canvas-inset: var(--color-contrast-canvas-inset)
+  )
+);
+
+$at-palette-keys: map.remove($at-palette, backdrop, alpha, contrast);

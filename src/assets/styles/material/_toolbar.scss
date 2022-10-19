@@ -1,10 +1,12 @@
 @use 'sass:map';
+@use 'colors';
 @use 'variables';
 
-@mixin styles($at-palette, $at-palette-keys, $theme) {
+.at-light-theme,
+.at-dark-theme {
   .mat-toolbar {
     min-height: 56px !important;
-    border-bottom: 2px solid map.get($at-palette, 'border');
+    border-bottom: 2px solid map.get(colors.$at-palette, border);
 
     &.absolute-toolbar {
       position: absolute;

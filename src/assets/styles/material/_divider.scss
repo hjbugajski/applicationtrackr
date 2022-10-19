@@ -1,7 +1,10 @@
-.mat-divider {
-  border-top-width: 2px !important;
+.at-light-theme,
+.at-dark-theme {
+  .mat-divider {
+    border-top-width: 2px !important;
 
-  &.padded-divider {
-    margin: 8px 0 !important;
+    &.padded-divider {
+      margin: 8px 0 !important;
+    }
   }
 }

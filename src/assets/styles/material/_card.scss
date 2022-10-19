@@ -3,15 +3,16 @@
 @use 'mixins';
 @use 'variables';
 
-@mixin styles($at-palette, $at-palette-keys, $theme) {
+.at-light-theme,
+.at-dark-theme {
   .mat-card {
-    @include mixins.border($at-palette, none !important);
+    @include mixins.border;
 
     .mat-card-title {
       @include mixins.font-size(18px);
 
       margin-bottom: 16px;
-      color: map.get($at-palette, 'primary');
+      color: map.get(colors.$at-palette, primary);
       font-weight: variables.$font-weight-bold;
 
       .title-with-tag {
@@ -26,7 +27,7 @@
 
       .mat-card-subtitle {
         margin: 0;
-        color: map.get($at-palette, 'muted');
+        color: map.get(colors.$at-palette, muted);
         font-weight: variables.$font-weight-semi-bold;
 
         &:first-of-type {

@@ -1,0 +1,51 @@
+@use 'sass:map';
+@use 'colors';
+@use 'variables';
+
+.application-card {
+  .application-card-title {
+    margin-bottom: 8px !important;
+  }
+
+  &:hover {
+    background-color: transparent;
+    cursor: grab;
+  }
+
+  &:focus {
+    outline: none;
+
+    @each $key in map-keys(colors.$at-palette-keys) {
+      &.#{$key} {
+        border: 2px solid map.get(colors.$at-palette, $key);
+      }
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 128px;
+  }
+
+  .icon-subtitle {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    color: map.get(colors.$at-palette, muted);
+    column-gap: 4px;
+
+    .small-icon {
+      display: inline-flex;
+      align-items: center;
+      width: 20px !important;
+      height: 20px !important;
+
+      svg {
+        width: 16px !important;
+        height: 16px !important;
+      }
+    }
+  }
+
+  .mat-card-content {
+    font-weight: variables.$font-weight-semi-bold;
+  }
+}

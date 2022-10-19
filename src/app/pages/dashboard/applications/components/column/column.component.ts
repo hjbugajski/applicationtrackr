@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -42,7 +42,8 @@ import { applicationConverter, columnConverter } from '~utils/firestore-converte
   styleUrls: ['./column.component.scss'],
   host: {
     class: 'column at-alpha-background'
-  }
+  },
+  encapsulation: ViewEncapsulation.None
 })
 export class ColumnComponent implements OnInit, OnDestroy {
   @HostBinding('class') colorClass = '';

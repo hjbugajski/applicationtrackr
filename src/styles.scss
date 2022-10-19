@@ -1,13 +1,18 @@
+@use 'sass:map';
 @use 'colors';
-@use 'global';
+@use 'components';
+@use 'material';
 @use 'themes';
 @use 'variables';
+@use './assets/styles/pages/settings';
 
 html,
 body {
   height: 100%;
   margin: 0;
+  color: map.get(colors.$at-palette, contrast, canvas);
   font-family: variables.$font-family !important;
+  background-color: map.get(colors.$at-palette, canvas);
 }
 
 h1,
@@ -16,34 +21,111 @@ h3,
 h4,
 h5,
 h6 {
+  color: map.get(colors.$at-palette, primary);
   font-weight: variables.$font-weight-bold !important;
 }
 
-.at-light-theme {
-  color: colors.$light-gray-9;
+a {
+  color: map.get(colors.$at-palette, primary);
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  a {
-    color: colors.$light-blue-5;
+@each $key in map-keys(colors.$at-palette-keys) {
+  .#{$key} {
+    &.at-border {
+      border: 2px solid map.get(colors.$at-palette, $key);
+    }
+
+    &.at-text {
+      color: map.get(colors.$at-palette, $key) !important;
+    }
+
+    &:not(.neutral).at-alpha-background {
+      background-color: map.get(colors.$at-palette, 'alpha', $key) !important;
+    }
+
+    &.neutral.at-alpha-background {
+      background-color: map.get(colors.$at-palette, canvas-inset) !important;
+    }
   }
 }
 
-.at-dark-theme {
-  color: colors.$dark-gray-1;
-  background-color: colors.$dark-gray-10;
+.at-background {
+  background-color: map.get(colors.$at-palette, canvas);
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  a {
-    color: colors.$dark-blue-3;
+.at-alt-background {
+  background-color: map.get(colors.$at-palette, canvas-inset);
+}
+
+.page-container {
+  display: flex;
+  flex: 1 1 auto;
+  height: calc(100vh - 56px - 8px);
+  padding: 0 8px 8px;
+  overflow: auto;
+
+  @media (min-width: 600px) {
+    height: calc(100vh - 64px - 8px);
+  }
+
+  @media (min-width: 768px) {
+    height: calc(100vh - 64px - 16px);
+    padding: 0 16px 16px;
+  }
+
+  @media (min-width: 1280px) {
+    height: calc(100vh - 32px);
+    padding: 16px;
+  }
+
+  &.no-padding {
+    height: calc(100vh - 56px);
+    padding: 0;
+
+    @media (min-width: 600px) {
+      height: calc(100vh - 64px);
+    }
+
+    @media (min-width: 768px) {
+      height: calc(100vh - 64px);
+    }
+
+    @media (min-width: 1280px) {
+      height: 100vh;
+    }
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-max-width {
+  max-width: 500px;
+}
+
+.full-height-flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.button-row {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 24px;
+
+  @media (min-width: 650px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

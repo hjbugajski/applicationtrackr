@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use 'colors';
+@use 'mixins';
+
+.tag {
+  @include mixins.font-size(12px);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  white-space: nowrap;
+  border-radius: 100px;
+
+  @each $key in map-keys(colors.$at-palette-keys) {
+    &.#{$key} {
+      color: map.get(colors.$at-palette, $key);
+      background-color: map.get(colors.$at-palette, alpha, $key);
+      border: 2px solid map.get(colors.$at-palette, $key);
+    }
+  }
+}

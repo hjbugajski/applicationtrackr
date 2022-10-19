@@ -1,0 +1,63 @@
+@use 'sass:map';
+@use 'colors';
+@use 'mixins';
+@use 'variables';
+
+.column {
+  min-width: 275px;
+  overflow: hidden;
+  border-right: 2px solid map.get(colors.$at-palette, border);
+
+  .mat-card:not(:last-of-type) {
+    margin-bottom: 8px;
+  }
+
+  .column-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding: 5px 5px 0 10px;
+
+    .column-title-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .column-title {
+        @include mixins.font-size(16px);
+
+        font-weight: variables.$font-weight-bold;
+      }
+
+      .column-application-count {
+        margin-left: 8px;
+        font-weight: variables.$font-weight-semi-bold !important;
+      }
+    }
+
+    .column-actions {
+      min-width: 80px;
+    }
+  }
+
+  .cdk-container {
+    height: calc(100% - 50px);
+  }
+
+  @media (min-width: 375px) {
+    min-width: 325px;
+  }
+
+  @media (min-width: 768px) {
+    .column-header {
+      margin-bottom: 8px;
+      padding: 8px 8px 0 16px;
+    }
+
+    .cdk-container {
+      height: calc(100% - 52px);
+    }
+  }
+}
