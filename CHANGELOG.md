@@ -1,6 +1,17 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+### [1.0.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0...v1.0.1) (2022-10-19)
+
+### Features
+
+- add ApplicationTrackr logo to sidenav ([cf645af](https://github.com/hjbugajski/applicationtrackr/commit/cf645af405cb8201e507987565a4685d3c32ae47))
+
+### Bug Fixes
+
+- replace privacy policy ([863000d](https://github.com/hjbugajski/applicationtrackr/commit/863000d46495b4e03ac4e94fea151c2b7e97d37a)), closes [#16](https://github.com/hjbugajski/applicationtrackr/issues/16)
+- **styles:** refactor styles to use CSS variables and a single palette ([de329e8](https://github.com/hjbugajski/applicationtrackr/commit/de329e861ebfc9158d9acb4c7c4a62ec224e9209)), closes [#15](https://github.com/hjbugajski/applicationtrackr/issues/15)
 
 ## [1.0.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.0-beta.6...v1.0.0) (2022-10-07)
 
