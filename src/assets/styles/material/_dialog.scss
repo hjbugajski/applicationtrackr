@@ -96,7 +96,7 @@
   }
 
   .overlay-spinner-dialog .mat-dialog-container {
-    background: map.get(colors.$at-palette, backdrop) !important;
+    background-color: transparent !important;
     border: 0 !important;
     box-shadow: none !important;
   }

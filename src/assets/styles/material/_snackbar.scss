@@ -8,7 +8,7 @@
     @include mixins.border;
 
     padding: 0;
-    color: map.get(colors.$at-palette, contrast, canvas);
-    background-color: map.get(colors.$at-palette, canvas);
+    color: map.get(colors.$at-palette, contrast, canvas) !important;
+    background-color: map.get(colors.$at-palette, canvas) !important;
   }
 }
