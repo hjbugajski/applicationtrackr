@@ -1,5 +1,3 @@
-@use 'sass:map';
-@use 'colors';
 @use 'mixins';
 
 .at-light-theme,
@@ -8,7 +6,7 @@
     @include mixins.border;
 
     padding: 0;
-    color: map.get(colors.$at-palette, contrast, canvas) !important;
-    background-color: map.get(colors.$at-palette, canvas) !important;
+    color: var(--color-contrast-canvas) !important;
+    background-color: var(--color-canvas) !important;
   }
 }

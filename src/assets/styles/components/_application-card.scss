@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use 'colors';
+@use 'palette';
 @use 'variables';
 
 .application-card {
@@ -15,9 +15,9 @@
   &:focus {
     outline: none;
 
-    @each $key in map-keys(colors.$at-palette-keys) {
+    @each $key in map-keys(palette.$at-palette-keys) {
       &.#{$key} {
-        border: 2px solid map.get(colors.$at-palette, $key);
+        border: 2px solid map.get(palette.$at-palette, $key);
       }
     }
   }
@@ -29,7 +29,7 @@
   .icon-subtitle {
     display: grid;
     grid-template-columns: 20px 1fr;
-    color: map.get(colors.$at-palette, muted);
+    color: map.get(palette.$at-palette, muted);
     column-gap: 4px;
 
     .small-icon {

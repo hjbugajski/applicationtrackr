@@ -1,5 +1,3 @@
-@use 'sass:map';
-@use 'colors';
 @use 'mixins';
 @use 'variables';
 
@@ -12,8 +10,8 @@
 
   margin-bottom: 24px;
   padding-bottom: 16px;
-  color: map.get(colors.$at-palette, neutral);
-  border-bottom: 2px solid map.get(colors.$at-palette, border);
+  color: var(--color-neutral);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .settings-sidenav-item {
@@ -23,7 +21,7 @@
   flex-direction: row;
   align-items: center;
   padding: 8px;
-  color: map.get(colors.$at-palette, neutral);
+  color: var(--color-neutral);
   text-decoration: none !important;
   border-radius: variables.$border-radius;
 
@@ -32,17 +30,17 @@
   }
 
   &:hover {
-    background-color: map.get(colors.$at-palette, hover);
+    background-color: var(--color-hover);
     cursor: pointer;
   }
 
   &:focus {
-    outline: 2px solid map.get(colors.$at-palette, primary);
+    outline: 2px solid var(--color-primary);
   }
 
   &.active {
-    color: map.get(colors.$at-palette, primary);
-    background-color: map.get(colors.$at-palette, hover);
+    color: var(--color-primary);
+    background-color: var(--color-hover);
   }
 
   .mat-icon {
@@ -65,5 +63,5 @@
 }
 
 .theme-list-item:focus {
-  outline: 2px solid map.get(colors.$at-palette, primary);
+  outline: 2px solid var(--color-primary);
 }

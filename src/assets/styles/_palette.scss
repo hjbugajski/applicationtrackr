@@ -1,0 +1,53 @@
+@use 'sass:map';
+
+$at-palette: (
+  primary: var(--color-primary),
+  accent: var(--color-accent),
+  accent-alt: var(--color-accent-alt),
+  success: var(--color-success),
+  attention: var(--color-attention),
+  severe: var(--color-severe),
+  severe-alt: var(--color-severe-alt),
+  danger: var(--color-danger),
+  neutral: var(--color-neutral),
+  muted: var(--color-muted),
+  border: var(--color-border),
+  hover: var(--color-hover),
+  canvas: var(--color-canvas),
+  canvas-inset: var(--color-canvas-inset),
+  backdrop: var(--color-backdrop),
+  alpha: (
+    primary: var(--color-alpha-primary),
+    accent: var(--color-alpha-accent),
+    accent-alt: var(--color-alpha-accent-alt),
+    success: var(--color-alpha-success),
+    attention: var(--color-alpha-attention),
+    severe: var(--color-alpha-severe),
+    severe-alt: var(--color-alpha-severe-alt),
+    danger: var(--color-alpha-danger),
+    neutral: var(--color-alpha-neutral),
+    muted: var(--color-alpha-muted),
+    border: var(--color-alpha-border),
+    hover: var(--color-alpha-hover),
+    canvas: var(--color-alpha-canvas),
+    canvas-inset: var(--color-alpha-canvas-inset)
+  ),
+  contrast: (
+    primary: var(--color-contrast-primary),
+    accent: var(--color-contrast-accent),
+    accent-alt: var(--color-contrast-accent-alt),
+    success: var(--color-contrast-success),
+    attention: var(--color-contrast-attention),
+    severe: var(--color-contrast-severe),
+    severe-alt: var(--color-contrast-severe-alt),
+    danger: var(--color-contrast-danger),
+    neutral: var(--color-contrast-neutral),
+    muted: var(--color-contrast-muted),
+    border: var(--color-contrast-border),
+    hover: var(--color-contrast-hover),
+    canvas: var(--color-contrast-canvas),
+    canvas-inset: var(--color-contrast-canvas-inset)
+  )
+);
+
+$at-palette-keys: map.remove($at-palette, backdrop, alpha, contrast);

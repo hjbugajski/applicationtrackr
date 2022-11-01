@@ -1,11 +1,8 @@
-@use 'sass:map';
-@use 'colors';
-
 .at-light-theme,
 .at-dark-theme {
   .mat-slide-toggle-thumb {
-    background-color: map.get(colors.$at-palette, hover);
-    border: 2px solid map.get(colors.$at-palette, border);
+    background-color: var(--color-hover);
+    border: 2px solid var(--color-border);
     box-shadow: none !important;
   }
 

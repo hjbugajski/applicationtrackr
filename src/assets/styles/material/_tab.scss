@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use 'colors';
+@use 'palette';
 @use 'mixins';
 @use 'variables';
 
@@ -8,11 +8,11 @@
   .mat-tab-group {
     .mat-tab-nav-bar,
     .mat-tab-header {
-      border-bottom: 2px solid map.get(colors.$at-palette, border);
+      border-bottom: 2px solid map.get(palette.$at-palette, border);
     }
 
     .mat-tab-label {
-      @include mixins.tab-label-color(map.get(colors.$at-palette, primary));
+      @include mixins.tab-label-color(map.get(palette.$at-palette, primary));
 
       min-width: unset;
       height: unset;
@@ -27,18 +27,18 @@
 
       &:hover,
       &:focus {
-        background-color: map.get(colors.$at-palette, hover) !important;
+        background-color: map.get(palette.$at-palette, hover) !important;
       }
     }
 
-    @each $key in map-keys(colors.$at-palette-keys) {
+    @each $key in map-keys(palette.$at-palette-keys) {
       &.#{$key} {
         * > * .mat-tab-label {
-          @include mixins.tab-label-color(map.get(colors.$at-palette, $key));
+          @include mixins.tab-label-color(map.get(palette.$at-palette, $key));
         }
 
         * > * .mat-ink-bar {
-          background-color: map.get(colors.$at-palette, $key) !important;
+          background-color: map.get(palette.$at-palette, $key) !important;
         }
       }
     }
