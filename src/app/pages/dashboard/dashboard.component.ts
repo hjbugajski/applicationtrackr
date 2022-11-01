@@ -39,11 +39,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         viewValue: 'Applications',
         route: Paths.Applications
       },
-      // {
-      //   icon: Icons.CarbonChartMultitype,
-      //   viewValue: 'Analytics',
-      //   route: Paths.Analytics
-      // },
       {
         icon: Icons.CarbonTemplate,
         viewValue: 'Job boards',

@@ -1,7 +1,6 @@
 export enum Paths {
   About = 'about',
   Account = 'account',
-  Analytics = 'analytics',
   Appearance = 'appearance',
   Applications = 'applications',
   Auth = 'auth',
