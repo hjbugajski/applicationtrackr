@@ -35,6 +35,7 @@
   </div>
   <cdk-virtual-scroll-viewport
     cdkDropList
+    cdkDropListSortingDisabled
     [cdkDropListDisabled]="isTouch"
     [cdkDropListData]="column"
     (cdkDropListDropped)="drop($event)"
@@ -52,6 +53,7 @@
       tabindex="0"
       (keydown)="keydown($event, application)"
     >
+      <div class="application-card-placeholder at-border primary" *cdkDragPlaceholder></div>
       <mat-card-title class="application-card-title at-text" [ngClass]="column.color">
         {{ application.company }}
       </mat-card-title>

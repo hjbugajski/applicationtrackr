@@ -53,7 +53,12 @@
 .reorder-column-list-cdk-drag-preview {
   @include mixins.font-size(16px);
 
+  box-sizing: border-box;
   border: 2px solid map.get(colors.$at-palette, border);
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
 }
 
 .cdk-drag-animating {
