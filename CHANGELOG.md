@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.2...v1.1.0) (2022-11-01)
+
+### Features
+
+- add collapsible columns, refactor user settings to map ([08fe08c](https://github.com/hjbugajski/applicationtrackr/commit/08fe08cb08ba98b035726c79f52820d39e589981)), closes [#20](https://github.com/hjbugajski/applicationtrackr/issues/20) [#21](https://github.com/hjbugajski/applicationtrackr/issues/21)
+
+### Bug Fixes
+
+- place focus on location input after expansion ([7bf61a6](https://github.com/hjbugajski/applicationtrackr/commit/7bf61a687f8ad27a3b033062d214d837232e0ef4))
+- **styles:** refactor to CSS variables where possible, add index files ([8c5f201](https://github.com/hjbugajski/applicationtrackr/commit/8c5f2011624fcae60ff25605a2795069d1c4b370))
+- update drag and drop styling ([ff171e8](https://github.com/hjbugajski/applicationtrackr/commit/ff171e86bb51eb7e9a063b0d50d5740261804a50)), closes [#22](https://github.com/hjbugajski/applicationtrackr/issues/22)
+- update scroll behavior on settings page ([6a82502](https://github.com/hjbugajski/applicationtrackr/commit/6a82502ae8ffd327d7c08696c92c414c8a6334a8))
+
 ### [1.0.2](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.1...v1.0.2) (2022-10-23)
 
 ### Bug Fixes
