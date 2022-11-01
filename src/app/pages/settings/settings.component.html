@@ -10,41 +10,34 @@
   </button>
 </mat-toolbar>
 
-<mat-sidenav-container class="settings-container">
-  <mat-sidenav mode="side" [opened]="opened">
-    <ng-container *ngTemplateOutlet="sidenavItems"></ng-container>
-  </mat-sidenav>
-  <mat-sidenav-content class="at-background">
-    <ng-container *ngIf="!opened">
-      <ng-container *ngTemplateOutlet="sidenavItems"></ng-container>
-    </ng-container>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
-<ng-template #sidenavItems>
+<section class="settings-container">
   <h1>Settings</h1>
-  <div class="settings-container-sidenav">
-    <div class="settings-sidenav-section-header at-text muted">General</div>
-    <a [routerLink]="paths.Account" routerLinkActive="active" class="settings-sidenav-item">
-      <mat-icon svgIcon="carbon-user-avatar"></mat-icon>
-      Account
-    </a>
-    <mat-divider></mat-divider>
-    <div class="settings-sidenav-section-header at-text muted">Application</div>
-    <a [routerLink]="paths.Appearance" routerLinkActive="active" class="settings-sidenav-item">
-      <mat-icon svgIcon="carbon-color-palette"></mat-icon>
-      Appearance
-    </a>
-    <a [routerLink]="paths.Layout" routerLinkActive="active" class="settings-sidenav-item">
-      <mat-icon svgIcon="carbon-blog"></mat-icon>
-      Layout
-    </a>
-    <mat-divider></mat-divider>
-    <div class="settings-sidenav-section-header at-text muted">Miscellaneous</div>
-    <a [routerLink]="paths.About" routerLinkActive="active" class="settings-sidenav-item">
-      <mat-icon svgIcon="carbon-information"></mat-icon>
-      About
-    </a>
+  <div class="settings-inner-container">
+    <div class="settings-sidenav">
+      <div class="settings-sidenav-section-header at-text muted">General</div>
+      <a [routerLink]="paths.Account" routerLinkActive="active" class="settings-sidenav-item">
+        <mat-icon svgIcon="carbon-user-avatar"></mat-icon>
+        Account
+      </a>
+      <mat-divider></mat-divider>
+      <div class="settings-sidenav-section-header at-text muted">Application</div>
+      <a [routerLink]="paths.Appearance" routerLinkActive="active" class="settings-sidenav-item">
+        <mat-icon svgIcon="carbon-color-palette"></mat-icon>
+        Appearance
+      </a>
+      <a [routerLink]="paths.Layout" routerLinkActive="active" class="settings-sidenav-item">
+        <mat-icon svgIcon="carbon-blog"></mat-icon>
+        Layout
+      </a>
+      <mat-divider></mat-divider>
+      <div class="settings-sidenav-section-header at-text muted">Miscellaneous</div>
+      <a [routerLink]="paths.About" routerLinkActive="active" class="settings-sidenav-item">
+        <mat-icon svgIcon="carbon-information"></mat-icon>
+        About
+      </a>
+    </div>
+    <div class="settings-content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-</ng-template>
+</section>
