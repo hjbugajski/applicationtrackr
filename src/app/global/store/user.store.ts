@@ -2,33 +2,62 @@ import { Injectable } from '@angular/core';
 import { createStore, select, setProps, withProps } from '@ngneat/elf';
 
 import { Themes } from '~enums/themes.enum';
+import { UserSettings } from '~interfaces/user-doc.interface';
 
 interface UserProps {
-  appearance: Themes | string | null;
   currentJobBoard: string | null;
+  settings: UserSettings;
   uid: string | null;
 }
 
 const userStore = createStore(
   { name: 'user' },
-  withProps<UserProps>({ appearance: null, currentJobBoard: null, uid: null })
+  withProps<UserProps>({
+    settings: {
+      appearance: null,
+      collapseColumns: null
+    },
+    currentJobBoard: null,
+    uid: null
+  })
 );
 
 @Injectable({ providedIn: 'root' })
 export class UserStore {
-  public appearance$ = userStore.pipe(select((state) => state.appearance));
+  public appearance$ = userStore.pipe(select((state) => state.settings.appearance));
+  public collapseColumns$ = userStore.pipe(select((state) => state.settings.collapseColumns));
   public currentJobBoard$ = userStore.pipe(select((state) => state.currentJobBoard));
   public uid$ = userStore.pipe(select((state) => state.uid));
   public user$ = userStore.pipe(select((state) => state));
 
   public get appearance(): Themes | string | null {
-    return userStore.getValue().appearance;
+    return userStore.getValue().settings.appearance;
   }
 
   public set appearance(value: Themes | string | null) {
     userStore.update(
-      setProps(() => ({
-        appearance: value
+      setProps((state) => ({
+        ...state,
+        settings: {
+          ...state.settings,
+          appearance: value
+        }
+      }))
+    );
+  }
+
+  public get collapseColumns(): boolean | null {
+    return userStore.getValue().settings.collapseColumns;
+  }
+
+  public set collapseColumns(value: boolean | null) {
+    userStore.update(
+      setProps((state) => ({
+        ...state,
+        settings: {
+          ...state.settings,
+          collapseColumns: value
+        }
       }))
     );
   }

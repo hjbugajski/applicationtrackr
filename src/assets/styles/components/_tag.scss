@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use 'colors';
+@use 'palette';
 @use 'mixins';
 
 .tag {
@@ -12,11 +12,11 @@
   white-space: nowrap;
   border-radius: 100px;
 
-  @each $key in map-keys(colors.$at-palette-keys) {
+  @each $key in map-keys(palette.$at-palette-keys) {
     &.#{$key} {
-      color: map.get(colors.$at-palette, $key);
-      background-color: map.get(colors.$at-palette, alpha, $key);
-      border: 2px solid map.get(colors.$at-palette, $key);
+      color: map.get(palette.$at-palette, $key);
+      background-color: map.get(palette.$at-palette, alpha, $key);
+      border: 2px solid map.get(palette.$at-palette, $key);
     }
   }
 }

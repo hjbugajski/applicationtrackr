@@ -1,6 +1,3 @@
-@use 'sass:map';
-@use 'colors';
-
 .at-light-theme,
 .at-dark-theme {
   .mat-sidenav-container {
@@ -18,8 +15,8 @@
   }
 
   .mat-sidenav {
-    background-color: map.get(colors.$at-palette, canvas) !important;
-    border-right: 2px solid map.get(colors.$at-palette, border) !important;
+    background-color: var(--color-canvas) !important;
+    border-right: 2px solid var(--color-border) !important;
   }
 
   .mat-drawer {
@@ -27,6 +24,6 @@
   }
 
   .mat-drawer-backdrop.mat-drawer-shown {
-    background-color: map.get(colors.$at-palette, backdrop) !important;
+    background-color: var(--color-backdrop) !important;
   }
 }

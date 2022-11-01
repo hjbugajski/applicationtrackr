@@ -1,5 +1,3 @@
-@use 'sass:map';
-@use 'colors';
 @use 'variables';
 
 .at-light-theme,
@@ -20,8 +18,8 @@
 
   .mat-form-field-appearance-fill {
     .mat-form-field-flex {
-      background-color: map.get(colors.$at-palette, canvas-inset) !important;
-      border: 2px solid map.get(colors.$at-palette, border) !important;
+      background-color: var(--color-canvas-inset) !important;
+      border: 2px solid var(--color-border) !important;
       border-radius: variables.$border-radius !important;
     }
 
@@ -48,7 +46,7 @@
       }
 
       .mat-form-field:last-of-type .mat-form-field-flex {
-        border-left: 2px solid map.get(colors.$at-palette, border);
+        border-left: 2px solid var(--color-border);
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
       }

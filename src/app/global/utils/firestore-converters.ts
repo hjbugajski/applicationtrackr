@@ -35,7 +35,11 @@ export const jobBoardConverter = {
 export const userDataConverter = {
   toFirestore: (user: User) => {
     return {
-      currentJobBoard: user.currentJobBoard
+      currentJobBoard: user.currentJobBoard,
+      settings: {
+        appearance: user.settings?.appearance,
+        collapseColumns: user.settings?.collapseColumns
+      }
     };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): User => {

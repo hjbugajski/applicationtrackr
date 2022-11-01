@@ -1,9 +1,7 @@
-@use 'sass:map';
-@use 'colors';
 @use 'variables';
 
 @mixin border() {
-  border: 2px solid map.get(colors.$at-palette, border);
+  border: 2px solid var(--color-border);
   border-radius: variables.$border-radius !important;
   box-shadow: none !important;
 }

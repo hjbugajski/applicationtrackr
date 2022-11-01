@@ -1,12 +1,12 @@
 @use 'sass:map';
-@use 'colors';
+@use 'palette';
 @use 'variables';
 
 .at-light-theme,
 .at-dark-theme {
-  @each $key in map-keys(colors.$at-palette-keys) {
+  @each $key in map-keys(palette.$at-palette-keys) {
     .mat-button.mat-#{$key} {
-      color: map.get(colors.$at-palette, $key);
+      color: map.get(palette.$at-palette, $key);
     }
 
     .mat-flat-button,
@@ -14,14 +14,14 @@
     .mat-fab,
     .mat-mini-fab {
       &.mat-#{$key} {
-        color: map.get(colors.$at-palette, contrast, $key);
-        background-color: map.get(colors.$at-palette, $key);
+        color: map.get(palette.$at-palette, contrast, $key);
+        background-color: map.get(palette.$at-palette, $key);
       }
     }
 
     .mat-stroked-button.mat-#{$key} {
-      color: map.get(colors.$at-palette, $key);
-      border-color: map.get(colors.$at-palette, $key);
+      color: map.get(palette.$at-palette, $key);
+      border-color: map.get(palette.$at-palette, $key);
     }
   }
 

@@ -1,7 +1,3 @@
-@use 'colors';
-@use 'mixins';
-@use 'variables';
-
 :host {
   .mat-toolbar {
     position: fixed;
@@ -9,66 +5,44 @@
     z-index: 1;
   }
 
-  .settings-container {
-    position: absolute;
-    top: 56px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  ::ng-deep .mat-sidenav {
-    width: 282px;
-    border: 0 !important;
-
-    .mat-drawer-inner-container {
-      box-sizing: border-box;
-      padding: 16px !important;
-    }
-  }
-
-  .mat-sidenav-content {
-    box-sizing: border-box !important;
-    height: 100% !important;
-    padding: 16px;
-  }
-
-  h1 {
-    @include mixins.font-size(28px);
-
-    margin-bottom: 24px;
-    font-weight: variables.$font-weight-semi-bold !important;
-  }
-
-  .spinner-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 16px;
-  }
-
-  .settings-container-sidenav {
-    margin-bottom: 32px;
-  }
-
   .mat-divider {
     margin: 10px 0;
   }
 
-  @media (min-width: 600px) {
-    .settings-container {
-      top: 64px;
-    }
+  .settings-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 72px 16px 0;
+  }
+
+  .settings-inner-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .settings-sidenav {
+    min-width: 250px;
+    margin-bottom: 32px;
+  }
+
+  .settings-content {
+    width: 100%;
   }
 
   @media (min-width: 768px) {
-    .settings-container-sidenav {
-      margin-bottom: 0;
+    .settings-container {
+      padding: 80px 16px 0;
     }
 
-    .mat-sidenav-content {
-      padding-top: 75px;
+    .settings-inner-container {
+      flex-direction: row;
+    }
+
+    .settings-sidenav {
+      position: sticky;
+      top: 80px;
+      align-self: flex-start;
     }
   }
 }

@@ -41,7 +41,8 @@ import { applicationConverter, columnConverter } from '~utils/firestore-converte
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss'],
   host: {
-    class: 'column at-alpha-background'
+    class: 'column at-alpha-background',
+    '[class.column-empty]': 'column?.total === 0 && userStore.collapseColumns'
   },
   encapsulation: ViewEncapsulation.None
 })

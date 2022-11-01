@@ -1,8 +1,6 @@
-@use 'colors';
-
 .apple-button-light {
-  color: colors.$white;
-  background-color: colors.$black;
+  color: var(--color-white);
+  background-color: var(--color-black);
 
   &.is-disabled {
     background-color: transparent;
@@ -10,12 +8,12 @@
 }
 
 .apple-button-dark {
-  color: colors.$black;
-  background-color: colors.$white;
+  color: var(--color-black);
+  background-color: var(--color-white);
 
   &:hover,
   &:focus {
-    background-color: colors.$light-gray-0;
+    background-color: #f6f8fa;
   }
 
   &.is-disabled {

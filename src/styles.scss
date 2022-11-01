@@ -2,17 +2,18 @@
 @use 'colors';
 @use 'components';
 @use 'material';
+@use 'pages';
+@use 'palette';
 @use 'themes';
 @use 'variables';
-@use './assets/styles/pages/settings';
 
 html,
 body {
   height: 100%;
   margin: 0;
-  color: map.get(colors.$at-palette, contrast, canvas);
+  color: map.get(palette.$at-palette, contrast, canvas);
   font-family: variables.$font-family !important;
-  background-color: map.get(colors.$at-palette, canvas);
+  background-color: map.get(palette.$at-palette, canvas);
 }
 
 h1,
@@ -21,40 +22,40 @@ h3,
 h4,
 h5,
 h6 {
-  color: map.get(colors.$at-palette, primary);
+  color: map.get(palette.$at-palette, primary);
   font-weight: variables.$font-weight-bold !important;
 }
 
 a {
-  color: map.get(colors.$at-palette, primary);
+  color: map.get(palette.$at-palette, primary);
 }
 
-@each $key in map-keys(colors.$at-palette-keys) {
+@each $key in map-keys(palette.$at-palette-keys) {
   .#{$key} {
     &.at-border {
-      border: 2px solid map.get(colors.$at-palette, $key);
+      border: 2px solid map.get(palette.$at-palette, $key);
     }
 
     &.at-text {
-      color: map.get(colors.$at-palette, $key) !important;
+      color: map.get(palette.$at-palette, $key) !important;
     }
 
     &:not(.neutral).at-alpha-background {
-      background-color: map.get(colors.$at-palette, 'alpha', $key) !important;
+      background-color: map.get(palette.$at-palette, 'alpha', $key) !important;
     }
 
     &.neutral.at-alpha-background {
-      background-color: map.get(colors.$at-palette, canvas-inset) !important;
+      background-color: map.get(palette.$at-palette, canvas-inset) !important;
     }
   }
 }
 
 .at-background {
-  background-color: map.get(colors.$at-palette, canvas);
+  background-color: map.get(palette.$at-palette, canvas);
 }
 
 .at-alt-background {
-  background-color: map.get(colors.$at-palette, canvas-inset);
+  background-color: map.get(palette.$at-palette, canvas-inset);
 }
 
 .page-container {
