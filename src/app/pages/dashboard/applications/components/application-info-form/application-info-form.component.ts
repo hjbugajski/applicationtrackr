@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
@@ -50,6 +50,7 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   constructor(
     private applicationService: ApplicationService,
+    private changeDetectorRef: ChangeDetectorRef,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
@@ -163,7 +164,8 @@ export class ApplicationInfoFormComponent implements OnInit {
   public toggleViewMore(): void {
     this.viewMore = true;
     this.company.markAsUntouched();
-    this.matInputs!.first.focus();
+    this.changeDetectorRef.detectChanges();
+    this.matInputs?.get(2)?.focus();
   }
 
   private async createApplication(application: ApplicationDoc): Promise<void> {
