@@ -27,8 +27,11 @@ export class UserService {
     const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
 
     await updateDoc(doc(this.firestore, Collections.Users, user.uid), {
-      appearance: Themes.System,
-      currentJobBoard: newBoard.docId
+      currentJobBoard: newBoard.docId,
+      settings: {
+        appearance: Themes.System,
+        collapseColumns: false
+      }
     });
   }
 
@@ -36,8 +39,11 @@ export class UserService {
     const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
 
     await setDoc(doc(this.firestore, Collections.Users, user.uid), {
-      appearance: Themes.System,
-      currentJobBoard: newBoard.docId
+      currentJobBoard: newBoard.docId,
+      settings: {
+        appearance: Themes.System,
+        collapseColumns: false
+      }
     });
   }
 
@@ -47,13 +53,15 @@ export class UserService {
 
   public resetUserData(): void {
     this.userStore.appearance = null;
+    this.userStore.collapseColumns = null;
     this.userStore.currentJobBoard = null;
     this.userStore.uid = null;
   }
 
   public subscribeToUserDocData(uid: string): Unsubscribe {
     return onSnapshot(doc(this.firestore, Collections.Users, uid).withConverter(userDataConverter), (snapshot) => {
-      this.userStore.appearance = snapshot.data()?.appearance ?? null;
+      this.userStore.appearance = snapshot.data()?.settings?.appearance ?? null;
+      this.userStore.collapseColumns = snapshot.data()?.settings?.collapseColumns ?? null;
       this.userStore.currentJobBoard = snapshot.data()?.currentJobBoard ?? null;
       this.userStore.uid = snapshot.data()?.uid ?? null;
     });
@@ -61,7 +69,13 @@ export class UserService {
 
   public async updateAppearance(value: Themes | string): Promise<void> {
     await updateDoc(doc(this.firestore, Collections.Users, this.userStore.uid!), {
-      appearance: value
+      'settings.appearance': value
+    });
+  }
+
+  public async updateCollapseColumns(value: boolean): Promise<void> {
+    await updateDoc(doc(this.firestore, Collections.Users, this.userStore.uid!), {
+      'settings.collapseColumns': value
     });
   }
 

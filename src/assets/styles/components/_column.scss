@@ -23,6 +23,7 @@
     .column-title-container {
       display: flex;
       flex-direction: row;
+      gap: 8px;
       align-items: center;
 
       .column-title {
@@ -32,7 +33,6 @@
       }
 
       .column-application-count {
-        margin-left: 8px;
         font-weight: variables.$font-weight-semi-bold !important;
       }
     }
@@ -58,6 +58,29 @@
 
     .cdk-container {
       height: calc(100% - 52px);
+    }
+  }
+
+  &.column-empty {
+    min-width: 56px;
+
+    .column-header {
+      gap: 8px;
+      margin: 0 !important;
+      padding: 16px 8px 8px;
+      text-orientation: mixed;
+      writing-mode: vertical-rl;
+
+      .column-title-container .column-application-count.tag {
+        padding: 6px 2px;
+      }
+
+      .column-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: unset !important;
+      }
     }
   }
 }

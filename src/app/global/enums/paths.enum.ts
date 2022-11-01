@@ -8,6 +8,7 @@ export enum Paths {
   Dashboard = 'dashboard',
   ForgotPassword = 'forgot-password',
   JobBoards = 'job-boards',
+  Layout = 'layout',
   ManageAccount = 'manage-account',
   NoResponse = 'no-response',
   Rejections = 'rejections',

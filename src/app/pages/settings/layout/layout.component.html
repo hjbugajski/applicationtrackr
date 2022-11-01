@@ -1,0 +1,10 @@
+<div class="settings-section">
+  <h2 class="settings-section-header">Columns</h2>
+  <div class="slide-toggle-container">
+    Collapse columns with no applications
+    <mat-slide-toggle
+      [formControl]="collapseColumnsFormControl"
+      (change)="onCollapseColumnsChange($event)"
+    ></mat-slide-toggle>
+  </div>
+</div>

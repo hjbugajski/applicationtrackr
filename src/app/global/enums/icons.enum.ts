@@ -3,6 +3,7 @@ export enum Icons {
   CarbonAdd = 'carbon-add',
   CarbonApplication = 'carbon-application',
   CarbonArrowLeft = 'carbon-arrow-left',
+  CarbonBlog = 'carbon-blog',
   CarbonCaretDown = 'carbon-caret-down',
   CarbonChartMultitype = 'carbon-chart-multitype',
   CarbonCheckMarkFilled = 'carbon-checkmark-filled',

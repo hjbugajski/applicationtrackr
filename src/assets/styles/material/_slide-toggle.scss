@@ -8,4 +8,8 @@
     border: 2px solid map.get(colors.$at-palette, border);
     box-shadow: none !important;
   }
+
+  .mat-slide-toggle-thumb-container {
+    top: -5px !important;
+  }
 }
