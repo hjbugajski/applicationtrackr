@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DayDifferencePipeModule } from 'src/app/global/pipes/day-difference/day-difference.pipe.module';
 
 import { ColumnComponent } from './column.component';
 
@@ -24,6 +25,7 @@ import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinne
     ColumnDialogModule,
     CommonModule,
     ConfirmationDialogModule,
+    DayDifferencePipeModule,
     DragDropModule,
     MatButtonModule,
     MatCardModule,

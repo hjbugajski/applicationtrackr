@@ -66,6 +66,7 @@
           <mat-icon svgIcon="carbon-location" class="small-icon"></mat-icon>
           {{ application.location }}
         </div>
+        <div class="application-card-date-text at-text subtle">{{ application.date | dayDifference }}</div>
       </mat-card-content>
     </mat-card>
   </cdk-virtual-scroll-viewport>
