@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.1.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.1.0...v1.1.1) (2022-11-03)
+
+### Features
+
+- add day-difference pipe and add difference time to application card ([4237282](https://github.com/hjbugajski/applicationtrackr/commit/4237282f05e59b5bc45e7546ca073d54faac9f51))
+
+### Bug Fixes
+
+- set max date in datepicker for application info ([a01e833](https://github.com/hjbugajski/applicationtrackr/commit/a01e83320d752050a391fd0d42b738df020c6cf1))
+
 ## [1.1.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.0.2...v1.1.0) (2022-11-01)
 
 ### Features
