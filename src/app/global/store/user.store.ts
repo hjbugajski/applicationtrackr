@@ -1,88 +1,44 @@
 import { Injectable } from '@angular/core';
-import { createStore, select, setProps, withProps } from '@ngneat/elf';
+import { BehaviorSubject } from 'rxjs';
 
 import { Themes } from '~enums/themes.enum';
-import { UserSettings } from '~interfaces/user-doc.interface';
-
-interface UserProps {
-  currentJobBoard: string | null;
-  settings: UserSettings;
-  uid: string | null;
-}
-
-const userStore = createStore(
-  { name: 'user' },
-  withProps<UserProps>({
-    settings: {
-      appearance: null,
-      collapseColumns: null
-    },
-    currentJobBoard: null,
-    uid: null
-  })
-);
 
 @Injectable({ providedIn: 'root' })
 export class UserStore {
-  public appearance$ = userStore.pipe(select((state) => state.settings.appearance));
-  public collapseColumns$ = userStore.pipe(select((state) => state.settings.collapseColumns));
-  public currentJobBoard$ = userStore.pipe(select((state) => state.currentJobBoard));
-  public uid$ = userStore.pipe(select((state) => state.uid));
-  public user$ = userStore.pipe(select((state) => state));
+  public appearance$ = new BehaviorSubject<string | null>(null);
+  public collapseColumns$ = new BehaviorSubject<boolean | null>(null);
+  public currentJobBoard$ = new BehaviorSubject<string | null>(null);
+  public uid$ = new BehaviorSubject<string | null>(null);
 
   public get appearance(): Themes | string | null {
-    return userStore.getValue().settings.appearance;
+    return this.appearance$.getValue();
   }
 
   public set appearance(value: Themes | string | null) {
-    userStore.update(
-      setProps((state) => ({
-        ...state,
-        settings: {
-          ...state.settings,
-          appearance: value
-        }
-      }))
-    );
+    this.appearance$.next(value);
   }
 
   public get collapseColumns(): boolean | null {
-    return userStore.getValue().settings.collapseColumns;
+    return this.collapseColumns$.getValue();
   }
 
   public set collapseColumns(value: boolean | null) {
-    userStore.update(
-      setProps((state) => ({
-        ...state,
-        settings: {
-          ...state.settings,
-          collapseColumns: value
-        }
-      }))
-    );
+    this.collapseColumns$.next(value);
   }
 
   public get currentJobBoard(): string | null {
-    return userStore.getValue().currentJobBoard;
+    return this.currentJobBoard$.getValue();
   }
 
   public set currentJobBoard(value: string | null) {
-    userStore.update(
-      setProps(() => ({
-        currentJobBoard: value
-      }))
-    );
+    this.currentJobBoard$.next(value);
   }
 
   public get uid(): string | null {
-    return userStore.getValue().uid;
+    return this.uid$.getValue();
   }
 
   public set uid(value: string | null) {
-    userStore.update(
-      setProps(() => ({
-        uid: value
-      }))
-    );
+    this.uid$.next(value);
   }
 }

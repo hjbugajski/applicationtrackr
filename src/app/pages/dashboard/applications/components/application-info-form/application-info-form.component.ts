@@ -63,6 +63,10 @@ export class ApplicationInfoFormComponent implements OnInit {
     return a.docId === b.docId;
   };
 
+  public get currentDate(): Date {
+    return new Date(Date.now());
+  }
+
   public getError(control: AbstractControl): string {
     if (control.hasError('maxlength')) {
       return 'Length must be less than 128';

@@ -93,7 +93,7 @@
       <!-- Date Applied Date Picker -->
       <mat-form-field class="full-width" [floatLabel]="readonly ? 'always' : 'auto'">
         <mat-label>Date</mat-label>
-        <input formControlName="date" matInput [matDatepicker]="datePicker" [readonly]="readonly" />
+        <input formControlName="date" matInput [matDatepicker]="datePicker" [max]="currentDate" [readonly]="readonly" />
         <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="!editing"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error>{{ getError(date) }}</mat-error>

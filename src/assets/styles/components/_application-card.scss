@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'mixins';
 @use 'palette';
 @use 'variables';
 
@@ -8,7 +9,7 @@
   }
 
   &:hover {
-    background-color: transparent;
+    background-color: transparent !important;
     cursor: grab;
   }
 
@@ -47,5 +48,12 @@
 
   .mat-card-content {
     font-weight: variables.$font-weight-semi-bold;
+  }
+
+  .application-card-date-text {
+    @include mixins.font-size(12px);
+
+    margin-top: 8px;
+    font-weight: variables.$font-weight-regular;
   }
 }
