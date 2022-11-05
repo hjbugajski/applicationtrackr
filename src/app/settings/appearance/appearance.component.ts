@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Icons } from '~enums/icons.enum';
 import { Themes } from '~enums/themes.enum';
@@ -17,9 +18,11 @@ interface Theme {
   templateUrl: './appearance.component.html',
   styleUrls: ['./appearance.component.scss']
 })
-export class AppearanceComponent {
+export class AppearanceComponent implements OnDestroy {
   public selectedTheme: Themes | string | undefined;
   public themesArray: Theme[];
+
+  private subscription: Subscription;
 
   constructor(private themeService: ThemeService, private userService: UserService, private userStore: UserStore) {
     this.themesArray = [
@@ -27,12 +30,14 @@ export class AppearanceComponent {
       { class: Themes.Dark, icon: this.getIconPath(Icons.DarkTheme), viewValue: 'Dark' },
       { class: Themes.System, icon: this.getIconPath(Icons.SystemTheme), viewValue: 'System' }
     ];
-
-    this.userStore.appearance$.subscribe((value) => {
-      if (value) {
-        this.selectedTheme = value;
-      }
-    });
+    this.subscription = new Subscription();
+    this.subscription.add(
+      this.userStore.appearance$.subscribe((value) => {
+        if (value) {
+          this.selectedTheme = value;
+        }
+      })
+    );
   }
 
   public isSelectedTheme(theme: Theme): boolean {
@@ -43,6 +48,10 @@ export class AppearanceComponent {
     if (event.key === 'Enter' || event.key === ' ') {
       await this.setTheme(theme.class);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public async setTheme(theme: Themes): Promise<void> {

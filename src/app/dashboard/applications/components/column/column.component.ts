@@ -16,7 +16,6 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, distinctUntilChanged, lastValueFrom, Observable, Subscription } from 'rxjs';
 
-import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { NewApplicationDialogComponent } from '~components/new-application-dialog/new-application-dialog.component';
@@ -81,16 +80,18 @@ export class ColumnComponent implements OnInit, OnDestroy {
       item: 'column'
     };
 
-    const dialogAfterClosed = this.matDialog
-      .open(ConfirmationDialogComponent, {
-        data,
-        disableClose: true,
-        width: '350px',
-        panelClass: 'at-dialog-with-padding'
-      })
-      .afterClosed() as Observable<DialogActions>;
+    const dialogAction = await lastValueFrom(
+      this.matDialog
+        .open(ConfirmationDialogComponent, {
+          data,
+          disableClose: true,
+          width: '350px',
+          panelClass: 'at-dialog-with-padding'
+        })
+        .afterClosed() as Observable<DialogActions>
+    );
 
-    if ((await lastValueFrom<DialogActions>(dialogAfterClosed)) === DialogActions.Delete) {
+    if (dialogAction === DialogActions.Delete) {
       const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
         autoFocus: false,
         disableClose: true,
@@ -130,12 +131,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
       disableClose: true,
       panelClass: 'at-dialog'
     });
-  }
-
-  public keydown(event: KeyboardEvent, application: Application): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      this.openApplication(application);
-    }
   }
 
   public newApplication(): void {
@@ -184,17 +179,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
         }
       })
     );
-  }
-
-  public openApplication(application: Application): void {
-    this.matDialog.open(ApplicationDialogComponent, {
-      data: {
-        application: application,
-        column: this.column
-      },
-      disableClose: true,
-      panelClass: ['at-dialog', 'mat-dialog-container-with-toolbar']
-    });
   }
 
   public reorderColumn(): void {

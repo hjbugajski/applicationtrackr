@@ -1,44 +1,81 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { Themes } from '~enums/themes.enum';
 
+interface UserState {
+  appearance: Themes | string | null;
+  collapseColumns: boolean | null;
+  currentJobBoard: string | null;
+  uid: string | null;
+}
+
 @Injectable({ providedIn: 'root' })
 export class UserStore {
-  public appearance$ = new BehaviorSubject<string | null>(null);
-  public collapseColumns$ = new BehaviorSubject<boolean | null>(null);
-  public currentJobBoard$ = new BehaviorSubject<string | null>(null);
-  public uid$ = new BehaviorSubject<string | null>(null);
+  public state!: UserState;
+  public state$: Observable<UserState>;
 
-  public get appearance(): Themes | string | null {
-    return this.appearance$.getValue();
+  protected _state$: BehaviorSubject<UserState>;
+
+  constructor() {
+    this._state$ = new BehaviorSubject<UserState>({
+      appearance: null,
+      collapseColumns: null,
+      currentJobBoard: null,
+      uid: null
+    });
+    this.state$ = this._state$.asObservable().pipe(distinctUntilChanged());
+    this.state$.subscribe((state) => {
+      this.state = state;
+    });
   }
 
-  public set appearance(value: Themes | string | null) {
-    this.appearance$.next(value);
+  public reset(): void {
+    this._state$.next({
+      appearance: null,
+      collapseColumns: null,
+      currentJobBoard: null,
+      uid: null
+    });
+  }
+
+  public set(newValue: Partial<UserState>): void {
+    this._state$.next(Object.assign({}, newValue) as UserState);
+  }
+
+  public update(value: Partial<UserState>): void {
+    this._state$.next(Object.assign({}, this.state, value));
+  }
+
+  public get appearance(): Themes | string | null {
+    return this.state.appearance;
+  }
+
+  public get appearance$(): Observable<Themes | string | null> {
+    return this.state$.pipe(map((state) => state.appearance));
   }
 
   public get collapseColumns(): boolean | null {
-    return this.collapseColumns$.getValue();
+    return this.state.collapseColumns;
   }
 
-  public set collapseColumns(value: boolean | null) {
-    this.collapseColumns$.next(value);
+  public get collapseColumns$(): Observable<boolean | null> {
+    return this.state$.pipe(map((state) => state.collapseColumns));
   }
 
   public get currentJobBoard(): string | null {
-    return this.currentJobBoard$.getValue();
+    return this.state.currentJobBoard;
   }
 
-  public set currentJobBoard(value: string | null) {
-    this.currentJobBoard$.next(value);
+  public get currentJobBoard$(): Observable<string | null> {
+    return this.state$.pipe(map((state) => state.currentJobBoard));
   }
 
   public get uid(): string | null {
-    return this.uid$.getValue();
+    return this.state.uid;
   }
 
-  public set uid(value: string | null) {
-    this.uid$.next(value);
+  public get uid$(): Observable<string | null> {
+    return this.state$.pipe(map((state) => state.uid));
   }
 }

@@ -52,18 +52,21 @@ export class UserService {
   }
 
   public resetUserData(): void {
-    this.userStore.appearance = null;
-    this.userStore.collapseColumns = null;
-    this.userStore.currentJobBoard = null;
-    this.userStore.uid = null;
+    this.userStore.reset();
   }
 
   public subscribeToUserDocData(uid: string): Unsubscribe {
     return onSnapshot(doc(this.firestore, Collections.Users, uid).withConverter(userDataConverter), (snapshot) => {
-      this.userStore.appearance = snapshot.data()?.settings?.appearance ?? null;
-      this.userStore.collapseColumns = snapshot.data()?.settings?.collapseColumns ?? null;
-      this.userStore.currentJobBoard = snapshot.data()?.currentJobBoard ?? null;
-      this.userStore.uid = snapshot.data()?.uid ?? null;
+      const data = snapshot.data();
+
+      if (data) {
+        this.userStore.set({
+          appearance: data.settings?.appearance ?? null,
+          collapseColumns: data.settings?.collapseColumns ?? null,
+          currentJobBoard: data.currentJobBoard,
+          uid: data.uid
+        });
+      }
     });
   }
 

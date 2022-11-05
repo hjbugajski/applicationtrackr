@@ -34,7 +34,9 @@ export class AppComponent implements OnDestroy {
     this.subscriptions.add(
       authState(this.auth).subscribe((user) => {
         if (user) {
-          this.userStore.uid = user.uid;
+          this.userStore.update({
+            uid: user.uid
+          });
           this.unsubscribeUserDocData = this.userService.subscribeToUserDocData(user.uid);
           this.jobBoardsService.initJobBoards();
         } else {
