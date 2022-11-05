@@ -110,10 +110,10 @@ export class ApplicationInfoFormComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.isLoading = true;
 
-      const newColumn = this.column.value!;
+      const newColumn = this.column.value;
 
       const application: ApplicationDoc = {
-        columnDocId: newColumn.docId,
+        columnDocId: newColumn!.docId,
         company: this.company.value!,
         compensation: this.compensation.value,
         date: dateToTimestamp(this.date.value!),

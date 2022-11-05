@@ -15,19 +15,19 @@ const routes: Routes = [
     path: Paths.Auth,
     title: 'Auth',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: Paths.Dashboard,
     title: 'Dashboard',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule)
+    loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
   },
   {
     path: Paths.Settings,
     title: 'Settings',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/settings/settings.module').then((m) => m.SettingsModule)
+    loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule)
   },
   {
     path: '**',

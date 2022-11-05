@@ -8,7 +8,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DayDifferencePipeModule } from 'src/app/global/pipes/day-difference/day-difference.pipe.module';
 
 import { ColumnComponent } from './column.component';
 
@@ -18,6 +17,7 @@ import { ColumnDialogModule } from '~components/column-dialog/column-dialog.modu
 import { ConfirmationDialogModule } from '~components/confirmation-dialog/confirmation-dialog.module';
 import { NewApplicationDialogModule } from '~components/new-application-dialog/new-application-dialog.module';
 import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinner.module';
+import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pipe.module';
 
 @NgModule({
   declarations: [ColumnComponent],
