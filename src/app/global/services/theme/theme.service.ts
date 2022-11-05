@@ -18,8 +18,16 @@ export class ThemeService {
     this.appTheme$ = new BehaviorSubject<Themes | string>(this.appTheme);
   }
 
+  public addBackgroundClass(value: string): void {
+    this.document.body.classList.add(value);
+  }
+
   public initTheme(): void {
     this.setTheme(this.colorSchemeTheme);
+  }
+
+  public removeBackgroundClass(value: string): void {
+    this.document.body.classList.remove(value);
   }
 
   public setTheme(value: Themes | string): void {

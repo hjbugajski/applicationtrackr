@@ -1,31 +1,12 @@
 @use 'mixins';
+@use 'pages/settings';
 
-:host {
-  .section {
-    margin-bottom: 32px;
-  }
+:host ::ng-deep .at-alert {
+  margin-bottom: 16px;
+}
 
-  .account-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-  }
+.settings-account-details-email {
+  @include mixins.font-size(16px);
 
-  .account-details-avatar {
-    width: 72px;
-    height: 72px;
-    margin-bottom: 16px;
-  }
-
-  .account-details-email {
-    @include mixins.font-size(16px);
-
-    margin-bottom: 8px;
-  }
-
-  ::ng-deep .at-alert {
-    margin-bottom: 16px;
-  }
+  margin-bottom: 8px;
 }

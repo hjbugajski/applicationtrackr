@@ -17,3 +17,9 @@
     margin-right: 8px;
   }
 }
+
+.button-row {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+}

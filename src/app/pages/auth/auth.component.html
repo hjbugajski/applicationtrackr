@@ -1,19 +1,13 @@
-<mat-sidenav-container>
-  <div class="auth-container">
-    <div class="art-container">
-      <mat-icon [svgIcon]="'carbon-compass'"></mat-icon>
-      <h1 class="title at-text neutral">ApplicationTrackr</h1>
-    </div>
-    <div class="outlet-container">
-      <mat-card>
-        <router-outlet></router-outlet>
-      </mat-card>
-      <div class="privacy-container">
-        <p>
-          By signing up for and by signing in to this service, you accept our
-          <a href="https://applicationtrackr.io/privacy-policy" target="_blank" rel="noreferrer">privacy policy.</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</mat-sidenav-container>
+<div class="at-auth-title-container">
+  <mat-icon svgIcon="carbon-compass"></mat-icon>
+  <h1 class="at-auth-title at-text neutral">ApplicationTrackr</h1>
+</div>
+<div class="at-auth-outlet-container at-border border">
+  <router-outlet></router-outlet>
+</div>
+<div class="at-auth-privacy-container">
+  <p>
+    By signing up for and by signing in to this service, you accept our
+    <a href="https://applicationtrackr.io/privacy-policy" target="_blank" rel="noreferrer">privacy policy.</a>
+  </p>
+</div>

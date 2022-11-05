@@ -1,70 +1,53 @@
 @use 'mixins';
+@use 'variables';
 
-::ng-deep {
-  .mat-drawer-content {
-    display: flex !important;
-  }
-
-  .form-container {
-    width: 100%;
-    overflow: hidden;
-
-    .submit-button {
-      margin-top: 8px;
-    }
-  }
-}
-
-.auth-container {
+:host {
   display: flex;
   flex-direction: column;
+  gap: 16px;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
   width: 100%;
   height: fit-content;
-  padding: 8px 8px 48px;
+  padding: 32px 16px;
+}
 
-  .art-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 16px 0;
+.at-auth-title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
 
-    .mat-icon {
-      width: 48px;
-      height: 48px;
-    }
-
-    .title {
-      @include mixins.font-size(24px);
-
-      margin: 16px 0 24px;
-    }
+  .mat-icon {
+    width: 48px;
+    height: 48px;
   }
 
-  .outlet-container {
-    .mat-card {
-      width: inherit;
-    }
-  }
-
-  .privacy-container {
-    max-width: 380px;
-    margin-top: 32px;
-    text-align: center;
+  .at-auth-title {
+    @include mixins.font-size(24px);
   }
 }
 
-@media (min-width: 425px) {
-  .auth-container .outlet-container .mat-card {
-    width: 350px;
+.at-auth-outlet-container {
+  padding: 16px;
+  background-color: var(--color-canvas);
+  border-radius: variables.$border-radius;
+
+  @media (min-width: 425px) {
+    max-width: 350px;
   }
 }
 
-@media (min-width: 768px) {
-  .auth-container {
-    padding: 16px 16px 48px;
+.at-auth-privacy-container {
+  text-align: center;
+}
+
+.at-auth-outlet-container,
+.at-auth-privacy-container {
+  width: 100%;
+
+  @media (min-width: 425px) {
+    max-width: calc(425px - 32px);
   }
 }

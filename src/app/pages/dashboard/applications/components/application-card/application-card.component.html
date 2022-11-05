@@ -1,0 +1,15 @@
+<div class="at-application-card-title at-text" [ngClass]="column.color">
+  {{ application.company }}
+</div>
+<div>
+  <div class="at-application-card-icon-subtitle">
+    <mat-icon svgIcon="carbon-portfolio" class="at-application-card-icon"></mat-icon>
+    {{ application.position }}
+  </div>
+  <div *ngIf="application.location" class="at-application-card-icon-subtitle">
+    <mat-icon svgIcon="carbon-location" class="at-application-card-icon"></mat-icon>
+    {{ application.location }}
+  </div>
+</div>
+<div class="at-application-card-date-text">{{ application.date | dayDifference }}</div>
+<ng-content></ng-content>

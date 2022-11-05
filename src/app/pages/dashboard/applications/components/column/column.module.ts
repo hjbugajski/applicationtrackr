@@ -12,6 +12,7 @@ import { DayDifferencePipeModule } from 'src/app/global/pipes/day-difference/day
 
 import { ColumnComponent } from './column.component';
 
+import { ApplicationCardModule } from '~components/application-card/application-card.module';
 import { ApplicationDialogModule } from '~components/application-dialog/application-dialog.module';
 import { ColumnDialogModule } from '~components/column-dialog/column-dialog.module';
 import { ConfirmationDialogModule } from '~components/confirmation-dialog/confirmation-dialog.module';
@@ -21,6 +22,7 @@ import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinne
 @NgModule({
   declarations: [ColumnComponent],
   imports: [
+    ApplicationCardModule,
     ApplicationDialogModule,
     ColumnDialogModule,
     CommonModule,

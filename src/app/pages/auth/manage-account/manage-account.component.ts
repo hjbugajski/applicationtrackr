@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { Params } from '~enums/params.enum';
@@ -14,7 +15,7 @@ import { AuthService } from '~services/auth/auth.service';
   templateUrl: './manage-account.component.html',
   styleUrls: ['./manage-account.component.scss']
 })
-export class ManageAccountComponent {
+export class ManageAccountComponent implements OnInit {
   public isLoading: boolean;
   public linkButton: LinkButton;
   public queryParams: AuthParams;
@@ -25,8 +26,10 @@ export class ManageAccountComponent {
     this.isLoading = false;
     this.queryParams = routeSnapshot.queryParams as AuthParams;
     this.linkButton = { route: '/', text: 'Back to sign in' };
+  }
 
-    this.setLinkButton();
+  async ngOnInit(): Promise<void> {
+    await this.setLinkButton();
   }
 
   public async recoverEmail(): Promise<void> {
@@ -39,21 +42,17 @@ export class ManageAccountComponent {
     await this.authService.verifyEmail(this.queryParams.oobCode).then(() => (this.isLoading = false));
   }
 
-  private setLinkButton(): void {
-    authState(this.auth)
-      .pipe(
+  private async setLinkButton(): Promise<void> {
+    const isLoggedIn = await lastValueFrom(
+      authState(this.auth).pipe(
         map((user) => !!user),
         take(1)
       )
-      .toPromise()
-      .then((isLoggedIn) => {
-        this.linkButton = isLoggedIn
-          ? { route: `/${Paths.Dashboard}`, text: 'Back to dashboard' }
-          : { route: `/${Paths.Auth}/${Paths.SignIn}`, text: 'Back to sign in' };
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    );
+
+    this.linkButton = isLoggedIn
+      ? { route: `/${Paths.Dashboard}`, text: 'Back to dashboard' }
+      : { route: `/${Paths.Auth}/${Paths.SignIn}`, text: 'Back to sign in' };
   }
 
   public get params(): typeof Params {

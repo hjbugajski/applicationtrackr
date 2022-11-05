@@ -1,3 +1,7 @@
+@use 'mixins';
+@use 'pages/settings';
+@use 'variables';
+
 :host {
   .mat-toolbar {
     position: fixed;
@@ -8,41 +12,89 @@
   .mat-divider {
     margin: 10px 0;
   }
+}
 
+.settings-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 72px 16px 0;
+}
+
+.settings-inner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.settings-sidenav {
+  min-width: 250px;
+  margin-bottom: 32px;
+}
+
+.settings-sidenav-section-header {
+  @include mixins.font-size(12px);
+
+  margin-bottom: 10px;
+  font-weight: variables.$font-weight-semi-bold;
+}
+
+.settings-sidenav-item {
+  @include mixins.font-size(14px);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  color: var(--color-neutral);
+  text-decoration: none !important;
+  border-radius: variables.$border-radius;
+
+  &:not(:last-of-type) {
+    margin-bottom: 4px;
+  }
+
+  &:hover {
+    background-color: var(--color-hover);
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+  }
+
+  &.active {
+    color: var(--color-primary);
+    background-color: var(--color-hover);
+  }
+
+  .mat-icon {
+    margin-right: 12px;
+    font-size: 18px;
+
+    &,
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.settings-content {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
   .settings-container {
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 72px 16px 0;
+    padding: 80px 16px 0;
   }
 
   .settings-inner-container {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    flex-direction: row;
   }
 
   .settings-sidenav {
-    min-width: 250px;
-    margin-bottom: 32px;
-  }
-
-  .settings-content {
-    width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    .settings-container {
-      padding: 80px 16px 0;
-    }
-
-    .settings-inner-container {
-      flex-direction: row;
-    }
-
-    .settings-sidenav {
-      position: sticky;
-      top: 80px;
-      align-self: flex-start;
-    }
+    position: sticky;
+    top: 80px;
+    align-self: flex-start;
   }
 }

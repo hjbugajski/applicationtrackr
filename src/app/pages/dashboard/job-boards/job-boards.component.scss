@@ -2,10 +2,11 @@
 @use 'variables';
 
 :host {
+  padding: 8px 8px 128px;
+
   .job-boards-list {
     width: 100%;
     height: fit-content;
-    margin: 8px 0 128px;
     padding: 0;
 
     .job-boards-list-item {
@@ -41,9 +42,7 @@
   }
 
   @media (min-width: 768px) {
-    .job-boards-list {
-      margin: 16px 0 128px;
-    }
+    padding: 16px 16px 128px;
 
     .job-boards-list-item {
       flex-flow: row wrap !important;

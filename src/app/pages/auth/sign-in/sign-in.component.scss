@@ -1,10 +1,6 @@
-@use 'mixins';
+@use 'pages/auth';
 
 :host {
-  .auth-card-title {
-    @include mixins.font-size(20px);
-  }
-
   .mat-button-base:not(:last-child) {
     margin-bottom: 16px;
   }
@@ -18,5 +14,9 @@
 
   .forgot-password-button {
     margin-top: 16px;
+  }
+
+  .form-container {
+    overflow: hidden;
   }
 }

@@ -42,33 +42,15 @@
     itemSize="25"
     class="cdk-container"
   >
-    <mat-card
+    <at-application-card
       *cdkVirtualFor="let application of applications$ | async"
       cdkDrag
       [cdkDragData]="application"
-      class="application-card"
-      [ngClass]="column.color"
-      (click)="openApplication(application)"
-      role="button"
-      tabindex="0"
-      (keydown)="keydown($event, application)"
+      [application]="application"
+      [column]="column"
     >
-      <div class="application-card-placeholder at-border primary" *cdkDragPlaceholder></div>
-      <mat-card-title class="application-card-title at-text" [ngClass]="column.color">
-        {{ application.company }}
-      </mat-card-title>
-      <mat-card-content>
-        <div class="icon-subtitle">
-          <mat-icon svgIcon="carbon-portfolio" class="small-icon"></mat-icon>
-          {{ application.position }}
-        </div>
-        <div *ngIf="application.location" class="icon-subtitle">
-          <mat-icon svgIcon="carbon-location" class="small-icon"></mat-icon>
-          {{ application.location }}
-        </div>
-        <div class="application-card-date-text at-text subtle">{{ application.date | dayDifference }}</div>
-      </mat-card-content>
-    </mat-card>
+      <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+    </at-application-card>
   </cdk-virtual-scroll-viewport>
 </ng-container>
 <ng-template #loading>

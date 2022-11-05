@@ -1,0 +1,9 @@
+@use 'mixins';
+
+.at-auth-card-title {
+  @include mixins.font-size(20px);
+}
+
+.at-auth-back-button {
+  margin-top: 1rem;
+}

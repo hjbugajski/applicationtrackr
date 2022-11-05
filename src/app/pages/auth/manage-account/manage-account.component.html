@@ -1,12 +1,12 @@
 <ng-container [ngSwitch]="queryParams.mode">
   <ng-container *ngSwitchCase="params.ResetPassword">
-    <mat-card-title class="auth-card-title">Reset password</mat-card-title>
+    <h2 class="at-auth-card-title">Reset password</h2>
     <at-reset-password-form [queryParams]="queryParams"></at-reset-password-form>
   </ng-container>
 
   <ng-container *ngSwitchCase="params.VerifyEmail">
-    <mat-card-title class="auth-card-title">Verify email</mat-card-title>
-    <mat-card-content>Click the button below to verify your email address.</mat-card-content>
+    <h2 class="at-auth-card-title">Verify email</h2>
+    <p>Click the button below to verify your email address.</p>
     <button
       mat-flat-button
       color="primary"
@@ -22,8 +22,8 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="params.RecoverEmail">
-    <mat-card-title class="auth-card-title">Recover email</mat-card-title>
-    <mat-card-content>Click the button below to recover your email address.</mat-card-content>
+    <h2 class="at-auth-card-title">Recover email</h2>
+    <p>Click the button below to recover your email address.</p>
     <button
       mat-flat-button
       color="primary"
@@ -39,7 +39,7 @@
   </ng-container>
 
   <ng-container *ngSwitchDefault>
-    <mat-card-title class="auth-card-title">Unauthorized</mat-card-title>
+    <h2 class="at-auth-card-title">Unauthorized</h2>
   </ng-container>
 </ng-container>
-<a mat-button class="full-width back-button" [routerLink]="linkButton.route">{{ linkButton.text }}</a>
+<a mat-button class="full-width at-auth-back-button" [routerLink]="linkButton.route">{{ linkButton.text }}</a>
