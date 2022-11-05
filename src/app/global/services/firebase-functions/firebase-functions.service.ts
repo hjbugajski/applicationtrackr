@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { WhereFilterOp } from '@angular/fire/firestore';
 import { Functions, httpsCallable, HttpsCallable } from '@angular/fire/functions';
-import { WhereFilterOp } from 'firebase/firestore';
 
 import { Collections } from '~enums/collections.enum';
 import { ReferenceTypes } from '~enums/reference-types.enum';

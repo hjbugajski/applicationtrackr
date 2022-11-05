@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
+import { Unsubscribe } from '@angular/fire/auth';
 import { onSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Unsubscribe } from 'firebase/auth';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';

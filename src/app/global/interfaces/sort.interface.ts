@@ -1,4 +1,4 @@
-import { OrderByDirection } from 'firebase/firestore';
+import { OrderByDirection } from '@angular/fire/firestore';
 
 export interface Sort {
   direction: OrderByDirection;
