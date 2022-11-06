@@ -25,8 +25,14 @@ export const applicationConverter = {
 };
 
 export const columnConverter = {
-  toFirestore: (column: Column): Column => {
-    return column;
+  toFirestore: (column: Column): DocumentData => {
+    return {
+      applicationSort: column.applicationSort,
+      color: column.color,
+      sortOrder: column.sortOrder,
+      title: column.title,
+      total: column.total
+    };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): Column => {
     return new Column(snapshot);
@@ -34,8 +40,12 @@ export const columnConverter = {
 };
 
 export const jobBoardConverter = {
-  toFirestore: (board: JobBoard): JobBoard => {
-    return board;
+  toFirestore: (jobBoard: JobBoard): DocumentData => {
+    return {
+      date: jobBoard.date,
+      title: jobBoard.title,
+      total: jobBoard.total
+    };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): JobBoard => {
     return new JobBoard(snapshot);
@@ -43,7 +53,7 @@ export const jobBoardConverter = {
 };
 
 export const userConverter = {
-  toFirestore: (user: User) => {
+  toFirestore: (user: User): DocumentData => {
     return {
       currentJobBoard: user.currentJobBoard,
       settings: {

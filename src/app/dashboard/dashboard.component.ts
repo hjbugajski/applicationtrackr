@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { map, Observable } from 'rxjs';
 
 import { HelpComponent } from '~components/help/help.component';
 import { Icons } from '~enums/icons.enum';
 import { Paths } from '~enums/paths.enum';
 import { AuthService } from '~services/auth/auth.service';
 import { SidenavService } from '~services/sidenav/sidenav.service';
+import { UserStore } from '~store/user.store';
 
 interface SidenavItem {
   icon: string;
@@ -22,9 +24,15 @@ interface SidenavItem {
 export class DashboardComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) private _sidenav: MatSidenav | undefined;
 
+  public isLoaded$: Observable<boolean>;
   public sidenavItems: SidenavItem[];
 
-  constructor(private authService: AuthService, private matDialog: MatDialog, public sidenavService: SidenavService) {
+  constructor(
+    private authService: AuthService,
+    private matDialog: MatDialog,
+    public sidenavService: SidenavService,
+    private userStore: UserStore
+  ) {
     this.sidenavItems = [
       {
         icon: Icons.CarbonApplication,
@@ -37,6 +45,7 @@ export class DashboardComponent implements OnInit {
         route: Paths.JobBoards
       }
     ];
+    this.isLoaded$ = this.userStore.currentJobBoard$.pipe(map((value) => !!value));
   }
 
   ngOnInit(): void {

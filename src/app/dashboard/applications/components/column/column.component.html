@@ -1,7 +1,7 @@
-<div class="column-header at-text" [ngClass]="column?.color">
+<div class="column-header at-text" [ngClass]="column.color">
   <div class="column-title-container">
-    <span class="column-title">{{ column?.title ?? 'Loading...' }}</span>
-    <span class="column-application-count tag" [ngClass]="column?.color">{{ column?.total ?? '0' }}</span>
+    <span class="column-title">{{ column.title }}</span>
+    <span class="column-application-count tag" [ngClass]="column.color">{{ column.total }}</span>
   </div>
   <div class="column-actions">
     <button mat-icon-button matTooltip="New application" (click)="newApplication()" [disabled]="!column">

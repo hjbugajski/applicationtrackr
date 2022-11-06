@@ -13,6 +13,7 @@ import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { DocumentDialog } from '~interfaces/document-dialog.interface';
 import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 
 @Component({
@@ -39,6 +40,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public providedData: DocumentDialog,
     private columnsService: ColumnsService,
+    private globalService: GlobalService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ColumnDialogComponent>,
     private notificationService: NotificationService
@@ -114,7 +116,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await getDocs(this.columnsService.columnQuery).then((snapshot) => {
+    await getDocs(this.columnsService.query).then((snapshot) => {
       this.columns = snapshot.docs.map((doc) => doc.data());
       this.isLoaded.next(true);
     });
@@ -181,7 +183,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
       this.notificationService.showError('There was an error reordering the columns. Please try again.');
     } finally {
       this.isLoading = false;
-      this.columnsService.reloadColumns$.emit();
+      this.globalService.reloadColumns$.emit();
       this.matDialogRef.close();
     }
   }

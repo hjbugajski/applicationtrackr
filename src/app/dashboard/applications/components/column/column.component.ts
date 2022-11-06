@@ -1,16 +1,15 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, HostBinding, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { doc, docSnapshots, Firestore, orderBy, query, where } from '@angular/fire/firestore';
+import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { orderBy, query, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { deepEqual } from '@firebase/util';
-import { BehaviorSubject, filter, lastValueFrom, map, Observable, Subscription } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { NewApplicationDialogComponent } from '~components/new-application-dialog/new-application-dialog.component';
 import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
 import { COLUMN_SORT_OPTIONS } from '~constants/forms.constants';
-import { Collections } from '~enums/collections.enum';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { SortOption } from '~interfaces/sort-option.interface';
@@ -20,7 +19,6 @@ import { ApplicationsService } from '~services/applications/applications.service
 import { ColumnsService } from '~services/columns/columns.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
-import { columnConverter } from '~utils/firestore-converters';
 
 /* eslint @angular-eslint/no-host-metadata-property: "off" */
 @Component({
@@ -33,39 +31,29 @@ import { columnConverter } from '~utils/firestore-converters';
   },
   encapsulation: ViewEncapsulation.None
 })
-export class ColumnComponent implements OnInit, OnDestroy {
-  @HostBinding('class') colorClass = '';
-  @Input() public columnId!: string;
+export class ColumnComponent implements OnChanges {
+  @Input() public column!: Column;
 
-  public applications$: BehaviorSubject<Application[]>;
-  public column: Column | undefined;
+  public applications$: Observable<Application[]>;
   public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
 
-  private applicationsSubscription: Subscription;
-  private subscriptions: Subscription;
-
   constructor(
     private applicationsService: ApplicationsService,
     private columnsService: ColumnsService,
-    private firestore: Firestore,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
-    private userStore: UserStore
+    private userStore: UserStore // do not delete, used in host-metadata
   ) {
-    this.subscriptions = new Subscription();
-    this.applicationsSubscription = new Subscription();
     this.isTouch = matchMedia('(hover: none)').matches;
-    this.applications$ = new BehaviorSubject<Application[]>([]);
+    this.applications$ = new Observable<Application[]>();
   }
 
   public async deleteColumn(): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
-      message: `Column <strong class="at-text danger">${
-        this.column!.title
-      }</strong> and all associated applications will be deleted. This action cannot be undone.`,
+      message: `Column <strong class="at-text danger">${this.column.title}</strong> and all associated applications will be deleted. This action cannot be undone.`,
       item: 'column'
     };
 
@@ -88,7 +76,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
       });
 
       await this.columnsService
-        .deleteColumn(this.column!)
+        .deleteColumn(this.column)
         .then(() => {
           this.notificationService.showSuccess('Column deleted.');
           overlayDialog.close();
@@ -132,48 +120,19 @@ export class ColumnComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-    this.applicationsSubscription?.unsubscribe();
-  }
+  ngOnChanges(changes: SimpleChanges): void {
+    const currColumn = changes.column.currentValue as Column;
+    const prevColumn = changes.column.previousValue as Column | undefined;
+    const isSortChange = prevColumn && !deepEqual(currColumn.applicationSort, prevColumn.applicationSort);
 
-  ngOnInit(): void {
-    const columnRef = doc(
-      this.firestore,
-      Collections.Users,
-      this.userStore.uid!,
-      Collections.JobBoards,
-      this.userStore.currentJobBoard!,
-      Collections.Columns,
-      this.columnId
-    ).withConverter(columnConverter);
-
-    this.subscriptions.add(
-      docSnapshots(columnRef)
-        .pipe(
-          map((snapshots) => snapshots.data()),
-          filter((data) => data !== undefined)
-        )
-        .subscribe((data) => {
-          const prev = this.column;
-          this.column = data!;
-
-          if (deepEqual(data!, prev ?? {})) {
-            return;
-          }
-
-          if (!prev || !deepEqual(data!.applicationSort, prev.applicationSort)) {
-            this.initApplications();
-          }
-
-          this.colorClass = this.column.color;
-          this.selectedSortOption = this.sortOptions.find(
-            (sortOption) =>
-              sortOption.value.field === this.column!.applicationSort.field &&
-              sortOption.value.direction === this.column!.applicationSort.direction
-          );
-        })
-    );
+    if (changes.column.isFirstChange() || isSortChange) {
+      this.selectedSortOption = this.sortOptions.find(
+        (sortOption) =>
+          sortOption.value.field === currColumn.applicationSort.field &&
+          sortOption.value.direction === currColumn.applicationSort.direction
+      );
+      this.initApplications();
+    }
   }
 
   public reorderColumn(): void {
@@ -195,7 +154,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
   public async updateApplicationSort(): Promise<void> {
     await this.columnsService
-      .updateApplicationSort(this.columnId, this.selectedSortOption?.value ?? this.sortOptions[0].value)
+      .updateApplicationSort(this.column.docId, this.selectedSortOption?.value ?? this.sortOptions[0].value)
       .catch((error) => {
         console.log(error);
         this.notificationService.showError('There was an error updating the default sort. Please try again.');
@@ -203,18 +162,14 @@ export class ColumnComponent implements OnInit, OnDestroy {
   }
 
   private initApplications(): void {
-    this.applicationsSubscription?.unsubscribe();
+    this.applications$ = new Observable<Application[]>();
 
-    this.applicationsSubscription = this.applicationsService
-      .collection$(
-        query(
-          this.applicationsService.collectionRefWithConverter,
-          where('columnDocId', '==', this.columnId),
-          orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction)
-        )
+    this.applications$ = this.applicationsService.collection$(
+      query(
+        this.applicationsService.collectionRefWithConverter,
+        where('columnDocId', '==', this.column.docId),
+        orderBy(this.column.applicationSort.field, this.column.applicationSort.direction)
       )
-      .subscribe((applications) => {
-        this.applications$.next(applications);
-      });
+    );
   }
 }

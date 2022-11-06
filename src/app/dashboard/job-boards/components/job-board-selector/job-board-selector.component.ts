@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { JobBoardDialogComponent } from '~components/job-board-dialog/job-board-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { JobBoard } from '~models/job-board.model';
+import { GlobalService } from '~services/global/global.service';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { UserService } from '~services/user/user.service';
 import { UserStore } from '~store/user.store';
@@ -21,6 +22,7 @@ export class JobBoardSelectorComponent {
   public jobBoards$: Observable<JobBoard[]>;
 
   constructor(
+    private globalService: GlobalService,
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
     private userStore: UserStore,
@@ -39,6 +41,8 @@ export class JobBoardSelectorComponent {
   }
 
   public async onSelectionChange(board: JobBoard): Promise<void> {
-    await this.userService.updateCurrentJobBoard(board.docId);
+    await this.userService.updateCurrentJobBoard(board.docId).then(() => {
+      this.globalService.reloadColumns$.emit();
+    });
   }
 }

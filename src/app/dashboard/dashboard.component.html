@@ -46,6 +46,6 @@
       </button>
       <at-job-board-selector mode="menu"></at-job-board-selector>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <router-outlet *ngIf="isLoaded$ | async"></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

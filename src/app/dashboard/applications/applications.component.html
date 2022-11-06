@@ -1,5 +1,9 @@
-<ng-container *ngIf="isLoaded | async; else loading" cdkScrollable cdkDropListGroup>
-  <at-column *ngFor="let columnId of columnIds$ | async; let i = index" [columnId]="columnId"></at-column>
+<ng-container *ngIf="columns; else loading" cdkScrollable cdkDropListGroup>
+  <at-column
+    *ngFor="let columnId of columnIds$ | async; let i = index"
+    [column]="columns[i]"
+    [ngClass]="columns[i].color"
+  ></at-column>
   <div class="add-column-button-container">
     <button mat-stroked-button color="neutral" class="add-column-button full-width" (click)="addNewColumn()">
       New column

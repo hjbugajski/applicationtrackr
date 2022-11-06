@@ -1,28 +1,24 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
-  addDoc,
   collection,
   collectionChanges,
-  collectionData,
   CollectionReference,
-  deleteDoc,
-  doc,
   DocumentData,
-  DocumentReference,
   Firestore,
   increment,
   orderBy,
   Query,
-  query,
-  updateDoc
+  query
 } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { map, Observable, takeUntil } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
 import { ColumnDoc } from '~interfaces/column-doc.interface';
 import { Sort } from '~interfaces/sort.interface';
 import { Column } from '~models/column.model';
 import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
+import { FirestoreService } from '~services/firestore/firestore.service';
+import { GlobalService } from '~services/global/global.service';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { UserStore } from '~store/user.store';
 import { columnConverter } from '~utils/firestore-converters';
@@ -30,33 +26,57 @@ import { columnConverter } from '~utils/firestore-converters';
 @Injectable({
   providedIn: 'root'
 })
-export class ColumnsService {
-  public columnIds$: BehaviorSubject<string[]>;
-  public columns$: Observable<Column[]>;
-  public reloadColumns$: EventEmitter<void>;
+export class ColumnsService extends FirestoreService<Column> {
+  public columnIds$!: Observable<string[]>;
+  public columns$!: Observable<Column[]>;
 
-  private subscription: Subscription;
+  protected _basePath!: string;
+  protected _collectionRef!: CollectionReference<DocumentData>;
+  protected _collectionRefWithConverter!: CollectionReference<Column>;
 
   constructor(
     private firebaseFunctionsService: FirebaseFunctionsService,
-    private firestore: Firestore,
+    protected firestore: Firestore,
+    private globalService: GlobalService,
     private jobBoardsService: JobBoardsService,
     private userStore: UserStore
   ) {
-    this.columnIds$ = new BehaviorSubject<string[]>([]);
+    super(firestore);
+
+    this.columnIds$ = new Observable<string[]>();
     this.columns$ = new Observable<Column[]>();
-    this.reloadColumns$ = new EventEmitter<void>();
-    this.subscription = new Subscription();
+
+    this.userStore.state$.pipe(takeUntil(this.globalService.destroy$)).subscribe((state) => {
+      if (state.uid && state.currentJobBoard) {
+        this._basePath = [
+          Collections.Users,
+          state.uid,
+          Collections.JobBoards,
+          state.currentJobBoard,
+          Collections.Columns
+        ].join('/');
+        this._collectionRef = collection(this.firestore, this._basePath);
+        this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(columnConverter);
+
+        this.reset();
+        this.columnIds$ = collectionChanges(this.query, { events: ['added', 'removed'] }).pipe(
+          map((columns) => columns.map((column) => column.doc.id))
+        );
+        this.columns$ = this.collection$(this.query);
+      } else {
+        this.reset();
+      }
+    });
   }
 
-  public async createColumn(columnDoc: ColumnDoc, boardId = this.userStore.currentJobBoard!): Promise<void> {
-    await addDoc(this.getCollectionRef(boardId), columnDoc).catch((error) => {
+  public async createColumn(data: ColumnDoc): Promise<void> {
+    await this.create(data).catch((error) => {
       throw error;
     });
   }
 
   public async deleteColumn(column: Column): Promise<void> {
-    await deleteDoc(this.getDocRef(column.docId))
+    await this.delete(column.docId)
       .then(async () => {
         await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, -column.total);
         await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
@@ -68,50 +88,14 @@ export class ColumnsService {
       });
   }
 
-  public initColumns(): void {
-    this.columns$ = collectionData(this.columnQuery);
-    this.subscription = collectionChanges(this.columnQuery, {
-      events: ['added', 'removed']
-    }).subscribe((changes) => {
-      changes.forEach((change) => {
-        const newColumn = change.doc.id;
-
-        if (change.type === 'added') {
-          const columns = this.columnIds$.getValue();
-
-          columns.push(newColumn);
-          this.columnIds$.next(columns);
-        } else {
-          // removed
-          const tempColumns = this.columnIds$.getValue();
-          const columns: string[] = [];
-
-          tempColumns.forEach((column) => {
-            if (column !== change.doc.id) {
-              columns.push(column);
-            }
-          });
-
-          this.columnIds$.next(columns);
-        }
-      });
-    });
-  }
-
-  public resetColumns(): void {
-    this.columnIds$ = new BehaviorSubject<string[]>([]);
-    this.columns$ = new Observable<Column[]>();
-    this.subscription.unsubscribe();
-  }
-
-  public async updateApplicationSort(columnId: string, value: Sort): Promise<void> {
-    await updateDoc(this.getDocRef(columnId), { applicationSort: value }).catch((error) => {
+  public async updateApplicationSort(id: string, value: Sort): Promise<void> {
+    await this.update(id, { applicationSort: value }).catch((error) => {
       throw error;
     });
   }
 
-  public async updateColumn(columnId: string, columnDoc: ColumnDoc): Promise<void> {
-    await updateDoc(this.getDocRef(columnId), {
+  public async updateColumn(id: string, columnDoc: ColumnDoc): Promise<void> {
+    await this.update(id, {
       color: columnDoc.color,
       sortOrder: columnDoc.sortOrder,
       title: columnDoc.title
@@ -120,42 +104,24 @@ export class ColumnsService {
     });
   }
 
-  public async updateSortOrder(columnId: string, value: number): Promise<void> {
-    await updateDoc(this.getDocRef(columnId), { sortOrder: value }).catch((error) => {
+  public async updateSortOrder(id: string, value: number): Promise<void> {
+    await this.update(id, { sortOrder: value }).catch((error) => {
       throw error;
     });
   }
 
-  public async updateTotal(columnId: string, incrementValue: number): Promise<void> {
-    await updateDoc(this.getDocRef(columnId), { total: increment(incrementValue) }).catch((error) => {
+  public async updateTotal(id: string, value: number): Promise<void> {
+    await this.update(id, { total: increment(value) }).catch((error) => {
       throw error;
     });
   }
 
-  public get columnQuery(): Query<Column> {
-    return query(this.getCollectionRef().withConverter(columnConverter), orderBy('sortOrder', 'asc'));
+  public get query(): Query<Column> {
+    return query(this.collectionRefWithConverter, orderBy('sortOrder', 'asc'));
   }
 
-  private getCollectionRef(boardId = this.userStore.currentJobBoard!): CollectionReference<DocumentData> {
-    return collection(
-      this.firestore,
-      Collections.Users,
-      this.userStore.uid!,
-      Collections.JobBoards,
-      boardId,
-      Collections.Columns
-    );
-  }
-
-  private getDocRef(column: string): DocumentReference<DocumentData> {
-    return doc(
-      this.firestore,
-      Collections.Users,
-      this.userStore.uid!,
-      Collections.JobBoards,
-      this.userStore.currentJobBoard!,
-      Collections.Columns,
-      column
-    );
+  private reset(): void {
+    this.columnIds$ = new Observable<string[]>();
+    this.columns$ = new Observable<Column[]>();
   }
 }
