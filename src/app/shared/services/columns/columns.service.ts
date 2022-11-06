@@ -58,7 +58,7 @@ export class ColumnsService {
   public async deleteColumn(column: Column): Promise<void> {
     await deleteDoc(this.getDocRef(column.docId))
       .then(async () => {
-        await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, column.total * -1);
+        await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, -column.total);
         await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
           console.log(error);
         });

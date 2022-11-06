@@ -35,17 +35,19 @@ export class JobBoardsComponent {
       item: 'job board'
     };
 
-    const dialogAfterClosed = this.matDialog
-      .open(ConfirmationDialogComponent, {
-        autoFocus: false,
-        data,
-        disableClose: true,
-        width: '350px',
-        panelClass: 'at-dialog-with-padding'
-      })
-      .afterClosed() as Observable<DialogActions>;
+    const dialogAction = await lastValueFrom(
+      this.matDialog
+        .open(ConfirmationDialogComponent, {
+          autoFocus: false,
+          data,
+          disableClose: true,
+          width: '350px',
+          panelClass: 'at-dialog-with-padding'
+        })
+        .afterClosed() as Observable<DialogActions>
+    );
 
-    if ((await lastValueFrom<DialogActions>(dialogAfterClosed)) === DialogActions.Delete) {
+    if (dialogAction === DialogActions.Delete) {
       const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
         autoFocus: false,
         disableClose: true,

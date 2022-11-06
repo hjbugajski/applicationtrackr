@@ -303,7 +303,7 @@ export class AuthService {
 
   private async handleCreateUserDoc(user: User): Promise<void> {
     const userDoc = await this.userService.getUserDocSnap(user.uid);
-    const jobBoardsCollection = await getDocs(query(this.jobBoardsService.jobBoardCollection));
+    const jobBoardsCollection = await getDocs(query(this.jobBoardsService.collectionRefWithConverter));
 
     if (!userDoc.exists()) {
       await this.userService.createUserDoc(user);

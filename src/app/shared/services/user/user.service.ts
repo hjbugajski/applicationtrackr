@@ -24,10 +24,10 @@ export class UserService {
   constructor(private firestore: Firestore, private jobBoardsService: JobBoardsService, private userStore: UserStore) {}
 
   public async createExistingUserDoc(user: User): Promise<void> {
-    const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
+    const docId = await this.jobBoardsService.createJobBoard(user.uid);
 
     await updateDoc(doc(this.firestore, Collections.Users, user.uid), {
-      currentJobBoard: newBoard.docId,
+      currentJobBoard: docId,
       settings: {
         appearance: Themes.System,
         collapseColumns: false
@@ -36,10 +36,10 @@ export class UserService {
   }
 
   public async createUserDoc(user: User): Promise<void> {
-    const newBoard = await this.jobBoardsService.createJobBoard(user.uid);
+    const docId = await this.jobBoardsService.createJobBoard(user.uid);
 
     await setDoc(doc(this.firestore, Collections.Users, user.uid), {
-      currentJobBoard: newBoard.docId,
+      currentJobBoard: docId,
       settings: {
         appearance: Themes.System,
         collapseColumns: false

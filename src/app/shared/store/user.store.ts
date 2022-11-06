@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable, takeUntil } from 'rxjs';
 
 import { Themes } from '~enums/themes.enum';
+import { GlobalService } from '~services/global/global.service';
 
 interface UserState {
   appearance: Themes | string | null;
@@ -17,7 +18,7 @@ export class UserStore {
 
   protected _state$: BehaviorSubject<UserState>;
 
-  constructor() {
+  constructor(private globalService: GlobalService) {
     this._state$ = new BehaviorSubject<UserState>({
       appearance: null,
       collapseColumns: null,
@@ -25,7 +26,7 @@ export class UserStore {
       uid: null
     });
     this.state$ = this._state$.asObservable().pipe(distinctUntilChanged());
-    this.state$.subscribe((state) => {
+    this.state$.pipe(takeUntil(this.globalService.destroy$)).subscribe((state) => {
       this.state = state;
     });
   }

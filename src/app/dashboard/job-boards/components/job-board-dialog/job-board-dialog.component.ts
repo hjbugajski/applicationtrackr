@@ -93,7 +93,7 @@ export class JobBoardDialogComponent {
         const data = this.providedData.data as JobBoard;
         const timestamp = dateToTimestamp(date);
 
-        await this.jobBoardsService.updateJobBoard({ date: timestamp, docId: data.docId, title }).then(() => {
+        await this.jobBoardsService.updateJobBoard(data.docId, { date: timestamp, title }).then(() => {
           this.isLoading = false;
           this.matDialogRef.close();
         });
