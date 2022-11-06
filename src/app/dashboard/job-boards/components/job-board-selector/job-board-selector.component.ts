@@ -39,6 +39,6 @@ export class JobBoardSelectorComponent {
   }
 
   public async onSelectionChange(board: JobBoard): Promise<void> {
-    await this.userService.updateCurrentJobBoard(board);
+    await this.userService.updateCurrentJobBoard(board.docId);
   }
 }

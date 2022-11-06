@@ -42,7 +42,7 @@ export const jobBoardConverter = {
   }
 };
 
-export const userDataConverter = {
+export const userConverter = {
   toFirestore: (user: User) => {
     return {
       currentJobBoard: user.currentJobBoard,

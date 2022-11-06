@@ -8,8 +8,10 @@ import {
   docSnapshots,
   DocumentData,
   DocumentReference,
+  DocumentSnapshot,
   Firestore,
   FirestoreDataConverter,
+  getDoc,
   Query,
   UpdateData,
   updateDoc
@@ -46,7 +48,11 @@ export abstract class FirestoreService<T> {
     return doc(this.firestore, this.basePath, id);
   }
 
-  public async update(id: string, value: UpdateData<T>): Promise<void> {
+  public async docSnap(id: string, converter: FirestoreDataConverter<T>): Promise<DocumentSnapshot<T>> {
+    return await getDoc(this.docRef(id).withConverter(converter));
+  }
+
+  public async update(id: string, value: UpdateData<T | any>): Promise<void> {
     return await updateDoc(this.docRef(id) as DocumentReference<T>, value);
   }
 

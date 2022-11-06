@@ -25,8 +25,8 @@ export class UserStore {
       currentJobBoard: null,
       uid: null
     });
-    this.state$ = this._state$.asObservable().pipe(distinctUntilChanged());
-    this.state$.pipe(takeUntil(this.globalService.destroy$)).subscribe((state) => {
+    this.state$ = this._state$.asObservable();
+    this.state$.pipe(takeUntil(this.globalService.destroy$), distinctUntilChanged()).subscribe((state) => {
       this.state = state;
     });
   }
@@ -53,7 +53,10 @@ export class UserStore {
   }
 
   public get appearance$(): Observable<Themes | string | null> {
-    return this.state$.pipe(map((state) => state.appearance));
+    return this.state$.pipe(
+      map((state) => state.appearance),
+      distinctUntilChanged()
+    );
   }
 
   public get collapseColumns(): boolean | null {
@@ -61,7 +64,10 @@ export class UserStore {
   }
 
   public get collapseColumns$(): Observable<boolean | null> {
-    return this.state$.pipe(map((state) => state.collapseColumns));
+    return this.state$.pipe(
+      map((state) => state.collapseColumns),
+      distinctUntilChanged()
+    );
   }
 
   public get currentJobBoard(): string | null {
@@ -69,7 +75,10 @@ export class UserStore {
   }
 
   public get currentJobBoard$(): Observable<string | null> {
-    return this.state$.pipe(map((state) => state.currentJobBoard));
+    return this.state$.pipe(
+      map((state) => state.currentJobBoard),
+      distinctUntilChanged()
+    );
   }
 
   public get uid(): string | null {
@@ -77,6 +86,9 @@ export class UserStore {
   }
 
   public get uid$(): Observable<string | null> {
-    return this.state$.pipe(map((state) => state.uid));
+    return this.state$.pipe(
+      map((state) => state.uid),
+      distinctUntilChanged()
+    );
   }
 }

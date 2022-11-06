@@ -33,6 +33,7 @@ import { Error } from '~interfaces/error.interface';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserService } from '~services/user/user.service';
+import { userConverter } from '~utils/firestore-converters';
 
 interface AuthError extends Error {
   credential?: any;
@@ -302,7 +303,7 @@ export class AuthService {
   }
 
   private async handleCreateUserDoc(user: User): Promise<void> {
-    const userDoc = await this.userService.getUserDocSnap(user.uid);
+    const userDoc = await this.userService.docSnap(user.uid, userConverter);
     const jobBoardsCollection = await getDocs(query(this.jobBoardsService.collectionRefWithConverter));
 
     if (!userDoc.exists()) {
