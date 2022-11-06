@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
-import { Subscription } from 'rxjs';
+import { MatSidenav } from '@angular/material/sidenav';
 
 import { HelpComponent } from '~components/help/help.component';
 import { Icons } from '~enums/icons.enum';
@@ -20,19 +19,12 @@ interface SidenavItem {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) private _sidenav: MatSidenav | undefined;
 
-  public mode: MatDrawerMode;
-  public opened: boolean;
   public sidenavItems: SidenavItem[];
 
-  private subscriptions: Subscription;
-
   constructor(private authService: AuthService, private matDialog: MatDialog, public sidenavService: SidenavService) {
-    this.mode = 'side';
-    this.opened = true;
-    this.subscriptions = new Subscription();
     this.sidenavItems = [
       {
         icon: Icons.CarbonApplication,
@@ -47,21 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ];
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.sidenavService.mode.subscribe((value) => {
-        this.mode = value;
-      })
-    );
-    this.subscriptions.add(
-      this.sidenavService.opened.subscribe((value) => {
-        this.opened = value;
-      })
-    );
     this.sidenavService.sidenav = this._sidenav!;
   }
 
@@ -78,8 +56,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   public async toggleSidenav(): Promise<void> {
-    if (this.sidenavService.showMenuButton.getValue()) {
-      await this.sidenavService.sidenav.toggle();
+    if (this.sidenavService.showMenuButton$.getValue()) {
+      await this.sidenavService.sidenav?.toggle();
     }
   }
 }

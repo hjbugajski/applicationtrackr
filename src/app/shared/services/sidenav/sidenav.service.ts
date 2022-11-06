@@ -1,30 +1,30 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, takeUntil } from 'rxjs';
+
+import { GlobalService } from '~services/global/global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidenavService {
+  public sidenav: MatSidenav | undefined;
+
   private _isMobile: BehaviorSubject<boolean>;
   private _mode: BehaviorSubject<MatDrawerMode>;
   private _opened: BehaviorSubject<boolean>;
   private _showMenuButton: BehaviorSubject<boolean>;
-  private _sidenav: MatSidenav | undefined;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, private globalService: GlobalService) {
     this._isMobile = new BehaviorSubject<boolean>(true);
     this._mode = new BehaviorSubject<MatDrawerMode>('side');
     this._opened = new BehaviorSubject<boolean>(true);
     this._showMenuButton = new BehaviorSubject<boolean>(false);
 
-    this.init();
-  }
-
-  public init(): void {
     this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
+      .pipe(takeUntil(this.globalService.destroy$))
       .subscribe((result: BreakpointState) => {
         if (result.matches) {
           this._isMobile.next(true);
@@ -40,11 +40,11 @@ export class SidenavService {
       });
   }
 
-  public get isMobile(): BehaviorSubject<boolean> {
+  public get isMobile$(): BehaviorSubject<boolean> {
     return this._isMobile;
   }
 
-  public get mode(): BehaviorSubject<MatDrawerMode> {
+  public get mode$(): BehaviorSubject<MatDrawerMode> {
     return this._mode;
   }
 
@@ -52,7 +52,7 @@ export class SidenavService {
     this._mode.next(value);
   }
 
-  public get opened(): BehaviorSubject<boolean> {
+  public get opened$(): BehaviorSubject<boolean> {
     return this._opened;
   }
 
@@ -60,15 +60,7 @@ export class SidenavService {
     this._opened.next(value);
   }
 
-  public get showMenuButton(): BehaviorSubject<boolean> {
+  public get showMenuButton$(): BehaviorSubject<boolean> {
     return this._showMenuButton;
-  }
-
-  public get sidenav(): MatSidenav {
-    return this._sidenav!;
-  }
-
-  public set sidenav(value: MatSidenav) {
-    this._sidenav = value;
   }
 }

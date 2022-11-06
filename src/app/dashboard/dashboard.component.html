@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="mode" [opened]="opened">
+  <mat-sidenav #sidenav [mode]="(sidenavService.mode$ | async) ?? 'side'" [opened]="sidenavService.opened$ | async">
     <mat-toolbar class="ghost-toolbar">
       <mat-icon svgIcon="carbon-compass"></mat-icon>
       ApplicationTrackr
@@ -18,7 +18,7 @@
           <span mat-line>{{ item.viewValue }}</span>
         </a>
       </mat-nav-list>
-      <ng-container *ngIf="(sidenavService.showMenuButton | async) === false">
+      <ng-container *ngIf="(sidenavService.showMenuButton$ | async) === false">
         <mat-divider></mat-divider>
         <div class="padded-container">
           <at-job-board-selector></at-job-board-selector>
@@ -40,7 +40,7 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar *ngIf="sidenavService.showMenuButton | async" class="at-toolbar">
+    <mat-toolbar *ngIf="sidenavService.showMenuButton$ | async" class="at-toolbar">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon svgIcon="carbon-menu"></mat-icon>
       </button>
