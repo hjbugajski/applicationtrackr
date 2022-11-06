@@ -1,0 +1,53 @@
+@use 'mixins';
+@use 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+  padding: 32px 16px;
+}
+
+.at-auth-title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+
+  .mat-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .at-auth-title {
+    @include mixins.font-size(24px);
+  }
+}
+
+.at-auth-outlet-container {
+  padding: 16px;
+  background-color: var(--color-canvas);
+  border-radius: variables.$border-radius;
+
+  @media (min-width: 425px) {
+    max-width: 350px;
+  }
+}
+
+.at-auth-privacy-container {
+  text-align: center;
+}
+
+.at-auth-outlet-container,
+.at-auth-privacy-container {
+  width: 100%;
+
+  @media (min-width: 425px) {
+    max-width: calc(425px - 32px);
+  }
+}

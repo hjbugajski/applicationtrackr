@@ -1,0 +1,53 @@
+@use 'mixins';
+@use 'pages/settings';
+
+.settings-theme-list {
+  display: grid;
+  gap: 16px;
+  padding: 0;
+
+  .settings-theme-list-item {
+    height: fit-content;
+    border-width: 2px;
+    border-radius: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-primary);
+    }
+
+    .settings-theme-list-item-content {
+      display: block;
+      padding: 0;
+
+      .settings-theme-list-text {
+        @include mixins.font-size(16px);
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 6px 8px 8px;
+
+        .mat-icon {
+          margin-right: 8px;
+        }
+      }
+
+      img {
+        width: 100% !important;
+        border-width: 0 0 2px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+    }
+  }
+}
+
+@media (min-width: 425px) {
+  .settings-theme-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

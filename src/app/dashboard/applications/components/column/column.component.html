@@ -1,0 +1,53 @@
+<div class="column-header at-text" [ngClass]="column.color">
+  <div class="column-title-container">
+    <span class="column-title">{{ column.title }}</span>
+    <span class="column-application-count tag" [ngClass]="column.color">{{ column.total }}</span>
+  </div>
+  <div class="column-actions">
+    <button mat-icon-button matTooltip="New application" (click)="newApplication()" [disabled]="!column">
+      <mat-icon svgIcon="carbon-add"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Menu" [matMenuTriggerFor]="columOptionsMenu" [disabled]="!column">
+      <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
+    </button>
+
+    <mat-menu #columOptionsMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="editColumn()">Edit</button>
+      <button mat-menu-item (click)="reorderColumn()">Reorder</button>
+      <button mat-menu-item [matMenuTriggerFor]="sortApplicationsMenu">Sort</button>
+      <button mat-menu-item class="at-text danger" (click)="deleteColumn()">Delete</button>
+    </mat-menu>
+
+    <mat-menu #sortApplicationsMenu="matMenu">
+      <ng-container *ngFor="let sortOption of sortOptions; let i = index">
+        <button
+          mat-menu-item
+          [class.mat-list-single-selected-option]="sortOption === selectedSortOption"
+          (click)="sort(sortOption)"
+        >
+          {{ sortOption.viewValue }}
+        </button>
+        <mat-divider *ngIf="i % 2 !== 0 && i + 1 !== sortOptions.length"></mat-divider>
+      </ng-container>
+    </mat-menu>
+  </div>
+</div>
+<cdk-virtual-scroll-viewport
+  cdkDropList
+  cdkDropListSortingDisabled
+  [cdkDropListDisabled]="isTouch"
+  [cdkDropListData]="column"
+  (cdkDropListDropped)="drop($event)"
+  itemSize="25"
+  class="cdk-container"
+>
+  <at-application-card
+    *cdkVirtualFor="let application of applications$ | async"
+    cdkDrag
+    [cdkDragData]="application"
+    [application]="application"
+    [column]="column!"
+  >
+    <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+  </at-application-card>
+</cdk-virtual-scroll-viewport>

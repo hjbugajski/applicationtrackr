@@ -1,6 +1,7 @@
 .at-light-theme,
 .at-dark-theme {
   .mat-slide-toggle-thumb {
+    box-sizing: content-box;
     background-color: var(--color-hover);
     border: 2px solid var(--color-border);
     box-shadow: none !important;

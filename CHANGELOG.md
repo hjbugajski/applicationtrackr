@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.1.1...v1.2.0) (2022-11-06)
+
+### Features
+
+- add abstract firestore service, applications service, global service ([06cff91](https://github.com/hjbugajski/applicationtrackr/commit/06cff91641ae5ba883295e620f3f08556d8c30e6))
+
 ### [1.1.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.1.0...v1.1.1) (2022-11-03)
 
 ### Features

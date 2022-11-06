@@ -1,0 +1,23 @@
+<div *ngIf="selectedTheme" class="settings-section">
+  <h2 class="settings-section-header">Appearance</h2>
+  <div class="settings-theme-list" role="list">
+    <div
+      *ngFor="let theme of themesArray"
+      role="listitem"
+      tabindex="0"
+      class="settings-theme-list-item at-border"
+      [ngClass]="{ border: !isSelectedTheme(theme), accent: isSelectedTheme(theme) }"
+      (click)="setTheme(theme.class)"
+      (keydown)="keydown($event, theme)"
+    >
+      <div class="settings-theme-list-item-content">
+        <img [src]="theme.icon" class="at-border border" />
+        <div class="settings-theme-list-text">
+          <mat-icon *ngIf="!isSelectedTheme(theme)" svgIcon="carbon-radio-button"></mat-icon>
+          <mat-icon *ngIf="isSelectedTheme(theme)" svgIcon="carbon-checkmark-filled" class="at-text accent"></mat-icon>
+          <span>{{ theme.viewValue }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+@use 'mixins';
+@use 'pages/settings';
+
+:host ::ng-deep .at-alert {
+  margin-bottom: 16px;
+}
+
+.settings-account-details-email {
+  @include mixins.font-size(16px);
+
+  margin-bottom: 8px;
+}
