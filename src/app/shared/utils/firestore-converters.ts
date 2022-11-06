@@ -6,8 +6,18 @@ import { JobBoard } from '~models/job-board.model';
 import { User } from '~models/user.model';
 
 export const applicationConverter = {
-  toFirestore: (application: Application): Application => {
-    return application;
+  toFirestore: (application: Application): DocumentData => {
+    return {
+      columnDocId: application.columnDocId,
+      company: application.company,
+      compensation: application.compensation,
+      date: application.date,
+      link: application.link,
+      location: application.location,
+      offer: application.offer,
+      payPeriod: application.payPeriod,
+      position: application.position
+    };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): Application => {
     return new Application(snapshot);

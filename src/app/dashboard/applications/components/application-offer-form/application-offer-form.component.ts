@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { PAY_PERIOD_OPTIONS } from '~constants/forms.constants';
@@ -12,7 +12,7 @@ import { ApplicationOffer } from '~interfaces/application-doc.interface';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
-import { ApplicationService } from '~services/application/application.service';
+import { ApplicationsService } from '~services/applications/applications.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators } from '~utils/custom-validators';
 import { dateToTimestamp, timestampToDate } from '~utils/date.util';
@@ -22,7 +22,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
   templateUrl: './application-offer-form.component.html',
   styleUrls: ['./application-offer-form.component.scss']
 })
-export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
+export class ApplicationOfferFormComponent implements OnInit {
   @Input() public application!: Application;
   @Input() public currentColumn!: Column;
 
@@ -40,15 +40,11 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
   public payPeriodOptions = PAY_PERIOD_OPTIONS;
   public state = FormStates.Readonly;
 
-  private subscriptions: Subscription;
-
   constructor(
-    private applicationService: ApplicationService,
+    private applicationsService: ApplicationsService,
     private matDialog: MatDialog,
     private notificationService: NotificationService
-  ) {
-    this.subscriptions = new Subscription();
-  }
+  ) {}
 
   public getError(control: AbstractControl): string {
     if (control.hasError('maxlength')) {
@@ -58,10 +54,6 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
     } else {
       return 'Required';
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -89,7 +81,7 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
         startDate: this.startDate.value ? dateToTimestamp(this.startDate.value) : null
       };
 
-      await this.applicationService
+      await this.applicationsService
         .updateApplicationOffer(this.application.docId, offer)
         .then(() => {
           this.isLoading = false;
@@ -106,12 +98,16 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
   public async secondaryButtonClick(): Promise<void> {
     if (this.offerForm.pristine) {
       this.state = FormStates.Readonly;
-    } else {
-      const data: ConfirmationDialog = {
-        action: DialogActions.Discard,
-        item: 'edits'
-      };
-      const dialogAfterClosed = this.matDialog
+
+      return;
+    }
+
+    const data: ConfirmationDialog = {
+      action: DialogActions.Discard,
+      item: 'edits'
+    };
+    const dialogActions = await lastValueFrom(
+      this.matDialog
         .open(ConfirmationDialogComponent, {
           autoFocus: false,
           data,
@@ -119,12 +115,12 @@ export class ApplicationOfferFormComponent implements OnDestroy, OnInit {
           width: '315px',
           panelClass: 'at-dialog-with-padding'
         })
-        .afterClosed();
+        .afterClosed() as Observable<DialogActions>
+    );
 
-      if ((await lastValueFrom(dialogAfterClosed)) === DialogActions.Discard) {
-        this.initForm();
-        this.state = FormStates.Readonly;
-      }
+    if (dialogActions === DialogActions.Discard) {
+      this.initForm();
+      this.state = FormStates.Readonly;
     }
   }
 

@@ -1,20 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, HostBinding, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import {
-  collection,
-  collectionData,
-  CollectionReference,
-  doc,
-  DocumentReference,
-  Firestore,
-  onSnapshot,
-  orderBy,
-  query,
-  Unsubscribe,
-  where
-} from '@angular/fire/firestore';
+import { doc, docSnapshots, Firestore, orderBy, query, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, distinctUntilChanged, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { deepEqual } from '@firebase/util';
+import { BehaviorSubject, filter, lastValueFrom, map, Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
@@ -25,14 +14,13 @@ import { Collections } from '~enums/collections.enum';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { SortOption } from '~interfaces/sort-option.interface';
-import { Sort } from '~interfaces/sort.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
-import { ApplicationService } from '~services/application/application.service';
+import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
-import { applicationConverter, columnConverter } from '~utils/firestore-converters';
+import { columnConverter } from '~utils/firestore-converters';
 
 /* eslint @angular-eslint/no-host-metadata-property: "off" */
 @Component({
@@ -49,34 +37,35 @@ export class ColumnComponent implements OnInit, OnDestroy {
   @HostBinding('class') colorClass = '';
   @Input() public columnId!: string;
 
-  public applications$!: Observable<Application[]>;
-  public column!: Column;
-  public columnRef!: DocumentReference<Column>;
-  public isLoaded$: BehaviorSubject<boolean>;
+  public applications$: BehaviorSubject<Application[]>;
+  public column: Column | undefined;
   public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
 
+  private applicationsSubscription: Subscription;
   private subscriptions: Subscription;
-  private unsubscribe!: Unsubscribe;
 
   constructor(
-    private applicationService: ApplicationService,
+    private applicationsService: ApplicationsService,
     private columnsService: ColumnsService,
     private firestore: Firestore,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
     private userStore: UserStore
   ) {
-    this.isLoaded$ = new BehaviorSubject<boolean>(false);
     this.subscriptions = new Subscription();
+    this.applicationsSubscription = new Subscription();
     this.isTouch = matchMedia('(hover: none)').matches;
+    this.applications$ = new BehaviorSubject<Application[]>([]);
   }
 
   public async deleteColumn(): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
-      message: `Column <strong class="at-text danger">${this.column.title}</strong> and all associated applications will be deleted. This action cannot be undone.`,
+      message: `Column <strong class="at-text danger">${
+        this.column!.title
+      }</strong> and all associated applications will be deleted. This action cannot be undone.`,
       item: 'column'
     };
 
@@ -99,7 +88,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
       });
 
       await this.columnsService
-        .deleteColumn(this.column)
+        .deleteColumn(this.column!)
         .then(() => {
           this.notificationService.showSuccess('Column deleted.');
           overlayDialog.close();
@@ -118,10 +107,12 @@ export class ColumnComponent implements OnInit, OnDestroy {
     const prevColumn = event.previousContainer.data as Column;
 
     if (prevColumn !== nextColumn) {
-      await this.applicationService.moveApplication(prevColumn.docId, nextColumn, application).catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error moving the application. Please try again.');
-      });
+      await this.applicationsService
+        .moveApplication(prevColumn.docId, nextColumn.docId, application.docId)
+        .catch((error) => {
+          console.error(error);
+          this.notificationService.showError('There was an error moving the application. Please try again.');
+        });
     }
   }
 
@@ -142,12 +133,12 @@ export class ColumnComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe();
     this.subscriptions.unsubscribe();
+    this.applicationsSubscription?.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.columnRef = doc(
+    const columnRef = doc(
       this.firestore,
       Collections.Users,
       this.userStore.uid!,
@@ -157,27 +148,31 @@ export class ColumnComponent implements OnInit, OnDestroy {
       this.columnId
     ).withConverter(columnConverter);
 
-    this.unsubscribe = onSnapshot(this.columnRef, (snapshot) => {
-      const data = snapshot.data();
-
-      if (data) {
-        this.column = data;
-        this.colorClass = this.column.color;
-        this.selectedSortOption = this.sortOptions.find(
-          (sortOption) =>
-            sortOption.value.field === this.column.applicationSort.field &&
-            sortOption.value.direction === this.column.applicationSort.direction
-        );
-        this.isLoaded$.next(true);
-      }
-    });
-
     this.subscriptions.add(
-      this.isLoaded$.pipe(distinctUntilChanged()).subscribe((isLoaded) => {
-        if (isLoaded) {
-          this.setApplications(this.column.applicationSort);
-        }
-      })
+      docSnapshots(columnRef)
+        .pipe(
+          map((snapshots) => snapshots.data()),
+          filter((data) => data !== undefined)
+        )
+        .subscribe((data) => {
+          const prev = this.column;
+          this.column = data!;
+
+          if (deepEqual(data!, prev ?? {})) {
+            return;
+          }
+
+          if (!prev || !deepEqual(data!.applicationSort, prev.applicationSort)) {
+            this.initApplications();
+          }
+
+          this.colorClass = this.column.color;
+          this.selectedSortOption = this.sortOptions.find(
+            (sortOption) =>
+              sortOption.value.field === this.column!.applicationSort.field &&
+              sortOption.value.direction === this.column!.applicationSort.direction
+          );
+        })
     );
   }
 
@@ -195,7 +190,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
     }
 
     this.selectedSortOption = sortOption;
-    this.setApplications(sortOption.value);
     await this.updateApplicationSort();
   }
 
@@ -208,20 +202,19 @@ export class ColumnComponent implements OnInit, OnDestroy {
       });
   }
 
-  private setApplications(sort: Sort): void {
-    this.applications$ = collectionData(
-      query(this.applicationsCollection, where('columnDocId', '==', this.columnId), orderBy(sort.field, sort.direction))
-    );
-  }
+  private initApplications(): void {
+    this.applicationsSubscription?.unsubscribe();
 
-  private get applicationsCollection(): CollectionReference<Application> {
-    return collection(
-      this.firestore,
-      Collections.Users,
-      this.userStore.uid!,
-      Collections.JobBoards,
-      this.userStore.currentJobBoard!,
-      Collections.Applications
-    ).withConverter(applicationConverter);
+    this.applicationsSubscription = this.applicationsService
+      .collection$(
+        query(
+          this.applicationsService.collectionRefWithConverter,
+          where('columnDocId', '==', this.columnId),
+          orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction)
+        )
+      )
+      .subscribe((applications) => {
+        this.applications$.next(applications);
+      });
   }
 }

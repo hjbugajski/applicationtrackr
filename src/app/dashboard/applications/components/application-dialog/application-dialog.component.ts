@@ -1,8 +1,6 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
-import { Unsubscribe } from '@angular/fire/auth';
-import { onSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, Observable, Subscription } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
@@ -11,7 +9,7 @@ import { ApplicationDialogData } from '~interfaces/application-dialog-data.inter
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
-import { ApplicationService } from '~services/application/application.service';
+import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { applicationConverter } from '~utils/firestore-converters';
@@ -26,11 +24,11 @@ export class ApplicationDialogComponent implements OnDestroy {
   public column: Column;
   public columns: Observable<Column[]>;
 
-  private unsubscribeApplication!: Unsubscribe;
+  private subscription: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private dialogData: ApplicationDialogData,
-    private applicationService: ApplicationService,
+    private applicationsService: ApplicationsService,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ApplicationDialogComponent>,
@@ -39,8 +37,9 @@ export class ApplicationDialogComponent implements OnDestroy {
     this.application = this.dialogData.application;
     this.column = this.dialogData.column;
     this.columns = this.columnsService.columns$;
-
-    this.initApplicationDoc();
+    this.subscription = this.applicationsService.doc$(this.application.docId, applicationConverter).subscribe((doc) => {
+      this.application = doc;
+    });
   }
 
   public close(): void {
@@ -70,7 +69,7 @@ export class ApplicationDialogComponent implements OnDestroy {
         panelClass: 'overlay-spinner-dialog'
       });
 
-      await this.applicationService
+      await this.applicationsService
         .deleteApplication(this.column.docId, this.application.docId)
         .then(() => {
           this.notificationService.showSuccess('Application deleted.');
@@ -92,8 +91,8 @@ export class ApplicationDialogComponent implements OnDestroy {
       panelClass: 'overlay-spinner-dialog'
     });
 
-    await this.applicationService
-      .moveApplication(this.column.docId, newColumn, this.application)
+    await this.applicationsService
+      .moveApplication(this.column.docId, newColumn.docId, this.application.docId)
       .then(() => {
         this.notificationService.showSuccess('Application successfully moved!');
         overlayDialog.close();
@@ -108,20 +107,10 @@ export class ApplicationDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribeApplication();
+    this.subscription?.unsubscribe();
   }
 
   public get dialogActions(): typeof DialogActions {
     return DialogActions;
-  }
-
-  private initApplicationDoc(): void {
-    const docRef = this.applicationService.getDocRef(this.application.docId);
-
-    this.unsubscribeApplication = onSnapshot(docRef.withConverter(applicationConverter), (doc) => {
-      if (doc.exists()) {
-        this.application = doc.data();
-      }
-    });
   }
 }

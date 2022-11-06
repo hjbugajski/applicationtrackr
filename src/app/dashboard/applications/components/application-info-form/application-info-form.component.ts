@@ -13,7 +13,7 @@ import { ApplicationDoc } from '~interfaces/application-doc.interface';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
-import { ApplicationService } from '~services/application/application.service';
+import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators } from '~utils/custom-validators';
@@ -49,7 +49,7 @@ export class ApplicationInfoFormComponent implements OnInit {
   public viewMore = false;
 
   constructor(
-    private applicationService: ApplicationService,
+    private applicationsService: ApplicationsService,
     private changeDetectorRef: ChangeDetectorRef,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
@@ -138,12 +138,16 @@ export class ApplicationInfoFormComponent implements OnInit {
         // DialogActions.Edit
         this.state = FormStates.Readonly;
       }
-    } else {
-      const data: ConfirmationDialog = {
-        action: DialogActions.Discard,
-        item: this.action === DialogActions.New ? 'application' : 'edits'
-      };
-      const dialogAfterClosed = this.matDialog
+
+      return;
+    }
+
+    const data: ConfirmationDialog = {
+      action: DialogActions.Discard,
+      item: this.action === DialogActions.New ? 'application' : 'edits'
+    };
+    const dialogAction = await lastValueFrom(
+      this.matDialog
         .open(ConfirmationDialogComponent, {
           autoFocus: false,
           data,
@@ -151,16 +155,16 @@ export class ApplicationInfoFormComponent implements OnInit {
           width: '315px',
           panelClass: 'at-dialog-with-padding'
         })
-        .afterClosed() as Observable<DialogActions>;
+        .afterClosed() as Observable<DialogActions>
+    );
 
-      if ((await lastValueFrom(dialogAfterClosed)) === DialogActions.Discard) {
-        if (this.action === DialogActions.New) {
-          this.matDialogRef.close();
-        } else {
-          // DialogActions.Edit
-          this.initEditForm();
-          this.state = FormStates.Readonly;
-        }
+    if (dialogAction === DialogActions.Discard) {
+      if (this.action === DialogActions.New) {
+        this.matDialogRef.close();
+      } else {
+        // DialogActions.Edit
+        this.initEditForm();
+        this.state = FormStates.Readonly;
       }
     }
   }
@@ -173,7 +177,7 @@ export class ApplicationInfoFormComponent implements OnInit {
   }
 
   private async createApplication(application: ApplicationDoc): Promise<void> {
-    await this.applicationService
+    await this.applicationsService
       .createApplication(application.columnDocId, application)
       .then(() => {
         this.isLoading = false;
@@ -188,7 +192,7 @@ export class ApplicationInfoFormComponent implements OnInit {
   }
 
   private async editApplication(application: ApplicationDoc): Promise<void> {
-    await this.applicationService
+    await this.applicationsService
       .updateApplication(this.application.docId, application)
       .then(() => {
         this.isLoading = false;

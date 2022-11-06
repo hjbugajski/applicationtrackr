@@ -4,6 +4,7 @@ import { Unsubscribe } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 
 import { Themes } from '~enums/themes.enum';
+import { GlobalService } from '~services/global/global.service';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { MatIconService } from '~services/mat-icon/mat-icon.service';
 import { ThemeService } from '~services/theme/theme.service';
@@ -21,6 +22,7 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private auth: Auth,
+    private globalService: GlobalService,
     private jobBoardsService: JobBoardsService,
     private matIconService: MatIconService,
     private themeService: ThemeService,
@@ -66,6 +68,8 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.globalService.destroy$.next(true);
+    this.globalService.destroy$.unsubscribe();
     this.subscriptions.unsubscribe();
     this.jobBoardsService.resetJobBoards();
     this.userService.resetUserData();
