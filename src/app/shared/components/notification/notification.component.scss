@@ -17,10 +17,8 @@
       font-weight: variables.$font-weight-bold;
     }
 
-    .mat-icon {
-      &:hover {
-        cursor: pointer;
-      }
+    .mat-icon:hover {
+      cursor: pointer;
     }
   }
 }

@@ -9,7 +9,9 @@
     <mat-form-field class="full-width">
       <mat-label>Start date</mat-label>
       <input formControlName="date" matInput [matDatepicker]="picker" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>today</mat-icon>
+      </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error>{{ getError(date) }}</mat-error>
     </mat-form-field>

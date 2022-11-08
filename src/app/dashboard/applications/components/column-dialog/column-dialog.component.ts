@@ -146,6 +146,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
         };
 
         await this.columnsService.createColumn(columnDoc).then(() => {
+          this.globalService.reloadColumns$.emit();
           this.isLoading = false;
           this.notificationService.showSuccess('Column added!');
           this.matDialogRef.close();

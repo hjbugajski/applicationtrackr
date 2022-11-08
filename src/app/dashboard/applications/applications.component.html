@@ -1,4 +1,4 @@
-<ng-container *ngIf="columns; else loading" cdkScrollable cdkDropListGroup>
+<ng-container *ngIf="isLoaded$ | async; else loading" cdkScrollable cdkDropListGroup>
   <at-column
     *ngFor="let columnId of columnIds$ | async; let i = index"
     [column]="columns[i]"

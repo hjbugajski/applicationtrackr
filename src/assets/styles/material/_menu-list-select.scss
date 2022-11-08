@@ -29,20 +29,6 @@
     padding-bottom: 8px;
   }
 
-  .mat-menu-item.with-icon {
-    display: flex;
-    align-items: center;
-
-    .mat-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px !important;
-      height: 20px !important;
-      margin-right: 12px !important;
-    }
-  }
-
   .mat-list-item:focus {
     outline: 2px solid var(--color-primary);
   }

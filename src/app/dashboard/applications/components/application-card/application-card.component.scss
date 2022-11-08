@@ -36,22 +36,20 @@
 
 .at-application-card-icon-subtitle {
   display: grid;
-  grid-template-columns: 20px 1fr;
+  grid-template-columns: auto 1fr;
+  gap: 6px;
   color: var(--color-muted);
   font-weight: variables.$font-weight-semi-bold;
-  column-gap: 4px;
 }
 
-::ng-deep .at-application-card-icon {
+.at-application-card-icon {
   display: inline-flex;
   align-items: center;
-  width: 20px !important;
-  height: 20px !important;
+  width: auto;
+  height: 20px;
+  font-size: 16px;
 
-  svg {
-    width: 16px !important;
-    height: 16px !important;
-  }
+  // font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 16;
 }
 
 .at-application-card-date-text {

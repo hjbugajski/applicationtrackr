@@ -1,14 +1,20 @@
 <div class="column-header at-text" [ngClass]="column.color">
   <div class="column-title-container">
     <span class="column-title">{{ column.title }}</span>
-    <span class="column-application-count tag" [ngClass]="column.color">{{ column.total }}</span>
+    <span
+      *ngIf="!(column.total === 0 && (collapseColumns$ | async))"
+      class="column-application-count tag"
+      [ngClass]="column.color"
+    >
+      {{ column.total }}
+    </span>
   </div>
   <div class="column-actions">
     <button mat-icon-button matTooltip="New application" (click)="newApplication()" [disabled]="!column">
-      <mat-icon svgIcon="carbon-add"></mat-icon>
+      <mat-icon>add</mat-icon>
     </button>
     <button mat-icon-button matTooltip="Menu" [matMenuTriggerFor]="columOptionsMenu" [disabled]="!column">
-      <mat-icon svgIcon="carbon-overflow-menu-horizontal"></mat-icon>
+      <mat-icon>more_horiz</mat-icon>
     </button>
 
     <mat-menu #columOptionsMenu="matMenu" xPosition="before">

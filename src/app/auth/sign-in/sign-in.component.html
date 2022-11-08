@@ -2,7 +2,7 @@
 <at-sign-in-with-apple-button [prefix]="title"></at-sign-in-with-apple-button>
 <at-sign-in-with-google-button [prefix]="title"></at-sign-in-with-google-button>
 <button mat-stroked-button (click)="toggleEmailForm()" class="mat-button-with-left-icon full-width">
-  <mat-icon *ngIf="!showEmailPasswordForm" [svgIcon]="'carbon-email'"></mat-icon>
+  <mat-icon *ngIf="!showEmailPasswordForm">email</mat-icon>
   {{ emailSignInButton }}
 </button>
 <div class="form-container" [@emailPasswordExpanded]="showEmailPasswordForm ? 'expanded' : 'collapsed'">

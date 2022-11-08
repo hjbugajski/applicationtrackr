@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { HelpComponent } from '~components/help/help.component';
-import { Icons } from '~enums/icons.enum';
 import { Paths } from '~enums/paths.enum';
 import { AuthService } from '~services/auth/auth.service';
 import { SidenavService } from '~services/sidenav/sidenav.service';
@@ -21,35 +20,49 @@ interface SidenavItem {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnDestroy, OnInit {
   @ViewChild('sidenav', { static: true }) private _sidenav: MatSidenav | undefined;
 
-  public isLoaded$: Observable<boolean>;
+  public isLoaded$ = new BehaviorSubject<boolean>(false);
   public sidenavItems: SidenavItem[];
+
+  private subscription: Subscription | undefined;
 
   constructor(
     private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef,
     private matDialog: MatDialog,
     public sidenavService: SidenavService,
     private userStore: UserStore
   ) {
     this.sidenavItems = [
       {
-        icon: Icons.CarbonApplication,
+        icon: 'view_kanban',
         viewValue: 'Applications',
         route: Paths.Applications
       },
       {
-        icon: Icons.CarbonTemplate,
+        icon: 'folder',
         viewValue: 'Job boards',
         route: Paths.JobBoards
       }
     ];
-    this.isLoaded$ = this.userStore.currentJobBoard$.pipe(map((value) => !!value));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   ngOnInit(): void {
     this.sidenavService.sidenav = this._sidenav!;
+    this.subscription = this.userStore.currentJobBoard$.subscribe((currentJobBoard) => {
+      this.isLoaded$.next(false);
+      this.changeDetectorRef.detectChanges();
+
+      if (currentJobBoard) {
+        this.isLoaded$.next(true);
+      }
+    });
   }
 
   public openHelpDialog(): void {

@@ -17,6 +17,7 @@ import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
 
@@ -35,6 +36,7 @@ export class ColumnComponent implements OnChanges {
   @Input() public column!: Column;
 
   public applications$: Observable<Application[]>;
+  public collapseColumns$: Observable<boolean | null>;
   public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
@@ -42,12 +44,14 @@ export class ColumnComponent implements OnChanges {
   constructor(
     private applicationsService: ApplicationsService,
     private columnsService: ColumnsService,
+    private globalService: GlobalService,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
-    private userStore: UserStore // do not delete, used in host-metadata
+    private userStore: UserStore
   ) {
-    this.isTouch = matchMedia('(hover: none)').matches;
     this.applications$ = new Observable<Application[]>();
+    this.collapseColumns$ = this.userStore.collapseColumns$;
+    this.isTouch = matchMedia('(hover: none)').matches;
   }
 
   public async deleteColumn(): Promise<void> {
@@ -78,6 +82,7 @@ export class ColumnComponent implements OnChanges {
       await this.columnsService
         .deleteColumn(this.column)
         .then(() => {
+          this.globalService.reloadColumns$.emit();
           this.notificationService.showSuccess('Column deleted.');
           overlayDialog.close();
         })

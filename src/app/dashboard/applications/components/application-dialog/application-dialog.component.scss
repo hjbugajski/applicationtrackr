@@ -3,20 +3,6 @@
     margin-top: 24px !important;
   }
 
-  .mat-icon-input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px !important;
-    height: 20px !important;
-    font-size: 20px;
-
-    svg {
-      width: 20px !important;
-      height: 20px !important;
-    }
-  }
-
   .number-input::-webkit-outer-spin-button,
   .number-input::-webkit-inner-spin-button {
     display: none;

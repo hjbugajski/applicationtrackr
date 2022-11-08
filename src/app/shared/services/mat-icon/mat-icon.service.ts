@@ -8,7 +8,9 @@ import { Icons } from '~enums/icons.enum';
   providedIn: 'root'
 })
 export class MatIconService {
-  constructor(private domSanitizer: DomSanitizer, private matIconRegistry: MatIconRegistry) {}
+  constructor(private domSanitizer: DomSanitizer, private matIconRegistry: MatIconRegistry) {
+    this.matIconRegistry.setDefaultFontSetClass('material-symbols-rounded');
+  }
 
   public initializeMatIcons(): void {
     Object.values(Icons).forEach((icon) =>

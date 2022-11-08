@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
@@ -16,6 +16,7 @@ import { GlobalService } from '~services/global/global.service';
 export class ApplicationsComponent implements OnDestroy {
   public columnIds$!: Observable<string[]>;
   public columns!: Column[];
+  public isLoaded$ = new BehaviorSubject<boolean>(false);
 
   private columnsSubscription: Subscription | undefined;
   private reloadSubscription: Subscription;
@@ -50,11 +51,13 @@ export class ApplicationsComponent implements OnDestroy {
     this.columnsSubscription = this.columnsService.columns$.subscribe((columns) => {
       if (columns) {
         this.columns = columns;
+        this.isLoaded$.next(true);
       }
     });
   }
 
   private reset(): void {
+    this.isLoaded$.next(false);
     this.columns = [];
     this.columnIds$ = new Observable<string[]>();
     this.columnsSubscription?.unsubscribe();

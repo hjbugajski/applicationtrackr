@@ -1,12 +1,12 @@
 <mat-toolbar>
   <a mat-button routerLink="dashboard" class="mat-button-with-left-icon">
-    <mat-icon svgIcon="carbon-arrow-left"></mat-icon>
+    <mat-icon>arrow_back</mat-icon>
     Dashboard
   </a>
   <div class="spacer"></div>
   <button mat-button class="mat-button-with-right-icon" (click)="signOut()">
     Sign out
-    <mat-icon svgIcon="carbon-logout"></mat-icon>
+    <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
 
@@ -16,23 +16,23 @@
     <div class="settings-sidenav">
       <div class="settings-sidenav-section-header at-text muted">General</div>
       <a [routerLink]="paths.Account" routerLinkActive="active" class="settings-sidenav-item">
-        <mat-icon svgIcon="carbon-user-avatar"></mat-icon>
+        <mat-icon>account_circle</mat-icon>
         Account
       </a>
       <mat-divider></mat-divider>
       <div class="settings-sidenav-section-header at-text muted">Application</div>
       <a [routerLink]="paths.Appearance" routerLinkActive="active" class="settings-sidenav-item">
-        <mat-icon svgIcon="carbon-color-palette"></mat-icon>
+        <mat-icon>palette</mat-icon>
         Appearance
       </a>
       <a [routerLink]="paths.Layout" routerLinkActive="active" class="settings-sidenav-item">
-        <mat-icon svgIcon="carbon-blog"></mat-icon>
+        <mat-icon>space_dashboard</mat-icon>
         Layout
       </a>
       <mat-divider></mat-divider>
       <div class="settings-sidenav-section-header at-text muted">Miscellaneous</div>
       <a [routerLink]="paths.About" routerLinkActive="active" class="settings-sidenav-item">
-        <mat-icon svgIcon="carbon-information"></mat-icon>
+        <mat-icon>info</mat-icon>
         About
       </a>
     </div>
