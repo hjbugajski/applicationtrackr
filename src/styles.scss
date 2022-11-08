@@ -16,7 +16,7 @@ body {
   margin: 0;
   color: map.get(palette.$at-palette, contrast, canvas);
   font-family: variables.$font-family !important;
-  background-color: map.get(palette.$at-palette, canvas-inset);
+  background-color: map.get(palette.$at-palette, canvas);
 }
 
 h1,
