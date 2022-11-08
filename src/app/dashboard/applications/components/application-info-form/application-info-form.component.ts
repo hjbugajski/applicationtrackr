@@ -171,7 +171,6 @@ export class ApplicationInfoFormComponent implements OnInit {
 
   public toggleViewMore(): void {
     this.viewMore = true;
-    this.company.markAsUntouched();
     this.changeDetectorRef.detectChanges();
     this.matInputs?.get(2)?.focus();
   }
