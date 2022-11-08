@@ -4,7 +4,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { map, Observable } from 'rxjs';
 
 import { HelpComponent } from '~components/help/help.component';
-import { Icons } from '~enums/icons.enum';
 import { Paths } from '~enums/paths.enum';
 import { AuthService } from '~services/auth/auth.service';
 import { SidenavService } from '~services/sidenav/sidenav.service';
@@ -35,12 +34,12 @@ export class DashboardComponent implements OnInit {
   ) {
     this.sidenavItems = [
       {
-        icon: Icons.CarbonApplication,
+        icon: 'view_kanban',
         viewValue: 'Applications',
         route: Paths.Applications
       },
       {
-        icon: Icons.CarbonTemplate,
+        icon: 'folder',
         viewValue: 'Job boards',
         route: Paths.JobBoards
       }

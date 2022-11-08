@@ -19,7 +19,7 @@
       <ng-container *ngFor="let jobBoard of jobBoards$ | async">
         <span *ngIf="jobBoard.docId === (currentJobBoard$ | async)" class="text">{{ jobBoard.title }}</span>
       </ng-container>
-      <mat-icon svgIcon="carbon-caret-down"></mat-icon>
+      <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #jobBoardMenu="matMenu">
       <button mat-menu-item (click)="newBoard()">New job board</button>

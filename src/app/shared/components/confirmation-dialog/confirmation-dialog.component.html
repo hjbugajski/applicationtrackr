@@ -1,6 +1,6 @@
 <ng-container *ngIf="data.action === dialogActions.Delete; else discardDialog">
   <div class="dialog-header-with-icon">
-    <mat-icon svgIcon="carbon-trash-can" class="danger at-text"></mat-icon>
+    <mat-icon class="danger at-text">delete</mat-icon>
     <span class="dialog-header">Delete {{ data.item }}?</span>
   </div>
   <p *ngIf="data.message" class="delete-data-message" [innerHTML]="data.message"></p>

@@ -35,6 +35,7 @@ export class ColumnComponent implements OnChanges {
   @Input() public column!: Column;
 
   public applications$: Observable<Application[]>;
+  public collapseColumns$: Observable<boolean | null>;
   public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
@@ -44,10 +45,11 @@ export class ColumnComponent implements OnChanges {
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
-    private userStore: UserStore // do not delete, used in host-metadata
+    private userStore: UserStore
   ) {
-    this.isTouch = matchMedia('(hover: none)').matches;
     this.applications$ = new Observable<Application[]>();
+    this.collapseColumns$ = this.userStore.collapseColumns$;
+    this.isTouch = matchMedia('(hover: none)').matches;
   }
 
   public async deleteColumn(): Promise<void> {

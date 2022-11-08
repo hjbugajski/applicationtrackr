@@ -1,8 +1,8 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="(sidenavService.mode$ | async) ?? 'side'" [opened]="sidenavService.opened$ | async">
     <mat-toolbar class="ghost-toolbar">
-      <mat-icon svgIcon="carbon-compass"></mat-icon>
-      ApplicationTrackr
+      <mat-icon>explore</mat-icon>
+      <span class="title">ApplicationTrackr</span>
     </mat-toolbar>
     <div class="sidenav-item-container">
       <mat-nav-list class="sidenav-mat-selection-list">
@@ -14,7 +14,7 @@
           (click)="toggleSidenav()"
           class="sidenav-item"
         >
-          <mat-icon mat-list-icon [svgIcon]="item.icon"></mat-icon>
+          <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
           <span mat-line>{{ item.viewValue }}</span>
         </a>
       </mat-nav-list>
@@ -28,13 +28,13 @@
       <div class="spacer"></div>
       <div class="sidenav-item-container-end">
         <button mat-icon-button matTooltip="Help" (click)="openHelpDialog()">
-          <mat-icon svgIcon="carbon-help"></mat-icon>
+          <mat-icon>help</mat-icon>
         </button>
         <a mat-icon-button [routerLink]="['/', paths.Settings]" matTooltip="Settings">
-          <mat-icon svgIcon="carbon-settings"></mat-icon>
+          <mat-icon>settings</mat-icon>
         </a>
         <button mat-icon-button matTooltip="Sign out" (click)="signOut()">
-          <mat-icon svgIcon="carbon-logout"></mat-icon>
+          <mat-icon>logout</mat-icon>
         </button>
       </div>
     </div>
@@ -42,7 +42,7 @@
   <mat-sidenav-content>
     <mat-toolbar *ngIf="sidenavService.showMenuButton$ | async" class="at-toolbar">
       <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon svgIcon="carbon-menu"></mat-icon>
+        <mat-icon>menu</mat-icon>
       </button>
       <at-job-board-selector mode="menu"></at-job-board-selector>
     </mat-toolbar>

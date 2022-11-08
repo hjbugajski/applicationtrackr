@@ -1,3 +1,4 @@
+@use 'mixins';
 @use 'variables';
 
 :host {
@@ -8,6 +9,12 @@
 
   .ghost-toolbar {
     gap: 8px;
+
+    .title {
+      @include mixins.font-size(18px);
+
+      font-weight: variables.$font-weight-semi-bold;
+    }
   }
 
   .at-toolbar .mat-button-base:not(:last-child) {

@@ -13,8 +13,8 @@
       <div class="settings-theme-list-item-content">
         <img [src]="theme.icon" class="at-border border" />
         <div class="settings-theme-list-text">
-          <mat-icon *ngIf="!isSelectedTheme(theme)" svgIcon="carbon-radio-button"></mat-icon>
-          <mat-icon *ngIf="isSelectedTheme(theme)" svgIcon="carbon-checkmark-filled" class="at-text accent"></mat-icon>
+          <mat-icon *ngIf="!isSelectedTheme(theme)">circle</mat-icon>
+          <mat-icon *ngIf="isSelectedTheme(theme)" class="at-text accent">check_circle</mat-icon>
           <span>{{ theme.viewValue }}</span>
         </div>
       </div>

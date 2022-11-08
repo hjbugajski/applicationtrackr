@@ -69,13 +69,10 @@
   .dialog-header-with-icon {
     display: flex;
     flex-direction: column;
+    gap: 16px;
     align-items: center;
     justify-content: center;
     margin-bottom: 16px;
-
-    .mat-icon {
-      margin-bottom: 16px;
-    }
 
     .dialog-header {
       @include mixins.font-size(20px);

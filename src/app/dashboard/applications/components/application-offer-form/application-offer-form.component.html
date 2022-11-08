@@ -68,7 +68,9 @@
         [matDatepicker]="deadlineDatePicker"
         [readonly]="readonly"
       />
-      <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker" [disabled]="!editing"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker" [disabled]="!editing">
+        <mat-icon matDatepickerToggleIcon>today</mat-icon>
+      </mat-datepicker-toggle>
       <mat-datepicker #deadlineDatePicker></mat-datepicker>
       <mat-error>{{ getError(deadline) }}</mat-error>
     </mat-form-field>
@@ -83,7 +85,9 @@
         [matDatepicker]="startDatePicker"
         [readonly]="readonly"
       />
-      <mat-datepicker-toggle matSuffix [for]="startDatePicker" [disabled]="!editing"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker" [disabled]="!editing">
+        <mat-icon matDatepickerToggleIcon>today</mat-icon>
+      </mat-datepicker-toggle>
       <mat-datepicker #startDatePicker></mat-datepicker>
       <mat-error>{{ getError(startDate) }}</mat-error>
     </mat-form-field>
