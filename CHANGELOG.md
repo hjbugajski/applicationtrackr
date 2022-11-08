@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.2.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.2.0...v1.2.1) (2022-11-08)
+
+### Features
+
+- add new font and icon set ([0179746](https://github.com/hjbugajski/applicationtrackr/commit/01797467640c7baff8bf9639b855e6a1b970119c))
+
+### Bug Fixes
+
+- reload columns on changes ([97d494b](https://github.com/hjbugajski/applicationtrackr/commit/97d494bfeb51b08310b30089512a6db5b5ae3487))
+- remove mark as touched reset on expansion ([2300879](https://github.com/hjbugajski/applicationtrackr/commit/23008791b9c17ba09993902692a91470cf614c68))
+- update dashboard styling ([48cc5c1](https://github.com/hjbugajski/applicationtrackr/commit/48cc5c12285d5b479a14a3e1cc64f59b4bf95082))
+
 ## [1.2.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.1.1...v1.2.0) (2022-11-06)
 
 ### Features
