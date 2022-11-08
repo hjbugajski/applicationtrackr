@@ -19,7 +19,7 @@
         </a>
       </mat-nav-list>
       <ng-container *ngIf="(sidenavService.showMenuButton$ | async) === false">
-        <mat-divider></mat-divider>
+        <mat-divider class="padded-divider"></mat-divider>
         <div class="padded-container">
           <at-job-board-selector></at-job-board-selector>
         </div>

@@ -9,11 +9,13 @@
 
   .ghost-toolbar {
     gap: 8px;
+    height: 56px !important;
+    min-height: 56px !important;
 
     .title {
       @include mixins.font-size(18px);
 
-      font-weight: variables.$font-weight-semi-bold;
+      font-weight: variables.$font-weight-bold;
     }
   }
 
@@ -28,7 +30,10 @@
     }
 
     .sidenav-mat-selection-list {
-      padding: 0 8px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0 8px;
 
       .mat-list-item,
       .mat-ripple {
@@ -38,12 +43,17 @@
       .mat-list-item {
         height: 48px !important;
 
-        &:not(:last-of-type) {
-          margin-bottom: 4px;
-        }
-
         .mat-list-item-content {
-          padding: 0 8px;
+          gap: 16px;
+          padding: 0 16px;
+
+          .mat-icon {
+            padding: 0;
+          }
+
+          .mat-list-text {
+            padding: 0 !important;
+          }
         }
       }
     }
@@ -58,7 +68,7 @@
   .padded-container {
     display: flex;
     flex-direction: column;
-    padding: 16px 8px 0;
+    padding: 0 8px;
   }
 
   .sidenav-item-container-end {
