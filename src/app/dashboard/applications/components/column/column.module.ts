@@ -3,7 +3,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -30,7 +29,6 @@ import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pi
     DayDifferencePipeModule,
     DragDropModule,
     MatButtonModule,
-    MatCardModule,
     MatDividerModule,
     MatIconModule,
     MatMenuModule,
