@@ -19,8 +19,9 @@
     }
   }
 
-  .at-toolbar .mat-button-base:not(:last-child) {
-    margin-right: 8px;
+  .at-toolbar {
+    gap: 8px;
+    padding: 0 8px;
   }
 
   ::ng-deep {
@@ -46,13 +47,10 @@
         .mat-list-item-content {
           gap: 16px;
           padding: 0 16px;
+          font-weight: variables.$font-weight-semi-bold;
 
           .mat-icon {
             padding: 0;
-          }
-
-          .mat-list-text {
-            padding: 0 !important;
           }
         }
       }

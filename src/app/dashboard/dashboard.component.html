@@ -15,7 +15,7 @@
           class="sidenav-item"
         >
           <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-          <span mat-line>{{ item.viewValue }}</span>
+          {{ item.viewValue }}
         </a>
       </mat-nav-list>
       <ng-container *ngIf="(sidenavService.showMenuButton$ | async) === false">

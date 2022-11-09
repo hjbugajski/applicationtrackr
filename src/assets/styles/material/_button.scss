@@ -36,6 +36,21 @@
     font-weight: variables.$font-weight-semi-bold;
     border-radius: variables.$border-radius !important;
 
+    &.mat-button-with-left-icon {
+      padding: 0 16px 0 12px;
+    }
+
+    &.mat-button-with-right-icon {
+      padding: 0 12px 0 16px;
+    }
+
+    &.mat-button-with-left-icon .mat-button-wrapper .mat-icon,
+    &.mat-button-with-right-icon .mat-button-wrapper .mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+    }
+
     .mat-button-wrapper {
       display: flex;
       flex-direction: row;
