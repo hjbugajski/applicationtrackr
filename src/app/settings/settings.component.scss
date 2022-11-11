@@ -2,18 +2,6 @@
 @use 'pages/settings';
 @use 'variables';
 
-:host {
-  .mat-toolbar {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-  }
-
-  .mat-divider {
-    margin: 10px 0;
-  }
-}
-
 .settings-container {
   max-width: 1024px;
   margin: 0 auto;
@@ -81,17 +69,13 @@
 }
 
 @media (min-width: 768px) {
-  .settings-container {
-    padding: 80px 16px 0;
-  }
-
   .settings-inner-container {
     flex-direction: row;
   }
 
   .settings-sidenav {
     position: sticky;
-    top: 80px;
+    top: 72px;
     align-self: flex-start;
   }
 }

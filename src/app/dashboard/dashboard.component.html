@@ -1,9 +1,9 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="(sidenavService.mode$ | async) ?? 'side'" [opened]="sidenavService.opened$ | async">
-    <mat-toolbar class="ghost-toolbar">
+    <at-toolbar variant="ghost">
       <mat-icon>explore</mat-icon>
-      <span class="title">ApplicationTrackr</span>
-    </mat-toolbar>
+      <at-toolbar-title>ApplicationTrackr</at-toolbar-title>
+    </at-toolbar>
     <div class="sidenav-item-container">
       <mat-nav-list class="sidenav-mat-selection-list">
         <a
@@ -40,12 +40,12 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar *ngIf="sidenavService.showMenuButton$ | async" class="at-toolbar">
+    <at-toolbar *ngIf="sidenavService.showMenuButton$ | async">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
       </button>
       <at-job-board-selector mode="menu"></at-job-board-selector>
-    </mat-toolbar>
+    </at-toolbar>
     <router-outlet *ngIf="isLoaded$ | async"></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

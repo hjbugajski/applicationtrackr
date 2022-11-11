@@ -4,24 +4,6 @@
 :host {
   .mat-sidenav {
     width: 250px !important;
-    border: 0;
-  }
-
-  .ghost-toolbar {
-    gap: 8px;
-    height: 56px !important;
-    min-height: 56px !important;
-
-    .title {
-      @include mixins.font-size(18px);
-
-      font-weight: variables.$font-weight-bold;
-    }
-  }
-
-  .at-toolbar {
-    gap: 8px;
-    padding: 0 8px;
   }
 
   ::ng-deep {

@@ -1,14 +1,14 @@
-<mat-toolbar>
+<at-toolbar [fixed]="true">
   <a mat-button routerLink="dashboard" class="mat-button-with-left-icon">
     <mat-icon>arrow_back</mat-icon>
     Dashboard
   </a>
-  <div class="spacer"></div>
+  <at-toolbar-spacer></at-toolbar-spacer>
   <button mat-button class="mat-button-with-right-icon" (click)="signOut()">
     Sign out
     <mat-icon>logout</mat-icon>
   </button>
-</mat-toolbar>
+</at-toolbar>
 
 <section class="settings-container">
   <h1>Settings</h1>
@@ -19,7 +19,7 @@
         <mat-icon>account_circle</mat-icon>
         Account
       </a>
-      <mat-divider></mat-divider>
+      <mat-divider class="padded-divider"></mat-divider>
       <div class="settings-sidenav-section-header at-text muted">Application</div>
       <a [routerLink]="paths.Appearance" routerLinkActive="active" class="settings-sidenav-item">
         <mat-icon>palette</mat-icon>
@@ -29,7 +29,7 @@
         <mat-icon>space_dashboard</mat-icon>
         Layout
       </a>
-      <mat-divider></mat-divider>
+      <mat-divider class="padded-divider"></mat-divider>
       <div class="settings-sidenav-section-header at-text muted">Miscellaneous</div>
       <a [routerLink]="paths.About" routerLinkActive="active" class="settings-sidenav-item">
         <mat-icon>info</mat-icon>

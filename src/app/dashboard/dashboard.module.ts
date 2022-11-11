@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 
@@ -16,6 +15,7 @@ import { DashboardComponent } from './dashboard.component';
 
 import { HelpModule } from '~components/help/help.module';
 import { JobBoardSelectorModule } from '~components/job-board-selector/job-board-selector.module';
+import { ToolbarModule } from '~components/toolbar/toolbar.module';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -31,9 +31,9 @@ import { JobBoardSelectorModule } from '~components/job-board-selector/job-board
     MatListModule,
     MatSelectModule,
     MatSidenavModule,
-    MatToolbarModule,
     MatTooltipModule,
-    RouterModule
+    RouterModule,
+    ToolbarModule
   ]
 })
 export class DashboardModule {}
