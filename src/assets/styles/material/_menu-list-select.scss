@@ -7,6 +7,10 @@
     @include mixins.border;
   }
 
+  .mat-menu-panel {
+    top: 2px;
+  }
+
   .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
     background: var(--color-hover) !important;
   }
@@ -31,5 +35,24 @@
 
   .mat-list-item:focus {
     outline: 2px solid var(--color-primary);
+  }
+
+  .mat-menu-item-with-right-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px 0 16px;
+
+    .mat-icon {
+      width: 28px;
+      height: 28px;
+      margin-right: 0;
+      font-size: 28px;
+    }
+
+    .mat-menu-submenu-icon {
+      display: none;
+    }
   }
 }

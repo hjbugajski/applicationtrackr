@@ -1,4 +1,4 @@
-<mat-card class="job-boards-list">
+<div class="job-boards-list at-background at-border border">
   <div *ngFor="let jobBoard of jobBoards | async" class="job-boards-list-item at-border border">
     <div class="job-boards-list-item-text">
       <div class="job-boards-list-item-title at-text primary">
@@ -11,18 +11,10 @@
       </div>
     </div>
     <div class="job-boards-list-item-actions">
-      <button mat-stroked-button color="primary" (click)="editJobBoard(jobBoard)" class="mat-button-with-left-icon">
-        Edit
-      </button>
-      <button
-        mat-stroked-button
-        color="warn"
-        [disabled]="isCurrentBoard(jobBoard)"
-        (click)="deleteJobBoard(jobBoard)"
-        class="mat-button-with-left-icon"
-      >
+      <button mat-stroked-button color="primary" (click)="editJobBoard(jobBoard)">Edit</button>
+      <button mat-stroked-button color="warn" [disabled]="isCurrentBoard(jobBoard)" (click)="deleteJobBoard(jobBoard)">
         Delete
       </button>
     </div>
   </div>
-</mat-card>
+</div>

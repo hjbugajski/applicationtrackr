@@ -1,8 +1,8 @@
-<div class="column-header at-text" [ngClass]="column.color">
+<div class="column-header at-text" [ngClass]="column?.color">
   <div class="column-title-container">
-    <span class="column-title">{{ column.title }}</span>
+    <span class="column-title">{{ column?.title }}</span>
     <span
-      *ngIf="!(column.total === 0 && (collapseColumns$ | async))"
+      *ngIf="column && !(column?.total === 0 && (collapseColumns$ | async))"
       class="column-application-count tag"
       [ngClass]="column.color"
     >
@@ -20,7 +20,10 @@
     <mat-menu #columOptionsMenu="matMenu" xPosition="before">
       <button mat-menu-item (click)="editColumn()">Edit</button>
       <button mat-menu-item (click)="reorderColumn()">Reorder</button>
-      <button mat-menu-item [matMenuTriggerFor]="sortApplicationsMenu">Sort</button>
+      <button mat-menu-item [matMenuTriggerFor]="sortApplicationsMenu" class="mat-menu-item-with-right-icon">
+        Sort
+        <mat-icon>arrow_right</mat-icon>
+      </button>
       <button mat-menu-item class="at-text danger" (click)="deleteColumn()">Delete</button>
     </mat-menu>
 

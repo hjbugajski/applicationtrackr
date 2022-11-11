@@ -1,5 +1,4 @@
 @use 'mixins';
-@use 'variables';
 
 .settings-section {
   margin-bottom: 32px;
@@ -10,6 +9,5 @@
 
   margin-bottom: 24px;
   padding-bottom: 16px;
-  color: var(--color-neutral);
   border-bottom: 2px solid var(--color-border);
 }

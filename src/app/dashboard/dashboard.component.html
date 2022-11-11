@@ -1,51 +1,55 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="(sidenavService.mode$ | async) ?? 'side'" [opened]="sidenavService.opened$ | async">
-    <mat-toolbar class="ghost-toolbar">
+  <mat-sidenav
+    #sidenav
+    [mode]="(sidenavService.mode$ | async) ?? 'side'"
+    [opened]="sidenavService.opened$ | async"
+    class="at-dashboard-sidenav"
+  >
+    <at-toolbar variant="ghost">
       <mat-icon>explore</mat-icon>
-      <span class="title">ApplicationTrackr</span>
-    </mat-toolbar>
-    <div class="sidenav-item-container">
-      <mat-nav-list class="sidenav-mat-selection-list">
-        <a
-          mat-list-item
-          *ngFor="let item of sidenavItems"
-          [routerLink]="item.route"
-          routerLinkActive="mat-list-single-selected-option"
-          (click)="toggleSidenav()"
-          class="sidenav-item"
-        >
-          <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-          <span mat-line>{{ item.viewValue }}</span>
-        </a>
-      </mat-nav-list>
-      <ng-container *ngIf="(sidenavService.showMenuButton$ | async) === false">
-        <mat-divider class="padded-divider"></mat-divider>
-        <div class="padded-container">
-          <at-job-board-selector></at-job-board-selector>
-        </div>
-      </ng-container>
-
-      <div class="spacer"></div>
-      <div class="sidenav-item-container-end">
-        <button mat-icon-button matTooltip="Help" (click)="openHelpDialog()">
-          <mat-icon>help</mat-icon>
-        </button>
-        <a mat-icon-button [routerLink]="['/', paths.Settings]" matTooltip="Settings">
-          <mat-icon>settings</mat-icon>
-        </a>
-        <button mat-icon-button matTooltip="Sign out" (click)="signOut()">
-          <mat-icon>logout</mat-icon>
-        </button>
+      <at-toolbar-title>ApplicationTrackr</at-toolbar-title>
+    </at-toolbar>
+    <mat-nav-list class="at-dashboard-sidenav-selection-list">
+      <a
+        mat-list-item
+        *ngFor="let item of sidenavItems"
+        [routerLink]="item.route"
+        routerLinkActive="mat-list-single-selected-option"
+        (click)="toggleSidenav()"
+        class="at-dashboard-selection-sidenav-item"
+      >
+        <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+        {{ item.viewValue }}
+      </a>
+    </mat-nav-list>
+    <ng-container *ngIf="(sidenavService.showMenuButton$ | async) === false">
+      <mat-divider class="padded-divider"></mat-divider>
+      <div class="at-dashboard-padded-container">
+        <at-job-board-selector></at-job-board-selector>
       </div>
-    </div>
+    </ng-container>
+    <div class="spacer"></div>
+    <at-toolbar variant="ghost">
+      <button mat-icon-button matTooltip="Help" (click)="openHelpDialog()">
+        <mat-icon>help</mat-icon>
+      </button>
+      <at-toolbar-spacer></at-toolbar-spacer>
+      <a mat-icon-button [routerLink]="['/', paths.Settings]" matTooltip="Settings">
+        <mat-icon>settings</mat-icon>
+      </a>
+      <at-toolbar-spacer></at-toolbar-spacer>
+      <button mat-icon-button matTooltip="Sign out" (click)="signOut()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </at-toolbar>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar *ngIf="sidenavService.showMenuButton$ | async" class="at-toolbar">
+    <at-toolbar *ngIf="sidenavService.showMenuButton$ | async">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
       </button>
       <at-job-board-selector mode="menu"></at-job-board-selector>
-    </mat-toolbar>
+    </at-toolbar>
     <router-outlet *ngIf="isLoaded$ | async"></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

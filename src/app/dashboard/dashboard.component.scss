@@ -1,79 +1,47 @@
 @use 'mixins';
 @use 'variables';
 
-:host {
-  .mat-sidenav {
-    width: 250px !important;
-    border: 0;
+:host ::ng-deep {
+  .mat-drawer-inner-container {
+    display: flex;
+    flex-direction: column;
   }
 
-  .ghost-toolbar {
-    gap: 8px;
-    height: 56px !important;
-    min-height: 56px !important;
+  .at-dashboard-selection-sidenav-item {
+    height: 48px !important;
 
-    .title {
-      @include mixins.font-size(18px);
+    .mat-list-item-content {
+      gap: 12px;
+      padding: 0 16px;
+      font-weight: variables.$font-weight-semi-bold;
 
-      font-weight: variables.$font-weight-bold;
-    }
-  }
-
-  .at-toolbar .mat-button-base:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  ::ng-deep {
-    .mat-drawer-inner-container {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidenav-mat-selection-list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 0 8px;
-
-      .mat-list-item,
-      .mat-ripple {
-        border-radius: variables.$border-radius;
-      }
-
-      .mat-list-item {
-        height: 48px !important;
-
-        .mat-list-item-content {
-          gap: 16px;
-          padding: 0 16px;
-
-          .mat-icon {
-            padding: 0;
-          }
-
-          .mat-list-text {
-            padding: 0 !important;
-          }
-        }
+      .mat-icon {
+        padding: 0;
       }
     }
   }
+}
 
-  .sidenav-item-container {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-  }
+.at-dashboard-sidenav {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+}
 
-  .padded-container {
-    display: flex;
-    flex-direction: column;
-    padding: 0 8px;
-  }
+.at-dashboard-sidenav-selection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 8px;
 
-  .sidenav-item-container-end {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px;
+  .at-dashboard-selection-sidenav-item,
+  .mat-ripple {
+    border-radius: variables.$border-radius;
   }
+}
+
+.at-dashboard-padded-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
 }

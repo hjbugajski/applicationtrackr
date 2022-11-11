@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.2.2...v1.3.0) (2022-11-11)
+
+### Features
+
+- add toolbar component ([ad82dd3](https://github.com/hjbugajski/applicationtrackr/commit/ad82dd3c48e5faba75a5cb4c7d8c1dd6dfb8db2a))
+
+### Bug Fixes
+
+- add icon to open button ([f936ffd](https://github.com/hjbugajski/applicationtrackr/commit/f936ffd47772f10a11527d6e061c8a7669edae92))
+- update dashboard styles and layout ([e46438c](https://github.com/hjbugajski/applicationtrackr/commit/e46438cb0599fd02dff778e5575be308d535d2e5))
+- update how column observables are managed ([7113229](https://github.com/hjbugajski/applicationtrackr/commit/7113229e2223c7358cbdae2c6d2d71ebcd479b1d))
+
 ### [1.2.2](https://github.com/hjbugajski/applicationtrackr/compare/v1.2.1...v1.2.2) (2022-11-08)
 
 ### Bug Fixes

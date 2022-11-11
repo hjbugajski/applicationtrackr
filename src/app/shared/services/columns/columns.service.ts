@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   collection,
-  collectionChanges,
   CollectionReference,
   DocumentData,
   Firestore,
@@ -10,7 +9,7 @@ import {
   Query,
   query
 } from '@angular/fire/firestore';
-import { map, Observable, takeUntil } from 'rxjs';
+import { distinctUntilChanged, map, Observable, takeUntil } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
 import { ColumnDoc } from '~interfaces/column-doc.interface';
@@ -59,8 +58,9 @@ export class ColumnsService extends FirestoreService<Column> {
         this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(columnConverter);
 
         this.reset();
-        this.columnIds$ = collectionChanges(this.query, { events: ['added', 'removed'] }).pipe(
-          map((columns) => columns.map((column) => column.doc.id))
+        this.columnIds$ = this.collection$(this.query).pipe(
+          map((columns) => columns.map((column) => column.docId)),
+          distinctUntilChanged()
         );
         this.columns$ = this.collection$(this.query);
       } else {
@@ -80,7 +80,7 @@ export class ColumnsService extends FirestoreService<Column> {
       .then(async () => {
         await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, -column.total);
         await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
-          console.log(error);
+          console.error(error);
         });
       })
       .catch((error) => {

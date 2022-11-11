@@ -4,7 +4,7 @@
     [disabled]="isLoading"
     (click)="signInWithGoogle()"
     [ngClass]="{ 'is-disabled': isLoading }"
-    class="mat-button-with-left-icon google-button-dark"
+    class="google-button-dark"
     [class.full-width]="fullWidth"
   >
     <div *ngIf="isLoading" class="loading-spinner-in-button">
