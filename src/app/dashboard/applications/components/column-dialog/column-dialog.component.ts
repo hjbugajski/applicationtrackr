@@ -13,7 +13,6 @@ import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { DocumentDialog } from '~interfaces/document-dialog.interface';
 import { Column } from '~models/column.model';
 import { ColumnsService } from '~services/columns/columns.service';
-import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 
 @Component({
@@ -40,7 +39,6 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public providedData: DocumentDialog,
     private columnsService: ColumnsService,
-    private globalService: GlobalService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<ColumnDialogComponent>,
     private notificationService: NotificationService
@@ -146,7 +144,6 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
         };
 
         await this.columnsService.createColumn(columnDoc).then(() => {
-          this.globalService.reloadColumns$.emit();
           this.isLoading = false;
           this.notificationService.showSuccess('Column added!');
           this.matDialogRef.close();
@@ -184,7 +181,6 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
       this.notificationService.showError('There was an error reordering the columns. Please try again.');
     } finally {
       this.isLoading = false;
-      this.globalService.reloadColumns$.emit();
       this.matDialogRef.close();
     }
   }

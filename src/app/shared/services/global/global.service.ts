@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -6,5 +6,4 @@ import { Subject } from 'rxjs';
 })
 export class GlobalService {
   public destroy$ = new Subject<boolean>();
-  public reloadColumns$ = new EventEmitter<void>();
 }

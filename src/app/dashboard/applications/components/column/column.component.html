@@ -1,8 +1,8 @@
-<div class="column-header at-text" [ngClass]="column.color">
+<div class="column-header at-text" [ngClass]="column?.color">
   <div class="column-title-container">
-    <span class="column-title">{{ column.title }}</span>
+    <span class="column-title">{{ column?.title }}</span>
     <span
-      *ngIf="!(column.total === 0 && (collapseColumns$ | async))"
+      *ngIf="column && !(column?.total === 0 && (collapseColumns$ | async))"
       class="column-application-count tag"
       [ngClass]="column.color"
     >

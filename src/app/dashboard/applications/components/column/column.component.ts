@@ -17,7 +17,6 @@ import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
-import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
 
@@ -33,7 +32,7 @@ import { UserStore } from '~store/user.store';
   encapsulation: ViewEncapsulation.None
 })
 export class ColumnComponent implements OnChanges {
-  @Input() public column!: Column;
+  @Input() public column: Column | undefined;
 
   public applications$: Observable<Application[]>;
   public collapseColumns$: Observable<boolean | null>;
@@ -44,7 +43,6 @@ export class ColumnComponent implements OnChanges {
   constructor(
     private applicationsService: ApplicationsService,
     private columnsService: ColumnsService,
-    private globalService: GlobalService,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
     private userStore: UserStore
@@ -57,7 +55,9 @@ export class ColumnComponent implements OnChanges {
   public async deleteColumn(): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
-      message: `Column <strong class="at-text danger">${this.column.title}</strong> and all associated applications will be deleted. This action cannot be undone.`,
+      message: `Column <strong class="at-text danger">${
+        this.column!.title
+      }</strong> and all associated applications will be deleted. This action cannot be undone.`,
       item: 'column'
     };
 
@@ -80,9 +80,8 @@ export class ColumnComponent implements OnChanges {
       });
 
       await this.columnsService
-        .deleteColumn(this.column)
+        .deleteColumn(this.column!)
         .then(() => {
-          this.globalService.reloadColumns$.emit();
           this.notificationService.showSuccess('Column deleted.');
           overlayDialog.close();
         })
@@ -126,11 +125,12 @@ export class ColumnComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const currColumn = changes.column.currentValue as Column;
+    const currColumn = changes.column.currentValue as Column | undefined;
     const prevColumn = changes.column.previousValue as Column | undefined;
-    const isSortChange = prevColumn && !deepEqual(currColumn.applicationSort, prevColumn.applicationSort);
+    const isColumnChange = currColumn?.docId !== prevColumn?.docId;
+    const isSortChange = currColumn && prevColumn && !deepEqual(currColumn.applicationSort, prevColumn.applicationSort);
 
-    if (changes.column.isFirstChange() || isSortChange) {
+    if (currColumn && (changes.column.isFirstChange() || isColumnChange || isSortChange)) {
       this.selectedSortOption = this.sortOptions.find(
         (sortOption) =>
           sortOption.value.field === currColumn.applicationSort.field &&
@@ -159,9 +159,9 @@ export class ColumnComponent implements OnChanges {
 
   public async updateApplicationSort(): Promise<void> {
     await this.columnsService
-      .updateApplicationSort(this.column.docId, this.selectedSortOption?.value ?? this.sortOptions[0].value)
+      .updateApplicationSort(this.column!.docId, this.selectedSortOption?.value ?? this.sortOptions[0].value)
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         this.notificationService.showError('There was an error updating the default sort. Please try again.');
       });
   }
@@ -172,8 +172,8 @@ export class ColumnComponent implements OnChanges {
     this.applications$ = this.applicationsService.collection$(
       query(
         this.applicationsService.collectionRefWithConverter,
-        where('columnDocId', '==', this.column.docId),
-        orderBy(this.column.applicationSort.field, this.column.applicationSort.direction)
+        where('columnDocId', '==', this.column!.docId),
+        orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction)
       )
     );
   }
