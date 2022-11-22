@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm npm ci --legacy-peer-deps
+          npm ci --legacy-peer-deps
           npm i -g firebase-tools
 
       - name: Build
