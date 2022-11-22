@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';

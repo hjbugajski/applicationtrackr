@@ -1,5 +1,5 @@
 import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
 import { Application } from '~models/application.model';

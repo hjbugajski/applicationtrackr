@@ -1,7 +1,7 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { orderBy, query, where } from '@angular/fire/firestore';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { deepEqual } from '@firebase/util';
 import { lastValueFrom, Observable } from 'rxjs';
 

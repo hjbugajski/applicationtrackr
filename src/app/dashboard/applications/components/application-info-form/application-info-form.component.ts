@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatInput } from '@angular/material/input';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
