@@ -96,7 +96,9 @@
         <mat-label>Date</mat-label>
         <input formControlName="date" matInput [matDatepicker]="datePicker" [max]="currentDate" [readonly]="readonly" />
         <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="!editing">
-          <mat-icon matDatepickerToggleIcon>today</mat-icon>
+          <mat-icon matDatepickerToggleIcon class="at-text" [ngClass]="{ neutral: !readonly, subtle: readonly }">
+            today
+          </mat-icon>
         </mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error>{{ getError(date) }}</mat-error>

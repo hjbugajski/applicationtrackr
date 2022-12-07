@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.3.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.3.0...v1.3.1) (2022-12-07)
+
+### Bug Fixes
+
+- update icon colors in datepicker ([22ab813](https://github.com/hjbugajski/applicationtrackr/commit/22ab8136e5b3d4f8905729dfdf55582e92d08b99))
+
 ## [1.3.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.2.2...v1.3.0) (2022-11-11)
 
 ### Features
