@@ -1,6 +1,6 @@
-.google-button-dark {
-  color: var(--color-black);
-  background-color: var(--color-white);
+.at-google-button {
+  color: var(--color-black) !important;
+  background-color: var(--color-white) !important;
 
   &:hover,
   &:focus {
@@ -10,4 +10,8 @@
   &.is-disabled {
     background-color: transparent;
   }
+}
+
+.at-google-button-dark-theme {
+  border-color: var(--color-white) !important;
 }

@@ -9,19 +9,19 @@
       <mat-icon>explore</mat-icon>
       <at-toolbar-title>ApplicationTrackr</at-toolbar-title>
     </at-toolbar>
-    <mat-nav-list class="at-dashboard-sidenav-selection-list">
+    <div class="at-dashboard-sidenav-list">
       <a
-        mat-list-item
         *ngFor="let item of sidenavItems"
+        matRipple
         [routerLink]="item.route"
-        routerLinkActive="mat-list-single-selected-option"
+        routerLinkActive="at-dashboard-sidenav-item-active"
         (click)="toggleSidenav()"
-        class="at-dashboard-selection-sidenav-item"
+        class="at-dashboard-sidenav-item"
       >
-        <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-        {{ item.viewValue }}
+        <mat-icon class="at-dashboard-sidenav-item-icon">{{ item.icon }}</mat-icon>
+        <span class="at-dashboard-sidenav-item-title">{{ item.viewValue }}</span>
       </a>
-    </mat-nav-list>
+    </div>
     <ng-container *ngIf="(sidenavService.showMenuButton$ | async) === false">
       <mat-divider class="padded-divider"></mat-divider>
       <div class="at-dashboard-padded-container">

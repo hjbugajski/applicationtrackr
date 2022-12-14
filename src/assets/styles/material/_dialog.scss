@@ -3,14 +3,16 @@
 
 .at-light-theme,
 .at-dark-theme {
-  .mat-dialog-container {
-    @include mixins.border;
-
+  .mat-mdc-dialog-container {
     max-height: 100vh;
     padding: 0;
   }
 
-  .mat-dialog-title {
+  .mat-mdc-dialog-surface {
+    @include mixins.border;
+  }
+
+  .mat-mdc-dialog-title {
     @include mixins.font-size(20px);
 
     position: sticky;
@@ -22,13 +24,13 @@
     background-color: var(--color-canvas);
   }
 
-  .mat-dialog-content {
+  .mat-mdc-dialog-content {
     margin: 0;
-    padding: 0 24px 24px;
+    padding: 0 24px 24px !important;
   }
 
   .mat-dialog-container-with-toolbar {
-    .mat-dialog-container {
+    .mat-mdc-dialog-container {
       padding: 0;
     }
 
@@ -36,10 +38,10 @@
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      margin-bottom: 16px;
     }
 
-    .mat-dialog-title {
+    .mat-mdc-dialog-title {
+      height: fit-content;
       margin: 0;
       padding: 16px 24px;
 
@@ -49,7 +51,7 @@
         .dialog-title {
           @include mixins.font-size(20px);
 
-          margin-bottom: 8px;
+          margin: 0 0 8px;
           color: var(--color-primary);
           font-weight: variables.$font-weight-bold !important;
         }
@@ -57,7 +59,7 @@
         .dialog-sub-title {
           @include mixins.font-size(16px);
 
-          margin-bottom: 0;
+          margin: 0;
           color: var(--color-muted);
           font-weight: variables.$font-weight-semi-bold !important;
         }
@@ -85,11 +87,11 @@
     padding-bottom: 24px;
   }
 
-  .at-dialog-with-padding .mat-dialog-container {
-    padding: 24px;
+  .at-dialog-with-padding .mat-mdc-dialog-surface {
+    padding: 24px !important;
   }
 
-  .overlay-spinner-dialog .mat-dialog-container {
+  .overlay-spinner-dialog .mat-mdc-dialog-container {
     background-color: transparent !important;
     border: 0 !important;
     box-shadow: none !important;
@@ -100,14 +102,14 @@
     max-width: 100vw !important;
     height: 100vh !important;
 
-    .mat-dialog-container {
+    .mat-mdc-dialog-surface {
       height: 100% !important;
       border: 0;
       border-radius: 0 !important;
+    }
 
-      .mat-dialog-content {
-        max-height: unset !important;
-      }
+    .mat-mdc-dialog-content {
+      max-height: unset !important;
     }
 
     @media (min-width: 768px) {
@@ -116,9 +118,13 @@
       max-width: 80vw !important;
       height: auto !important;
 
-      .mat-dialog-container {
+      .mat-mdc-dialog-surface {
         @include mixins.border;
       }
     }
+  }
+
+  .mdc-dialog__title::before {
+    height: unset;
   }
 }

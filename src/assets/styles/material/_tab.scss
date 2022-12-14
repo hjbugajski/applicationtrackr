@@ -5,52 +5,90 @@
 
 .at-light-theme,
 .at-dark-theme {
-  .mat-tab-group {
-    .mat-tab-nav-bar,
-    .mat-tab-header {
-      border-bottom: 2px solid map.get(palette.$at-palette, border);
-    }
-
-    .mat-tab-label {
-      @include mixins.tab-label-color(map.get(palette.$at-palette, primary));
-
-      min-width: unset;
-      height: unset;
-      margin-bottom: 10px;
-      padding: 8px 16px;
-      border-radius: variables.$border-radius;
-      opacity: 1;
-
-      &:not(:last-of-type) {
-        margin-right: 16px;
-      }
-
-      &:hover,
-      &:focus {
-        background-color: map.get(palette.$at-palette, hover) !important;
-      }
-    }
-
+  .mat-mdc-tab-group {
     @each $key in map-keys(palette.$at-palette-keys) {
-      &.#{$key} {
-        * > * .mat-tab-label {
-          @include mixins.tab-label-color(map.get(palette.$at-palette, $key));
+      &.mat-#{$key} .mat-mdc-tab:not(.mat-mdc-tab-disabled) {
+        &.mdc-tab--active .mdc-tab__text-label {
+          color: map.get(palette.$at-palette, $key) !important;
         }
 
-        * > * .mat-ink-bar {
+        .mdc-tab-indicator__content--underline {
+          border-color: map.get(palette.$at-palette, $key) !important;
+        }
+
+        .mdc-tab__ripple::before {
+          background-color: map.get(palette.$at-palette, $key) !important;
+        }
+
+        .mat-ripple-element {
           background-color: map.get(palette.$at-palette, $key) !important;
         }
       }
     }
+
+    gap: 24px;
+
+    .mat-mdc-tab-nav-bar,
+    .mat-mdc-tab-header {
+      border-bottom: 2px solid map.get(palette.$at-palette, border);
+    }
+
+    .mat-mdc-tab {
+      min-width: unset !important;
+      padding: 0 16px !important;
+
+      .mdc-tab__text-label {
+        font-weight: 600;
+      }
+
+      // @include mixins.tab-label-color(map.get(palette.$at-palette, primary));
+
+      // min-width: unset;
+      // height: unset;
+      // margin-bottom: 10px;
+      // padding: 8px 16px;
+      // border-radius: variables.$border-radius;
+      // opacity: 1;
+
+      // &:not(:last-of-type) {
+      //   margin-right: 16px;
+      // }
+
+      // &:hover,
+      // &:focus {
+      //   background-color: map.get(palette.$at-palette, hover) !important;
+      // }
+    }
+
+    // @each $key in map-keys(palette.$at-palette-keys) {
+    //   &.#{$key} {
+    //     * > * .mdc-tab__text-label {
+    //       @include mixins.tab-label-color(map.get(palette.$at-palette, $key));
+    //     }
+
+    //     * > * .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+    //       border-color: map.get(palette.$at-palette, $key) !important;
+    //     }
+    //   }
+    // }
   }
 
-  .mat-tab-header-pagination {
+  .mat-mdc-tab-header-pagination {
     box-shadow: none !important;
   }
 
-  .mat-ink-bar {
-    height: 4px;
+  .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+    border-top-width: 4px;
     border-top-left-radius: variables.$border-radius;
     border-top-right-radius: variables.$border-radius;
+  }
+
+  .mat-mdc-tab-ripple,
+  .mat-mdc-tab .mdc-tab__ripple::before {
+    top: 8px;
+    right: 4px;
+    bottom: 8px;
+    left: 4px;
+    border-radius: variables.$border-radius;
   }
 }

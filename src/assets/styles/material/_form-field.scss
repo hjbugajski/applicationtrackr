@@ -2,8 +2,8 @@
 
 .at-light-theme,
 .at-dark-theme {
-  .mat-form-field {
-    margin-bottom: 16px;
+  .mat-mdc-form-field {
+    margin-bottom: 12px;
 
     &.two-line-hint {
       margin-bottom: 32px;
@@ -12,32 +12,39 @@
         margin-bottom: 24px;
       }
     }
-  }
 
-  .mat-form-field-type-mat-select {
-    .mat-select-arrow {
-      display: none;
-    }
-
-    .mat-icon {
-      color: var(--color-muted);
-      font-size: 28px !important;
-    }
-  }
-
-  .mat-form-field-appearance-fill {
-    .mat-form-field-flex {
-      background-color: var(--color-canvas-inset) !important;
-      border: 2px solid var(--color-border) !important;
-      border-radius: variables.$border-radius !important;
-    }
-
-    .mat-form-field-underline {
+    .mat-mdc-form-field-focus-overlay {
       display: none !important;
     }
 
-    .mat-form-field-label {
-      top: 1.075em !important;
+    .mdc-text-field {
+      background-color: var(--color-canvas-inset) !important;
+      border: 2px solid var(--color-border);
+      border-radius: variables.$border-radius;
+    }
+
+    .mat-mdc-form-field-infix {
+      display: flex;
+    }
+
+    .mdc-line-ripple {
+      display: none;
+    }
+
+    .mat-mdc-select .mat-mdc-select-arrow-wrapper .mat-mdc-select-arrow {
+      display: none;
+    }
+
+    .mat-mdc-form-field-icon-suffix .mat-icon.arrow-drop-down {
+      width: 28px;
+      height: 28px;
+      padding: 10px;
+      color: var(--color-muted);
+      font-size: 28px;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      line-height: normal;
     }
   }
 
@@ -46,15 +53,15 @@
 
     @media (min-width: 425px) {
       display: grid;
-      grid-template-columns: 1fr 115px;
+      grid-template-columns: 1fr 135px;
 
-      .mat-form-field:first-of-type .mat-form-field-flex {
+      .mat-mdc-form-field:first-of-type .mdc-text-field {
         border-right-width: 0 !important;
         border-top-right-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
       }
 
-      .mat-form-field:last-of-type .mat-form-field-flex {
+      .mat-mdc-form-field:last-of-type .mdc-text-field {
         border-left: 2px solid var(--color-border);
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
@@ -62,7 +69,15 @@
     }
   }
 
-  .mat-form-field-suffix .mat-icon {
-    line-height: 1 !important;
+  .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+    padding-right: 8px;
+  }
+
+  .mat-mdc-form-field-icon-suffix > .mat-icon {
+    padding: 0;
+  }
+
+  input.mat-mdc-input-element {
+    font-family: variables.$font-family !important;
   }
 }

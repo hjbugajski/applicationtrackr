@@ -1,7 +1,7 @@
 .at-light-theme,
 .at-dark-theme {
   .mat-divider {
-    border-top-width: 2px !important;
+    border-top: 2px solid var(--color-border) !important;
 
     &.padded-divider {
       margin: 8px 0 !important;

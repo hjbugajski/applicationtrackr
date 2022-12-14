@@ -11,7 +11,7 @@
           {{ jobBoard.title }}
         </mat-option>
       </mat-select>
-      <mat-icon matSuffix>arrow_drop_down</mat-icon>
+      <mat-icon matSuffix class="arrow-drop-down">arrow_drop_down</mat-icon>
     </mat-form-field>
     <button mat-flat-button color="primary" class="full-width" (click)="newBoard()">New job board</button>
   </ng-container>
@@ -25,7 +25,7 @@
       <ng-container *ngFor="let jobBoard of jobBoards$ | async">
         <span *ngIf="jobBoard.docId === (currentJobBoard$ | async)" class="text">{{ jobBoard.title }}</span>
       </ng-container>
-      <mat-icon class="at-text muted">arrow_drop_down</mat-icon>
+      <mat-icon class="at-text muted large-icon">arrow_drop_down</mat-icon>
     </button>
     <mat-menu #jobBoardMenu="matMenu">
       <button mat-menu-item (click)="newBoard()">New job board</button>

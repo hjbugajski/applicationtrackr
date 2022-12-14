@@ -13,8 +13,7 @@
 
 @mixin tab-label-color($color) {
   &:hover,
-  &:focus,
-  &.mat-tab-label-active {
-    color: $color;
+  &:focus {
+    color: $color !important;
   }
 }

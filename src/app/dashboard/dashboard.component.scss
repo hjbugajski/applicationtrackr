@@ -6,20 +6,6 @@
     display: flex;
     flex-direction: column;
   }
-
-  .at-dashboard-selection-sidenav-item {
-    height: 48px !important;
-
-    .mat-list-item-content {
-      gap: 12px;
-      padding: 0 16px;
-      font-weight: variables.$font-weight-semi-bold;
-
-      .mat-icon {
-        padding: 0;
-      }
-    }
-  }
 }
 
 .at-dashboard-sidenav {
@@ -28,15 +14,40 @@
   width: 250px;
 }
 
-.at-dashboard-sidenav-selection-list {
+.at-dashboard-sidenav-list {
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 0 8px;
 
-  .at-dashboard-selection-sidenav-item,
+  .at-dashboard-sidenav-item,
   .mat-ripple {
     border-radius: variables.$border-radius;
+  }
+
+  .at-dashboard-sidenav-item {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    height: 48px;
+    padding: 0 16px;
+    color: var(--color-foreground);
+    font-weight: variables.$font-weight-semi-bold;
+    text-decoration: none;
+
+    &:hover {
+      background-color: var(--color-hover);
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-primary);
+    }
+
+    &.at-dashboard-sidenav-item-active {
+      color: var(--color-primary);
+      background-color: var(--color-hover);
+    }
   }
 }
 

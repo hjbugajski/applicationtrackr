@@ -8,7 +8,7 @@
   <div class="settings-section">
     <h2 class="settings-section-header">Account</h2>
     <div class="settings-account-details-email">{{ user!.email }}</div>
-    <div class="mat-caption">Signed in with {{ providerDisplay }}</div>
+    <div class="at-caption">Signed in with {{ providerDisplay }}</div>
   </div>
 
   <ng-container *ngIf="provider === providers.Password">
@@ -102,7 +102,7 @@
             <at-sign-in-with-password-form
               *ngSwitchCase="providers.Password"
               [authMode]="authModes.Reauthenticate"
-              buttonColor="warn"
+              buttonColor="danger"
               buttonText="Re-authenticate"
               [showForm]="true"
               (reauthenticated)="goToNextStep(authStepper)"
@@ -129,7 +129,7 @@
               />
               <mat-error>{{ getConfirmDeleteError() }}</mat-error>
             </mat-form-field>
-            <button mat-flat-button color="warn" type="submit" [disabled]="isLoading">
+            <button mat-flat-button color="danger" type="submit" [disabled]="isLoading">
               <div *ngIf="isLoading" class="loading-spinner-in-button">
                 <mat-spinner color="accent" diameter="24"></mat-spinner>
               </div>

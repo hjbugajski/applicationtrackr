@@ -10,6 +10,7 @@
     "property-no-vendor-prefix": null,
     "no-descending-specificity": null,
     "function-no-unknown": null,
-    "scss/dollar-variable-empty-line-before": null
+    "scss/dollar-variable-empty-line-before": null,
+    "selector-class-pattern": null
   }
 }

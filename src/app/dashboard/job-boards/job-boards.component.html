@@ -12,7 +12,12 @@
     </div>
     <div class="job-boards-list-item-actions">
       <button mat-stroked-button color="primary" (click)="editJobBoard(jobBoard)">Edit</button>
-      <button mat-stroked-button color="warn" [disabled]="isCurrentBoard(jobBoard)" (click)="deleteJobBoard(jobBoard)">
+      <button
+        mat-stroked-button
+        color="danger"
+        [disabled]="isCurrentBoard(jobBoard)"
+        (click)="deleteJobBoard(jobBoard)"
+      >
         Delete
       </button>
     </div>

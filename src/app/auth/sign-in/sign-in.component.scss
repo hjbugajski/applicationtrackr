@@ -1,22 +1,14 @@
 @use 'pages/auth';
 
 :host {
-  .mat-button-base:not(:last-child) {
-    margin-bottom: 16px;
-  }
-
-  ::ng-deep {
-    .at-sign-in-with-apple,
-    .at-sign-in-with-google {
-      margin-bottom: 16px;
-    }
-  }
-
-  .forgot-password-button {
-    margin-top: 16px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
   .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     overflow: hidden;
   }
 }

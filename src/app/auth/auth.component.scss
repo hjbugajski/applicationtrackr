@@ -27,6 +27,8 @@
 
   .at-auth-title {
     @include mixins.font-size(24px);
+
+    margin: 0;
   }
 }
 

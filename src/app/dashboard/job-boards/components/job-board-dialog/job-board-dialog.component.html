@@ -8,7 +8,7 @@
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-label>Start date</mat-label>
-      <input formControlName="date" matInput [matDatepicker]="picker" />
+      <input formControlName="date" matInput [matDatepicker]="picker" [max]="currentDate" />
       <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon class="at-text neutral">today</mat-icon>
       </mat-datepicker-toggle>

@@ -33,7 +33,14 @@
     </mat-menu>
   </div>
 </div>
-<mat-tab-group mat-dialog-content [ngClass]="column.color" class="mat-dialog-content-with-tabs">
+<mat-tab-group
+  mat-dialog-content
+  mat-stretch-tabs="false"
+  mat-align-tabs="start"
+  [color]="column.color"
+  [ngClass]="column.color"
+  class="mat-dialog-content-with-tabs"
+>
   <mat-tab label="Info">
     <ng-template matTabContent>
       <at-application-info-form
