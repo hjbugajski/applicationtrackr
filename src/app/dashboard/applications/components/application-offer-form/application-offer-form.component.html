@@ -12,8 +12,8 @@
           class="number-input"
           [readonly]="readonly"
         />
-        <span matPrefix>$&nbsp;</span>
-        <span matSuffix>/</span>
+        <span matTextPrefix>$&nbsp;</span>
+        <span matTextSuffix>/</span>
         <mat-error>{{ getError(compensation) }}</mat-error>
       </mat-form-field>
 
@@ -41,7 +41,7 @@
     <mat-form-field class="full-width" floatLabel="always">
       <mat-label>Bonus</mat-label>
       <input formControlName="bonus" matInput type="number" placeholder="0" [readonly]="readonly" />
-      <span matPrefix>$&nbsp;</span>
+      <span matTextPrefix>$&nbsp;</span>
       <mat-error>{{ getError(bonus) }}</mat-error>
     </mat-form-field>
 

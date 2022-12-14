@@ -2,20 +2,23 @@
 
 .at-light-theme,
 .at-dark-theme {
-  .mat-menu-panel,
-  .mat-select-panel {
+  .mat-mdc-menu-panel,
+  .mat-mdc-select-panel {
     @include mixins.border;
   }
 
-  .mat-menu-panel {
+  .mat-mdc-menu-panel {
     top: 2px;
   }
 
-  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  .mat-mdc-menu-item:hover,
+  .mat-mdc-option:hover,
+  .mat-mdc-menu-item-highlighted {
     background: var(--color-hover) !important;
   }
 
-  .mat-menu-content {
+  .mat-mdc-select-panel,
+  .mat-mdc-menu-content {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 
@@ -24,8 +27,8 @@
     }
   }
 
-  .mat-list-single-selected-option {
-    color: var(--color-primary) !important;
+  .mat-mdc-option-active {
+    color: var(--color-primary);
     background-color: var(--color-hover) !important;
   }
 
@@ -39,10 +42,10 @@
 
   .mat-menu-item-with-right-icon {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
-    padding: 0 8px 0 16px;
+    padding: 0 8px 0 16px !important;
 
     .mat-icon {
       width: 28px;
@@ -51,8 +54,12 @@
       font-size: 28px;
     }
 
-    .mat-menu-submenu-icon {
+    .mat-mdc-menu-submenu-icon {
       display: none;
     }
+  }
+
+  .mdc-list-item .mdc-list-item__primary-text {
+    color: inherit !important;
   }
 }

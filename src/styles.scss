@@ -2,16 +2,20 @@
 @use 'colors';
 @use 'components';
 @use 'material';
+@use 'mixins';
 @use 'palette';
 @use 'themes';
 @use 'variables';
 
 * {
   box-sizing: border-box;
+  letter-spacing: normal;
 }
 
 html,
 body {
+  @include mixins.font-size(14px);
+
   height: 100%;
   margin: 0;
   color: map.get(palette.$at-palette, contrast, canvas);
@@ -40,6 +44,11 @@ a {
 
     &.at-text {
       color: map.get(palette.$at-palette, $key) !important;
+    }
+
+    &.at-color-background {
+      color: map.get(palette.$at-palette, contrast, $key) !important;
+      background-color: map.get(palette.$at-palette, $key) !important;
     }
 
     &:not(.neutral).at-alpha-background {
@@ -72,4 +81,10 @@ a {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.at-caption {
+  @include mixins.font-size(12px);
+
+  color: var(--color-muted);
 }

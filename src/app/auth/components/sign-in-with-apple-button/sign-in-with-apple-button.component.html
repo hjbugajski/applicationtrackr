@@ -1,21 +1,19 @@
-<div class="at-sign-in-with-apple">
-  <button
-    mat-stroked-button
-    [disabled]="isLoading"
-    (click)="signInWithApple()"
-    [ngClass]="{
-      'apple-button-light': appTheme === themes.Light,
-      'apple-button-dark': appTheme === themes.Dark,
-      'is-disabled': isLoading
-    }"
-    [class.full-width]="fullWidth"
-  >
-    <div *ngIf="isLoading" class="loading-spinner-in-button">
-      <mat-spinner color="accent" diameter="24"></mat-spinner>
-    </div>
-    <ng-container *ngIf="!isLoading">
-      <mat-icon svgIcon="apple-logo"></mat-icon>
-      {{ prefix }} with Apple
-    </ng-container>
-  </button>
-</div>
+<button
+  mat-button
+  [disabled]="isLoading"
+  (click)="signInWithApple()"
+  [ngClass]="{
+    'at-apple-button-light-theme': appTheme === themes.Light,
+    'at-apple-button-dark-theme': appTheme === themes.Dark,
+    'is-disabled': isLoading
+  }"
+  [class.full-width]="fullWidth"
+>
+  <div *ngIf="isLoading" class="loading-spinner-in-button">
+    <mat-spinner color="accent" diameter="24"></mat-spinner>
+  </div>
+  <ng-container *ngIf="!isLoading">
+    <mat-icon svgIcon="apple-logo"></mat-icon>
+    {{ prefix }} with Apple
+  </ng-container>
+</button>

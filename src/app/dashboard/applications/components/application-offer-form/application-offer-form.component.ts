@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';

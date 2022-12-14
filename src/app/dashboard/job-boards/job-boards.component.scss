@@ -42,8 +42,10 @@
     }
   }
 
-  .job-boards-list-item-actions .mat-button-base:not(:last-child) {
-    margin-right: 8px;
+  .job-boards-list-item-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
   }
 }
 

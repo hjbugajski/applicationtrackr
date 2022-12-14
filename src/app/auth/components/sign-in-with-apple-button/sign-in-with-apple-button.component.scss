@@ -1,15 +1,15 @@
-.apple-button-light {
-  color: var(--color-white);
-  background-color: var(--color-black);
+.at-apple-button-light-theme {
+  color: var(--color-white) !important;
+  background-color: var(--color-black) !important;
 
   &.is-disabled {
     background-color: transparent;
   }
 }
 
-.apple-button-dark {
-  color: var(--color-black);
-  background-color: var(--color-white);
+.at-apple-button-dark-theme {
+  color: var(--color-black) !important;
+  background-color: var(--color-white) !important;
 
   &:hover,
   &:focus {

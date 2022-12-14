@@ -10,10 +10,22 @@
     </span>
   </div>
   <div class="column-actions">
-    <button mat-icon-button matTooltip="New application" (click)="newApplication()" [disabled]="!column">
+    <button
+      mat-icon-button
+      [color]="column?.color"
+      matTooltip="New application"
+      (click)="newApplication()"
+      [disabled]="!column"
+    >
       <mat-icon>add</mat-icon>
     </button>
-    <button mat-icon-button matTooltip="Menu" [matMenuTriggerFor]="columOptionsMenu" [disabled]="!column">
+    <button
+      mat-icon-button
+      [color]="column?.color"
+      matTooltip="Menu"
+      [matMenuTriggerFor]="columOptionsMenu"
+      [disabled]="!column"
+    >
       <mat-icon>more_horiz</mat-icon>
     </button>
 

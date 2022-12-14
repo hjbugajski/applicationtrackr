@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';

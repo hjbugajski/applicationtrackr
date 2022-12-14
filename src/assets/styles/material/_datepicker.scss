@@ -2,9 +2,9 @@
 
 .at-light-theme,
 .at-dark-theme {
-  .mdc-tooltip__surface {
-    padding: 8px 12px;
-    background-color: var(--color-tooltip);
+  .mat-datepicker-content {
+    border: 2px solid var(--color-border);
     border-radius: variables.$border-radius;
+    box-shadow: none !important;
   }
 }

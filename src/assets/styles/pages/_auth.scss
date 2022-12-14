@@ -2,6 +2,8 @@
 
 .at-auth-card-title {
   @include mixins.font-size(20px);
+
+  margin: 0 0 8px;
 }
 
 .at-auth-back-button {

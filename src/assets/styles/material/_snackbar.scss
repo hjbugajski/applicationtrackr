@@ -2,11 +2,15 @@
 
 .at-light-theme,
 .at-dark-theme {
-  .mat-snackbar {
+  .mdc-snackbar__surface {
     @include mixins.border;
 
-    padding: 0;
-    color: var(--color-contrast-canvas) !important;
+    padding: 0 !important;
     background-color: var(--color-canvas) !important;
+  }
+
+  .mat-mdc-snack-bar-label {
+    padding: 0 !important;
+    color: var(--color-contrast-canvas) !important;
   }
 }

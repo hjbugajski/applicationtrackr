@@ -230,6 +230,7 @@ $white: #fff;
   --color-neutral: #{$light-gray-9};
   --color-muted: #{$light-gray-6};
   --color-subtle: #{$light-gray-5};
+  --color-tooltip: #{$light-gray-6};
   --color-border: #{$light-gray-1};
   --color-hover: #{$light-gray-0};
   --color-canvas: #{$white};
@@ -287,6 +288,7 @@ $white: #fff;
   --color-neutral: #{$dark-gray-1};
   --color-muted: #{$dark-gray-3};
   --color-subtle: #{$dark-gray-4};
+  --color-tooltip: #{$dark-gray-7};
   --color-border: #{$dark-gray-8};
   --color-hover: #{$dark-gray-9};
   --color-canvas: #{$dark-gray-10};
@@ -311,17 +313,17 @@ $white: #fff;
   --color-alpha-canvas-inset: #{$dark-gray-9}0d;
 
   // contrast
-  --color-contrast-primary: #{$black};
-  --color-contrast-accent: #{$black};
-  --color-contrast-accent-alt: #{$black};
-  --color-contrast-success: #{$black};
-  --color-contrast-attention: #{$black};
-  --color-contrast-severe: #{$black};
-  --color-contrast-severe-alt: #{$black};
-  --color-contrast-danger: #{$black};
-  --color-contrast-neutral: #{$black};
-  --color-contrast-muted: #{$black};
-  --color-contrast-subtle: #{$black};
+  --color-contrast-primary: #{$dark-gray-10};
+  --color-contrast-accent: #{$dark-gray-10};
+  --color-contrast-accent-alt: #{$dark-gray-10};
+  --color-contrast-success: #{$dark-gray-10};
+  --color-contrast-attention: #{$dark-gray-10};
+  --color-contrast-severe: #{$dark-gray-10};
+  --color-contrast-severe-alt: #{$dark-gray-10};
+  --color-contrast-danger: #{$dark-gray-10};
+  --color-contrast-neutral: #{$dark-gray-10};
+  --color-contrast-muted: #{$dark-gray-10};
+  --color-contrast-subtle: #{$dark-gray-10};
   --color-contrast-border: #{$dark-gray-1};
   --color-contrast-hover: #{$dark-gray-1};
   --color-contrast-canvas: #{$dark-gray-1};
@@ -340,36 +342,11 @@ $red-palette: (
   800: $light-red-8,
   900: $light-red-9,
   contrast: (
-    50: $black,
-    100: $black,
-    200: $black,
-    300: $black,
-    400: $black,
-    500: $white,
-    600: $white,
-    700: $white,
-    800: $white,
-    900: $white
-  )
-);
-
-$dark-red-palette: (
-  50: $dark-red-0,
-  100: $dark-red-1,
-  200: $dark-red-2,
-  300: $dark-red-3,
-  400: $dark-red-4,
-  500: $dark-red-5,
-  600: $dark-red-6,
-  700: $dark-red-7,
-  800: $dark-red-8,
-  900: $dark-red-9,
-  contrast: (
-    50: $black,
-    100: $black,
-    200: $black,
-    300: $black,
-    400: $black,
+    50: $light-gray-10,
+    100: $light-gray-10,
+    200: $light-gray-10,
+    300: $light-gray-10,
+    400: $light-gray-10,
     500: $white,
     600: $white,
     700: $white,
@@ -390,36 +367,11 @@ $purple-palette: (
   800: $light-purple-8,
   900: $light-purple-9,
   contrast: (
-    50: $black,
-    100: $black,
-    200: $black,
-    300: $black,
-    400: $black,
-    500: $white,
-    600: $white,
-    700: $white,
-    800: $white,
-    900: $white
-  )
-);
-
-$dark-purple-palette: (
-  50: $dark-purple-0,
-  100: $dark-purple-1,
-  200: $dark-purple-2,
-  300: $dark-purple-3,
-  400: $dark-purple-4,
-  500: $dark-purple-5,
-  600: $dark-purple-6,
-  700: $dark-purple-7,
-  800: $dark-purple-8,
-  900: $dark-purple-9,
-  contrast: (
-    50: $black,
-    100: $black,
-    200: $black,
-    300: $black,
-    400: $black,
+    50: $light-gray-10,
+    100: $light-gray-10,
+    200: $light-gray-10,
+    300: $light-gray-10,
+    400: $light-gray-10,
     500: $white,
     600: $white,
     700: $white,
@@ -440,11 +392,61 @@ $blue-palette: (
   800: $light-blue-8,
   900: $light-blue-9,
   contrast: (
-    50: $black,
-    100: $black,
-    200: $black,
-    300: $black,
-    400: $black,
+    50: $light-gray-10,
+    100: $light-gray-10,
+    200: $light-gray-10,
+    300: $light-gray-10,
+    400: $light-gray-10,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$dark-red-palette: (
+  50: $dark-red-0,
+  100: $dark-red-1,
+  200: $dark-red-2,
+  300: $dark-red-3,
+  400: $dark-red-4,
+  500: $dark-red-5,
+  600: $dark-red-6,
+  700: $dark-red-7,
+  800: $dark-red-8,
+  900: $dark-red-9,
+  contrast: (
+    50: $dark-gray-10,
+    100: $dark-gray-10,
+    200: $dark-gray-10,
+    300: $dark-gray-10,
+    400: $dark-gray-10,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$dark-purple-palette: (
+  50: $dark-purple-0,
+  100: $dark-purple-1,
+  200: $dark-purple-2,
+  300: $dark-purple-3,
+  400: $dark-purple-4,
+  500: $dark-purple-5,
+  600: $dark-purple-6,
+  700: $dark-purple-7,
+  800: $dark-purple-8,
+  900: $dark-purple-9,
+  contrast: (
+    50: $dark-gray-10,
+    100: $dark-gray-10,
+    200: $dark-gray-10,
+    300: $dark-gray-10,
+    400: $dark-gray-10,
     500: $white,
     600: $white,
     700: $white,
@@ -465,11 +467,11 @@ $dark-blue-palette: (
   800: $dark-blue-8,
   900: $dark-blue-9,
   contrast: (
-    50: $black,
-    100: $black,
-    200: $black,
-    300: $black,
-    400: $black,
+    50: $dark-gray-10,
+    100: $dark-gray-10,
+    200: $dark-gray-10,
+    300: $dark-gray-10,
+    400: $dark-gray-10,
     500: $white,
     600: $white,
     700: $white,
@@ -485,6 +487,7 @@ $light-theme-foreground-palette: (
   disabled: $light-gray-2,
   disabled-button: $light-gray-3,
   disabled-text: $light-gray-2,
+  elevation: $light-gray-9,
   hint-text: $light-gray-6,
   secondary-text: $light-gray-6,
   icon: $light-gray-9,
@@ -502,6 +505,7 @@ $dark-theme-foreground-palette: (
   disabled: $dark-gray-6,
   disabled-button: $dark-gray-6,
   disabled-text: $dark-gray-6,
+  elevation: $dark-gray-1,
   hint-text: $dark-gray-3,
   secondary-text: $dark-gray-3,
   icon: $dark-gray-1,

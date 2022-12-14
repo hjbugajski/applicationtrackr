@@ -9,13 +9,10 @@
 .button-row-container-end {
   display: flex;
   flex-direction: row;
+  gap: 8px;
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-
-  .mat-button-base:not(:last-child) {
-    margin-right: 8px;
-  }
 }
 
 .button-row {

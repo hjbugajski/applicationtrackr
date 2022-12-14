@@ -4,36 +4,17 @@
 
 .at-light-theme,
 .at-dark-theme {
-  @each $key in map-keys(palette.$at-palette-keys) {
-    .mat-button.mat-#{$key} {
-      color: map.get(palette.$at-palette, $key);
-    }
-
-    .mat-flat-button,
-    .mat-raised-button,
-    .mat-fab,
-    .mat-mini-fab {
-      &.mat-#{$key} {
-        color: map.get(palette.$at-palette, contrast, $key);
-        background-color: map.get(palette.$at-palette, $key);
-      }
-    }
-
-    .mat-stroked-button.mat-#{$key} {
-      color: map.get(palette.$at-palette, $key);
-      border-color: map.get(palette.$at-palette, $key);
-    }
+  .mdc-button {
+    padding: 0 16px;
   }
 
-  a.mat-icon-button,
-  a.mat-icon-button .mat-button-wrapper {
+  .mat-mdc-button-base {
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .mat-button-base {
-    font-weight: variables.$font-weight-semi-bold;
+    gap: 8px;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    font-weight: 600 !important;
     border-radius: variables.$border-radius !important;
 
     &.mat-button-with-left-icon {
@@ -41,39 +22,87 @@
     }
 
     &.mat-button-with-right-icon {
+      flex-direction: row-reverse;
       padding: 0 12px 0 16px;
     }
 
-    &.mat-button-with-left-icon .mat-button-wrapper .mat-icon,
-    &.mat-button-with-right-icon .mat-button-wrapper .mat-icon {
-      width: 18px;
-      height: 18px;
-      font-size: 18px;
-    }
+    &:not(.mat-mdc-icon-button) .mat-icon {
+      width: 18px !important;
+      height: 18px !important;
+      margin: 0 !important;
+      font-size: 18px !important;
 
-    .mat-button-wrapper {
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
-      align-items: center;
-      justify-content: center;
-
-      .mat-icon {
-        display: flex;
+      &.large-icon {
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 24px;
-        height: 24px;
-
-        &.google-icon {
-          width: 18px;
-          height: 18px;
-        }
+        font-size: 24px !important;
       }
+    }
+
+    .mdc-button__label {
+      display: flex;
+      gap: 8px;
+      align-items: center !important;
+      justify-content: center !important;
+      font-weight: 600 !important;
+      font-family: variables.$font-family !important;
+
+      .mat-icon {
+        width: 18px !important;
+        height: 18px !important;
+        margin: 0 !important;
+        font-size: 18px !important;
+      }
+    }
+
+    .mat-mdc-button-touch-target {
+      display: none !important;
     }
   }
 
-  .mat-stroked-button {
+  .mat-mdc-icon-button.mat-mdc-button-base {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .mdc-icon-button {
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border-radius: variables.$border-radius !important;
+  }
+
+  a.mdc-icon-button .mdc-button__label {
+    display: none;
+  }
+
+  .mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
+    border-radius: variables.$border-radius !important;
+  }
+
+  @each $key in map-keys(palette.$at-palette-keys) {
+    .mdc-button.mat-#{$key}:not(:disabled) {
+      color: map.get(palette.$at-palette, $key);
+    }
+
+    .mat-mdc-unelevated-button.mat-#{$key}:not(:disabled) {
+      color: map.get(palette.$at-palette, contrast, $key);
+      background-color: map.get(palette.$at-palette, $key);
+    }
+
+    .mat-mdc-outlined-button.mat-#{$key}:not(:disabled) {
+      color: map.get(palette.$at-palette, $key);
+      border-color: map.get(palette.$at-palette, $key);
+    }
+
+    .mat-mdc-icon-button.mat-#{$key}:not(:disabled) .mat-mdc-button-persistent-ripple::before {
+      background-color: map.get(palette.$at-palette, $key) !important;
+    }
+  }
+
+  .mat-mdc-outlined-button {
     border-color: inherit !important;
     border-width: 2px !important;
   }

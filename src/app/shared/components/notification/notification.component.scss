@@ -1,24 +1,12 @@
-@use 'mixins';
 @use 'variables';
 
-.notification-container {
+:host {
+  display: block;
   padding: 16px;
+  font-weight: variables.$font-weight-semi-bold;
   border-radius: variables.$border-radius;
 
-  .notification-toolbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 8px;
-
-    .title {
-      @include mixins.font-size(18px);
-
-      font-weight: variables.$font-weight-bold;
-    }
-
-    .mat-icon:hover {
-      cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
   }
 }
