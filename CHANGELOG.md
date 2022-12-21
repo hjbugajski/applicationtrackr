@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.4.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.4.0...v1.4.1) (2022-12-21)
+
+### Bug Fixes
+
+- remove background and border from spinner dialog ([604560f](https://github.com/hjbugajski/applicationtrackr/commit/604560f02021e73e5942f0f099cdc5f256bb965d))
+
 ## [1.4.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.3.1...v1.4.0) (2022-12-14)
 
 ### Bug Fixes
