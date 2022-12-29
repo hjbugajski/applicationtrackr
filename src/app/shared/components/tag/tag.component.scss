@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use 'palette';
+@use 'mixins';
+@use 'variables';
+
+.at-tag {
+  @include mixins.font-size(12px);
+
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  font-weight: variables.$font-weight-semi-bold;
+  white-space: nowrap;
+  border-radius: 100px;
+
+  @each $key in map-keys(palette.$at-palette-keys) {
+    &.#{$key} {
+      color: map.get(palette.$at-palette, $key) !important;
+      background-color: map.get(palette.$at-palette, alpha, $key) !important;
+      border: 2px solid map.get(palette.$at-palette, $key) !important;
+    }
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-neutral);
+  }
+
+  &[variant='dropdown'] {
+    padding: 4px 4px 4px 8px;
+
+    .mat-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px !important;
+      height: 15px !important;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &[size='small'] {
+    padding: 2px 6px;
+  }
+}

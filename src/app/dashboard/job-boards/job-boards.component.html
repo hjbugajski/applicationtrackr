@@ -3,7 +3,7 @@
     <div class="job-boards-list-item-text">
       <div class="job-boards-list-item-title at-text primary">
         {{ jobBoard.title }}
-        <span *ngIf="isCurrentBoard(jobBoard)" class="tag success">Current</span>
+        <at-tag *ngIf="isCurrentBoard(jobBoard)" color="success">Current</at-tag>
       </div>
       <div class="at-text muted">
         {{ jobBoard.total }} {{ jobBoard.total === 1 ? 'application' : 'applications' }} &bull;

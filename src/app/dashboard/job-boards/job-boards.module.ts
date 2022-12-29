@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { JobBoardsComponent } from './job-boards.component';
 
 import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinner.module';
+import { TagModule } from '~components/tag/tag.module';
 
 @NgModule({
   declarations: [JobBoardsComponent],
@@ -13,7 +14,8 @@ import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinne
     CommonModule,
     MatButtonModule,
     OverlaySpinnerModule,
-    RouterModule.forChild([{ path: '', component: JobBoardsComponent }])
+    RouterModule.forChild([{ path: '', component: JobBoardsComponent }]),
+    TagModule
   ]
 })
 export class JobBoardsModule {}

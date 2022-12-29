@@ -1,13 +1,9 @@
 <div class="column-header at-text" [ngClass]="column?.color">
   <div class="column-title-container">
     <span class="column-title">{{ column?.title }}</span>
-    <span
-      *ngIf="column && !(column?.total === 0 && (collapseColumns$ | async))"
-      class="column-application-count tag"
-      [ngClass]="column.color"
-    >
+    <at-tag *ngIf="column && !(column?.total === 0 && (collapseColumns$ | async))" size="small" [color]="column.color">
       {{ column.total }}
-    </span>
+    </at-tag>
   </div>
   <div class="column-actions">
     <button
