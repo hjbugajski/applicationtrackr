@@ -39,7 +39,7 @@
   text-decoration: none !important;
   border-radius: variables.$border-radius;
 
-  &:not(:last-of-type) {
+  &:not(:last-child) {
     margin-bottom: 4px;
   }
 
