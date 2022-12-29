@@ -34,6 +34,12 @@
   font-weight: variables.$font-weight-bold;
 }
 
+.at-application-card-subtitle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .at-application-card-icon-subtitle {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -46,10 +52,9 @@
   display: inline-flex;
   align-items: center;
   width: auto;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   font-size: 16px;
-
-  // font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 16;
 }
 
 .at-application-card-date-text {
