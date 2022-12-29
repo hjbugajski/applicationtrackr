@@ -66,17 +66,19 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
         action: DialogActions.Discard,
         item: this.providedData.action === DialogActions.New ? 'column' : 'edits'
       };
-      const dialogAfterClosed = this.matDialog
-        .open(ConfirmationDialogComponent, {
-          autoFocus: false,
-          data,
-          disableClose: true,
-          width: '315px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>;
+      const dialogAction = await lastValueFrom(
+        this.matDialog
+          .open(ConfirmationDialogComponent, {
+            autoFocus: false,
+            data,
+            disableClose: true,
+            width: '315px',
+            panelClass: 'at-dialog-with-padding'
+          })
+          .afterClosed() as Observable<DialogActions>
+      );
 
-      if ((await lastValueFrom(dialogAfterClosed)) === DialogActions.Discard) {
+      if (dialogAction === DialogActions.Discard) {
         this.matDialogRef.close();
       }
     }
