@@ -16,6 +16,7 @@ import { ColumnDialogModule } from '~components/column-dialog/column-dialog.modu
 import { ConfirmationDialogModule } from '~components/confirmation-dialog/confirmation-dialog.module';
 import { NewApplicationDialogModule } from '~components/new-application-dialog/new-application-dialog.module';
 import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinner.module';
+import { TagModule } from '~components/tag/tag.module';
 import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pipe.module';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pi
     MatTooltipModule,
     NewApplicationDialogModule,
     OverlaySpinnerModule,
-    ScrollingModule
+    ScrollingModule,
+    TagModule
   ],
   exports: [ColumnComponent]
 })
