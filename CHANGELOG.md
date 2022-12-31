@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.4.1...v1.5.0) (2022-12-31)
+
+### Features
+
+- add tag component ([854312a](https://github.com/hjbugajski/applicationtrackr/commit/854312ae4f22950cbd423604ed3457f2cc0fdd5c))
+- add timestamp-date pipe ([73cd82d](https://github.com/hjbugajski/applicationtrackr/commit/73cd82d5cbb63e119b3c961579123d88ad79c457))
+- add trim-url pipe ([8afc126](https://github.com/hjbugajski/applicationtrackr/commit/8afc126761b6e450779449fd4c2f80fb6ec046ab))
+
+### Bug Fixes
+
+- adjust icon and text alignment ([bbd9fc2](https://github.com/hjbugajski/applicationtrackr/commit/bbd9fc2dd68fcd3d0bad3a89f0da234db4974430))
+- small style and layout changes ([85f7598](https://github.com/hjbugajski/applicationtrackr/commit/85f7598e15c921982e6e5601d93889fea837eb1d))
+
 ### [1.4.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.4.0...v1.4.1) (2022-12-21)
 
 ### Bug Fixes
