@@ -8,6 +8,12 @@ export class DayDifferencePipe implements PipeTransform {
   public transform(value: Timestamp): string {
     const diff = Math.floor((Date.now() - value.toMillis()) / (1000 * 3600 * 24));
 
-    return diff >= 1 ? `${diff} day${diff === 1 ? '' : 's'} ago` : 'Less than a day ago';
+    if (diff < 1) {
+      return 'Less than a day ago';
+    } else if (diff >= 1 && diff < 365) {
+      return `${diff} day${diff === 1 ? '' : 's'} ago`;
+    } else {
+      return 'More than a year ago';
+    }
   }
 }

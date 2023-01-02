@@ -97,13 +97,22 @@
       border-color: map.get(palette.$at-palette, $key);
     }
 
-    .mat-mdc-icon-button.mat-#{$key}:not(:disabled) .mat-mdc-button-persistent-ripple::before {
-      background-color: map.get(palette.$at-palette, $key) !important;
+    .mat-mdc-button,
+    .mat-mdc-outlined-button,
+    .mat-mdc-icon-button {
+      &.mat-#{$key}:not(:disabled) .mat-mdc-button-persistent-ripple::before {
+        background-color: map.get(palette.$at-palette, $key) !important;
+      }
     }
   }
 
   .mat-mdc-outlined-button {
     border-color: inherit !important;
     border-width: 2px !important;
+
+    .mat-mdc-button-persistent-ripple,
+    .mat-ripple {
+      border-radius: 8px !important;
+    }
   }
 }
