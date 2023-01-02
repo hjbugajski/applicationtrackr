@@ -1,8 +1,21 @@
 :host {
-  .job-board-menu {
+  ::ng-deep .job-board-menu {
+    &:hover .mat-mdc-button-persistent-ripple {
+      background-color: var(--color-hover);
+
+      &::before {
+        opacity: 0 !important;
+      }
+    }
+
     .mat-icon {
       width: 18px;
       height: 18px;
+    }
+
+    .mat-mdc-button-persistent-ripple,
+    .mat-ripple {
+      border-radius: 8px !important;
     }
 
     .text {
