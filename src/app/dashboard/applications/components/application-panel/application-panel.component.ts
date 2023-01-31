@@ -53,6 +53,35 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     this.subscription = this.applicationColumnSubscription;
   }
 
+  public get company(): AbstractControl<string | null> {
+    return this.companyPositionForm.controls.company;
+  }
+
+  public get position(): AbstractControl<string | null> {
+    return this.companyPositionForm.controls.position;
+  }
+
+  private get applicationColumnSubscription(): Subscription {
+    return this.applicationsService
+      .doc$(this.application.docId, applicationConverter)
+      .pipe(
+        switchMap(async (doc) => {
+          if (this.application.columnDocId !== doc.columnDocId) {
+            const newColumn = (await this.columnsService.docSnap(doc.columnDocId, columnConverter)).data();
+
+            if (newColumn) {
+              this.column = newColumn;
+            }
+          }
+
+          return doc;
+        })
+      )
+      .subscribe((doc) => {
+        this.application = doc;
+      });
+  }
+
   public async cancel(): Promise<void> {
     if (this.companyPositionForm.pristine) {
       this.isEditing = false;
@@ -196,39 +225,10 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     }
   }
 
-  private get applicationColumnSubscription(): Subscription {
-    return this.applicationsService
-      .doc$(this.application.docId, applicationConverter)
-      .pipe(
-        switchMap(async (doc) => {
-          if (this.application.columnDocId !== doc.columnDocId) {
-            const newColumn = (await this.columnsService.docSnap(doc.columnDocId, columnConverter)).data();
-
-            if (newColumn) {
-              this.column = newColumn;
-            }
-          }
-
-          return doc;
-        })
-      )
-      .subscribe((doc) => {
-        this.application = doc;
-      });
-  }
-
   private initForm(): void {
     this.companyPositionForm.setValue({
       company: this.application.company,
       position: this.application.position
     });
-  }
-
-  public get company(): AbstractControl<string | null> {
-    return this.companyPositionForm.controls.company;
-  }
-
-  public get position(): AbstractControl<string | null> {
-    return this.companyPositionForm.controls.position;
   }
 }

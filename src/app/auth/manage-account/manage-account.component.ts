@@ -28,6 +28,10 @@ export class ManageAccountComponent implements OnInit {
     this.linkButton = { route: '/', text: 'Back to sign in' };
   }
 
+  public get params(): typeof Params {
+    return Params;
+  }
+
   async ngOnInit(): Promise<void> {
     await this.setLinkButton();
   }
@@ -53,9 +57,5 @@ export class ManageAccountComponent implements OnInit {
     this.linkButton = isLoggedIn
       ? { route: `/${Paths.Dashboard}`, text: 'Back to dashboard' }
       : { route: `/${Paths.Auth}/${Paths.SignIn}`, text: 'Back to sign in' };
-  }
-
-  public get params(): typeof Params {
-    return Params;
   }
 }

@@ -11,8 +11,8 @@ import { UserStore } from '~store/user.store';
 
 interface SidenavItem {
   icon: string;
-  viewValue: string;
   route: string;
+  viewValue: string;
 }
 
 @Component({
@@ -49,6 +49,10 @@ export class DashboardComponent implements OnDestroy, OnInit {
     ];
   }
 
+  public get paths(): typeof Paths {
+    return Paths;
+  }
+
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
@@ -71,10 +75,6 @@ export class DashboardComponent implements OnDestroy, OnInit {
 
   public async signOut(): Promise<void> {
     await this.authService.signOut();
-  }
-
-  public get paths(): typeof Paths {
-    return Paths;
   }
 
   public async toggleSidenav(): Promise<void> {

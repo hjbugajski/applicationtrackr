@@ -19,8 +19,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-application-panel-offer',
-  templateUrl: './application-panel-offer.component.html',
-  styleUrls: ['./application-panel-offer.component.scss']
+  templateUrl: './application-panel-offer.component.html'
 })
 export class ApplicationPanelOfferComponent implements OnInit {
   @Input() public application!: Application;
@@ -46,6 +45,68 @@ export class ApplicationPanelOfferComponent implements OnInit {
     private matDialog: MatDialog,
     private notificationService: NotificationService
   ) {}
+
+  public get benefits(): AbstractControl<string | null> {
+    return this.offerForm.controls.benefits;
+  }
+
+  public get bonus(): AbstractControl<number | null> {
+    return this.offerForm.controls.bonus;
+  }
+
+  public get colors(): typeof Colors {
+    return Colors;
+  }
+
+  public get compensation(): AbstractControl<number | null> {
+    return this.offerForm.controls.compensation;
+  }
+
+  public get deadline(): AbstractControl<Date | null> {
+    return this.offerForm.controls.deadline;
+  }
+
+  public get payPeriod(): AbstractControl<string | null> {
+    return this.offerForm.controls.payPeriod;
+  }
+
+  public get pto(): AbstractControl<string | null> {
+    return this.offerForm.controls.pto;
+  }
+
+  public get startDate(): AbstractControl<Date | null> {
+    return this.offerForm.controls.startDate;
+  }
+
+  public async cancel(): Promise<void> {
+    if (this.offerForm.pristine) {
+      this.isEditing = false;
+
+      return;
+    }
+
+    const data: ConfirmationDialog = {
+      action: DialogActions.Discard,
+      item: 'edits'
+    };
+    const dialogActions = await lastValueFrom(
+      this.matDialog
+        .open(ConfirmationDialogComponent, {
+          autoFocus: false,
+          data,
+          disableClose: true,
+          width: '315px',
+          panelClass: 'at-dialog-with-padding'
+        })
+        .afterClosed() as Observable<DialogActions>
+    );
+
+    if (dialogActions === DialogActions.Discard) {
+      this.isEditing = false;
+      this.offerForm.reset();
+      this.initForm();
+    }
+  }
 
   public edit(): void {
     this.isEditing = true;
@@ -98,36 +159,6 @@ export class ApplicationPanelOfferComponent implements OnInit {
     }
   }
 
-  public async cancel(): Promise<void> {
-    if (this.offerForm.pristine) {
-      this.isEditing = false;
-
-      return;
-    }
-
-    const data: ConfirmationDialog = {
-      action: DialogActions.Discard,
-      item: 'edits'
-    };
-    const dialogActions = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          autoFocus: false,
-          data,
-          disableClose: true,
-          width: '315px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
-
-    if (dialogActions === DialogActions.Discard) {
-      this.isEditing = false;
-      this.offerForm.reset();
-      this.initForm();
-    }
-  }
-
   private initForm(): void {
     this.offerForm.patchValue({
       benefits: this.application.offer?.benefits ?? null,
@@ -138,37 +169,5 @@ export class ApplicationPanelOfferComponent implements OnInit {
       pto: this.application.offer?.pto ?? null,
       startDate: this.application.offer?.startDate ? timestampToDate(this.application.offer.startDate) : null
     });
-  }
-
-  public get benefits(): AbstractControl<string | null> {
-    return this.offerForm.controls.benefits;
-  }
-
-  public get bonus(): AbstractControl<number | null> {
-    return this.offerForm.controls.bonus;
-  }
-
-  public get colors(): typeof Colors {
-    return Colors;
-  }
-
-  public get compensation(): AbstractControl<number | null> {
-    return this.offerForm.controls.compensation;
-  }
-
-  public get deadline(): AbstractControl<Date | null> {
-    return this.offerForm.controls.deadline;
-  }
-
-  public get payPeriod(): AbstractControl<string | null> {
-    return this.offerForm.controls.payPeriod;
-  }
-
-  public get pto(): AbstractControl<string | null> {
-    return this.offerForm.controls.pto;
-  }
-
-  public get startDate(): AbstractControl<Date | null> {
-    return this.offerForm.controls.startDate;
   }
 }

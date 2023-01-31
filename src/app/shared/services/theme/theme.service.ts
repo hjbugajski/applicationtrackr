@@ -38,6 +38,10 @@ export class ThemeService {
     this.setTheme(this.colorSchemeTheme);
   }
 
+  private get colorSchemeTheme(): Themes {
+    return this.prefersColorSchemeDark.matches ? Themes.Dark : Themes.Light;
+  }
+
   public addBackgroundClass(value: string): void {
     this.document.body.classList.add(value);
   }
@@ -57,9 +61,5 @@ export class ThemeService {
     this.document.body.classList.replace(Themes.Dark, theme);
     this.appTheme = theme;
     this.appTheme$.next(theme);
-  }
-
-  private get colorSchemeTheme(): Themes {
-    return this.prefersColorSchemeDark.matches ? Themes.Dark : Themes.Light;
   }
 }

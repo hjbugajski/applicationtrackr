@@ -54,13 +54,45 @@ export class NewApplicationDialogComponent implements OnInit {
     this.columns$ = this.columnsService.columns$;
   }
 
-  public columnCompare = (a: Column, b: Column) => {
-    return a.docId === b.docId;
-  };
+  public get column(): AbstractControl<Column | null> {
+    return this.applicationForm.controls.column;
+  }
+
+  public get company(): AbstractControl<string | null> {
+    return this.applicationForm.controls.company;
+  }
+
+  public get compensation(): AbstractControl<number | null> {
+    return this.applicationForm.controls.compensation;
+  }
 
   public get currentDate(): Date {
     return new Date(Date.now());
   }
+
+  public get date(): AbstractControl<Date | null> {
+    return this.applicationForm.controls.date;
+  }
+
+  public get link(): AbstractControl<string | null> {
+    return this.applicationForm.controls.link;
+  }
+
+  public get location(): AbstractControl<string | null> {
+    return this.applicationForm.controls.location;
+  }
+
+  public get payPeriod(): AbstractControl<string | null> {
+    return this.applicationForm.controls.payPeriod;
+  }
+
+  public get position(): AbstractControl<string | null> {
+    return this.applicationForm.controls.position;
+  }
+
+  public columnCompare = (a: Column, b: Column) => {
+    return a.docId === b.docId;
+  };
 
   public getError(control: AbstractControl): string {
     if (control.hasError('maxlength')) {
@@ -159,37 +191,5 @@ export class NewApplicationDialogComponent implements OnInit {
         this.isLoading = false;
         this.notificationService.showError('There was a problem adding the application. Please try again.');
       });
-  }
-
-  public get column(): AbstractControl<Column | null> {
-    return this.applicationForm.controls.column;
-  }
-
-  public get company(): AbstractControl<string | null> {
-    return this.applicationForm.controls.company;
-  }
-
-  public get compensation(): AbstractControl<number | null> {
-    return this.applicationForm.controls.compensation;
-  }
-
-  public get date(): AbstractControl<Date | null> {
-    return this.applicationForm.controls.date;
-  }
-
-  public get link(): AbstractControl<string | null> {
-    return this.applicationForm.controls.link;
-  }
-
-  public get location(): AbstractControl<string | null> {
-    return this.applicationForm.controls.location;
-  }
-
-  public get payPeriod(): AbstractControl<string | null> {
-    return this.applicationForm.controls.payPeriod;
-  }
-
-  public get position(): AbstractControl<string | null> {
-    return this.applicationForm.controls.position;
   }
 }

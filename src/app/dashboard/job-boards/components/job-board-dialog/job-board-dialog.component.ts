@@ -15,8 +15,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-new-job-board-dialog',
-  templateUrl: './job-board-dialog.component.html',
-  styleUrls: ['./job-board-dialog.component.scss']
+  templateUrl: './job-board-dialog.component.html'
 })
 export class JobBoardDialogComponent {
   public button: string;
@@ -41,6 +40,18 @@ export class JobBoardDialogComponent {
     this.jobBoardForm.controls.date.setValue(new Date());
 
     this.initForm();
+  }
+
+  public get currentDate(): Date {
+    return new Date(Date.now());
+  }
+
+  public get date(): AbstractControl<Date | null> {
+    return this.jobBoardForm.controls.date;
+  }
+
+  public get title(): AbstractControl<string | null> {
+    return this.jobBoardForm.controls.title;
   }
 
   public async close(): Promise<void> {
@@ -101,18 +112,6 @@ export class JobBoardDialogComponent {
         });
       }
     }
-  }
-
-  public get currentDate(): Date {
-    return new Date(Date.now());
-  }
-
-  public get date(): AbstractControl<Date | null> {
-    return this.jobBoardForm.controls.date;
-  }
-
-  public get title(): AbstractControl<string | null> {
-    return this.jobBoardForm.controls.title;
   }
 
   private initForm(): void {

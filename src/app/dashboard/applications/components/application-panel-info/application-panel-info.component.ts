@@ -19,8 +19,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-application-panel-info',
-  templateUrl: './application-panel-info.component.html',
-  styleUrls: ['./application-panel-info.component.scss']
+  templateUrl: './application-panel-info.component.html'
 })
 export class ApplicationPanelInfoComponent implements OnInit {
   @Input() public application!: Application;
@@ -28,10 +27,6 @@ export class ApplicationPanelInfoComponent implements OnInit {
   @ViewChildren(MatInput) public matInputs: QueryList<MatInput> | undefined;
 
   public columns$: Observable<Column[]>;
-  public isEditing = false;
-  public payPeriodOptions = PAY_PERIOD_OPTIONS;
-  public isLoading = false;
-
   public infoForm = new FormGroup({
     compensation: new FormControl<number | null>(null, CustomValidators.numberValidators),
     date: new FormControl<Date | null>(null, [Validators.required]),
@@ -39,6 +34,9 @@ export class ApplicationPanelInfoComponent implements OnInit {
     location: new FormControl<string | null>(null, [Validators.maxLength(128)]),
     payPeriod: new FormControl<string | null>(null)
   });
+  public isEditing = false;
+  public isLoading = false;
+  public payPeriodOptions = PAY_PERIOD_OPTIONS;
 
   constructor(
     private applicationsService: ApplicationsService,
@@ -48,6 +46,34 @@ export class ApplicationPanelInfoComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     this.columns$ = this.columnsService.columns$;
+  }
+
+  public get compensation(): AbstractControl<number | null> {
+    return this.infoForm.controls.compensation;
+  }
+
+  public get currentDate(): Date {
+    return new Date(Date.now());
+  }
+
+  public get date(): AbstractControl<Date | null> {
+    return this.infoForm.controls.date;
+  }
+
+  public get dialogActions(): typeof DialogActions {
+    return DialogActions;
+  }
+
+  public get link(): AbstractControl<string | null> {
+    return this.infoForm.controls.link;
+  }
+
+  public get location(): AbstractControl<string | null> {
+    return this.infoForm.controls.location;
+  }
+
+  public get payPeriod(): AbstractControl<string | null> {
+    return this.infoForm.controls.payPeriod;
   }
 
   public async cancel(): Promise<void> {
@@ -146,33 +172,5 @@ export class ApplicationPanelInfoComponent implements OnInit {
       location: this.application.location,
       payPeriod: this.application.payPeriod
     });
-  }
-
-  public get compensation(): AbstractControl<number | null> {
-    return this.infoForm.controls.compensation;
-  }
-
-  public get currentDate(): Date {
-    return new Date(Date.now());
-  }
-
-  public get date(): AbstractControl<Date | null> {
-    return this.infoForm.controls.date;
-  }
-
-  public get dialogActions(): typeof DialogActions {
-    return DialogActions;
-  }
-
-  public get link(): AbstractControl<string | null> {
-    return this.infoForm.controls.link;
-  }
-
-  public get location(): AbstractControl<string | null> {
-    return this.infoForm.controls.location;
-  }
-
-  public get payPeriod(): AbstractControl<string | null> {
-    return this.infoForm.controls.payPeriod;
   }
 }

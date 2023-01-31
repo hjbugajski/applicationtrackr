@@ -7,9 +7,9 @@ import { AuthService } from '~services/auth/auth.service';
 import { CustomValidators, getPasswordError } from '~utils/custom-validators';
 
 interface PasswordForm {
-  newPassword: FormControl<string | null>;
   confirmPassword: FormControl<string | null>;
   currentPassword?: FormControl<string | null>;
+  newPassword: FormControl<string | null>;
 }
 
 @Component({
@@ -32,6 +32,22 @@ export class ResetPasswordFormComponent implements OnInit {
 
   constructor(private authService: AuthService) {
     this.isLoading = false;
+  }
+
+  public get authModes(): typeof AuthModes {
+    return AuthModes;
+  }
+
+  public get confirmPassword(): AbstractControl<string | null> {
+    return this.passwordForm.controls.confirmPassword;
+  }
+
+  public get currentPassword(): AbstractControl<string | null> | undefined {
+    return this.passwordForm.controls.currentPassword;
+  }
+
+  public get newPassword(): AbstractControl<string | null> {
+    return this.passwordForm.controls.newPassword;
   }
 
   public async confirmPasswordReset(formDirective: FormGroupDirective): Promise<void> {
@@ -75,21 +91,5 @@ export class ResetPasswordFormComponent implements OnInit {
   private resetForm(formDirective: FormGroupDirective): void {
     this.passwordForm.reset();
     formDirective.resetForm();
-  }
-
-  public get authModes(): typeof AuthModes {
-    return AuthModes;
-  }
-
-  public get confirmPassword(): AbstractControl<string | null> {
-    return this.passwordForm.controls.confirmPassword;
-  }
-
-  public get currentPassword(): AbstractControl<string | null> | undefined {
-    return this.passwordForm.controls.currentPassword;
-  }
-
-  public get newPassword(): AbstractControl<string | null> {
-    return this.passwordForm.controls.newPassword;
   }
 }

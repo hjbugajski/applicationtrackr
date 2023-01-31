@@ -21,15 +21,15 @@ export class SettingsComponent implements OnDestroy {
     });
   }
 
+  public get paths(): typeof Paths {
+    return Paths;
+  }
+
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 
   public async signOut(): Promise<void> {
     await this.authService.signOut();
-  }
-
-  public get paths(): typeof Paths {
-    return Paths;
   }
 }

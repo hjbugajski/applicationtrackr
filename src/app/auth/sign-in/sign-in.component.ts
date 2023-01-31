@@ -45,6 +45,14 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.initSignInOrSignUp();
   }
 
+  public get paths(): typeof Paths {
+    return Paths;
+  }
+
+  public get themes(): typeof Themes {
+    return Themes;
+  }
+
   ngOnDestroy(): void {
     this.appThemeSubscription?.unsubscribe();
   }
@@ -80,13 +88,5 @@ export class SignInComponent implements OnInit, OnDestroy {
       this.showForgotPassword = false;
       this.signInUpButton = { text: 'Have an account? Sign in', route: `/${Paths.Auth}/${Paths.SignIn}` };
     }
-  }
-
-  public get paths(): typeof Paths {
-    return Paths;
-  }
-
-  public get themes(): typeof Themes {
-    return Themes;
   }
 }

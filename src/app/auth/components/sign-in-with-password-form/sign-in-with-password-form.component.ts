@@ -8,8 +8,7 @@ import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom
 
 @Component({
   selector: 'at-sign-in-with-password-form',
-  templateUrl: './sign-in-with-password-form.component.html',
-  styleUrls: ['./sign-in-with-password-form.component.scss']
+  templateUrl: './sign-in-with-password-form.component.html'
 })
 export class SignInWithPasswordFormComponent implements OnChanges {
   @Input() public authMode: AuthModes = AuthModes.SignIn;
@@ -27,6 +26,14 @@ export class SignInWithPasswordFormComponent implements OnChanges {
 
   constructor(private authService: AuthService, private notificationService: NotificationService) {
     this.emailForm.disable();
+  }
+
+  public get email(): AbstractControl<string | null> {
+    return this.emailForm.controls.email;
+  }
+
+  public get password(): AbstractControl<string | null> {
+    return this.emailForm.controls.password;
   }
 
   public getEmailError(control: AbstractControl | null): string {
@@ -84,13 +91,5 @@ export class SignInWithPasswordFormComponent implements OnChanges {
   private resetForm(formDirective: FormGroupDirective): void {
     this.emailForm.reset();
     formDirective.resetForm();
-  }
-
-  public get email(): AbstractControl<string | null> {
-    return this.emailForm.controls.email;
-  }
-
-  public get password(): AbstractControl<string | null> {
-    return this.emailForm.controls.password;
   }
 }

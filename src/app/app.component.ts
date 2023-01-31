@@ -9,8 +9,7 @@ import { UserStore } from '~store/user.store';
 
 @Component({
   selector: 'at-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnDestroy {
   private authSubscription: Subscription;
