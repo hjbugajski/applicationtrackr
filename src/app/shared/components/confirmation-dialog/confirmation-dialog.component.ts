@@ -15,11 +15,11 @@ export class ConfirmationDialogComponent {
     private matDialogRef: MatDialogRef<ConfirmationDialogComponent>
   ) {}
 
-  public close(action: DialogActions): void {
-    this.matDialogRef.close(action);
-  }
-
   public get dialogActions(): typeof DialogActions {
     return DialogActions;
+  }
+
+  public close(action: DialogActions): void {
+    this.matDialogRef.close(action);
   }
 }

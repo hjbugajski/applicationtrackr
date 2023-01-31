@@ -28,6 +28,18 @@ export abstract class FirestoreService<T> {
 
   constructor(@Inject(Firestore) protected firestore: Firestore) {}
 
+  public get basePath(): string {
+    return this._basePath;
+  }
+
+  public get collectionRef(): CollectionReference<DocumentData> {
+    return this._collectionRef;
+  }
+
+  public get collectionRefWithConverter(): CollectionReference<T> {
+    return this._collectionRefWithConverter;
+  }
+
   public collection$(query: Query<T>): Observable<T[]> {
     return collectionData(query);
   }
@@ -54,17 +66,5 @@ export abstract class FirestoreService<T> {
 
   public async update(id: string, value: UpdateData<T | any>): Promise<void> {
     return await updateDoc(this.docRef(id) as DocumentReference<T>, value);
-  }
-
-  public get basePath(): string {
-    return this._basePath;
-  }
-
-  public get collectionRef(): CollectionReference<DocumentData> {
-    return this._collectionRef;
-  }
-
-  public get collectionRefWithConverter(): CollectionReference<T> {
-    return this._collectionRefWithConverter;
   }
 }

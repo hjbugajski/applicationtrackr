@@ -1,0 +1,55 @@
+@use 'mixins';
+@use 'variables';
+
+.at-application-panel-section {
+  background-color: var(--color-canvas);
+  border: 2px solid var(--color-border);
+  border-radius: variables.$border-radius;
+
+  .at-application-panel-section-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 52px;
+    padding: 8px 8px 4px 16px;
+  }
+
+  .at-application-panel-section-title {
+    @include mixins.font-size(18px);
+
+    margin-top: 8px;
+  }
+
+  .at-application-panel-section-body {
+    padding: 0 16px 16px;
+  }
+}
+
+.at-application-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @media (min-width: 425px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.at-application-panel-data-item {
+  .at-application-panel-data-item-label {
+    @include mixins.font-size(12px);
+
+    margin-bottom: 4px;
+    color: var(--color-muted);
+    font-weight: variables.$font-weight-semi-bold;
+  }
+
+  .at-application-panel-data-item-data {
+    @include mixins.font-size(14px);
+  }
+}

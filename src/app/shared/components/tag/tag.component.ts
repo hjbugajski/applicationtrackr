@@ -9,8 +9,7 @@ export type TagVariant = 'regular' | 'dropdown';
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
   host: {
-    class: 'at-tag',
-    tabindex: '0'
+    class: 'at-tag'
   },
   encapsulation: ViewEncapsulation.None
 })

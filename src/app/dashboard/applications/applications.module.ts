@@ -8,8 +8,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 
 import { ApplicationsComponent } from './applications.component';
-import { ColumnDialogModule } from './components/column-dialog/column-dialog.module';
 import { ColumnModule } from './components/column/column.module';
+import { ColumnDialogModule } from './components/column-dialog/column-dialog.module';
 
 @NgModule({
   declarations: [ApplicationsComponent],

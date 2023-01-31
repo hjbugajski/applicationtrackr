@@ -8,22 +8,22 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ApplicationOfferFormComponent } from './application-offer-form.component';
+import { ApplicationPanelInfoComponent } from './application-panel-info.component';
 
-import { AlertModule } from '~components/alert/alert.module';
-import { ConfirmationDialogModule } from '~components/confirmation-dialog/confirmation-dialog.module';
-import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinner.module';
+import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pipe.module';
+import { TimestampDatePipeModule } from '~pipes/timestamp-date/timestamp-date.pipe.module';
+import { TrimUrlPipeModule } from '~pipes/trim-url/trim-url.pipe.module';
 
 @NgModule({
-  declarations: [ApplicationOfferFormComponent],
+  declarations: [ApplicationPanelInfoComponent],
   imports: [
-    AlertModule,
     CommonModule,
-    ConfirmationDialogModule,
+    DayDifferencePipeModule,
     FormsModule,
     MatButtonModule,
     MatDatepickerModule,
@@ -31,13 +31,15 @@ import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinne
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatTooltipModule,
-    OverlaySpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TimestampDatePipeModule,
+    TrimUrlPipeModule
   ],
-  exports: [ApplicationOfferFormComponent]
+  exports: [ApplicationPanelInfoComponent]
 })
-export class ApplicationOfferFormModule {}
+export class ApplicationPanelInfoModule {}

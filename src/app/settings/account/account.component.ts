@@ -45,6 +45,37 @@ export class AccountComponent {
     );
   }
 
+  public get authModes(): typeof AuthModes {
+    return AuthModes;
+  }
+
+  public get colors(): typeof Colors {
+    return Colors;
+  }
+
+  public get newEmail(): AbstractControl<string | null> {
+    return this.updateEmailForm.controls.newEmail;
+  }
+
+  public get password(): AbstractControl<string | null> {
+    return this.updateEmailForm.controls.password;
+  }
+
+  public get providerDisplay(): string {
+    switch (this.provider) {
+      case Providers.Apple:
+        return 'Apple';
+      case Providers.Google:
+        return 'Google';
+      default:
+        return 'email and password';
+    }
+  }
+
+  public get providers(): typeof Providers {
+    return Providers;
+  }
+
   public async deleteUser(): Promise<void> {
     if (this.confirmDeleteControl.valid) {
       this.isLoading = true;
@@ -92,36 +123,5 @@ export class AccountComponent {
         formDirective.resetForm();
       });
     }
-  }
-
-  public get authModes(): typeof AuthModes {
-    return AuthModes;
-  }
-
-  public get colors(): typeof Colors {
-    return Colors;
-  }
-
-  public get newEmail(): AbstractControl<string | null> {
-    return this.updateEmailForm.controls.newEmail;
-  }
-
-  public get password(): AbstractControl<string | null> {
-    return this.updateEmailForm.controls.password;
-  }
-
-  public get providerDisplay(): string {
-    switch (this.provider) {
-      case Providers.Apple:
-        return 'Apple';
-      case Providers.Google:
-        return 'Google';
-      default:
-        return 'email and password';
-    }
-  }
-
-  public get providers(): typeof Providers {
-    return Providers;
   }
 }

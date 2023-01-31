@@ -11,7 +11,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ColumnComponent } from './column.component';
 
 import { ApplicationCardModule } from '~components/application-card/application-card.module';
-import { ApplicationDialogModule } from '~components/application-dialog/application-dialog.module';
 import { ColumnDialogModule } from '~components/column-dialog/column-dialog.module';
 import { ConfirmationDialogModule } from '~components/confirmation-dialog/confirmation-dialog.module';
 import { NewApplicationDialogModule } from '~components/new-application-dialog/new-application-dialog.module';
@@ -23,7 +22,6 @@ import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pi
   declarations: [ColumnComponent],
   imports: [
     ApplicationCardModule,
-    ApplicationDialogModule,
     ColumnDialogModule,
     CommonModule,
     ConfirmationDialogModule,

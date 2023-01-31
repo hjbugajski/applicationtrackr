@@ -69,6 +69,10 @@ export class ColumnsService extends FirestoreService<Column> {
     });
   }
 
+  public get query(): Query<Column> {
+    return query(this.collectionRefWithConverter, orderBy('sortOrder', 'asc'));
+  }
+
   public async createColumn(data: ColumnDoc): Promise<void> {
     await this.create(data).catch((error) => {
       throw error;
@@ -114,10 +118,6 @@ export class ColumnsService extends FirestoreService<Column> {
     await this.update(id, { total: increment(value) }).catch((error) => {
       throw error;
     });
-  }
-
-  public get query(): Query<Column> {
-    return query(this.collectionRefWithConverter, orderBy('sortOrder', 'asc'));
   }
 
   private reset(): void {

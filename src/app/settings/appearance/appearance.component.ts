@@ -40,6 +40,10 @@ export class AppearanceComponent implements OnDestroy {
     );
   }
 
+  public get themes(): typeof Themes {
+    return Themes;
+  }
+
   public isSelectedTheme(theme: Theme): boolean {
     return this.selectedTheme === theme.class;
   }
@@ -58,10 +62,6 @@ export class AppearanceComponent implements OnDestroy {
     this.themeService.setTheme(theme);
     this.selectedTheme = theme;
     await this.userService.updateAppearance(theme);
-  }
-
-  public get themes(): typeof Themes {
-    return Themes;
   }
 
   private getIconPath(icon: Icons | string): string {

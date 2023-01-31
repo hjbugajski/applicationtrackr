@@ -1,0 +1,114 @@
+@use 'mixins';
+@use 'variables';
+
+:host {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  min-width: 100vw;
+  max-height: 95vh;
+  overflow: scroll;
+  background: var(--color-canvas-inset);
+  border-top: 2px solid var(--color-border);
+  animation: slide-up 250ms forwards;
+
+  @media (min-width: 1024px) {
+    min-width: unset;
+    max-width: 80vw;
+    height: 100%;
+    max-height: 100vh;
+    border-top: 0;
+    border-left: 2px solid var(--color-border);
+    animation: slide-left 250ms forwards;
+  }
+}
+
+.at-application-panel-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 8px 16px 16px;
+  background-color: var(--color-canvas);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.at-application-panel-toolbar-inner-container {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+}
+
+.at-application-toolbar-title {
+  @include mixins.font-size(24px);
+
+  padding-top: 8px;
+}
+
+.at-application-toolbar-actions-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-self: flex-end;
+}
+
+.at-application-panel-toolbar-column-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 8px;
+}
+
+.at-application-toolbar-subtitle {
+  @include mixins.font-size(16px);
+
+  margin-bottom: 8px;
+  font-weight: variables.$font-weight-semi-bold !important;
+}
+
+.at-application-panel-form-container {
+  padding-top: 8px;
+  padding-right: 8px;
+}
+
+.at-application-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+}
+
+@media (min-width: 375px) {
+  .at-application-panel-toolbar-inner-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .at-application-toolbar-actions-container {
+    align-self: unset;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 100%;
+  }
+}

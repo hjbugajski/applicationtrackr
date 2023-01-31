@@ -6,8 +6,7 @@ import { CustomValidators, getEmailError } from '~utils/custom-validators';
 
 @Component({
   selector: 'at-forgot-password-form',
-  templateUrl: './forgot-password-form.component.html',
-  styleUrls: ['./forgot-password-form.component.scss']
+  templateUrl: './forgot-password-form.component.html'
 })
 export class ForgotPasswordFormComponent implements OnInit {
   @Input() public emailValue: string | undefined;

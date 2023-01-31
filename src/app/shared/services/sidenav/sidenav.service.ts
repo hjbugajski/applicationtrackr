@@ -48,19 +48,19 @@ export class SidenavService {
     return this._mode;
   }
 
-  public setMode(value: MatDrawerMode): void {
-    this._mode.next(value);
-  }
-
   public get opened$(): BehaviorSubject<boolean> {
     return this._opened;
   }
 
-  public setOpened(value: boolean): void {
-    this._opened.next(value);
-  }
-
   public get showMenuButton$(): BehaviorSubject<boolean> {
     return this._showMenuButton;
+  }
+
+  public setMode(value: MatDrawerMode): void {
+    this._mode.next(value);
+  }
+
+  public setOpened(value: boolean): void {
+    this._opened.next(value);
   }
 }

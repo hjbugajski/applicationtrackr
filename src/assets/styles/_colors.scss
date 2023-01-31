@@ -235,7 +235,7 @@ $white: #fff;
   --color-hover: #{$light-gray-0};
   --color-canvas: #{$white};
   --color-canvas-inset: #{$light-gray-0};
-  --color-backdrop: rgba(255, 255, 255, 60%);
+  --color-backdrop: rgb(255 255 255 / 60%);
 
   // alpha
   --color-alpha-primary: #{$light-blue-5}0d;
@@ -293,7 +293,7 @@ $white: #fff;
   --color-hover: #{$dark-gray-9};
   --color-canvas: #{$dark-gray-10};
   --color-canvas-inset: #{$dark-gray-9};
-  --color-backdrop: rgba(1, 4, 9, 60%);
+  --color-backdrop: rgb(1 4 9 / 60%);
 
   // alpha
   --color-alpha-primary: #{$dark-blue-3}0d;

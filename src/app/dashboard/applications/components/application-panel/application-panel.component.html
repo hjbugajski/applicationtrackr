@@ -1,0 +1,85 @@
+<div class="at-application-panel-toolbar">
+  <ng-container *ngIf="!isEditing; else companyPositionFormTemplate">
+    <div class="at-application-panel-toolbar-inner-container">
+      <h1 class="at-application-toolbar-title at-text" [ngClass]="column.color">{{ application.company }}</h1>
+      <mat-menu #columnsMenu="matMenu">
+        <button
+          *ngFor="let col of columns$ | async"
+          mat-menu-item
+          [disabled]="col.docId === column.docId"
+          [class.at-text]="col.docId !== column.docId"
+          [ngClass]="col.color"
+          (click)="moveApplication(col)"
+        >
+          {{ col.title }}
+        </button>
+      </mat-menu>
+      <div class="at-application-toolbar-actions-container">
+        <button matTooltip="Edit" mat-icon-button class="at-text neutral" (click)="edit()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button matTooltip="Delete" mat-icon-button class="at-text danger" (click)="deleteApplication()">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button matTooltip="Close" mat-icon-button (click)="close()" class="at-text neutral">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <h2 class="at-application-toolbar-subtitle at-text muted">{{ application.position }}</h2>
+    <div class="at-application-panel-toolbar-column-container">
+      <at-tag
+        tabindex="0"
+        variant="dropdown"
+        [attr.aria-label]="column.title + ' column. Select to change column'"
+        [color]="column.color"
+        [matMenuTriggerFor]="columnsMenu"
+        #columnsMenuTrigger="matMenuTrigger"
+        (interaction)="columnsMenuTrigger.openMenu()"
+      >
+        {{ column.title }}
+      </at-tag>
+      <span class="at-text muted">{{ application.date | dayDifference }}</span>
+    </div>
+  </ng-container>
+</div>
+<div class="at-application-panel-body">
+  <at-application-panel-info [application]="application" [column]="column"></at-application-panel-info>
+  <at-application-panel-offer [application]="application" [column]="column"></at-application-panel-offer>
+</div>
+
+<ng-template #companyPositionFormTemplate>
+  <div class="at-application-panel-form-container">
+    <form [formGroup]="companyPositionForm" class="form-grid full-width">
+      <!-- Company Input -->
+      <mat-form-field class="full-width">
+        <mat-label>Company</mat-label>
+        <input formControlName="company" matInput type="text" />
+        <mat-error>{{ getError(company) }}</mat-error>
+      </mat-form-field>
+
+      <!-- Position Input -->
+      <mat-form-field class="full-width">
+        <mat-label>Position</mat-label>
+        <input formControlName="position" matInput type="text" />
+        <mat-error>{{ getError(position) }}</mat-error>
+      </mat-form-field>
+    </form>
+
+    <!-- Buttons -->
+    <div class="button-row-container-end">
+      <button mat-button (click)="cancel()">Cancel</button>
+      <button
+        mat-flat-button
+        [color]="column.color"
+        [disabled]="companyPositionForm.invalid || isLoading"
+        (click)="save()"
+      >
+        <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
+          <mat-spinner color="accent" diameter="24"></mat-spinner>
+        </div>
+        <ng-template #text>Save</ng-template>
+      </button>
+    </div>
+  </div>
+</ng-template>

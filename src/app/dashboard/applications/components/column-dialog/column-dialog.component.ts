@@ -51,6 +51,18 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
     this.initForm();
   }
 
+  public get color(): AbstractControl<string | null> {
+    return this.columnForm.controls.color;
+  }
+
+  public get dialogActions(): typeof DialogActions {
+    return DialogActions;
+  }
+
+  public get title(): AbstractControl<string | null> {
+    return this.columnForm.controls.title;
+  }
+
   public drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
     this.activeReorderItem = event.currentIndex;
@@ -185,18 +197,6 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
       this.isLoading = false;
       this.matDialogRef.close();
     }
-  }
-
-  public get color(): AbstractControl<string | null> {
-    return this.columnForm.controls.color;
-  }
-
-  public get dialogActions(): typeof DialogActions {
-    return DialogActions;
-  }
-
-  public get title(): AbstractControl<string | null> {
-    return this.columnForm.controls.title;
   }
 
   private initForm(): void {

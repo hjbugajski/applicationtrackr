@@ -2,38 +2,40 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { NewApplicationDialogComponent } from './new-application-dialog.component';
+import { ApplicationPanelComponent } from './application-panel.component';
 
-import { ConfirmationDialogModule } from '~components/confirmation-dialog/confirmation-dialog.module';
+import { ApplicationPanelInfoModule } from '~components/application-panel-info/application-panel-info.module';
+import { ApplicationPanelOfferModule } from '~components/application-panel-offer/application-panel-offer.module';
+import { TagModule } from '~components/tag/tag.module';
+import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pipe.module';
 
 @NgModule({
-  declarations: [NewApplicationDialogComponent],
+  declarations: [ApplicationPanelComponent],
   imports: [
+    ApplicationPanelInfoModule,
+    ApplicationPanelOfferModule,
     CommonModule,
-    ConfirmationDialogModule,
+    DayDifferencePipeModule,
     FormsModule,
     MatButtonModule,
-    MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatNativeDateModule,
+    MatMenuModule,
     MatProgressSpinnerModule,
-    MatSelectModule,
     MatTooltipModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TagModule
   ],
-  exports: [NewApplicationDialogComponent]
+  exports: [ApplicationPanelComponent]
 })
-export class NewApplicationDialogModule {}
+export class ApplicationPanelModule {}

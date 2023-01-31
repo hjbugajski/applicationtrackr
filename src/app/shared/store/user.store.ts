@@ -31,23 +31,6 @@ export class UserStore {
     });
   }
 
-  public reset(): void {
-    this._state$.next({
-      appearance: null,
-      collapseColumns: null,
-      currentJobBoard: null,
-      uid: null
-    });
-  }
-
-  public set(newValue: Partial<UserState>): void {
-    this._state$.next(Object.assign({}, newValue) as UserState);
-  }
-
-  public update(value: Partial<UserState>): void {
-    this._state$.next(Object.assign({}, this.state, value));
-  }
-
   public get appearance(): Themes | string | null {
     return this.state.appearance;
   }
@@ -90,5 +73,22 @@ export class UserStore {
       map((state) => state.uid),
       distinctUntilChanged()
     );
+  }
+
+  public reset(): void {
+    this._state$.next({
+      appearance: null,
+      collapseColumns: null,
+      currentJobBoard: null,
+      uid: null
+    });
+  }
+
+  public set(newValue: Partial<UserState>): void {
+    this._state$.next(Object.assign({}, newValue) as UserState);
+  }
+
+  public update(value: Partial<UserState>): void {
+    this._state$.next(Object.assign({}, this.state, value));
   }
 }

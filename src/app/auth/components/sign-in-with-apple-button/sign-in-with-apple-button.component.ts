@@ -30,6 +30,10 @@ export class SignInWithAppleButtonComponent implements OnDestroy {
     });
   }
 
+  public get themes(): typeof Themes {
+    return Themes;
+  }
+
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
   }
@@ -45,9 +49,5 @@ export class SignInWithAppleButtonComponent implements OnDestroy {
         this.reauthenticated.emit();
       });
     }
-  }
-
-  public get themes(): typeof Themes {
-    return Themes;
   }
 }
