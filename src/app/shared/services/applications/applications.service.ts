@@ -3,7 +3,7 @@ import { collection, CollectionReference, DocumentData, Firestore } from '@angul
 import { filter, takeUntil } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
-import { ApplicationDoc, ApplicationOffer } from '~interfaces/application-doc.interface';
+import { ApplicationDoc } from '~interfaces/application-doc.interface';
 import { Application } from '~models/application.model';
 import { ColumnsService } from '~services/columns/columns.service';
 import { FirestoreService } from '~services/firestore/firestore.service';
@@ -80,14 +80,8 @@ export class ApplicationsService extends FirestoreService<Application> {
       });
   }
 
-  public async updateApplication(applicationId: string, application: ApplicationDoc): Promise<void> {
+  public async updateApplication(applicationId: string, application: Partial<ApplicationDoc>): Promise<void> {
     await this.update(applicationId, { ...application }).catch((error) => {
-      throw error;
-    });
-  }
-
-  public async updateApplicationOffer(applicationId: string, offer: ApplicationOffer): Promise<void> {
-    await this.update(applicationId, { offer }).catch((error) => {
       throw error;
     });
   }

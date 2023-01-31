@@ -1,7 +1,7 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 
-import { ApplicationDialogComponent } from '~components/application-dialog/application-dialog.component';
+import { ApplicationPanelComponent } from '~components/application-panel/application-panel.component';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 
@@ -17,7 +17,7 @@ export class ApplicationCardComponent implements OnInit {
   @HostBinding() role = 'button';
   @HostBinding() tabindex = 0;
 
-  constructor(private matDialog: MatDialog) {}
+  constructor(private dialog: Dialog) {}
 
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.space', ['$event'])
@@ -28,13 +28,13 @@ export class ApplicationCardComponent implements OnInit {
 
   @HostListener('click')
   public openApplication(): void {
-    this.matDialog.open(ApplicationDialogComponent, {
+    this.dialog.open(ApplicationPanelComponent, {
       data: {
         application: this.application,
         column: this.column
       },
       disableClose: true,
-      panelClass: ['at-dialog', 'mat-dialog-container-with-toolbar']
+      autoFocus: 'dialog'
     });
   }
 

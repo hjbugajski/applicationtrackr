@@ -5,11 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ApplicationCardComponent } from './application-card.component';
 
+import { ApplicationPanelModule } from '~components/application-panel/application-panel.module';
 import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pipe.module';
 
 @NgModule({
   declarations: [ApplicationCardComponent],
-  imports: [CommonModule, DayDifferencePipeModule, DragDropModule, MatIconModule],
+  imports: [ApplicationPanelModule, CommonModule, DayDifferencePipeModule, DragDropModule, MatIconModule],
   exports: [ApplicationCardComponent]
 })
 export class ApplicationCardModule {}

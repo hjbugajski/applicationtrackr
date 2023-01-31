@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -12,26 +11,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ApplicationDialogComponent } from './application-dialog.component';
+import { ApplicationPanelInfoComponent } from './application-panel-info.component';
 
-import { ApplicationInfoFormModule } from '~components/application-info-form/application-info-form.module';
-import { ApplicationOfferFormModule } from '~components/application-offer-form/application-offer-form.module';
-import { ConfirmationDialogModule } from '~components/confirmation-dialog/confirmation-dialog.module';
-import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinner.module';
+import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pipe.module';
+import { TimestampDatePipeModule } from '~pipes/timestamp-date/timestamp-date.pipe.module';
+import { TrimUrlPipeModule } from '~pipes/trim-url/trim-url.pipe.module';
 
 @NgModule({
-  declarations: [ApplicationDialogComponent],
+  declarations: [ApplicationPanelInfoComponent],
   imports: [
-    ApplicationInfoFormModule,
-    ApplicationOfferFormModule,
     CommonModule,
-    ConfirmationDialogModule,
+    DayDifferencePipeModule,
     FormsModule,
     MatButtonModule,
-    MatCheckboxModule,
     MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -41,11 +35,11 @@ import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinne
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatTabsModule,
     MatTooltipModule,
-    OverlaySpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TimestampDatePipeModule,
+    TrimUrlPipeModule
   ],
-  exports: [ApplicationDialogComponent]
+  exports: [ApplicationPanelInfoComponent]
 })
-export class ApplicationDialogModule {}
+export class ApplicationPanelInfoModule {}
