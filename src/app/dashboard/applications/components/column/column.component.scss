@@ -76,6 +76,23 @@
   border-radius: variables.$border-radius;
 }
 
+.at-application-card-container {
+  position: relative;
+
+  .at-application-card-link-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: none;
+    background-color: var(--color-canvas) !important;
+  }
+
+  &:hover .at-application-card-link-button {
+    display: flex;
+    background-color: var(--color-hover);
+  }
+}
+
 @media (min-width: 375px) {
   .column {
     min-width: 325px;
