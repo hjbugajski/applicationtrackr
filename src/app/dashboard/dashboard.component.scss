@@ -8,6 +8,11 @@
   }
 }
 
+.at-toolbar-brand {
+  gap: 12px;
+  padding-left: 24px;
+}
+
 .at-dashboard-sidenav {
   display: flex;
   flex-direction: column;
@@ -18,7 +23,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 0 8px;
+  padding: 0 8px 8px;
 
   .at-dashboard-sidenav-item,
   .mat-ripple {
@@ -55,4 +60,15 @@
   display: flex;
   flex-direction: column;
   padding: 0 8px;
+}
+
+.at-dashboard-sidenav-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+
+  .mat-mdc-button-base {
+    justify-content: space-between !important;
+  }
 }
