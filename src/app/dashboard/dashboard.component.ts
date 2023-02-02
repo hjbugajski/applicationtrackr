@@ -1,16 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
-import { HelpComponent } from '~components/help/help.component';
 import { Paths } from '~enums/paths.enum';
 import { AuthService } from '~services/auth/auth.service';
-import { SidenavService } from '~services/sidenav/sidenav.service';
 import { UserStore } from '~store/user.store';
 
 interface SidenavItem {
   icon: string;
+  relativeRoute: boolean;
   route: string;
   viewValue: string;
 }
@@ -31,20 +29,26 @@ export class DashboardComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
-    private matDialog: MatDialog,
-    public sidenavService: SidenavService,
     private userStore: UserStore
   ) {
     this.sidenavItems = [
       {
         icon: 'view_kanban',
-        viewValue: 'Applications',
-        route: Paths.Applications
+        relativeRoute: true,
+        route: Paths.Applications,
+        viewValue: 'Applications'
       },
       {
         icon: 'folder',
-        viewValue: 'Job boards',
-        route: Paths.JobBoards
+        relativeRoute: true,
+        route: Paths.JobBoards,
+        viewValue: 'Job boards'
+      },
+      {
+        icon: 'settings',
+        relativeRoute: false,
+        route: Paths.Settings,
+        viewValue: 'Settings'
       }
     ];
   }
@@ -58,7 +62,6 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.sidenavService.sidenav = this._sidenav!;
     this.subscription = this.userStore.currentJobBoard$.subscribe((currentJobBoard) => {
       this.isLoaded$.next(false);
       this.changeDetectorRef.detectChanges();
@@ -69,17 +72,7 @@ export class DashboardComponent implements OnDestroy, OnInit {
     });
   }
 
-  public openHelpDialog(): void {
-    this.matDialog.open(HelpComponent, { maxWidth: '600px', panelClass: 'at-dialog-with-padding' });
-  }
-
   public async signOut(): Promise<void> {
     await this.authService.signOut();
-  }
-
-  public async toggleSidenav(): Promise<void> {
-    if (this.sidenavService.showMenuButton$.getValue()) {
-      await this.sidenavService.sidenav?.toggle();
-    }
   }
 }

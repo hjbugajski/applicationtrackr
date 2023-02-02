@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.6.0...v1.7.0) (2023-02-02)
+
+### Features
+
+- **column/application-card:** add external link to card on hover ([fc8cec0](https://github.com/hjbugajski/applicationtrackr/commit/fc8cec0bca9156b9782fea271ed3184ecf94df29))
+- **dashboard/job-selector:** redesign sidenav and make toolbar permanent ([73d8e17](https://github.com/hjbugajski/applicationtrackr/commit/73d8e174929d8156429f0cfa8686453e248dc572))
+
+### Bug Fixes
+
+- remove unnecessary tooltip usage ([fafd3c5](https://github.com/hjbugajski/applicationtrackr/commit/fafd3c562d44b6e38599c032987650a09e9fc0b1))
+
 ## [1.6.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.5.1...v1.6.0) (2023-01-31)
 
 ### Features

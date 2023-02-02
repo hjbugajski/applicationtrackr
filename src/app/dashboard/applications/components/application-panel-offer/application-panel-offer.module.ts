@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ApplicationPanelOfferComponent } from './application-panel-offer.component';
 
@@ -28,7 +27,6 @@ import { TimestampDatePipeModule } from '~pipes/timestamp-date/timestamp-date.pi
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatTooltipModule,
     ReactiveFormsModule,
     TimestampDatePipeModule
   ],

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
@@ -15,8 +15,6 @@ import { UserStore } from '~store/user.store';
   styleUrls: ['./job-board-selector.component.scss']
 })
 export class JobBoardSelectorComponent {
-  @Input() public mode = 'select';
-
   public currentJobBoard$: Observable<string | null>;
   public jobBoards$: Observable<JobBoard[]>;
 

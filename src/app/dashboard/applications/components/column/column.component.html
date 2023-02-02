@@ -6,22 +6,10 @@
     </at-tag>
   </div>
   <div class="column-actions">
-    <button
-      mat-icon-button
-      [color]="column?.color"
-      matTooltip="New application"
-      (click)="newApplication()"
-      [disabled]="!column"
-    >
+    <button mat-icon-button [color]="column?.color" (click)="newApplication()" [disabled]="!column">
       <mat-icon>add</mat-icon>
     </button>
-    <button
-      mat-icon-button
-      [color]="column?.color"
-      matTooltip="Menu"
-      [matMenuTriggerFor]="columOptionsMenu"
-      [disabled]="!column"
-    >
+    <button mat-icon-button [color]="column?.color" [matMenuTriggerFor]="columOptionsMenu" [disabled]="!column">
       <mat-icon>more_horiz</mat-icon>
     </button>
 
@@ -58,13 +46,24 @@
   itemSize="25"
   class="cdk-container"
 >
-  <at-application-card
+  <div
     *cdkVirtualFor="let application of applications$ | async"
     cdkDrag
     [cdkDragData]="application"
-    [application]="application"
-    [column]="column!"
+    class="at-application-card-container"
   >
-    <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
-  </at-application-card>
+    <a
+      *ngIf="application.link"
+      mat-icon-button
+      [href]="application.link"
+      rel="noreferrer"
+      target="_blank"
+      class="at-application-card-link-button"
+    >
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+    <at-application-card [application]="application" [column]="column!">
+      <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+    </at-application-card>
+  </div>
 </cdk-virtual-scroll-viewport>
