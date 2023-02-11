@@ -135,6 +135,7 @@ export class NewApplicationDialogComponent implements OnInit {
         date: dateToTimestamp(this.date.value!),
         link: this.link.value,
         location: this.location.value,
+        note: null,
         offer: null,
         payPeriod: this.payPeriod.value,
         position: this.position.value!

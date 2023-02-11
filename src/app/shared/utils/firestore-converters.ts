@@ -14,6 +14,7 @@ export const applicationConverter = {
       date: application.date,
       link: application.link,
       location: application.location,
+      note: application.note,
       offer: application.offer,
       payPeriod: application.payPeriod,
       position: application.position
