@@ -37,17 +37,16 @@
     </mat-menu>
   </div>
 </div>
-<cdk-virtual-scroll-viewport
+<div
   cdkDropList
   cdkDropListSortingDisabled
   [cdkDropListDisabled]="isTouch"
   [cdkDropListData]="column"
   (cdkDropListDropped)="drop($event)"
-  itemSize="25"
-  class="cdk-container"
+  class="scroll-container"
 >
   <div
-    *cdkVirtualFor="let application of applications$ | async"
+    *ngFor="let application of applications$ | async"
     cdkDrag
     [cdkDragData]="application"
     class="at-application-card-container"
@@ -66,4 +65,4 @@
       <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
     </at-application-card>
   </div>
-</cdk-virtual-scroll-viewport>
+</div>

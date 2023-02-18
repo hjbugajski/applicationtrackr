@@ -18,6 +18,7 @@ export interface ApplicationDoc {
   date: Timestamp;
   link: string | null;
   location: string | null;
+  note: string | null;
   offer: ApplicationOffer | null;
   payPeriod: string | null;
   position: string;

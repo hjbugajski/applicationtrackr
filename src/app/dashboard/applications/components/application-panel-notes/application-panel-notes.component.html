@@ -1,0 +1,26 @@
+<div class="at-application-panel-section">
+  <div class="at-application-panel-section-title-container">
+    <h2 class="at-application-panel-section-title">Notes</h2>
+    <button *ngIf="!isEditing" mat-icon-button class="at-text neutral" (click)="edit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  <div class="at-application-panel-section-body">
+    <form [formGroup]="noteForm">
+      <mat-form-field class="full-width" [class.readonly]="!isEditing">
+        <textarea formControlName="note" matInput [rows]="application.note ? 5 : 1" [readonly]="!isEditing"></textarea>
+        <mat-error>{{ getError(note) }}</mat-error>
+      </mat-form-field>
+    </form>
+
+    <div *ngIf="isEditing" class="button-row-container-end">
+      <button mat-button (click)="cancel()">Cancel</button>
+      <button mat-flat-button [color]="column.color" [disabled]="noteForm.invalid || isLoading" (click)="save()">
+        <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
+          <mat-spinner color="accent" diameter="24"></mat-spinner>
+        </div>
+        <ng-template #text>Save</ng-template>
+      </button>
+    </div>
+  </div>
+</div>

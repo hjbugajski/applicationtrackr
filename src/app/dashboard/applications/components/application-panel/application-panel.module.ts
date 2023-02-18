@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApplicationPanelComponent } from './application-panel.component';
 
 import { ApplicationPanelInfoModule } from '~components/application-panel-info/application-panel-info.module';
+import { ApplicationPanelNotesModule } from '~components/application-panel-notes/application-panel-notes.module';
 import { ApplicationPanelOfferModule } from '~components/application-panel-offer/application-panel-offer.module';
 import { TagModule } from '~components/tag/tag.module';
 import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pipe.module';
@@ -20,6 +21,7 @@ import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pi
   declarations: [ApplicationPanelComponent],
   imports: [
     ApplicationPanelInfoModule,
+    ApplicationPanelNotesModule,
     ApplicationPanelOfferModule,
     CommonModule,
     DayDifferencePipeModule,
