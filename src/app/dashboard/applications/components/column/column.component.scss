@@ -54,6 +54,15 @@
   }
 }
 
+.scroll-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: calc(100% - 56px);
+  padding: 0 8px 128px !important;
+  overflow-y: scroll;
+}
+
 .cdk-container {
   height: calc(100% - 56px);
 }
@@ -98,7 +107,7 @@
     min-width: 325px;
   }
 
-  .cdk-virtual-scroll-content-wrapper {
+  .scroll-container {
     padding: 0 16px 128px !important;
   }
 }
