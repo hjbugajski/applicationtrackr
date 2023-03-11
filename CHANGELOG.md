@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.2](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.1...v1.7.2) (2023-03-11)
+
+### Bug Fixes
+
+- correct deadline input label ([aa3b5dc](https://github.com/hjbugajski/applicationtrackr/commit/aa3b5dc2d87d6a4b372d64342b874feb56c88fd8))
+- use Title instead of Document ([aa42c37](https://github.com/hjbugajski/applicationtrackr/commit/aa42c37ae8ec9fb004f3ac870f4c8e01723d372f))
+
 ## [1.7.1](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.0...v1.7.1) (2023-02-18)
 
 ### Features
