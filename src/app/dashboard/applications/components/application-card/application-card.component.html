@@ -1,15 +1,27 @@
-<div class="at-application-card-title at-text" [ngClass]="column.color">
-  {{ application.company }}
-</div>
-<div class="at-application-card-subtitle-container">
-  <div class="at-application-card-icon-subtitle">
-    <mat-icon class="at-application-card-icon">work</mat-icon>
-    {{ application.position }}
+<div class="at-application-card-inner-container" (click)="openApplication()">
+  <div class="at-application-card-title at-text" [ngClass]="column.color">
+    {{ application.company }}
   </div>
-  <div *ngIf="application.location" class="at-application-card-icon-subtitle">
-    <mat-icon class="at-application-card-icon">location_on</mat-icon>
-    {{ application.location }}
+  <div class="at-application-card-subtitle-container">
+    <div class="at-application-card-icon-subtitle">
+      <mat-icon class="at-application-card-icon">work</mat-icon>
+      {{ application.position }}
+    </div>
+    <div *ngIf="application.location" class="at-application-card-icon-subtitle">
+      <mat-icon class="at-application-card-icon">location_on</mat-icon>
+      {{ application.location }}
+    </div>
   </div>
+  <div class="at-application-card-date-text">{{ application.date | dayDifference }}</div>
 </div>
-<div class="at-application-card-date-text">{{ application.date | dayDifference }}</div>
+<a
+  *ngIf="application.link"
+  mat-icon-button
+  [href]="application.link"
+  rel="noreferrer"
+  target="_blank"
+  class="at-application-card-link-button"
+>
+  <mat-icon>open_in_new</mat-icon>
+</a>
 <ng-content></ng-content>

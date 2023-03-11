@@ -4,10 +4,7 @@
 @use 'variables';
 
 :host {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px;
+  position: relative;
   background-color: var(--color-canvas);
   border: 2px solid var(--color-border);
   border-radius: variables.$border-radius;
@@ -15,6 +12,11 @@
   &:hover {
     background-color: transparent;
     cursor: grab;
+
+    .at-application-card-link-button {
+      display: flex;
+      background-color: var(--color-hover);
+    }
   }
 
   &:focus {
@@ -26,6 +28,21 @@
       }
     }
   }
+}
+
+.at-application-card-inner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.at-application-card-link-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
+  background-color: var(--color-canvas) !important;
 }
 
 .at-application-card-title {
