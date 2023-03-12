@@ -51,7 +51,7 @@
 
         <!-- Deadline -->
         <div class="at-application-panel-data-item">
-          <div class="at-application-panel-data-item-label">Paid time off</div>
+          <div class="at-application-panel-data-item-label">Deadline</div>
           <div class="at-application-panel-data-item-data">
             <ng-container *ngIf="application.offer?.deadline; else noData">
               {{ application.offer?.deadline! | timestampDate }}

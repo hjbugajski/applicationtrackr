@@ -45,24 +45,13 @@
   (cdkDropListDropped)="drop($event)"
   class="scroll-container"
 >
-  <div
+  <at-application-card
     *ngFor="let application of applications$ | async"
     cdkDrag
     [cdkDragData]="application"
-    class="at-application-card-container"
+    [application]="application"
+    [column]="column!"
   >
-    <a
-      *ngIf="application.link"
-      mat-icon-button
-      [href]="application.link"
-      rel="noreferrer"
-      target="_blank"
-      class="at-application-card-link-button"
-    >
-      <mat-icon>open_in_new</mat-icon>
-    </a>
-    <at-application-card [application]="application" [column]="column!">
-      <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
-    </at-application-card>
-  </div>
+    <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+  </at-application-card>
 </div>

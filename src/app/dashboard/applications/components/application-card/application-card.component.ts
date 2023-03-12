@@ -26,7 +26,10 @@ export class ApplicationCardComponent implements OnInit {
     this.openApplication();
   }
 
-  @HostListener('click')
+  ngOnInit(): void {
+    this.colorClass = this.column.color;
+  }
+
   public openApplication(): void {
     this.dialog.open(ApplicationPanelComponent, {
       data: {
@@ -36,9 +39,5 @@ export class ApplicationCardComponent implements OnInit {
       disableClose: true,
       autoFocus: 'dialog'
     });
-  }
-
-  ngOnInit(): void {
-    this.colorClass = this.column.color;
   }
 }
