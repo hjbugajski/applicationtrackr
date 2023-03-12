@@ -1,7 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { filter, Subscription, take } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 import { UserService } from '~services/user/user.service';
 import { UserStore } from '~store/user.store';
@@ -11,28 +11,16 @@ import { UserStore } from '~store/user.store';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnDestroy {
+export class LayoutComponent {
   public collapseColumnsFormControl = new FormControl(false);
 
-  private subscription: Subscription;
-
   constructor(private userService: UserService, private userStore: UserStore) {
-    this.subscription = new Subscription();
-
-    this.subscription.add(
-      this.userStore.collapseColumns$
-        .pipe(
-          filter((value) => value !== null),
-          take(1)
-        )
-        .subscribe((value) => {
-          this.collapseColumnsFormControl.setValue(value);
-        })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.userStore.collapseColumns$
+      .pipe(
+        filter((value) => !!value),
+        take(1)
+      )
+      .subscribe((value) => this.collapseColumnsFormControl.setValue(value));
   }
 
   public async onCollapseColumnsChange(event: MatSlideToggleChange): Promise<void> {

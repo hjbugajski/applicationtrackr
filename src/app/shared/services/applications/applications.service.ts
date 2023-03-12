@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, CollectionReference, DocumentData, Firestore } from '@angular/fire/firestore';
+import { collection, CollectionReference, DocumentData, Firestore, increment } from '@angular/fire/firestore';
 import { filter, takeUntil } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
@@ -72,22 +72,16 @@ export class ApplicationsService extends FirestoreService<Application> {
   public async moveApplication(prevColumnId: string, nextColumnId: string, applicationId: string): Promise<void> {
     await this.update(applicationId, { columnDocId: nextColumnId })
       .then(async () => {
-        await this.columnsService.updateTotal(prevColumnId, -1);
-        await this.columnsService.updateTotal(nextColumnId, 1);
+        await this.columnsService.update(prevColumnId, { total: increment(-1) });
+        await this.columnsService.update(nextColumnId, { total: increment(1) });
       })
       .catch((error) => {
         throw error;
       });
   }
 
-  public async updateApplication(applicationId: string, application: Partial<ApplicationDoc>): Promise<void> {
-    await this.update(applicationId, { ...application }).catch((error) => {
-      throw error;
-    });
-  }
-
   private async updateTotals(columnId: string, value: number): Promise<void> {
-    await this.columnsService.updateTotal(columnId, value);
-    await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, value);
+    await this.columnsService.update(columnId, { total: increment(value) });
+    await this.jobBoardsService.update(this.userStore.currentJobBoard!, { total: increment(value) });
   }
 }

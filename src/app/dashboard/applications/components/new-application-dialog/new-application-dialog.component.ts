@@ -1,18 +1,17 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { lastValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { PAY_PERIOD_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ApplicationDoc } from '~interfaces/application-doc.interface';
-import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { NewApplicationDialogData } from '~interfaces/new-application-dialog-data.interface';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators } from '~utils/custom-validators';
 import { dateToTimestamp } from '~utils/date.util';
@@ -47,7 +46,7 @@ export class NewApplicationDialogComponent implements OnInit {
     private applicationsService: ApplicationsService,
     private changeDetectorRef: ChangeDetectorRef,
     private columnsService: ColumnsService,
-    private matDialog: MatDialog,
+    private globalService: GlobalService,
     private matDialogRef: MatDialogRef<NewApplicationDialogComponent>,
     private notificationService: NotificationService
   ) {
@@ -123,26 +122,26 @@ export class NewApplicationDialogComponent implements OnInit {
   }
 
   public async primaryButtonClick(): Promise<void> {
-    if (this.applicationForm.valid) {
-      this.isLoading = true;
-
-      const newColumn = this.column.value;
-
-      const application: ApplicationDoc = {
-        columnDocId: newColumn!.docId,
-        company: this.company.value!,
-        compensation: this.compensation.value,
-        date: dateToTimestamp(this.date.value!),
-        link: this.link.value,
-        location: this.location.value,
-        note: null,
-        offer: null,
-        payPeriod: this.payPeriod.value,
-        position: this.position.value!
-      };
-
-      await this.createApplication(application);
+    if (!this.applicationForm.valid) {
+      return;
     }
+
+    this.isLoading = true;
+
+    const application: ApplicationDoc = {
+      columnDocId: this.column.value!.docId,
+      company: this.company.value!,
+      compensation: this.compensation.value,
+      date: dateToTimestamp(this.date.value!),
+      link: this.link.value,
+      location: this.location.value,
+      note: null,
+      offer: null,
+      payPeriod: this.payPeriod.value,
+      position: this.position.value!
+    };
+
+    await this.createApplication(application);
   }
 
   public async secondaryButtonClick(): Promise<void> {
@@ -152,21 +151,10 @@ export class NewApplicationDialogComponent implements OnInit {
       return;
     }
 
-    const data: ConfirmationDialog = {
+    const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
       item: 'application'
-    };
-    const dialogAction = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          autoFocus: false,
-          data,
-          disableClose: true,
-          width: '315px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    });
 
     if (dialogAction === DialogActions.Discard) {
       this.matDialogRef.close();
@@ -183,14 +171,13 @@ export class NewApplicationDialogComponent implements OnInit {
     await this.applicationsService
       .createApplication(application.columnDocId, application)
       .then(() => {
-        this.isLoading = false;
         this.notificationService.showSuccess('Application added!');
         this.matDialogRef.close();
       })
       .catch((error) => {
         console.error(error);
-        this.isLoading = false;
         this.notificationService.showError('There was a problem adding the application. Please try again.');
-      });
+      })
+      .finally(() => (this.isLoading = false));
   }
 }

@@ -4,6 +4,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +14,7 @@ import { AppComponent } from './app.component';
 
 import { NotificationModule } from '~components/notification/notification.module';
 import { environment } from '~environments/environment';
+import { IconModule } from '~modules/icon.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +23,8 @@ import { environment } from '~environments/environment';
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    IconModule,
+    MatDialogModule,
     NotificationModule,
     provideAuth(() => getAuth()),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),

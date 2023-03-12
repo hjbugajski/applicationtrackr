@@ -12,8 +12,6 @@ import {
 import { distinctUntilChanged, map, Observable, takeUntil } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
-import { ColumnDoc } from '~interfaces/column-doc.interface';
-import { Sort } from '~interfaces/sort.interface';
 import { Column } from '~models/column.model';
 import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
 import { FirestoreService } from '~services/firestore/firestore.service';
@@ -73,50 +71,16 @@ export class ColumnsService extends FirestoreService<Column> {
     return query(this.collectionRefWithConverter, orderBy('sortOrder', 'asc'));
   }
 
-  public async createColumn(data: ColumnDoc): Promise<void> {
-    await this.create(data).catch((error) => {
-      throw error;
-    });
-  }
-
   public async deleteColumn(column: Column): Promise<void> {
-    await this.delete(column.docId)
-      .then(async () => {
-        await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, -column.total);
-        await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
+    await this.delete(column.docId).then(async () => {
+      await this.jobBoardsService
+        .update(this.userStore.currentJobBoard!, { total: increment(-column.total) })
+        .catch((error) => {
           console.error(error);
         });
-      })
-      .catch((error) => {
-        throw error;
+      await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
+        console.error(error);
       });
-  }
-
-  public async updateApplicationSort(id: string, value: Sort): Promise<void> {
-    await this.update(id, { applicationSort: value }).catch((error) => {
-      throw error;
-    });
-  }
-
-  public async updateColumn(id: string, columnDoc: ColumnDoc): Promise<void> {
-    await this.update(id, {
-      color: columnDoc.color,
-      sortOrder: columnDoc.sortOrder,
-      title: columnDoc.title
-    }).catch((error) => {
-      throw error;
-    });
-  }
-
-  public async updateSortOrder(id: string, value: number): Promise<void> {
-    await this.update(id, { sortOrder: value }).catch((error) => {
-      throw error;
-    });
-  }
-
-  public async updateTotal(id: string, value: number): Promise<void> {
-    await this.update(id, { total: increment(value) }).catch((error) => {
-      throw error;
     });
   }
 

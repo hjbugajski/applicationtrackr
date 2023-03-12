@@ -3,12 +3,10 @@ import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@
 import { orderBy, query, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { deepEqual } from '@firebase/util';
-import { lastValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { NewApplicationDialogComponent } from '~components/new-application-dialog/new-application-dialog.component';
-import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
 import { COLUMN_SORT_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
@@ -17,6 +15,7 @@ import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
 
@@ -43,6 +42,7 @@ export class ColumnComponent implements OnChanges {
   constructor(
     private applicationsService: ApplicationsService,
     private columnsService: ColumnsService,
+    private globalService: GlobalService,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
     private userStore: UserStore
@@ -60,36 +60,21 @@ export class ColumnComponent implements OnChanges {
       }</strong> and all associated applications will be deleted. This action cannot be undone.`,
       item: 'column'
     };
-
-    const dialogAction = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          data,
-          disableClose: true,
-          width: '350px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    const dialogAction = await this.globalService.confirmationDialog(data);
 
     if (dialogAction === DialogActions.Delete) {
-      const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
-        autoFocus: false,
-        disableClose: true,
-        panelClass: 'overlay-spinner-dialog'
-      });
+      const overlayDialog = this.globalService.overlayDialog();
 
       await this.columnsService
         .deleteColumn(this.column!)
         .then(() => {
           this.notificationService.showSuccess('Column deleted.');
-          overlayDialog.close();
         })
         .catch((error) => {
           console.error(error);
-          overlayDialog.close();
           this.notificationService.showError('There was an error deleting the column. Please try again.');
-        });
+        })
+        .finally(() => overlayDialog.close());
     }
   }
 
@@ -154,16 +139,12 @@ export class ColumnComponent implements OnChanges {
     }
 
     this.selectedSortOption = sortOption;
-    await this.updateApplicationSort();
-  }
 
-  public async updateApplicationSort(): Promise<void> {
-    await this.columnsService
-      .updateApplicationSort(this.column!.docId, this.selectedSortOption?.value ?? this.sortOptions[0].value)
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error updating the default sort. Please try again.');
-      });
+    const value = this.selectedSortOption?.value ?? this.sortOptions[0].value;
+    await this.columnsService.update(this.column!.docId, { applicationSort: value }).catch((error) => {
+      console.error(error);
+      this.notificationService.showError('There was an error updating the default sort. Please try again.');
+    });
   }
 
   private initApplications(): void {

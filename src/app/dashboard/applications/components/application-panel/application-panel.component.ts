@@ -1,20 +1,17 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { lastValueFrom, Observable, Subscription, switchMap } from 'rxjs';
+import { filter, Observable, Subscription, switchMap } from 'rxjs';
 
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
-import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ApplicationDialogData } from '~interfaces/application-dialog-data.interface';
-import { ApplicationDoc } from '~interfaces/application-doc.interface';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { applicationConverter, columnConverter } from '~utils/firestore-converters';
 
@@ -44,13 +41,19 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private columnsService: ColumnsService,
     private dialogRef: DialogRef,
-    private matDialog: MatDialog,
+    private globalService: GlobalService,
     private notificationService: NotificationService
   ) {
     this.application = this.dialogData.application;
     this.column = this.dialogData.column;
     this.columns$ = this.columnsService.columns$;
-    this.subscription = this.applicationColumnSubscription;
+    this.subscription = this.applicationsService
+      .doc$(this.application.docId, applicationConverter)
+      .pipe(
+        filter((doc) => !!doc),
+        switchMap(async (doc) => await this.setColumn(doc))
+      )
+      .subscribe((doc) => (this.application = doc));
   }
 
   public get company(): AbstractControl<string | null> {
@@ -61,27 +64,6 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     return this.companyPositionForm.controls.position;
   }
 
-  private get applicationColumnSubscription(): Subscription {
-    return this.applicationsService
-      .doc$(this.application.docId, applicationConverter)
-      .pipe(
-        switchMap(async (doc) => {
-          if (this.application.columnDocId !== doc.columnDocId) {
-            const newColumn = (await this.columnsService.docSnap(doc.columnDocId, columnConverter)).data();
-
-            if (newColumn) {
-              this.column = newColumn;
-            }
-          }
-
-          return doc;
-        })
-      )
-      .subscribe((doc) => {
-        this.application = doc;
-      });
-  }
-
   public async cancel(): Promise<void> {
     if (this.companyPositionForm.pristine) {
       this.isEditing = false;
@@ -89,23 +71,12 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
       return;
     }
 
-    const data: ConfirmationDialog = {
+    const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
       item: 'edits'
-    };
-    const dialogActions = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          autoFocus: false,
-          data,
-          disableClose: true,
-          width: '315px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    });
 
-    if (dialogActions === DialogActions.Discard) {
+    if (dialogAction === DialogActions.Discard) {
       this.isEditing = false;
       this.companyPositionForm.reset();
       this.initForm();
@@ -122,24 +93,10 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
       message: `Application for <strong class="at-text danger">${this.application.company}</strong> will be deleted. This action cannot be undone.`,
       item: 'application'
     };
-
-    const dialogAction = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          data,
-          disableClose: true,
-          width: '350px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    const dialogAction = await this.globalService.confirmationDialog(data, { width: '375px' });
 
     if (dialogAction === DialogActions.Delete) {
-      const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
-        autoFocus: false,
-        disableClose: true,
-        panelClass: 'overlay-spinner-dialog'
-      });
+      const overlayDialog = this.globalService.overlayDialog();
 
       await this.applicationsService
         .deleteApplication(this.column.docId, this.application.docId)
@@ -173,23 +130,18 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
   }
 
   public async moveApplication(newColumn: Column): Promise<void> {
-    const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
-      autoFocus: false,
-      disableClose: true,
-      panelClass: 'overlay-spinner-dialog'
-    });
+    const overlayDialog = this.globalService.overlayDialog();
 
     await this.applicationsService
       .moveApplication(this.column.docId, newColumn.docId, this.application.docId)
       .then(() => {
         this.notificationService.showSuccess('Application successfully moved!');
-        overlayDialog.close();
       })
       .catch((error) => {
         console.error(error);
-        overlayDialog.close();
         this.notificationService.showError('There was an error moving the application. Please try again.');
-      });
+      })
+      .finally(() => overlayDialog.close());
   }
 
   ngOnDestroy(): void {
@@ -201,28 +153,24 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
   }
 
   public async save(): Promise<void> {
-    if (this.companyPositionForm.valid) {
-      this.isLoading = true;
-
-      const application: Partial<ApplicationDoc> = {
-        company: this.company.value!,
-        position: this.position.value!
-      };
-
-      await this.applicationsService
-        .updateApplication(this.application.docId, application)
-        .then(() => {
-          this.isLoading = false;
-          this.isEditing = false;
-          this.companyPositionForm.reset();
-          this.initForm();
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-          this.notificationService.showError('There was a problem updating the application. Please try again.');
-        });
+    if (!this.companyPositionForm.valid) {
+      return;
     }
+
+    this.isLoading = true;
+
+    await this.applicationsService
+      .update(this.application.docId, { company: this.company.value!, position: this.position.value! })
+      .then(() => {
+        this.isEditing = false;
+        this.companyPositionForm.reset();
+        this.initForm();
+      })
+      .catch((error) => {
+        console.error(error);
+        this.notificationService.showError('There was a problem updating the application. Please try again.');
+      })
+      .finally(() => (this.isLoading = false));
   }
 
   private initForm(): void {
@@ -230,5 +178,18 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
       company: this.application.company,
       position: this.application.position
     });
+  }
+
+  private async setColumn(doc: Application): Promise<Application> {
+    if (this.application.columnDocId !== doc.columnDocId) {
+      const snapshot = await this.columnsService.docSnap(doc.columnDocId, columnConverter);
+      const column = snapshot.data();
+
+      if (column) {
+        this.column = column;
+      }
+    }
+
+    return doc;
   }
 }

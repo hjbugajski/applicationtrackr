@@ -1,18 +1,16 @@
 import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { lastValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { PAY_PERIOD_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ApplicationDoc } from '~interfaces/application-doc.interface';
-import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators } from '~utils/custom-validators';
 import { dateToTimestamp, timestampToDate } from '~utils/date.util';
@@ -42,7 +40,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
     private applicationsService: ApplicationsService,
     private changeDetectorRef: ChangeDetectorRef,
     private columnsService: ColumnsService,
-    private matDialog: MatDialog,
+    private globalService: GlobalService,
     private notificationService: NotificationService
   ) {
     this.columns$ = this.columnsService.columns$;
@@ -83,21 +81,10 @@ export class ApplicationPanelInfoComponent implements OnInit {
       return;
     }
 
-    const data: ConfirmationDialog = {
+    const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
       item: 'edits'
-    };
-    const dialogAction = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          autoFocus: false,
-          data,
-          disableClose: true,
-          width: '315px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    });
 
     if (dialogAction === DialogActions.Discard) {
       this.isEditing = false;
@@ -137,31 +124,32 @@ export class ApplicationPanelInfoComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
-    if (this.infoForm.valid) {
-      this.isLoading = true;
-
-      const application: Partial<ApplicationDoc> = {
-        compensation: this.compensation.value,
-        date: dateToTimestamp(this.date.value!),
-        link: this.link.value,
-        location: this.location.value,
-        payPeriod: this.payPeriod.value
-      };
-
-      await this.applicationsService
-        .updateApplication(this.application.docId, application)
-        .then(() => {
-          this.isLoading = false;
-          this.isEditing = false;
-          this.infoForm.reset();
-          this.initInfoForm();
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-          this.notificationService.showError('There was a problem updating the application. Please try again.');
-        });
+    if (!this.infoForm.valid) {
+      return;
     }
+
+    this.isLoading = true;
+
+    const application: Partial<ApplicationDoc> = {
+      compensation: this.compensation.value,
+      date: dateToTimestamp(this.date.value!),
+      link: this.link.value,
+      location: this.location.value,
+      payPeriod: this.payPeriod.value
+    };
+
+    await this.applicationsService
+      .update(this.application.docId, application)
+      .then(() => {
+        this.isEditing = false;
+        this.infoForm.reset();
+        this.initInfoForm();
+      })
+      .catch((error) => {
+        console.error(error);
+        this.notificationService.showError('There was a problem updating the application. Please try again.');
+      })
+      .finally(() => (this.isLoading = false));
   }
 
   private initInfoForm(): void {

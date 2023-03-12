@@ -74,14 +74,14 @@ export class UserService extends FirestoreService<User> {
   }
 
   public async updateAppearance(value: Themes | string): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     await this.update(this.userStore.uid!, { 'settings.appearance': value });
   }
 
   public async updateCollapseColumns(value: boolean): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     await this.update(this.userStore.uid!, { 'settings.collapseColumns': value });
-  }
-
-  public async updateCurrentJobBoard(id: string): Promise<void> {
-    await this.update(this.userStore.uid!, { currentJobBoard: id });
   }
 }

@@ -1,6 +1,6 @@
 <ng-container *ngIf="action === dialogActions.Reorder; else form">
   <h1 mat-dialog-title>Reorder columns</h1>
-  <mat-dialog-content *ngIf="isLoaded | async">
+  <mat-dialog-content *ngIf="columns.length > 0">
     <div cdkDropList role="list" class="reorder-column-list" (cdkDropListDropped)="drop($event)">
       <div
         #reorderItem

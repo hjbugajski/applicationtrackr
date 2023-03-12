@@ -3,7 +3,6 @@ import { Auth, authState } from '@angular/fire/auth';
 import { distinctUntilChanged, Subscription } from 'rxjs';
 
 import { GlobalService } from '~services/global/global.service';
-import { MatIconService } from '~services/mat-icon/mat-icon.service';
 import { ThemeService } from '~services/theme/theme.service';
 import { UserStore } from '~store/user.store';
 
@@ -17,11 +16,9 @@ export class AppComponent implements OnDestroy {
   constructor(
     private auth: Auth,
     private globalService: GlobalService,
-    private matIconService: MatIconService,
     private themeService: ThemeService,
     private userStore: UserStore
   ) {
-    this.matIconService.initializeMatIcons();
     this.authSubscription = authState(this.auth)
       .pipe(distinctUntilChanged())
       .subscribe((user) => {
