@@ -64,7 +64,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
       }</strong> and all associated applications will be deleted. This action cannot be undone.`,
       item: 'column'
     };
-    const dialogAction = await this.globalService.confirmationDialog(data);
+    const dialogAction = await this.globalService.confirmationDialog(data, { width: '375px' });
 
     if (dialogAction === DialogActions.Delete) {
       const overlayDialog = this.globalService.overlayDialog();
