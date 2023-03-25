@@ -169,7 +169,7 @@ export class NewApplicationDialogComponent implements OnInit {
 
   private async createApplication(application: ApplicationDoc): Promise<void> {
     await this.applicationsService
-      .createApplication(application.columnDocId, application)
+      .createApplication(application)
       .then(() => {
         this.notificationService.showSuccess('Application added!');
         this.matDialogRef.close();

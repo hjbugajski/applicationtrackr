@@ -164,8 +164,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
       },
       color,
       sortOrder: this.columns.length,
-      title,
-      total: 0
+      title
     };
 
     await this.columnsService

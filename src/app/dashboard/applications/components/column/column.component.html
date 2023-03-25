@@ -1,8 +1,8 @@
 <div class="column-header at-text" [ngClass]="column?.color">
   <div class="column-title-container">
     <span class="column-title">{{ column?.title }}</span>
-    <at-tag *ngIf="column && !(column?.total === 0 && (collapseColumns$ | async))" size="small" [color]="column.color">
-      {{ column.total }}
+    <at-tag *ngIf="column && total > 0" size="small" [color]="column.color">
+      {{ total }}
     </at-tag>
   </div>
   <div class="column-actions">
@@ -27,7 +27,7 @@
       <ng-container *ngFor="let sortOption of sortOptions; let i = index">
         <button
           mat-menu-item
-          [class.mat-list-single-selected-option]="sortOption === selectedSortOption"
+          [class.mat-mdc-option-active]="sortOption === selectedSortOption"
           (click)="sort(sortOption)"
         >
           {{ sortOption.viewValue }}

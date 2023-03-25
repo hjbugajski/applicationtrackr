@@ -1,9 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { orderBy, query, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { deepEqual } from '@firebase/util';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
 import { NewApplicationDialogComponent } from '~components/new-application-dialog/new-application-dialog.component';
@@ -26,11 +26,11 @@ import { UserStore } from '~store/user.store';
   styleUrls: ['./column.component.scss'],
   host: {
     class: 'column at-alpha-background',
-    '[class.column-empty]': 'column?.total === 0 && userStore.collapseColumns'
+    '[class.column-empty]': 'total === 0 && userStore.collapseColumns'
   },
   encapsulation: ViewEncapsulation.None
 })
-export class ColumnComponent implements OnChanges {
+export class ColumnComponent implements OnChanges, OnDestroy {
   @Input() public column: Column | undefined;
 
   public applications$: Observable<Application[]>;
@@ -38,6 +38,9 @@ export class ColumnComponent implements OnChanges {
   public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
+  public total = -1;
+
+  private subscription: Subscription;
 
   constructor(
     private applicationsService: ApplicationsService,
@@ -50,6 +53,7 @@ export class ColumnComponent implements OnChanges {
     this.applications$ = new Observable<Application[]>();
     this.collapseColumns$ = this.userStore.collapseColumns$;
     this.isTouch = matchMedia('(hover: none)').matches;
+    this.subscription = new Subscription();
   }
 
   public async deleteColumn(): Promise<void> {
@@ -84,12 +88,10 @@ export class ColumnComponent implements OnChanges {
     const prevColumn = event.previousContainer.data as Column;
 
     if (prevColumn !== nextColumn) {
-      await this.applicationsService
-        .moveApplication(prevColumn.docId, nextColumn.docId, application.docId)
-        .catch((error) => {
-          console.error(error);
-          this.notificationService.showError('There was an error moving the application. Please try again.');
-        });
+      await this.applicationsService.moveApplication(nextColumn.docId, application.docId).catch((error) => {
+        console.error(error);
+        this.notificationService.showError('There was an error moving the application. Please try again.');
+      });
     }
   }
 
@@ -125,6 +127,10 @@ export class ColumnComponent implements OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
   public reorderColumn(): void {
     this.matDialog.open(ColumnDialogComponent, {
       data: { action: DialogActions.Reorder, data: this.column },
@@ -148,8 +154,7 @@ export class ColumnComponent implements OnChanges {
   }
 
   private initApplications(): void {
-    this.applications$ = new Observable<Application[]>();
-
+    this.subscription?.unsubscribe();
     this.applications$ = this.applicationsService.collection$(
       query(
         this.applicationsService.collectionRefWithConverter,
@@ -157,5 +162,6 @@ export class ColumnComponent implements OnChanges {
         orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction)
       )
     );
+    this.subscription = this.applications$.subscribe((applications) => (this.total = applications.length));
   }
 }

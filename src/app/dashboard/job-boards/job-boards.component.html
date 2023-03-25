@@ -1,25 +1,3 @@
 <div class="job-boards-list at-background at-border border">
-  <div *ngFor="let jobBoard of jobBoards | async" class="job-boards-list-item at-border border">
-    <div class="job-boards-list-item-text">
-      <div class="job-boards-list-item-title">
-        {{ jobBoard.title }}
-        <at-tag *ngIf="isCurrentBoard(jobBoard)" color="success">Current</at-tag>
-      </div>
-      <div class="at-text muted">
-        {{ jobBoard.total }} {{ jobBoard.total === 1 ? 'application' : 'applications' }} &bull;
-        {{ convertToDate(jobBoard.date) }}
-      </div>
-    </div>
-    <div class="job-boards-list-item-actions">
-      <button mat-stroked-button color="primary" (click)="editJobBoard(jobBoard)">Edit</button>
-      <button
-        mat-stroked-button
-        color="danger"
-        [disabled]="isCurrentBoard(jobBoard)"
-        (click)="deleteJobBoard(jobBoard)"
-      >
-        Delete
-      </button>
-    </div>
-  </div>
+  <at-job-board [jobBoard]="jobBoard" *ngFor="let jobBoard of jobBoards | async"></at-job-board>
 </div>

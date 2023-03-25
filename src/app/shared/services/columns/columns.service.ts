@@ -4,7 +4,6 @@ import {
   CollectionReference,
   DocumentData,
   Firestore,
-  increment,
   orderBy,
   Query,
   query
@@ -73,11 +72,6 @@ export class ColumnsService extends FirestoreService<Column> {
 
   public async deleteColumn(column: Column): Promise<void> {
     await this.delete(column.docId).then(async () => {
-      await this.jobBoardsService
-        .update(this.userStore.currentJobBoard!, { total: increment(-column.total) })
-        .catch((error) => {
-          console.error(error);
-        });
       await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
         console.error(error);
       });

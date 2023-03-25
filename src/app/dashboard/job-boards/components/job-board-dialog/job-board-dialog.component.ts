@@ -87,7 +87,7 @@ export class JobBoardDialogComponent {
 
     if (this.providedData.action === DialogActions.New) {
       await this.jobBoardsService
-        .createJobBoard(this.userStore.uid!, { date, title, total: 0 })
+        .createJobBoard(this.userStore.uid!, { date, title })
         .then(() => {
           this.notificationService.showSuccess('Job board added!');
           this.matDialogRef.close();

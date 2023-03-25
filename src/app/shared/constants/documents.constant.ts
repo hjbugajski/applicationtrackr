@@ -8,8 +8,7 @@ export const COLUMNS: ColumnDoc[] = [
     },
     color: 'neutral',
     sortOrder: 0,
-    title: 'Todo',
-    total: 0
+    title: 'Todo'
   },
   {
     applicationSort: {
@@ -18,8 +17,7 @@ export const COLUMNS: ColumnDoc[] = [
     },
     color: 'primary',
     sortOrder: 1,
-    title: 'Submitted',
-    total: 0
+    title: 'Submitted'
   },
   {
     applicationSort: {
@@ -28,8 +26,7 @@ export const COLUMNS: ColumnDoc[] = [
     },
     color: 'accent',
     sortOrder: 2,
-    title: 'Interview',
-    total: 0
+    title: 'Interview'
   },
   {
     applicationSort: {
@@ -38,8 +35,7 @@ export const COLUMNS: ColumnDoc[] = [
     },
     color: 'success',
     sortOrder: 3,
-    title: 'Offer',
-    total: 0
+    title: 'Offer'
   },
   {
     applicationSort: {
@@ -48,7 +44,6 @@ export const COLUMNS: ColumnDoc[] = [
     },
     color: 'danger',
     sortOrder: 4,
-    title: 'Rejected',
-    total: 0
+    title: 'Rejected'
   }
 ];

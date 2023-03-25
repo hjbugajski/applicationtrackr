@@ -99,7 +99,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
       const overlayDialog = this.globalService.overlayDialog();
 
       await this.applicationsService
-        .deleteApplication(this.column.docId, this.application.docId)
+        .deleteApplication(this.application.docId)
         .then(() => {
           this.notificationService.showSuccess('Application deleted.');
           overlayDialog.close();
@@ -133,7 +133,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     const overlayDialog = this.globalService.overlayDialog();
 
     await this.applicationsService
-      .moveApplication(this.column.docId, newColumn.docId, this.application.docId)
+      .moveApplication(newColumn.docId, this.application.docId)
       .then(() => {
         this.notificationService.showSuccess('Application successfully moved!');
       })

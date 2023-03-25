@@ -5,6 +5,7 @@ import {
   doc,
   DocumentData,
   Firestore,
+  getCountFromServer,
   orderBy,
   query,
   writeBatch
@@ -78,7 +79,7 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
 
   public async createJobBoard(
     uid: string,
-    value: JobBoardDoc = { title: 'Job Board', date: dateToTimestamp(new Date(Date.now())), total: 0 }
+    value: JobBoardDoc = { title: 'Job Board', date: dateToTimestamp(new Date(Date.now())) }
   ): Promise<string> {
     const docRef = await this.create(value);
 
@@ -97,6 +98,13 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
         console.error(error);
         this.notificationService.showError('There was a problem deleting the job board. Please try again.');
       });
+  }
+
+  public async getApplicationsTotal(id: string): Promise<number> {
+    const basePath = [this._basePath, id, Collections.Applications].join('/');
+    const snapshot = await getCountFromServer(collection(this.firestore, basePath));
+
+    return snapshot.data().count;
   }
 
   private resetJobBoards(): void {

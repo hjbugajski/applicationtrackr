@@ -31,8 +31,7 @@ export const columnConverter = {
       applicationSort: column.applicationSort,
       color: column.color,
       sortOrder: column.sortOrder,
-      title: column.title,
-      total: column.total
+      title: column.title
     };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): Column => {
@@ -44,8 +43,7 @@ export const jobBoardConverter = {
   toFirestore: (jobBoard: JobBoard): DocumentData => {
     return {
       date: jobBoard.date,
-      title: jobBoard.title,
-      total: jobBoard.total
+      title: jobBoard.title
     };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): JobBoard => {
