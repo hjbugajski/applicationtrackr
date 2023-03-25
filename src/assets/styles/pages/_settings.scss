@@ -7,7 +7,11 @@
 .settings-section-header {
   @include mixins.font-size(22px);
 
+  position: sticky;
+  top: 56px;
+  z-index: 1;
   margin-bottom: 24px;
-  padding-bottom: 16px;
+  padding: 16px 0;
+  background-color: var(--color-canvas);
   border-bottom: 2px solid var(--color-border);
 }
