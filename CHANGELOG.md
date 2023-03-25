@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.3](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.2...v1.7.3) (2023-03-25)
+
+### Features
+
+- add sticky headers to settings ([a9e9f53](https://github.com/hjbugajski/applicationtrackr/commit/a9e9f531915342d64f68a3b1770cfe8bb999d5e7))
+
+### Bug Fixes
+
+- add button color to icon buttons ([3a4cbe8](https://github.com/hjbugajski/applicationtrackr/commit/3a4cbe812a2c5f3e08379ce125793f8c7df33137))
+- update column styles ([20268a3](https://github.com/hjbugajski/applicationtrackr/commit/20268a30577b0ad602fb4a42c7b9ca886c5a4b67))
+
 ## [1.7.2](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.1...v1.7.2) (2023-03-11)
 
 ### Bug Fixes
