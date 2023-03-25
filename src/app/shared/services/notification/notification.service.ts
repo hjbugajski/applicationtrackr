@@ -12,14 +12,12 @@ export class NotificationService {
   constructor(private matSnackBar: MatSnackBar) {}
 
   public show(type: Colors, title: string, message: string, duration = 3000): void {
-    const data: NotificationData = {
-      message,
-      title,
-      type
-    };
-
-    this.matSnackBar.openFromComponent(NotificationComponent, {
-      data,
+    this.matSnackBar.openFromComponent<NotificationComponent, NotificationData>(NotificationComponent, {
+      data: {
+        message,
+        title,
+        type
+      },
       duration,
       horizontalPosition: 'right',
       panelClass: 'mat-snackbar',

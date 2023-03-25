@@ -49,45 +49,21 @@ export class ApplicationsService extends FirestoreService<Application> {
       });
   }
 
-  public async createApplication(columnId: string, application: ApplicationDoc): Promise<void> {
-    await this.create(application)
-      .then(async () => {
-        await this.updateTotals(columnId, 1);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }
-
-  public async deleteApplication(columnId: string, applicationId: string): Promise<void> {
-    await this.delete(applicationId)
-      .then(async () => {
-        await this.updateTotals(columnId, -1);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }
-
-  public async moveApplication(prevColumnId: string, nextColumnId: string, applicationId: string): Promise<void> {
-    await this.update(applicationId, { columnDocId: nextColumnId })
-      .then(async () => {
-        await this.columnsService.updateTotal(prevColumnId, -1);
-        await this.columnsService.updateTotal(nextColumnId, 1);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }
-
-  public async updateApplication(applicationId: string, application: Partial<ApplicationDoc>): Promise<void> {
-    await this.update(applicationId, { ...application }).catch((error) => {
+  public async createApplication(application: ApplicationDoc): Promise<void> {
+    await this.create(application).catch((error) => {
       throw error;
     });
   }
 
-  private async updateTotals(columnId: string, value: number): Promise<void> {
-    await this.columnsService.updateTotal(columnId, value);
-    await this.jobBoardsService.updateJobBoardTotal(this.userStore.currentJobBoard!, value);
+  public async deleteApplication(applicationId: string): Promise<void> {
+    await this.delete(applicationId).catch((error) => {
+      throw error;
+    });
+  }
+
+  public async moveApplication(nextColumnId: string, applicationId: string): Promise<void> {
+    await this.update(applicationId, { columnDocId: nextColumnId }).catch((error) => {
+      throw error;
+    });
   }
 }

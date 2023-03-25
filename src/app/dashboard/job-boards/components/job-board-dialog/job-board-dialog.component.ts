@@ -1,13 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { lastValueFrom, Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
-import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { DocumentDialog } from '~interfaces/document-dialog.interface';
 import { JobBoard } from '~models/job-board.model';
+import { GlobalService } from '~services/global/global.service';
 import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
@@ -27,9 +25,9 @@ export class JobBoardDialogComponent {
   });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public providedData: DocumentDialog,
+    @Inject(MAT_DIALOG_DATA) public providedData: DocumentDialog<JobBoard>,
+    private globalService: GlobalService,
     private jobBoardsService: JobBoardsService,
-    private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<JobBoardDialogComponent>,
     private notificationService: NotificationService,
     private userStore: UserStore
@@ -58,21 +56,10 @@ export class JobBoardDialogComponent {
     if (this.jobBoardForm.pristine) {
       this.matDialogRef.close();
     } else {
-      const data: ConfirmationDialog = {
+      const dialogAction = await this.globalService.confirmationDialog({
         action: DialogActions.Discard,
         item: this.providedData.action === DialogActions.New ? 'job board' : 'edits'
-      };
-      const dialogAction = await lastValueFrom(
-        this.matDialog
-          .open(ConfirmationDialogComponent, {
-            autoFocus: false,
-            data,
-            disableClose: true,
-            width: '315px',
-            panelClass: 'at-dialog-with-padding'
-          })
-          .afterClosed() as Observable<DialogActions>
-      );
+      });
 
       if (dialogAction === DialogActions.Discard) {
         this.matDialogRef.close();
@@ -89,33 +76,46 @@ export class JobBoardDialogComponent {
   }
 
   public async submit(): Promise<void> {
-    if (this.jobBoardForm.valid) {
-      this.isLoading = true;
+    if (!this.jobBoardForm.valid) {
+      return;
+    }
 
-      const title = this.title.value!;
-      const date = this.date.value!;
+    this.isLoading = true;
 
-      if (this.providedData.action === DialogActions.New) {
-        await this.jobBoardsService.createJobBoard(this.userStore.uid!, title, date).then(() => {
-          this.isLoading = false;
+    const title = this.title.value!;
+    const date = dateToTimestamp(this.date.value!);
+
+    if (this.providedData.action === DialogActions.New) {
+      await this.jobBoardsService
+        .createJobBoard(this.userStore.uid!, { date, title })
+        .then(() => {
           this.notificationService.showSuccess('Job board added!');
           this.matDialogRef.close();
-        });
-      } else {
-        // DialogActions.Edit
-        const data = this.providedData.data as JobBoard;
-        const timestamp = dateToTimestamp(date);
+        })
+        .catch((error) => {
+          console.error(error);
+          this.notificationService.showError('There was a problem creating the job board. Please try again.');
+        })
+        .finally(() => (this.isLoading = false));
+    } else {
+      // DialogActions.Edit
+      const data = this.providedData.data;
 
-        await this.jobBoardsService.updateJobBoard(data.docId, { date: timestamp, title }).then(() => {
-          this.isLoading = false;
+      await this.jobBoardsService
+        .update(data.docId, { date, title })
+        .then(() => {
           this.matDialogRef.close();
-        });
-      }
+        })
+        .catch((error) => {
+          console.error(error);
+          this.notificationService.showError('There was a problem updating the job board. Please try again.');
+        })
+        .finally(() => (this.isLoading = false));
     }
   }
 
   private initForm(): void {
-    const data = this.providedData.data as JobBoard;
+    const data = this.providedData.data;
 
     if (this.providedData.action === DialogActions.Edit) {
       this.title.setValue(data.title);

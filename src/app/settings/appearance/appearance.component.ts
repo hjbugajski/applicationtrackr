@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 
 import { Icons } from '~enums/icons.enum';
 import { Themes } from '~enums/themes.enum';
@@ -32,11 +32,7 @@ export class AppearanceComponent implements OnDestroy {
     ];
     this.subscription = new Subscription();
     this.subscription.add(
-      this.userStore.appearance$.subscribe((value) => {
-        if (value) {
-          this.selectedTheme = value;
-        }
-      })
+      this.userStore.appearance$.pipe(filter((value) => !!value)).subscribe((value) => (this.selectedTheme = value!))
     );
   }
 

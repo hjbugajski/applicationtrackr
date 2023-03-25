@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
-  addDoc,
   collection,
   CollectionReference,
   doc,
   DocumentData,
   Firestore,
-  increment,
+  getCountFromServer,
   orderBy,
   query,
   writeBatch
@@ -16,12 +15,14 @@ import { Observable, takeUntil } from 'rxjs';
 import { COLUMNS } from '~constants/documents.constant';
 import { Collections } from '~enums/collections.enum';
 import { ReferenceTypes } from '~enums/reference-types.enum';
+import { JobBoardDoc } from '~interfaces/job-board-doc.interface';
 import { JobBoard } from '~models/job-board.model';
 import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
 import { FirestoreService } from '~services/firestore/firestore.service';
 import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
+import { dateToTimestamp } from '~utils/date.util';
 import { jobBoardConverter } from '~utils/firestore-converters';
 
 @Injectable({
@@ -76,13 +77,11 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
     await batch.commit();
   }
 
-  public async createJobBoard(uid: string, title?: string, date?: Date): Promise<string> {
-    const collectionRef = collection(this.firestore, Collections.Users, uid, Collections.JobBoards);
-    const docRef = await addDoc(collectionRef, {
-      date: date ?? new Date(),
-      title: title ?? 'Job Board',
-      total: 0
-    });
+  public async createJobBoard(
+    uid: string,
+    value: JobBoardDoc = { title: 'Job Board', date: dateToTimestamp(new Date(Date.now())) }
+  ): Promise<string> {
+    const docRef = await this.create(value);
 
     await this.createColumns(uid, docRef.id);
 
@@ -101,17 +100,11 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
       });
   }
 
-  public async updateJobBoard(id: string, data: Partial<JobBoard>): Promise<void> {
-    await this.update(id, data).catch((error) => {
-      console.error(error);
-      this.notificationService.showError('There was a problem updating the job board. Please try again.');
-    });
-  }
+  public async getApplicationsTotal(id: string): Promise<number> {
+    const basePath = [this._basePath, id, Collections.Applications].join('/');
+    const snapshot = await getCountFromServer(collection(this.firestore, basePath));
 
-  public async updateJobBoardTotal(id: string, value: number): Promise<void> {
-    await this.update(id, { total: increment(value) }).catch((error) => {
-      console.error(error);
-    });
+    return snapshot.data().count;
   }
 
   private resetJobBoards(): void {

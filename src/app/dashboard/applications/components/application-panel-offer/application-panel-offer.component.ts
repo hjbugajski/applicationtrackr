@@ -1,18 +1,15 @@
 import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { lastValueFrom, Observable } from 'rxjs';
 
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { PAY_PERIOD_OPTIONS } from '~constants/forms.constants';
 import { Colors } from '~enums/colors.enum';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ApplicationOffer } from '~interfaces/application-doc.interface';
-import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators } from '~utils/custom-validators';
 import { dateToTimestamp, timestampToDate } from '~utils/date.util';
@@ -42,7 +39,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
   constructor(
     private applicationsService: ApplicationsService,
     private changeDetectorRef: ChangeDetectorRef,
-    private matDialog: MatDialog,
+    private globalService: GlobalService,
     private notificationService: NotificationService
   ) {}
 
@@ -85,23 +82,12 @@ export class ApplicationPanelOfferComponent implements OnInit {
       return;
     }
 
-    const data: ConfirmationDialog = {
+    const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
       item: 'edits'
-    };
-    const dialogActions = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          autoFocus: false,
-          data,
-          disableClose: true,
-          width: '315px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    });
 
-    if (dialogActions === DialogActions.Discard) {
+    if (dialogAction === DialogActions.Discard) {
       this.isEditing = false;
       this.offerForm.reset();
       this.initForm();
@@ -129,34 +115,35 @@ export class ApplicationPanelOfferComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
-    if (this.offerForm.valid) {
-      this.isLoading = true;
-
-      const offer: ApplicationOffer = {
-        benefits: this.benefits.value,
-        bonus: this.bonus.value,
-        compensation: this.compensation.value,
-        deadline: this.deadline.value ? dateToTimestamp(this.deadline.value) : null,
-        notes: this.application.offer?.notes ?? null,
-        payPeriod: this.payPeriod.value,
-        pto: this.pto.value,
-        startDate: this.startDate.value ? dateToTimestamp(this.startDate.value) : null
-      };
-
-      await this.applicationsService
-        .updateApplication(this.application.docId, { offer })
-        .then(() => {
-          this.isLoading = false;
-          this.isEditing = false;
-          this.offerForm.reset();
-          this.initForm();
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-          this.notificationService.showError('There was a problem updating the offer. Please try again.');
-        });
+    if (!this.offerForm.valid) {
+      return;
     }
+
+    this.isLoading = true;
+
+    const offer: ApplicationOffer = {
+      benefits: this.benefits.value,
+      bonus: this.bonus.value,
+      compensation: this.compensation.value,
+      deadline: this.deadline.value ? dateToTimestamp(this.deadline.value) : null,
+      notes: this.application.offer?.notes ?? null,
+      payPeriod: this.payPeriod.value,
+      pto: this.pto.value,
+      startDate: this.startDate.value ? dateToTimestamp(this.startDate.value) : null
+    };
+
+    await this.applicationsService
+      .update(this.application.docId, { offer })
+      .then(() => {
+        this.isEditing = false;
+        this.offerForm.reset();
+        this.initForm();
+      })
+      .catch((error) => {
+        console.error(error);
+        this.notificationService.showError('There was a problem updating the offer. Please try again.');
+      })
+      .finally(() => (this.isLoading = false));
   }
 
   private initForm(): void {

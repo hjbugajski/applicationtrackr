@@ -64,7 +64,7 @@ export abstract class FirestoreService<T> {
     return await getDoc(this.docRef(id).withConverter(converter));
   }
 
-  public async update(id: string, value: UpdateData<T | any>): Promise<void> {
+  public async update(id: string, value: UpdateData<T>): Promise<void> {
     return await updateDoc(this.docRef(id) as DocumentReference<T>, value);
   }
 }

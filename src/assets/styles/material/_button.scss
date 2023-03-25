@@ -83,7 +83,8 @@
   }
 
   @each $key in map-keys(palette.$at-palette-keys) {
-    .mdc-button.mat-#{$key}:not(:disabled) {
+    .mdc-button.mat-#{$key}:not(:disabled),
+    .mdc-icon-button.mat-#{$key}:not(:disabled) {
       color: map.get(palette.$at-palette, $key);
     }
 

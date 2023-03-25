@@ -1,21 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 
 import { JobBoardsComponent } from './job-boards.component';
 
-import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinner.module';
-import { TagModule } from '~components/tag/tag.module';
+import { JobBoardModule } from '~components/job-board/job-board.module';
 
 @NgModule({
   declarations: [JobBoardsComponent],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    OverlaySpinnerModule,
-    RouterModule.forChild([{ path: '', component: JobBoardsComponent }]),
-    TagModule
-  ]
+  imports: [CommonModule, JobBoardModule, RouterModule.forChild([{ path: '', component: JobBoardsComponent }])]
 })
 export class JobBoardsModule {}

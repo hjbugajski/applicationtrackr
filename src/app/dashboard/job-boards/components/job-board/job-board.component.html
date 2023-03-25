@@ -1,0 +1,18 @@
+<div class="job-boards-list-item-text">
+  <div class="job-boards-list-item-title">
+    {{ jobBoard.title }}
+    <at-tag *ngIf="isCurrentBoard(jobBoard)" color="success">Current</at-tag>
+  </div>
+  <div class="at-text muted" [class.job-board-total-skeleton]="total === -1">
+    <ng-container *ngIf="total >= 0">
+      {{ total }} {{ total === 1 ? 'application' : 'applications' }} &bull;
+      {{ jobBoard.date | timestampDate }}
+    </ng-container>
+  </div>
+</div>
+<div class="job-boards-list-item-actions">
+  <button mat-stroked-button color="primary" (click)="editJobBoard(jobBoard)">Edit</button>
+  <button mat-stroked-button color="danger" [disabled]="isCurrentBoard(jobBoard)" (click)="deleteJobBoard(jobBoard)">
+    Delete
+  </button>
+</div>

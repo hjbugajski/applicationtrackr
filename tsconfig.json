@@ -30,6 +30,7 @@
       "~guards/*": ["src/app/shared/guards/*"],
       "~interfaces/*": ["src/app/shared/interfaces/*"],
       "~models/*": ["src/app/shared/models/*"],
+      "~modules/*": ["src/app/shared/modules/*"],
       "~pipes/*": ["src/app/shared/pipes/*"],
       "~services/*": ["src/app/shared/services/*"],
       "~store/*": ["src/app/shared/store/*"],

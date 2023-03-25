@@ -1,14 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { orderBy, query, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { deepEqual } from '@firebase/util';
-import { lastValueFrom, Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { NewApplicationDialogComponent } from '~components/new-application-dialog/new-application-dialog.component';
-import { OverlaySpinnerComponent } from '~components/overlay-spinner/overlay-spinner.component';
 import { COLUMN_SORT_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
@@ -17,6 +15,7 @@ import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
 import { ColumnsService } from '~services/columns/columns.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
 
@@ -27,11 +26,11 @@ import { UserStore } from '~store/user.store';
   styleUrls: ['./column.component.scss'],
   host: {
     class: 'column at-alpha-background',
-    '[class.column-empty]': 'column?.total === 0 && userStore.collapseColumns'
+    '[class.column-empty]': 'total === 0 && userStore.collapseColumns'
   },
   encapsulation: ViewEncapsulation.None
 })
-export class ColumnComponent implements OnChanges {
+export class ColumnComponent implements OnChanges, OnDestroy {
   @Input() public column: Column | undefined;
 
   public applications$: Observable<Application[]>;
@@ -39,10 +38,14 @@ export class ColumnComponent implements OnChanges {
   public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
+  public total = -1;
+
+  private subscription: Subscription;
 
   constructor(
     private applicationsService: ApplicationsService,
     private columnsService: ColumnsService,
+    private globalService: GlobalService,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
     private userStore: UserStore
@@ -50,6 +53,7 @@ export class ColumnComponent implements OnChanges {
     this.applications$ = new Observable<Application[]>();
     this.collapseColumns$ = this.userStore.collapseColumns$;
     this.isTouch = matchMedia('(hover: none)').matches;
+    this.subscription = new Subscription();
   }
 
   public async deleteColumn(): Promise<void> {
@@ -60,36 +64,21 @@ export class ColumnComponent implements OnChanges {
       }</strong> and all associated applications will be deleted. This action cannot be undone.`,
       item: 'column'
     };
-
-    const dialogAction = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          data,
-          disableClose: true,
-          width: '350px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    const dialogAction = await this.globalService.confirmationDialog(data, { width: '375px' });
 
     if (dialogAction === DialogActions.Delete) {
-      const overlayDialog = this.matDialog.open(OverlaySpinnerComponent, {
-        autoFocus: false,
-        disableClose: true,
-        panelClass: 'overlay-spinner-dialog'
-      });
+      const overlayDialog = this.globalService.overlayDialog();
 
       await this.columnsService
         .deleteColumn(this.column!)
         .then(() => {
           this.notificationService.showSuccess('Column deleted.');
-          overlayDialog.close();
         })
         .catch((error) => {
           console.error(error);
-          overlayDialog.close();
           this.notificationService.showError('There was an error deleting the column. Please try again.');
-        });
+        })
+        .finally(() => overlayDialog.close());
     }
   }
 
@@ -99,12 +88,10 @@ export class ColumnComponent implements OnChanges {
     const prevColumn = event.previousContainer.data as Column;
 
     if (prevColumn !== nextColumn) {
-      await this.applicationsService
-        .moveApplication(prevColumn.docId, nextColumn.docId, application.docId)
-        .catch((error) => {
-          console.error(error);
-          this.notificationService.showError('There was an error moving the application. Please try again.');
-        });
+      await this.applicationsService.moveApplication(nextColumn.docId, application.docId).catch((error) => {
+        console.error(error);
+        this.notificationService.showError('There was an error moving the application. Please try again.');
+      });
     }
   }
 
@@ -140,6 +127,10 @@ export class ColumnComponent implements OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
   public reorderColumn(): void {
     this.matDialog.open(ColumnDialogComponent, {
       data: { action: DialogActions.Reorder, data: this.column },
@@ -154,21 +145,16 @@ export class ColumnComponent implements OnChanges {
     }
 
     this.selectedSortOption = sortOption;
-    await this.updateApplicationSort();
-  }
 
-  public async updateApplicationSort(): Promise<void> {
-    await this.columnsService
-      .updateApplicationSort(this.column!.docId, this.selectedSortOption?.value ?? this.sortOptions[0].value)
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error updating the default sort. Please try again.');
-      });
+    const value = this.selectedSortOption?.value ?? this.sortOptions[0].value;
+    await this.columnsService.update(this.column!.docId, { applicationSort: value }).catch((error) => {
+      console.error(error);
+      this.notificationService.showError('There was an error updating the default sort. Please try again.');
+    });
   }
 
   private initApplications(): void {
-    this.applications$ = new Observable<Application[]>();
-
+    this.subscription?.unsubscribe();
     this.applications$ = this.applicationsService.collection$(
       query(
         this.applicationsService.collectionRefWithConverter,
@@ -176,5 +162,6 @@ export class ColumnComponent implements OnChanges {
         orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction)
       )
     );
+    this.subscription = this.applications$.subscribe((applications) => (this.total = applications.length));
   }
 }

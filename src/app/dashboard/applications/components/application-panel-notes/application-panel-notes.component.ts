@@ -1,16 +1,12 @@
 import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
-import { lastValueFrom, Observable } from 'rxjs';
 
-import { ConfirmationDialogComponent } from '~components/confirmation-dialog/confirmation-dialog.component';
 import { DialogActions } from '~enums/dialog-actions.enum';
-import { ApplicationDoc } from '~interfaces/application-doc.interface';
-import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
+import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 
 @Component({
@@ -32,7 +28,7 @@ export class ApplicationPanelNotesComponent implements OnInit {
   constructor(
     private applicationsService: ApplicationsService,
     private changeDetectorRef: ChangeDetectorRef,
-    private matDialog: MatDialog,
+    private globalService: GlobalService,
     private notificationService: NotificationService
   ) {}
 
@@ -47,21 +43,10 @@ export class ApplicationPanelNotesComponent implements OnInit {
       return;
     }
 
-    const data: ConfirmationDialog = {
+    const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
       item: 'edits'
-    };
-    const dialogAction = await lastValueFrom(
-      this.matDialog
-        .open(ConfirmationDialogComponent, {
-          autoFocus: false,
-          data,
-          disableClose: true,
-          width: '315px',
-          panelClass: 'at-dialog-with-padding'
-        })
-        .afterClosed() as Observable<DialogActions>
-    );
+    });
 
     if (dialogAction === DialogActions.Discard) {
       this.isEditing = false;
@@ -88,21 +73,18 @@ export class ApplicationPanelNotesComponent implements OnInit {
     if (this.noteForm.valid) {
       this.isLoading = true;
 
-      const application: Partial<ApplicationDoc> = { note: this.note.value };
-
       await this.applicationsService
-        .updateApplication(this.application.docId, application)
+        .update(this.application.docId, { note: this.note.value })
         .then(() => {
-          this.isLoading = false;
           this.isEditing = false;
           this.noteForm.reset();
           this.initNoteForm();
         })
         .catch((error) => {
           console.error(error);
-          this.isLoading = false;
           this.notificationService.showError('There was a problem updating the application. Please try again.');
-        });
+        })
+        .finally(() => (this.isLoading = false));
     }
   }
 
