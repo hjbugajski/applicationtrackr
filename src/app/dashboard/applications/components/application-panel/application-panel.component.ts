@@ -102,14 +102,12 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
         .deleteApplication(this.application.docId)
         .then(() => {
           this.notificationService.showSuccess('Application deleted.');
-          overlayDialog.close();
           this.close();
         })
-        .catch((error) => {
-          console.error(error);
-          overlayDialog.close();
+        .catch(() => {
           this.notificationService.showError('There was an error deleting the application. Please try again.');
-        });
+        })
+        .finally(() => overlayDialog.close());
     }
   }
 
@@ -134,13 +132,8 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
 
     await this.applicationsService
       .moveApplication(newColumn.docId, this.application.docId)
-      .then(() => {
-        this.notificationService.showSuccess('Application successfully moved!');
-      })
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error moving the application. Please try again.');
-      })
+      .then(() => this.notificationService.showSuccess('Application successfully moved!'))
+      .catch(() => this.notificationService.showError('There was an error moving the application. Please try again.'))
       .finally(() => overlayDialog.close());
   }
 
@@ -153,7 +146,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
   }
 
   public async save(): Promise<void> {
-    if (!this.companyPositionForm.valid) {
+    if (this.companyPositionForm.invalid) {
       return;
     }
 
@@ -166,8 +159,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
         this.companyPositionForm.reset();
         this.initForm();
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         this.notificationService.showError('There was a problem updating the application. Please try again.');
       })
       .finally(() => (this.isLoading = false));

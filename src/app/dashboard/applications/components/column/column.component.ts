@@ -18,8 +18,8 @@ import { ColumnsService } from '~services/columns/columns.service';
 import { GlobalService } from '~services/global/global.service';
 import { NotificationService } from '~services/notification/notification.service';
 import { UserStore } from '~store/user.store';
+import { objectDeepEquals } from '~utils/compare.util';
 
-/* eslint @angular-eslint/no-host-metadata-property: "off" */
 @Component({
   selector: 'at-column',
   templateUrl: './column.component.html',
@@ -33,14 +33,14 @@ import { UserStore } from '~store/user.store';
 export class ColumnComponent implements OnChanges, OnDestroy {
   @Input() public column: Column | undefined;
 
-  public applications$: Observable<Application[]>;
+  public applications$ = new Observable<Application[]>();
   public collapseColumns$: Observable<boolean | null>;
   public isTouch = true;
   public selectedSortOption: SortOption | undefined;
   public sortOptions = COLUMN_SORT_OPTIONS;
   public total = -1;
 
-  private subscription: Subscription;
+  private subscription: Subscription | undefined;
 
   constructor(
     private applicationsService: ApplicationsService,
@@ -50,10 +50,8 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     private notificationService: NotificationService,
     private userStore: UserStore
   ) {
-    this.applications$ = new Observable<Application[]>();
     this.collapseColumns$ = this.userStore.collapseColumns$;
     this.isTouch = matchMedia('(hover: none)').matches;
-    this.subscription = new Subscription();
   }
 
   public async deleteColumn(): Promise<void> {
@@ -71,13 +69,8 @@ export class ColumnComponent implements OnChanges, OnDestroy {
 
       await this.columnsService
         .deleteColumn(this.column!)
-        .then(() => {
-          this.notificationService.showSuccess('Column deleted.');
-        })
-        .catch((error) => {
-          console.error(error);
-          this.notificationService.showError('There was an error deleting the column. Please try again.');
-        })
+        .then(() => this.notificationService.showSuccess('Column deleted.'))
+        .catch(() => this.notificationService.showError('There was an error deleting the column. Please try again.'))
         .finally(() => overlayDialog.close());
     }
   }
@@ -88,8 +81,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     const prevColumn = event.previousContainer.data as Column;
 
     if (prevColumn !== nextColumn) {
-      await this.applicationsService.moveApplication(nextColumn.docId, application.docId).catch((error) => {
-        console.error(error);
+      await this.applicationsService.moveApplication(nextColumn.docId, application.docId).catch(() => {
         this.notificationService.showError('There was an error moving the application. Please try again.');
       });
     }
@@ -118,11 +110,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     const isSortChange = currColumn && prevColumn && !deepEqual(currColumn.applicationSort, prevColumn.applicationSort);
 
     if (currColumn && (changes.column.isFirstChange() || isColumnChange || isSortChange)) {
-      this.selectedSortOption = this.sortOptions.find(
-        (sortOption) =>
-          sortOption.value.field === currColumn.applicationSort.field &&
-          sortOption.value.direction === currColumn.applicationSort.direction
-      );
+      this.selectedSortOption = this.sortOptions.find((v) => objectDeepEquals(v.value, currColumn.applicationSort));
       this.initApplications();
     }
   }
@@ -147,8 +135,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     this.selectedSortOption = sortOption;
 
     const value = this.selectedSortOption?.value ?? this.sortOptions[0].value;
-    await this.columnsService.update(this.column!.docId, { applicationSort: value }).catch((error) => {
-      console.error(error);
+    await this.columnsService.update(this.column!.docId, { applicationSort: value }).catch(() => {
       this.notificationService.showError('There was an error updating the default sort. Please try again.');
     });
   }

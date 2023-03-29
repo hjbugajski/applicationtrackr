@@ -16,15 +16,12 @@ import { AuthService } from '~services/auth/auth.service';
   styleUrls: ['./manage-account.component.scss']
 })
 export class ManageAccountComponent implements OnInit {
-  public isLoading: boolean;
+  public authParams: AuthParams;
+  public isLoading = false;
   public linkButton: LinkButton;
-  public queryParams: AuthParams;
 
   constructor(private auth: Auth, private activatedRoute: ActivatedRoute, private authService: AuthService) {
-    const routeSnapshot = this.activatedRoute.snapshot;
-
-    this.isLoading = false;
-    this.queryParams = routeSnapshot.queryParams as AuthParams;
+    this.authParams = this.activatedRoute.snapshot.queryParams as AuthParams;
     this.linkButton = { route: '/', text: 'Back to sign in' };
   }
 
@@ -38,12 +35,12 @@ export class ManageAccountComponent implements OnInit {
 
   public async recoverEmail(): Promise<void> {
     this.isLoading = true;
-    await this.authService.recoverEmail(this.queryParams.oobCode).then(() => (this.isLoading = false));
+    await this.authService.recoverEmail(this.authParams.oobCode).finally(() => (this.isLoading = false));
   }
 
   public async verifyEmail(): Promise<void> {
     this.isLoading = true;
-    await this.authService.verifyEmail(this.queryParams.oobCode).then(() => (this.isLoading = false));
+    await this.authService.verifyEmail(this.authParams.oobCode).finally(() => (this.isLoading = false));
   }
 
   private async setLinkButton(): Promise<void> {

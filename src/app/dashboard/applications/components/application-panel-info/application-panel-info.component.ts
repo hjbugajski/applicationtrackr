@@ -124,7 +124,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
-    if (!this.infoForm.valid) {
+    if (this.infoForm.invalid) {
       return;
     }
 
@@ -145,8 +145,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
         this.infoForm.reset();
         this.initInfoForm();
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         this.notificationService.showError('There was a problem updating the application. Please try again.');
       })
       .finally(() => (this.isLoading = false));

@@ -1,7 +1,7 @@
-<ng-container [ngSwitch]="queryParams.mode">
+<ng-container [ngSwitch]="authParams.mode">
   <ng-container *ngSwitchCase="params.ResetPassword">
     <h2 class="at-auth-card-title">Reset password</h2>
-    <at-reset-password-form [queryParams]="queryParams"></at-reset-password-form>
+    <at-reset-password-form [authParams]="authParams"></at-reset-password-form>
   </ng-container>
 
   <ng-container *ngSwitchCase="params.VerifyEmail">

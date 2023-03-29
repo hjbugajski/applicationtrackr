@@ -5,10 +5,8 @@ import { filter, takeUntil } from 'rxjs';
 import { Collections } from '~enums/collections.enum';
 import { ApplicationDoc } from '~interfaces/application-doc.interface';
 import { Application } from '~models/application.model';
-import { ColumnsService } from '~services/columns/columns.service';
 import { FirestoreService } from '~services/firestore/firestore.service';
 import { GlobalService } from '~services/global/global.service';
-import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { UserStore } from '~store/user.store';
 import { applicationConverter } from '~utils/firestore-converters';
 
@@ -20,13 +18,7 @@ export class ApplicationsService extends FirestoreService<Application> {
   protected _collectionRef!: CollectionReference<DocumentData>;
   protected _collectionRefWithConverter!: CollectionReference<Application>;
 
-  constructor(
-    private columnsService: ColumnsService,
-    protected firestore: Firestore,
-    private globalService: GlobalService,
-    private jobBoardsService: JobBoardsService,
-    private userStore: UserStore
-  ) {
+  constructor(protected firestore: Firestore, private globalService: GlobalService, private userStore: UserStore) {
     super(firestore);
 
     this.userStore.state$

@@ -115,7 +115,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
-    if (!this.offerForm.valid) {
+    if (this.offerForm.invalid) {
       return;
     }
 
@@ -139,10 +139,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
         this.offerForm.reset();
         this.initForm();
       })
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was a problem updating the offer. Please try again.');
-      })
+      .catch(() => this.notificationService.showError('There was a problem updating the offer. Please try again.'))
       .finally(() => (this.isLoading = false));
   }
 

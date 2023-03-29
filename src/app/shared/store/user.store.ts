@@ -3,6 +3,7 @@ import { BehaviorSubject, distinctUntilChanged, map, Observable, takeUntil } fro
 
 import { Themes } from '~enums/themes.enum';
 import { GlobalService } from '~services/global/global.service';
+import { objectDeepEquals } from '~utils/compare.util';
 
 interface UserState {
   appearance: Themes | string | null;
@@ -25,7 +26,7 @@ export class UserStore {
       currentJobBoard: null,
       uid: null
     });
-    this.state$ = this._state$.asObservable().pipe(distinctUntilChanged());
+    this.state$ = this._state$.asObservable().pipe(distinctUntilChanged((prev, curr) => objectDeepEquals(prev, curr)));
     this.state$.pipe(takeUntil(this.globalService.destroy$)).subscribe((state) => {
       this.state = state;
     });

@@ -15,7 +15,6 @@ import { Column } from '~models/column.model';
 import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
 import { FirestoreService } from '~services/firestore/firestore.service';
 import { GlobalService } from '~services/global/global.service';
-import { JobBoardsService } from '~services/job-boards/job-boards.service';
 import { UserStore } from '~store/user.store';
 import { columnConverter } from '~utils/firestore-converters';
 
@@ -34,7 +33,6 @@ export class ColumnsService extends FirestoreService<Column> {
     private firebaseFunctionsService: FirebaseFunctionsService,
     protected firestore: Firestore,
     private globalService: GlobalService,
-    private jobBoardsService: JobBoardsService,
     private userStore: UserStore
   ) {
     super(firestore);
@@ -72,9 +70,7 @@ export class ColumnsService extends FirestoreService<Column> {
 
   public async deleteColumn(column: Column): Promise<void> {
     await this.delete(column.docId).then(async () => {
-      await this.firebaseFunctionsService.batchDeleteApplications(column.docId).catch((error) => {
-        console.error(error);
-      });
+      await this.firebaseFunctionsService.batchDeleteApplications(column.docId);
     });
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { lastValueFrom, Subject } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class GlobalService {
+export class GlobalService implements OnDestroy {
   public destroy$ = new Subject<boolean>();
 
   constructor(private matDialog: MatDialog) {}
@@ -30,6 +30,11 @@ export class GlobalService {
         })
         .afterClosed()
     );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   public overlayDialog(): MatDialogRef<OverlaySpinnerComponent> {

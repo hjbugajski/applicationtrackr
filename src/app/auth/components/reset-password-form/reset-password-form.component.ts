@@ -19,20 +19,18 @@ interface PasswordForm {
 })
 export class ResetPasswordFormComponent implements OnInit {
   @Input() public authMode: AuthModes = AuthModes.Reset;
+  @Input() public authParams: AuthParams = { mode: '', oobCode: '' };
   @Input() public buttonText = 'Reset';
   @Input() public email = '';
   @Input() public maxWidth = false;
-  @Input() public queryParams: AuthParams = { mode: '', oobCode: '' };
 
-  public isLoading: boolean;
+  public isLoading = false;
   public passwordForm = new FormGroup<PasswordForm>({
     newPassword: new FormControl('', CustomValidators.passwordValidators),
     confirmPassword: new FormControl('', CustomValidators.passwordValidators)
   });
 
-  constructor(private authService: AuthService) {
-    this.isLoading = false;
-  }
+  constructor(private authService: AuthService) {}
 
   public get authModes(): typeof AuthModes {
     return AuthModes;
@@ -51,24 +49,26 @@ export class ResetPasswordFormComponent implements OnInit {
   }
 
   public async confirmPasswordReset(formDirective: FormGroupDirective): Promise<void> {
-    if (this.passwordForm.valid) {
-      this.isLoading = true;
+    if (this.passwordForm.invalid) {
+      return;
+    }
 
-      const newPasswordValue = this.newPassword.value!;
+    this.isLoading = true;
 
-      if (this.authMode === AuthModes.Reset) {
-        await this.authService.confirmPasswordReset(this.queryParams.oobCode, newPasswordValue).then(() => {
-          this.isLoading = false;
-          this.resetForm(formDirective);
-        });
-      } else if (this.authMode === AuthModes.Update) {
-        const currentPasswordValue = this.currentPassword!.value!;
+    const newPasswordValue = this.newPassword.value!;
 
-        await this.authService.updateUserPassword(this.email, currentPasswordValue, newPasswordValue).then(() => {
-          this.isLoading = false;
-          this.resetForm(formDirective);
-        });
-      }
+    if (this.authMode === AuthModes.Reset) {
+      await this.authService
+        .confirmPasswordReset(this.authParams.oobCode, newPasswordValue)
+        .then(() => this.resetForm(formDirective))
+        .finally(() => (this.isLoading = false));
+    } else if (this.authMode === AuthModes.Update) {
+      const currentPasswordValue = this.currentPassword!.value!;
+
+      await this.authService
+        .updateUserPassword(this.email, currentPasswordValue, newPasswordValue)
+        .then(() => this.resetForm(formDirective))
+        .finally(() => (this.isLoading = false));
     }
   }
 

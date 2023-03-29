@@ -1,5 +1,4 @@
 /* eslint-disable @angular-eslint/directive-selector */
-/* eslint-disable @angular-eslint/no-host-metadata-property */
 import { Component, Directive, Input, ViewEncapsulation } from '@angular/core';
 
 export type ToolbarVariant = 'ghost' | 'regular';

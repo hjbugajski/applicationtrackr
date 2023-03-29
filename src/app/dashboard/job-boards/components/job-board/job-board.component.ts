@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/no-host-metadata-property */
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -42,9 +41,7 @@ export class JobBoardComponent implements OnInit {
     if (dialogAction === DialogActions.Delete) {
       const overlayDialog = this.globalService.overlayDialog();
 
-      await this.jobBoardsService.deleteJobBoard(jobBoard.docId).then(() => {
-        overlayDialog.close();
-      });
+      await this.jobBoardsService.deleteJobBoard(jobBoard.docId).then(() => overlayDialog.close());
     }
   }
 

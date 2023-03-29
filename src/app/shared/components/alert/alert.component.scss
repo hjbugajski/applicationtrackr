@@ -1,6 +1,12 @@
 @use 'variables';
 
-.at-alert-container {
+:host {
+  display: block;
   padding: 8px;
+  font-weight: variables.$font-weight-semi-bold;
   border-radius: variables.$border-radius;
+
+  @media (min-width: 768px) {
+    padding: 12px;
+  }
 }
