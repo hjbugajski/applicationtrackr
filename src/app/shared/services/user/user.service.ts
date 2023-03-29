@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User as FireAuthUser } from '@angular/fire/auth';
 import { collection, CollectionReference, DocumentData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
-import { distinctUntilChanged, Subscription, takeUntil } from 'rxjs';
+import { Subscription, takeUntil } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
 import { Themes } from '~enums/themes.enum';
@@ -37,7 +37,7 @@ export class UserService extends FirestoreService<User> {
 
       if (uid) {
         this.userDocSubscription = this.doc$(uid, userConverter)
-          .pipe(takeUntil(this.globalService.destroy$), distinctUntilChanged())
+          .pipe(takeUntil(this.globalService.destroy$))
           .subscribe((doc) => {
             this.userStore.update({
               appearance: doc.settings?.appearance ?? null,

@@ -14,14 +14,13 @@ import { ColumnsService } from '~services/columns/columns.service';
 })
 export class ApplicationsComponent implements OnDestroy {
   public columnIds$: Observable<string[]>;
-  public columns: Column[];
+  public columns: Column[] = [];
 
-  private columnsSubscription: Subscription | undefined;
+  private subscription: Subscription;
 
   constructor(private columnsService: ColumnsService, private matDialog: MatDialog) {
     this.columnIds$ = this.columnsService.columnIds$;
-    this.columns = [];
-    this.columnsSubscription = this.columnsService.columns$
+    this.subscription = this.columnsService.columns$
       .pipe(filter((columns) => !!columns))
       .subscribe((columns) => (this.columns = columns));
   }
@@ -35,6 +34,6 @@ export class ApplicationsComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.columnsSubscription?.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

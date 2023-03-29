@@ -20,7 +20,7 @@ export class AppComponent implements OnDestroy {
     private userStore: UserStore
   ) {
     this.authSubscription = authState(this.auth)
-      .pipe(distinctUntilChanged())
+      .pipe(distinctUntilChanged((prev, curr) => prev?.uid === curr?.uid))
       .subscribe((user) => {
         if (user) {
           this.userStore.update({ uid: user.uid });
@@ -31,8 +31,6 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.globalService.destroy$.next(true);
-    this.globalService.destroy$.unsubscribe();
     this.authSubscription.unsubscribe();
     this.themeService.removeListeners();
     this.userStore.reset();

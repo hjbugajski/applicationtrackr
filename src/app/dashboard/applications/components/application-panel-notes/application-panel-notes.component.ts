@@ -70,22 +70,23 @@ export class ApplicationPanelNotesComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
-    if (this.noteForm.valid) {
-      this.isLoading = true;
-
-      await this.applicationsService
-        .update(this.application.docId, { note: this.note.value })
-        .then(() => {
-          this.isEditing = false;
-          this.noteForm.reset();
-          this.initNoteForm();
-        })
-        .catch((error) => {
-          console.error(error);
-          this.notificationService.showError('There was a problem updating the application. Please try again.');
-        })
-        .finally(() => (this.isLoading = false));
+    if (this.noteForm.invalid) {
+      return;
     }
+
+    this.isLoading = true;
+
+    await this.applicationsService
+      .update(this.application.docId, { note: this.note.value })
+      .then(() => {
+        this.isEditing = false;
+        this.noteForm.reset();
+        this.initNoteForm();
+      })
+      .catch(() => {
+        this.notificationService.showError('There was a problem updating the application. Please try again.');
+      })
+      .finally(() => (this.isLoading = false));
   }
 
   private initNoteForm(): void {

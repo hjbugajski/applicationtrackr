@@ -55,36 +55,36 @@ export class SignInWithPasswordFormComponent implements OnChanges {
   }
 
   public async signInWithEmail(formDirective: FormGroupDirective): Promise<void> {
-    if (this.emailForm.valid) {
-      const email = this.email.value!;
-      const password = this.password.value!;
+    if (this.emailForm.invalid) {
+      return;
+    }
 
-      this.isLoading = true;
+    const email = this.email.value!;
+    const password = this.password.value!;
 
-      if (this.authMode === AuthModes.SignIn) {
-        await this.authService.signInWithEmail(email, password).then(() => {
-          this.isLoading = false;
+    this.isLoading = true;
+
+    if (this.authMode === AuthModes.SignIn) {
+      await this.authService
+        .signInWithEmail(email, password)
+        .then(() => this.resetForm(formDirective))
+        .finally(() => (this.isLoading = false));
+    } else if (this.authMode === AuthModes.Create) {
+      await this.authService
+        .createUserWithEmail(email, password)
+        .then(() => this.resetForm(formDirective))
+        .finally(() => (this.isLoading = false));
+    } else {
+      await this.authService
+        .reauthenticateCredential(email, password)
+        .then(() => {
           this.resetForm(formDirective);
-        });
-      } else if (this.authMode === AuthModes.Create) {
-        await this.authService.createUserWithEmail(email, password).then(() => {
-          this.isLoading = false;
-          this.resetForm(formDirective);
-        });
-      } else {
-        await this.authService
-          .reauthenticateCredential(email, password)
-          .then(() => {
-            this.isLoading = false;
-            this.resetForm(formDirective);
-            this.reauthenticated.emit();
-          })
-          .catch((error) => {
-            this.isLoading = false;
-            console.error(error);
-            this.notificationService.showError('There was an error with re-authentication. Please try again.');
-          });
-      }
+          this.reauthenticated.emit();
+        })
+        .catch(() => {
+          this.notificationService.showError('There was an error with re-authentication. Please try again.');
+        })
+        .finally(() => (this.isLoading = false));
     }
   }
 

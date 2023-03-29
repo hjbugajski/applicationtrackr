@@ -39,7 +39,8 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
-  padding: 8px;
+  height: 40px;
+  padding: 0 16px 0 12px;
   color: var(--color-neutral);
   font-weight: variables.$font-weight-semi-bold;
   text-decoration: none !important;
@@ -72,7 +73,7 @@
 
 .settings-content {
   width: 100%;
-  margin-top: 7.5px;
+  margin-top: 13.5px;
 }
 
 @media (min-width: 768px) {

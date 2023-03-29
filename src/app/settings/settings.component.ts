@@ -16,9 +16,9 @@ export class SettingsComponent implements OnDestroy {
   private subscription: Subscription;
 
   constructor(private authService: AuthService, private breakpointObserver: BreakpointObserver) {
-    this.subscription = this.breakpointObserver.observe('(min-width: 768px)').subscribe((value) => {
-      this.opened = value.matches;
-    });
+    this.subscription = this.breakpointObserver
+      .observe('(min-width: 768px)')
+      .subscribe((v) => (this.opened = v.matches));
   }
 
   public get paths(): typeof Paths {
@@ -26,7 +26,7 @@ export class SettingsComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public async signOut(): Promise<void> {

@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { Paths } from '~enums/paths.enum';
@@ -19,8 +18,6 @@ interface SidenavItem {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnDestroy, OnInit {
-  @ViewChild('sidenav', { static: true }) private _sidenav: MatSidenav | undefined;
-
   public isLoaded$ = new BehaviorSubject<boolean>(false);
   public sidenavItems: SidenavItem[];
 
@@ -43,12 +40,6 @@ export class DashboardComponent implements OnDestroy, OnInit {
         relativeRoute: true,
         route: Paths.JobBoards,
         viewValue: 'Job boards'
-      },
-      {
-        icon: 'settings',
-        relativeRoute: false,
-        route: Paths.Settings,
-        viewValue: 'Settings'
       }
     ];
   }

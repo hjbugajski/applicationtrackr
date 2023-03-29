@@ -207,7 +207,14 @@
               "order": "alphabetically"
             }
           }
-        ]
+        ],
+        "@angular-eslint/no-host-metadata-property": "off"
+      }
+    },
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "off"
       }
     },
     {

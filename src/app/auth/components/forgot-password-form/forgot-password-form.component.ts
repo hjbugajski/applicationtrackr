@@ -15,11 +15,9 @@ export class ForgotPasswordFormComponent implements OnInit {
   @Input() public readonly: boolean | undefined;
 
   public email = new FormControl('', { nonNullable: true, validators: CustomValidators.emailValidators });
-  public isLoading: boolean;
+  public isLoading = false;
 
-  constructor(private authService: AuthService) {
-    this.isLoading = false;
-  }
+  constructor(private authService: AuthService) {}
 
   public getEmailError(control: AbstractControl | null): string {
     return getEmailError(control);
@@ -33,9 +31,7 @@ export class ForgotPasswordFormComponent implements OnInit {
     if (this.email.valid) {
       this.isLoading = true;
 
-      const email = this.email.value;
-
-      await this.authService.sendPasswordResetEmail(email).then(() => (this.isLoading = false));
+      await this.authService.sendPasswordResetEmail(this.email.value).finally(() => (this.isLoading = false));
     }
   }
 }

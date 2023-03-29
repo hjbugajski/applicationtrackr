@@ -45,9 +45,9 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
     super(firestore);
 
     this.jobBoards$ = new Observable<JobBoard[]>();
-    this.userStore.state$.pipe(takeUntil(this.globalService.destroy$)).subscribe((state) => {
-      if (state.uid) {
-        this._basePath = [Collections.Users, state.uid, Collections.JobBoards].join('/');
+    this.userStore.uid$.pipe(takeUntil(this.globalService.destroy$)).subscribe((uid) => {
+      if (uid) {
+        this._basePath = [Collections.Users, uid, Collections.JobBoards].join('/');
         this._collectionRef = collection(this.firestore, this._basePath);
         this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(jobBoardConverter);
 
@@ -91,13 +91,8 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
   public async deleteJobBoard(docId: string): Promise<void> {
     await this.firebaseFunctionsService
       .recursiveDelete(`${Collections.JobBoards}/${docId}`, ReferenceTypes.Doc)
-      .then(() => {
-        this.notificationService.showSuccess('Job board deleted.');
-      })
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was a problem deleting the job board. Please try again.');
-      });
+      .then(() => this.notificationService.showSuccess('Job board deleted.'))
+      .catch(() => this.notificationService.showError('There was a problem deleting the job board. Please try again.'));
   }
 
   public async getApplicationsTotal(id: string): Promise<number> {

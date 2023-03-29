@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -22,25 +22,21 @@ import { ThemeService } from '~services/theme/theme.service';
     ])
   ]
 })
-export class SignInComponent implements OnInit, OnDestroy {
+export class SignInComponent implements OnDestroy {
   public appTheme: string;
-  public currentPath: Paths;
-  public emailPasswordAuthMode: AuthModes;
+  public currentPath = Paths.SignIn;
+  public emailPasswordAuthMode = AuthModes.SignIn;
   public emailSignInButton: string | undefined;
-  public showEmailPasswordForm: boolean;
-  public showForgotPassword: boolean;
+  public showEmailPasswordForm = false;
+  public showForgotPassword = false;
   public signInUpButton: LinkButton | undefined;
-  public title: string;
+  public title = 'Sign in';
 
-  private appThemeSubscription: Subscription | undefined;
+  private subscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute, private themeService: ThemeService) {
     this.appTheme = this.themeService.appTheme;
-    this.currentPath = Paths.SignIn;
-    this.emailPasswordAuthMode = AuthModes.SignIn;
-    this.showEmailPasswordForm = false;
-    this.showForgotPassword = false;
-    this.title = 'Sign in';
+    this.subscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
 
     this.initSignInOrSignUp();
   }
@@ -54,11 +50,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.appThemeSubscription?.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.appThemeSubscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
+    this.subscription.unsubscribe();
   }
 
   public toggleEmailForm(): void {

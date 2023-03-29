@@ -30,10 +30,9 @@ export class AppearanceComponent implements OnDestroy {
       { class: Themes.Dark, icon: this.getIconPath(Icons.DarkTheme), viewValue: 'Dark' },
       { class: Themes.System, icon: this.getIconPath(Icons.SystemTheme), viewValue: 'System' }
     ];
-    this.subscription = new Subscription();
-    this.subscription.add(
-      this.userStore.appearance$.pipe(filter((value) => !!value)).subscribe((value) => (this.selectedTheme = value!))
-    );
+    this.subscription = this.userStore.appearance$
+      .pipe(filter((value) => !!value))
+      .subscribe((value) => (this.selectedTheme = value!));
   }
 
   public get themes(): typeof Themes {

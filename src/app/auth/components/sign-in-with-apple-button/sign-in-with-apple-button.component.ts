@@ -21,13 +21,11 @@ export class SignInWithAppleButtonComponent implements OnDestroy {
   public appTheme: Themes | string = Themes.Light;
   public isLoading = false;
 
-  private themeSubscription: Subscription;
+  private subscription: Subscription;
 
   constructor(private authService: AuthService, private themeService: ThemeService) {
     this.appTheme = this.themeService.appTheme;
-    this.themeSubscription = this.themeService.appTheme$.subscribe((theme) => {
-      this.appTheme = theme;
-    });
+    this.subscription = this.themeService.appTheme$.subscribe((theme) => (this.appTheme = theme));
   }
 
   public get themes(): typeof Themes {
@@ -35,19 +33,19 @@ export class SignInWithAppleButtonComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.themeSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public async signInWithApple(): Promise<void> {
     this.isLoading = true;
 
     if (this.authMode === AuthModes.SignIn) {
-      await this.authService.signInWithApple().then(() => (this.isLoading = false));
+      await this.authService.signInWithApple().finally(() => (this.isLoading = false));
     } else {
-      await this.authService.reauthenticatePopup(Providers.Apple).then(() => {
-        this.isLoading = false;
-        this.reauthenticated.emit();
-      });
+      await this.authService
+        .reauthenticatePopup(Providers.Apple)
+        .then(() => this.reauthenticated.emit())
+        .finally(() => (this.isLoading = false));
     }
   }
 }

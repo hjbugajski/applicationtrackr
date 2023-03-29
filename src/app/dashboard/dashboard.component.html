@@ -19,7 +19,14 @@
     </div>
     <mat-divider></mat-divider>
     <div class="at-dashboard-sidenav-button-container">
-      <button mat-button (click)="signOut()">Sign out</button>
+      <a mat-button [routerLink]="['/', paths.Settings]">
+        <mat-icon>settings</mat-icon>
+        Settings
+      </a>
+      <button mat-button (click)="signOut()">
+        <mat-icon>logout</mat-icon>
+        Sign out
+      </button>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -122,11 +122,9 @@ export class NewApplicationDialogComponent implements OnInit {
   }
 
   public async primaryButtonClick(): Promise<void> {
-    if (!this.applicationForm.valid) {
+    if (this.applicationForm.invalid) {
       return;
     }
-
-    this.isLoading = true;
 
     const application: ApplicationDoc = {
       columnDocId: this.column.value!.docId,
@@ -168,14 +166,15 @@ export class NewApplicationDialogComponent implements OnInit {
   }
 
   private async createApplication(application: ApplicationDoc): Promise<void> {
+    this.isLoading = true;
+
     await this.applicationsService
       .createApplication(application)
       .then(() => {
         this.notificationService.showSuccess('Application added!');
         this.matDialogRef.close();
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         this.notificationService.showError('There was a problem adding the application. Please try again.');
       })
       .finally(() => (this.isLoading = false));

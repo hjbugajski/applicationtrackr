@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Auth, authState, User } from '@angular/fire/auth';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
@@ -15,7 +15,7 @@ import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent {
+export class AccountComponent implements OnDestroy {
   public confirmDeleteControl = new FormControl('', [
     Validators.required,
     Validators.pattern('delete account and data')
@@ -31,18 +31,16 @@ export class AccountComponent {
   });
   public user: User | null = null;
 
-  private subscriptions = new Subscription();
+  private subscriptions: Subscription;
 
   constructor(private auth: Auth, private authService: AuthService, private changeDetectorRef: ChangeDetectorRef) {
-    this.subscriptions.add(
-      authState(this.auth).subscribe((user) => {
-        this.user = user;
+    this.subscriptions = authState(this.auth).subscribe((user) => {
+      this.user = user;
 
-        if (user) {
-          this.provider = user.providerData[0].providerId as Providers;
-        }
-      })
-    );
+      if (user) {
+        this.provider = user.providerData[0].providerId as Providers;
+      }
+    });
   }
 
   public get authModes(): typeof AuthModes {
@@ -107,6 +105,10 @@ export class AccountComponent {
     this.stepOneCompleted = true;
     this.changeDetectorRef.detectChanges();
     stepper.next();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   public async sendPasswordResetEmail(): Promise<void> {

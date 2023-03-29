@@ -76,7 +76,7 @@ export class JobBoardDialogComponent {
   }
 
   public async submit(): Promise<void> {
-    if (!this.jobBoardForm.valid) {
+    if (this.jobBoardForm.invalid) {
       return;
     }
 
@@ -92,8 +92,7 @@ export class JobBoardDialogComponent {
           this.notificationService.showSuccess('Job board added!');
           this.matDialogRef.close();
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
           this.notificationService.showError('There was a problem creating the job board. Please try again.');
         })
         .finally(() => (this.isLoading = false));
@@ -103,11 +102,8 @@ export class JobBoardDialogComponent {
 
       await this.jobBoardsService
         .update(data.docId, { date, title })
-        .then(() => {
-          this.matDialogRef.close();
-        })
-        .catch((error) => {
-          console.error(error);
+        .then(() => this.matDialogRef.close())
+        .catch(() => {
           this.notificationService.showError('There was a problem updating the job board. Please try again.');
         })
         .finally(() => (this.isLoading = false));

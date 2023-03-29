@@ -1,8 +1,18 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { Firestore, getDocs, writeBatch } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 import { COLOR_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
@@ -18,7 +28,7 @@ import { NotificationService } from '~services/notification/notification.service
   templateUrl: './column-dialog.component.html',
   styleUrls: ['./column-dialog.component.scss']
 })
-export class ColumnDialogComponent implements AfterViewInit, OnInit {
+export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChildren('reorderItem') reorderItems!: QueryList<ElementRef<HTMLElement>>;
 
   public action: DialogActions | string;
@@ -32,6 +42,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
   public isReordered: boolean;
 
   private activeReorderItem = 0;
+  private subscription: Subscription | undefined;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public providedData: DocumentDialog<Column>,
@@ -108,7 +119,11 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.reorderItems.changes.subscribe(() => this.setFocus());
+    this.subscription = this.reorderItems.changes.subscribe(() => this.setFocus());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   async ngOnInit(): Promise<void> {
@@ -120,7 +135,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
   }
 
   public async submit(): Promise<void> {
-    if (!this.columnForm.valid) {
+    if (this.columnForm.invalid) {
       return;
     }
 
@@ -149,10 +164,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
     await batch
       .commit()
       .then(() => this.matDialogRef.close())
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error reordering the columns. Please try again.');
-      })
+      .catch(() => this.notificationService.showError('There was an error reordering the columns. Please try again.'))
       .finally(() => (this.isLoading = false));
   }
 
@@ -173,10 +185,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
         this.notificationService.showSuccess('Column added!');
         this.matDialogRef.close();
       })
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error adding the column. Please try again.');
-      })
+      .catch(() => this.notificationService.showError('There was an error adding the column. Please try again.'))
       .finally(() => (this.isLoading = false));
   }
 
@@ -198,13 +207,8 @@ export class ColumnDialogComponent implements AfterViewInit, OnInit {
 
     await this.columnsService
       .update(data.docId, { color, title })
-      .then(() => {
-        this.matDialogRef.close();
-      })
-      .catch((error) => {
-        console.error(error);
-        this.notificationService.showError('There was an error updating the column. Please try again.');
-      })
+      .then(() => this.matDialogRef.close())
+      .catch(() => this.notificationService.showError('There was an error updating the column. Please try again.'))
       .finally(() => (this.isLoading = false));
   }
 }
