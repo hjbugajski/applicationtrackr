@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.4](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.3...v1.7.4) (2023-03-29)
+
+### Features
+
+- update sidenav links ([2c958c9](https://github.com/hjbugajski/applicationtrackr/commit/2c958c9840e1df77a953a9b1ef50cd9ba67a3e1f))
+
+### Bug Fixes
+
+- update settings styles ([0a61401](https://github.com/hjbugajski/applicationtrackr/commit/0a61401267e773d121f9f80a35310da8f9d34b77))
+
 ## [1.7.3](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.2...v1.7.3) (2023-03-25)
 
 ### Features
