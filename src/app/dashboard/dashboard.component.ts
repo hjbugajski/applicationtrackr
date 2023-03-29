@@ -40,12 +40,6 @@ export class DashboardComponent implements OnDestroy, OnInit {
         relativeRoute: true,
         route: Paths.JobBoards,
         viewValue: 'Job boards'
-      },
-      {
-        icon: 'settings',
-        relativeRoute: false,
-        route: Paths.Settings,
-        viewValue: 'Settings'
       }
     ];
   }
