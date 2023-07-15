@@ -4,14 +4,14 @@ import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 import { AuthComponent } from './auth.component';
 
 import { Paths } from '~enums/paths.enum';
-import { AuthGuard } from '~guards/auth/auth.guard';
+import { authGuardChild } from '~guards/auth/auth.guard';
 import { PageTitleStrategy } from '~utils/title-strategy.util';
 
 const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
-    canActivateChild: [AuthGuard],
+    canActivateChild: [authGuardChild],
     children: [
       {
         path: '',

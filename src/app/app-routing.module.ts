@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 
 import { Paths } from '~enums/paths.enum';
-import { AuthGuard } from '~guards/auth/auth.guard';
+import { authGuard } from '~guards/auth/auth.guard';
 import { PageTitleStrategy } from '~utils/title-strategy.util';
 
 const routes: Routes = [
@@ -14,19 +14,19 @@ const routes: Routes = [
   {
     path: Paths.Auth,
     title: 'Auth',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: Paths.Dashboard,
     title: 'Dashboard',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
   },
   {
     path: Paths.Settings,
     title: 'Settings',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule)
   },
   {

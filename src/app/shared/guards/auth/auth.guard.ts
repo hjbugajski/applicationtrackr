@@ -1,52 +1,38 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
+  CanActivateChildFn,
+  CanActivateFn,
   Router,
-  RouterStateSnapshot,
-  UrlTree
+  RouterStateSnapshot
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Paths } from '~enums/paths.enum';
 import { RouteData } from '~interfaces/route-data.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private auth: Auth, private router: Router) {}
+export const authGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+  const auth = inject(Auth);
+  const router = inject(Router);
+  const path = state.url.split('/')[1];
+  const data = next.data as RouteData;
+  const noAuthPaths: Paths[] = [Paths.SignIn, Paths.SignUp, Paths.ForgotPassword];
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const path = state.url.split('/')[1];
-    const data = route.data as RouteData;
-    const noAuthPaths: Paths[] = [Paths.SignIn, Paths.SignUp, Paths.ForgotPassword];
+  return authState(auth).pipe(
+    map((user) => {
+      const isAuthorized = !!user;
 
-    return authState(this.auth).pipe(
-      map((user) => {
-        const isAuthorized = !!user;
+      if (isAuthorized && noAuthPaths.includes(data.path)) {
+        return router.parseUrl(`/${Paths.Dashboard}`);
+      } else if (isAuthorized || (!isAuthorized && path === Paths.Auth)) {
+        return true;
+      } else {
+        return router.parseUrl(`/${Paths.Auth}/${Paths.SignIn}`);
+      }
+    })
+  );
+};
 
-        if (isAuthorized && noAuthPaths.includes(data.path)) {
-          return this.router.parseUrl(`/${Paths.Dashboard}`);
-        } else if (isAuthorized || (!isAuthorized && path === Paths.Auth)) {
-          return true;
-        } else {
-          return this.router.parseUrl(`/${Paths.Auth}/${Paths.SignIn}`);
-        }
-      })
-    );
-  }
-
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.canActivate(childRoute, state);
-  }
-}
+export const authGuardChild: CanActivateChildFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
+  authGuard(next, state);
