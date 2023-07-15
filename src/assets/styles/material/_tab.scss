@@ -40,37 +40,7 @@
       .mdc-tab__text-label {
         font-weight: 600;
       }
-
-      // @include mixins.tab-label-color(map.get(palette.$at-palette, primary));
-
-      // min-width: unset;
-      // height: unset;
-      // margin-bottom: 10px;
-      // padding: 8px 16px;
-      // border-radius: variables.$border-radius;
-      // opacity: 1;
-
-      // &:not(:last-of-type) {
-      //   margin-right: 16px;
-      // }
-
-      // &:hover,
-      // &:focus {
-      //   background-color: map.get(palette.$at-palette, hover) !important;
-      // }
     }
-
-    // @each $key in map-keys(palette.$at-palette-keys) {
-    //   &.#{$key} {
-    //     * > * .mdc-tab__text-label {
-    //       @include mixins.tab-label-color(map.get(palette.$at-palette, $key));
-    //     }
-
-    //     * > * .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
-    //       border-color: map.get(palette.$at-palette, $key) !important;
-    //     }
-    //   }
-    // }
   }
 
   .mat-mdc-tab-header-pagination {
@@ -85,10 +55,7 @@
 
   .mat-mdc-tab-ripple,
   .mat-mdc-tab .mdc-tab__ripple::before {
-    top: 8px;
-    right: 4px;
-    bottom: 8px;
-    left: 4px;
+    inset: 8px 4px;
     border-radius: variables.$border-radius;
   }
 }
