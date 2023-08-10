@@ -18,7 +18,11 @@ export class ApplicationsService extends FirestoreService<Application> {
   protected _collectionRef!: CollectionReference<DocumentData>;
   protected _collectionRefWithConverter!: CollectionReference<Application>;
 
-  constructor(protected firestore: Firestore, private globalService: GlobalService, private userStore: UserStore) {
+  constructor(
+    protected firestore: Firestore,
+    private globalService: GlobalService,
+    private userStore: UserStore
+  ) {
     super(firestore);
 
     this.userStore.state$

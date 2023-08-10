@@ -76,7 +76,7 @@
   margin-top: 13.5px;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .settings-inner-container {
     flex-direction: row;
   }

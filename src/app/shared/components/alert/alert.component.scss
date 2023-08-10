@@ -6,7 +6,7 @@
   font-weight: variables.$font-weight-semi-bold;
   border-radius: variables.$border-radius;
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     padding: 12px;
   }
 }

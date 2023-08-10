@@ -3,7 +3,7 @@
 :host {
   padding: 8px 8px 128px;
 
-  @media (min-width: 600px) {
+  @media (width >= 600px) {
     padding: 16px 16px 128px;
   }
 }
@@ -15,7 +15,7 @@
   border-radius: variables.$border-radius;
 }
 
-@media (min-width: 1280px) {
+@media (width >= 1280px) {
   .job-boards-list {
     margin: 0 0 128px;
   }

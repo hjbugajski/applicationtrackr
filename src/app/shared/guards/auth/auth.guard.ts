@@ -25,7 +25,7 @@ export const authGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: Ro
 
       if (isAuthorized && noAuthPaths.includes(data.path)) {
         return router.parseUrl(`/${Paths.Dashboard}`);
-      } else if (isAuthorized || (!isAuthorized && path === Paths.Auth)) {
+      } else if (isAuthorized || (!isAuthorized && path === Paths.Auth.toString())) {
         return true;
       } else {
         return router.parseUrl(`/${Paths.Auth}/${Paths.SignIn}`);

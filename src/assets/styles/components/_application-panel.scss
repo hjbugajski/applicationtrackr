@@ -31,11 +31,11 @@
   grid-template-columns: 1fr;
   gap: 12px;
 
-  @media (min-width: 425px) {
+  @media (width >= 425px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     grid-template-columns: repeat(4, 1fr);
   }
 }

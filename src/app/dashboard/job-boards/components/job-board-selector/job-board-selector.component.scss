@@ -34,13 +34,13 @@
     width: 100%;
   }
 
-  @media (min-width: 375px) {
+  @media (width >= 375px) {
     .job-board-menu .text {
       max-width: 130px;
     }
   }
 
-  @media (min-width: 425px) {
+  @media (width >= 425px) {
     .job-board-menu .text {
       max-width: 150px;
     }

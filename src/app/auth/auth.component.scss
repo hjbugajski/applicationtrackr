@@ -37,7 +37,7 @@
   background-color: var(--color-canvas);
   border-radius: variables.$border-radius;
 
-  @media (min-width: 425px) {
+  @media (width >= 425px) {
     max-width: 350px;
   }
 }
@@ -50,7 +50,7 @@
 .at-auth-privacy-container {
   width: 100%;
 
-  @media (min-width: 425px) {
+  @media (width >= 425px) {
     max-width: calc(425px - 32px);
   }
 }

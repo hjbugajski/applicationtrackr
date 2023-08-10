@@ -33,7 +33,11 @@ export class AccountComponent implements OnDestroy {
 
   private subscriptions: Subscription;
 
-  constructor(private auth: Auth, private authService: AuthService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(
+    private auth: Auth,
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.subscriptions = authState(this.auth).subscribe((user) => {
       this.user = user;
 

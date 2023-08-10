@@ -13,7 +13,10 @@ export class FirebaseFunctionsService {
   private _batchDelete: HttpsCallable;
   private _recursiveDelete: HttpsCallable;
 
-  constructor(private functions: Functions, private userStore: UserStore) {
+  constructor(
+    private functions: Functions,
+    private userStore: UserStore
+  ) {
     this._batchDelete = httpsCallable(this.functions, 'batchDelete');
     this._recursiveDelete = httpsCallable(this.functions, 'recursiveDelete');
   }
