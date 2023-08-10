@@ -2,10 +2,17 @@
 @use 'variables';
 
 .column {
+  display: block;
   box-sizing: content-box;
-  min-width: 275px;
+  width: 300px;
+  min-width: 300px;
   overflow: hidden;
   border-right: 2px solid var(--color-border);
+
+  @media (width >= 375px) {
+    width: 325px;
+    min-width: 325px;
+  }
 }
 
 .column-header {
@@ -58,22 +65,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: calc(100% - 56px);
-  padding: 0 8px 128px !important;
-  overflow-y: scroll;
-}
-
-.cdk-container {
-  height: calc(100% - 56px);
-}
-
-.cdk-virtual-scroll-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   width: 100%;
-  min-width: unset !important;
-  padding: 0 8px 128px !important;
+  height: calc(100dvh - 112px);
+  padding: 0 8px 16px;
+  overflow-y: scroll;
+
+  @media (width >= 375px) {
+    padding: 0 16px 16px;
+  }
 }
 
 .loading-container {
@@ -83,31 +82,4 @@
 .drag-drop-placeholder {
   border: 2px solid var(--color-primary);
   border-radius: variables.$border-radius;
-}
-
-.at-application-card-container {
-  position: relative;
-
-  .at-application-card-link-button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: none;
-    background-color: var(--color-canvas) !important;
-  }
-
-  &:hover .at-application-card-link-button {
-    display: flex;
-    background-color: var(--color-hover);
-  }
-}
-
-@media (width >= 375px) {
-  .column {
-    min-width: 325px;
-  }
-
-  .scroll-container {
-    padding: 0 16px 128px !important;
-  }
 }
