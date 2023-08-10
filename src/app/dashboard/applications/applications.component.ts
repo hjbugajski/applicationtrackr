@@ -18,7 +18,10 @@ export class ApplicationsComponent implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private columnsService: ColumnsService, private matDialog: MatDialog) {
+  constructor(
+    private columnsService: ColumnsService,
+    private matDialog: MatDialog
+  ) {
     this.columnIds$ = this.columnsService.columnIds$;
     this.subscription = this.columnsService.columns$
       .pipe(filter((columns) => !!columns))

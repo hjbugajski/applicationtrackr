@@ -13,7 +13,7 @@
   border-top: 2px solid var(--color-border);
   animation: slide-up 250ms forwards;
 
-  @media (min-width: 1024px) {
+  @media (width >= 1024px) {
     min-width: unset;
     max-width: 80vw;
     height: 100%;
@@ -82,7 +82,7 @@
   padding: 8px;
 }
 
-@media (min-width: 375px) {
+@media (width >= 375px) {
   .at-application-panel-toolbar-inner-container {
     flex-direction: row;
     justify-content: space-between;

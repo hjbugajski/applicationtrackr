@@ -9,7 +9,10 @@ import { Icons } from '~enums/icons.enum';
   imports: [CommonModule]
 })
 export class IconModule {
-  constructor(private domSanitizer: DomSanitizer, private matIconRegistry: MatIconRegistry) {
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private matIconRegistry: MatIconRegistry
+  ) {
     this.matIconRegistry.setDefaultFontSetClass('material-symbols-rounded');
     Object.values(Icons).forEach((icon) =>
       this.matIconRegistry.addSvgIcon(

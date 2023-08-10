@@ -24,7 +24,10 @@ export class SignInWithPasswordFormComponent implements OnChanges {
   });
   public isLoading = false;
 
-  constructor(private authService: AuthService, private notificationService: NotificationService) {
+  constructor(
+    private authService: AuthService,
+    private notificationService: NotificationService
+  ) {
     this.emailForm.disable();
   }
 

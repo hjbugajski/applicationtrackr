@@ -102,7 +102,7 @@
   }
 }
 
-@media (min-width: 375px) {
+@media (width >= 375px) {
   .column {
     min-width: 325px;
   }

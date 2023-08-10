@@ -15,7 +15,10 @@ export class SettingsComponent implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private authService: AuthService, private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private authService: AuthService,
+    private breakpointObserver: BreakpointObserver
+  ) {
     this.subscription = this.breakpointObserver
       .observe('(min-width: 768px)')
       .subscribe((v) => (this.opened = v.matches));

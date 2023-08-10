@@ -43,7 +43,7 @@
   }
 }
 
-@media (min-width: 425px) {
+@media (width >= 425px) {
   .settings-theme-list {
     grid-template-columns: repeat(3, 1fr);
   }

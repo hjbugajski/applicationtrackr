@@ -112,7 +112,7 @@
       max-height: unset !important;
     }
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       width: unset !important;
       min-width: 750px !important;
       max-width: 80vw !important;

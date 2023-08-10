@@ -32,7 +32,7 @@
           <div class="at-application-panel-data-item-label">Compensation</div>
           <div class="at-application-panel-data-item-data">
             <ng-container *ngIf="application.compensation; else noData">
-              {{ application.compensation | currency : 'USD' : 'symbol' : '1.0-0' }} / {{ application.payPeriod }}
+              {{ application.compensation | currency: 'USD' : 'symbol' : '1.0-0' }} / {{ application.payPeriod }}
             </ng-container>
           </div>
         </div>

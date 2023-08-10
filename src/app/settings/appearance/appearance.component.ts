@@ -24,7 +24,11 @@ export class AppearanceComponent implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private themeService: ThemeService, private userService: UserService, private userStore: UserStore) {
+  constructor(
+    private themeService: ThemeService,
+    private userService: UserService,
+    private userStore: UserStore
+  ) {
     this.themesArray = [
       { class: Themes.Light, icon: this.getIconPath(Icons.LightTheme), viewValue: 'Light' },
       { class: Themes.Dark, icon: this.getIconPath(Icons.DarkTheme), viewValue: 'Dark' },

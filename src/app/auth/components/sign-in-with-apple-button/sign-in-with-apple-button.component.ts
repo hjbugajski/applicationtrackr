@@ -23,7 +23,10 @@ export class SignInWithAppleButtonComponent implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private authService: AuthService, private themeService: ThemeService) {
+  constructor(
+    private authService: AuthService,
+    private themeService: ThemeService
+  ) {
     this.appTheme = this.themeService.appTheme;
     this.subscription = this.themeService.appTheme$.subscribe((theme) => (this.appTheme = theme));
   }

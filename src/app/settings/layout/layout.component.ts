@@ -14,7 +14,10 @@ import { UserStore } from '~store/user.store';
 export class LayoutComponent {
   public collapseColumnsFormControl = new FormControl(false);
 
-  constructor(private userService: UserService, private userStore: UserStore) {
+  constructor(
+    private userService: UserService,
+    private userStore: UserStore
+  ) {
     this.userStore.collapseColumns$
       .pipe(
         filter((value) => !!value),

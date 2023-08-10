@@ -20,7 +20,11 @@ export class ManageAccountComponent implements OnInit {
   public isLoading = false;
   public linkButton: LinkButton;
 
-  constructor(private auth: Auth, private activatedRoute: ActivatedRoute, private authService: AuthService) {
+  constructor(
+    private auth: Auth,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
+  ) {
     this.authParams = this.activatedRoute.snapshot.queryParams as AuthParams;
     this.linkButton = { route: '/', text: 'Back to sign in' };
   }

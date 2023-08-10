@@ -8,7 +8,7 @@
     &.two-line-hint {
       margin-bottom: 32px;
 
-      @media (min-width: 350px) {
+      @media (width >= 350px) {
         margin-bottom: 24px;
       }
     }
@@ -51,7 +51,7 @@
   .mat-form-field-combined {
     display: block;
 
-    @media (min-width: 425px) {
+    @media (width >= 425px) {
       display: grid;
       grid-template-columns: 1fr 135px;
 

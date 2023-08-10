@@ -41,7 +41,7 @@
   animation: skeleton-loading 1s linear infinite alternate;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .job-boards-list-item {
     flex-flow: row wrap !important;
     align-items: center;

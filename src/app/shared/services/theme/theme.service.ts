@@ -31,7 +31,7 @@ export class ThemeService {
         this.setTheme(appearance!);
       });
     this.prefersColorSchemeDark.addEventListener('change', (event) => {
-      if (this.userStore.appearance === null || this.userStore.appearance === Themes.System) {
+      if (this.userStore.appearance === null || this.userStore.appearance === Themes.System.toString()) {
         this.setTheme(event.matches ? Themes.Dark : Themes.Light);
       }
     });
@@ -55,7 +55,7 @@ export class ThemeService {
   }
 
   public setTheme(value: Themes | string): void {
-    const theme = value === Themes.System ? this.colorSchemeTheme : value;
+    const theme = value === Themes.System.toString() ? this.colorSchemeTheme : value;
 
     this.document.body.classList.replace(Themes.Light, theme);
     this.document.body.classList.replace(Themes.Dark, theme);

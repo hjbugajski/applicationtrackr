@@ -34,7 +34,10 @@ export class SignInComponent implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private activatedRoute: ActivatedRoute, private themeService: ThemeService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private themeService: ThemeService
+  ) {
     this.appTheme = this.themeService.appTheme;
     this.subscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
 
