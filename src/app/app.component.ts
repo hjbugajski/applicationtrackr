@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { distinctUntilChanged, Subscription } from 'rxjs';
 
-import { GlobalService } from '~services/global/global.service';
 import { ThemeService } from '~services/theme/theme.service';
 import { UserStore } from '~store/user.store';
 
@@ -15,7 +14,6 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private auth: Auth,
-    private globalService: GlobalService,
     private themeService: ThemeService,
     private userStore: UserStore
   ) {
