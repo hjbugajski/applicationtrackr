@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.7](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.6...v1.7.7) (2023-08-14)
+
+### Bug Fixes
+
+- update auth domain ([c1fd9cb](https://github.com/hjbugajski/applicationtrackr/commit/c1fd9cb12213ba1e26a20a4c25b48b3e06e96341))
+
 ## [1.7.6](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.5...v1.7.6) (2023-08-10)
 
 ### Bug Fixes
