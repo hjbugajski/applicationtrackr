@@ -39,11 +39,14 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
+
   height: 40px;
   padding: 0 16px 0 12px;
-  color: var(--color-neutral);
+
   font-weight: variables.$font-weight-semi-bold;
+  color: var(--color-neutral);
   text-decoration: none !important;
+
   border-radius: variables.$border-radius;
 
   &:not(:last-child) {
@@ -51,8 +54,8 @@
   }
 
   &:hover {
-    background-color: var(--color-hover);
     cursor: pointer;
+    background-color: var(--color-hover);
   }
 
   &:focus {

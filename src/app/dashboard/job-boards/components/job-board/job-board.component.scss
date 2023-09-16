@@ -22,7 +22,9 @@
     flex-flow: row wrap;
     gap: 8px;
     align-items: center;
+
     margin-bottom: 8px;
+
     font-weight: variables.$font-weight-bold;
   }
 }
@@ -36,8 +38,10 @@
 .job-board-total-skeleton {
   width: 185px;
   height: 17.5px;
+
   background-color: var(--color-border);
   border-radius: 4px;
+
   animation: skeleton-loading 1s linear infinite alternate;
 }
 

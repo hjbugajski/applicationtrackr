@@ -2,11 +2,12 @@
 @use 'variables';
 
 .reorder-column-list {
+  overflow: hidden;
   display: block;
+
   width: 100%;
   min-height: 60px;
   margin-bottom: 24px;
-  overflow: hidden;
 
   .cdk-drag-placeholder {
     opacity: 0;
@@ -14,10 +15,10 @@
 }
 
 .reorder-column-list-box {
+  cursor: grab;
   background-color: var(--color-canvas) !important;
   border: 2px solid var(--color-border);
   border-radius: variables.$border-radius;
-  cursor: grab;
 
   &:not(:last-of-type) {
     margin-bottom: 8px;
@@ -40,8 +41,11 @@
     grid-template-columns: 24px 1fr;
     gap: 8px;
     align-items: center;
+
     padding: 8px 4px;
+
     font-weight: variables.$font-weight-bold;
+
     border-radius: 8px;
   }
 }

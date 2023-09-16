@@ -1,5 +1,5 @@
 {
-  "extends": ["stylelint-config-standard-scss", "stylelint-config-rational-order-fix"],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-clean-order"],
   "rules": {
     "max-nesting-depth": null,
     "no-descending-specificity": null,

@@ -6,9 +6,9 @@
   gap: 8px;
 
   .form-container {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    overflow: hidden;
   }
 }
