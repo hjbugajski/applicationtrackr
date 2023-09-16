@@ -19,11 +19,13 @@
     }
 
     .text {
-      display: block;
-      max-width: 100px;
       overflow: hidden;
-      white-space: nowrap;
+      display: block;
+
+      max-width: 100px;
+
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 

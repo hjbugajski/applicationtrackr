@@ -10,9 +10,12 @@
   gap: 2px;
   align-items: center;
   justify-content: center;
+
   padding: 4px 8px;
+
   font-weight: variables.$font-weight-semi-bold;
   white-space: nowrap;
+
   border-radius: 100px;
 
   @each $key in map-keys(palette.$at-palette-keys) {
@@ -34,6 +37,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+
       width: 15px !important;
       height: 15px !important;
     }

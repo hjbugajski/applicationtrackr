@@ -18,8 +18,10 @@ body {
 
   height: 100%;
   margin: 0;
-  color: map.get(palette.$at-palette, contrast, canvas);
+
   font-family: variables.$font-family !important;
+  color: map.get(palette.$at-palette, contrast, canvas);
+
   background-color: map.get(palette.$at-palette, canvas);
 }
 

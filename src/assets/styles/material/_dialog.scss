@@ -16,11 +16,14 @@
     @include mixins.font-size(20px);
 
     position: sticky;
-    top: 0;
     z-index: 10;
+    top: 0;
+
     margin: 0;
     padding: 24px;
+
     font-weight: variables.$font-weight-bold !important;
+
     background-color: var(--color-canvas);
   }
 
@@ -52,16 +55,16 @@
           @include mixins.font-size(20px);
 
           margin: 0 0 8px;
-          color: var(--color-primary);
           font-weight: variables.$font-weight-bold !important;
+          color: var(--color-primary);
         }
 
         .dialog-sub-title {
           @include mixins.font-size(16px);
 
           margin: 0;
-          color: var(--color-muted);
           font-weight: variables.$font-weight-semi-bold !important;
+          color: var(--color-muted);
         }
       }
     }
@@ -73,6 +76,7 @@
     gap: 16px;
     align-items: center;
     justify-content: center;
+
     margin-bottom: 16px;
 
     .dialog-header {

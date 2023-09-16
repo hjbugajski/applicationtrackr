@@ -11,6 +11,7 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+
     min-height: 52px;
     padding: 8px 8px 4px 16px;
   }
@@ -45,8 +46,8 @@
     @include mixins.font-size(12px);
 
     margin-bottom: 4px;
-    color: var(--color-muted);
     font-weight: variables.$font-weight-semi-bold;
+    color: var(--color-muted);
   }
 
   .at-application-panel-data-item-data {
