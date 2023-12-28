@@ -8,9 +8,9 @@ export type TagVariant = 'regular' | 'dropdown';
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
   host: {
-    class: 'at-tag'
+    class: 'at-tag',
   },
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class TagComponent {
   @Input() @HostBinding('class') public color = 'neutral';

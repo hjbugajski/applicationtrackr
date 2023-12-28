@@ -9,6 +9,6 @@ import { SignInWithAppleButtonComponent } from './sign-in-with-apple-button.comp
 @NgModule({
   declarations: [SignInWithAppleButtonComponent],
   imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
-  exports: [SignInWithAppleButtonComponent]
+  exports: [SignInWithAppleButtonComponent],
 })
 export class SignInWithAppleButtonModule {}

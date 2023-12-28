@@ -5,5 +5,5 @@ export enum DialogActions {
   Edit,
   New,
   Reorder,
-  Submit
+  Submit,
 }

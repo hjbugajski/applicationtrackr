@@ -13,8 +13,8 @@ import { ForgotPasswordFormModule } from '~components/forgot-password-form/forgo
     CommonModule,
     ForgotPasswordFormModule,
     MatButtonModule,
-    RouterModule.forChild([{ path: '', component: ForgotPasswordComponent }])
+    RouterModule.forChild([{ path: '', component: ForgotPasswordComponent }]),
   ],
-  exports: [ForgotPasswordComponent]
+  exports: [ForgotPasswordComponent],
 })
 export class ForgotPasswordModule {}

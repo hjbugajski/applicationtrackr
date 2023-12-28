@@ -28,8 +28,8 @@ import { ConfirmationDialogModule } from '~components/confirmation-dialog/confir
     MatInputModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [JobBoardDialogComponent]
+  exports: [JobBoardDialogComponent],
 })
 export class JobBoardDialogModule {}

@@ -8,7 +8,7 @@ import { AuthService } from '~services/auth/auth.service';
 @Component({
   selector: 'at-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnDestroy {
   public opened = false;
@@ -17,7 +17,7 @@ export class SettingsComponent implements OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
   ) {
     this.subscription = this.breakpointObserver
       .observe('(min-width: 768px)')

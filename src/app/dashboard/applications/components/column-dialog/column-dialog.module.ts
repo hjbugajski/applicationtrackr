@@ -34,8 +34,8 @@ import { OverlaySpinnerModule } from '~components/overlay-spinner/overlay-spinne
     MatRadioModule,
     MatSelectModule,
     OverlaySpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [ColumnDialogComponent]
+  exports: [ColumnDialogComponent],
 })
 export class ColumnDialogModule {}

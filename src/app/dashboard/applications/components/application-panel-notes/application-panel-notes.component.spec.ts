@@ -8,7 +8,7 @@ describe('ApplicationPanelNotesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ApplicationPanelNotesComponent]
+      declarations: [ApplicationPanelNotesComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ApplicationPanelNotesComponent);

@@ -8,7 +8,7 @@ describe('SignInWithPasswordComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SignInWithPasswordFormComponent]
+      declarations: [SignInWithPasswordFormComponent],
     }).compileComponents();
   });
 

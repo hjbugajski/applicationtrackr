@@ -16,7 +16,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-application-panel-offer',
-  templateUrl: './application-panel-offer.component.html'
+  templateUrl: './application-panel-offer.component.html',
 })
 export class ApplicationPanelOfferComponent implements OnInit {
   @Input() public application!: Application;
@@ -32,7 +32,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
     deadline: new FormControl<Date | null>(null),
     payPeriod: new FormControl<string | null>(null),
     pto: new FormControl<string | null>(null, [Validators.maxLength(128)]),
-    startDate: new FormControl<Date | null>(null)
+    startDate: new FormControl<Date | null>(null),
   });
   public payPeriodOptions = PAY_PERIOD_OPTIONS;
 
@@ -40,7 +40,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
     private applicationsService: ApplicationsService,
     private changeDetectorRef: ChangeDetectorRef,
     private globalService: GlobalService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {}
 
   public get benefits(): AbstractControl<string | null> {
@@ -84,7 +84,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
 
     const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
-      item: 'edits'
+      item: 'edits',
     });
 
     if (dialogAction === DialogActions.Discard) {
@@ -129,7 +129,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
       notes: this.application.offer?.notes ?? null,
       payPeriod: this.payPeriod.value,
       pto: this.pto.value,
-      startDate: this.startDate.value ? dateToTimestamp(this.startDate.value) : null
+      startDate: this.startDate.value ? dateToTimestamp(this.startDate.value) : null,
     };
 
     await this.applicationsService
@@ -151,7 +151,7 @@ export class ApplicationPanelOfferComponent implements OnInit {
       deadline: this.application.offer?.deadline ? timestampToDate(this.application.offer.deadline) : null,
       payPeriod: this.application.offer?.payPeriod ?? this.payPeriodOptions[3],
       pto: this.application.offer?.pto ?? null,
-      startDate: this.application.offer?.startDate ? timestampToDate(this.application.offer.startDate) : null
+      startDate: this.application.offer?.startDate ? timestampToDate(this.application.offer.startDate) : null,
     });
   }
 }

@@ -17,8 +17,8 @@ import { ForgotPasswordFormComponent } from './forgot-password-form.component';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [ForgotPasswordFormComponent]
+  exports: [ForgotPasswordFormComponent],
 })
 export class ForgotPasswordFormModule {}

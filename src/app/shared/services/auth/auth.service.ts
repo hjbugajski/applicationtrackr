@@ -21,7 +21,7 @@ import {
   updatePassword,
   User,
   UserCredential,
-  verifyPasswordResetCode
+  verifyPasswordResetCode,
 } from '@angular/fire/auth';
 import { getDocs, query } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -35,7 +35,7 @@ import { UserService } from '~services/user/user.service';
 import { userConverter } from '~utils/firestore-converters';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   constructor(
@@ -43,7 +43,7 @@ export class AuthService {
     private jobBoardsService: JobBoardsService,
     private notificationService: NotificationService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   public async confirmPasswordReset(oobCode: string, newPassword: string): Promise<void> {

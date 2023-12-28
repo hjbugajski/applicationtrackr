@@ -5,84 +5,84 @@ export const COLUMN_SORT_OPTIONS: SortOption[] = [
   {
     value: {
       direction: 'asc',
-      field: 'company'
+      field: 'company',
     },
-    viewValue: 'Company A-Z'
+    viewValue: 'Company A-Z',
   },
   {
     value: {
       direction: 'desc',
-      field: 'company'
+      field: 'company',
     },
-    viewValue: 'Company Z-A'
+    viewValue: 'Company Z-A',
   },
   {
     value: {
       direction: 'asc',
-      field: 'position'
+      field: 'position',
     },
-    viewValue: 'Position A-Z'
+    viewValue: 'Position A-Z',
   },
   {
     value: {
       direction: 'desc',
-      field: 'position'
+      field: 'position',
     },
-    viewValue: 'Position Z-A'
+    viewValue: 'Position Z-A',
   },
   {
     value: {
       direction: 'desc',
-      field: 'date'
+      field: 'date',
     },
-    viewValue: 'Date newest'
+    viewValue: 'Date newest',
   },
   {
     value: {
       direction: 'asc',
-      field: 'date'
+      field: 'date',
     },
-    viewValue: 'Date oldest'
-  }
+    viewValue: 'Date oldest',
+  },
 ];
 
 export const COLOR_OPTIONS = [
   {
     value: Colors.Neutral,
-    viewValue: 'Neutral'
+    viewValue: 'Neutral',
   },
   {
     value: Colors.Primary,
-    viewValue: 'Blue'
+    viewValue: 'Blue',
   },
   {
     value: Colors.Accent,
-    viewValue: 'Purple'
+    viewValue: 'Purple',
   },
   {
     value: Colors.AccentAlt,
-    viewValue: 'Pink'
+    viewValue: 'Pink',
   },
   {
     value: Colors.Success,
-    viewValue: 'Green'
+    viewValue: 'Green',
   },
   {
     value: Colors.Attention,
-    viewValue: 'Yellow'
+    viewValue: 'Yellow',
   },
   {
     value: Colors.Severe,
-    viewValue: 'Orange'
+    viewValue: 'Orange',
   },
   {
     value: Colors.SevereAlt,
-    viewValue: 'Coral'
+    viewValue: 'Coral',
   },
   {
     value: Colors.Danger,
-    viewValue: 'Red'
-  }
+    viewValue: 'Red',
+  },
 ];
 
 export const PAY_PERIOD_OPTIONS = ['hour', 'week', 'month', 'year', 'total'];

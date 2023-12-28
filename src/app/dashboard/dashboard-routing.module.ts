@@ -15,20 +15,20 @@ const routes: Routes = [
       {
         path: Paths.Applications,
         title: 'Applications',
-        loadChildren: () => import('./applications/applications.module').then((m) => m.ApplicationsModule)
+        loadChildren: () => import('./applications/applications.module').then((m) => m.ApplicationsModule),
       },
       {
         path: Paths.JobBoards,
         title: 'Job Boards',
-        loadChildren: () => import('./job-boards/job-boards.module').then((m) => m.JobBoardsModule)
-      }
-    ]
-  }
+        loadChildren: () => import('./job-boards/job-boards.module').then((m) => m.JobBoardsModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   providers: [{ provide: TitleStrategy, useClass: PageTitleStrategy }],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class DashboardRoutingModule {}

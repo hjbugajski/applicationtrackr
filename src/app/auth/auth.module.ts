@@ -8,6 +8,6 @@ import { AuthComponent } from './auth.component';
 @NgModule({
   declarations: [AuthComponent],
   imports: [AuthRoutingModule, CommonModule, MatIconModule],
-  exports: [AuthComponent]
+  exports: [AuthComponent],
 })
 export class AuthModule {}

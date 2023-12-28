@@ -8,7 +8,7 @@ describe('ApplicationPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ApplicationPanelComponent]
+      declarations: [ApplicationPanelComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ApplicationPanelComponent);

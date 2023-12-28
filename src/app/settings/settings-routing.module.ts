@@ -15,30 +15,30 @@ const routes: Routes = [
       {
         path: Paths.About,
         title: 'About',
-        loadChildren: () => import('./about/about.module').then((m) => m.AboutModule)
+        loadChildren: () => import('./about/about.module').then((m) => m.AboutModule),
       },
       {
         path: Paths.Account,
         title: 'Account Settings',
-        loadChildren: () => import('./account/account.module').then((m) => m.AccountModule)
+        loadChildren: () => import('./account/account.module').then((m) => m.AccountModule),
       },
       {
         path: Paths.Appearance,
         title: 'Appearance Settings',
-        loadChildren: () => import('./appearance/appearance.module').then((m) => m.AppearanceModule)
+        loadChildren: () => import('./appearance/appearance.module').then((m) => m.AppearanceModule),
       },
       {
         path: Paths.Layout,
         title: 'Layout',
-        loadChildren: () => import('./layout/layout.module').then((m) => m.LayoutModule)
-      }
-    ]
-  }
+        loadChildren: () => import('./layout/layout.module').then((m) => m.LayoutModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   providers: [{ provide: TitleStrategy, useClass: PageTitleStrategy }],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class SettingsRoutingModule {}

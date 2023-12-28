@@ -24,7 +24,7 @@ export class UserService extends FirestoreService<User> {
     protected firestore: Firestore,
     private globalService: GlobalService,
     private jobBoardsService: JobBoardsService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     super(firestore);
 
@@ -42,7 +42,7 @@ export class UserService extends FirestoreService<User> {
             this.userStore.update({
               appearance: doc.settings?.appearance ?? null,
               collapseColumns: doc.settings?.collapseColumns ?? null,
-              currentJobBoard: doc.currentJobBoard
+              currentJobBoard: doc.currentJobBoard,
             });
           });
       }
@@ -56,8 +56,8 @@ export class UserService extends FirestoreService<User> {
       currentJobBoard: docId,
       settings: {
         appearance: Themes.System,
-        collapseColumns: false
-      }
+        collapseColumns: false,
+      },
     });
   }
 
@@ -68,8 +68,8 @@ export class UserService extends FirestoreService<User> {
       currentJobBoard: docId,
       settings: {
         appearance: Themes.System,
-        collapseColumns: false
-      }
+        collapseColumns: false,
+      },
     });
   }
 

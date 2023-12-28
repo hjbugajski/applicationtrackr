@@ -15,7 +15,7 @@ interface SidenavItem {
 @Component({
   selector: 'at-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnDestroy, OnInit {
   public isLoaded$ = new BehaviorSubject<boolean>(false);
@@ -26,21 +26,21 @@ export class DashboardComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.sidenavItems = [
       {
         icon: 'view_kanban',
         relativeRoute: true,
         route: Paths.Applications,
-        viewValue: 'Applications'
+        viewValue: 'Applications',
       },
       {
         icon: 'folder',
         relativeRoute: true,
         route: Paths.JobBoards,
-        viewValue: 'Job boards'
-      }
+        viewValue: 'Job boards',
+      },
     ];
   }
 

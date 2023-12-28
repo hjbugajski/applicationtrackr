@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 
 @Pipe({
-  name: 'dayDifference'
+  name: 'dayDifference',
 })
 export class DayDifferencePipe implements PipeTransform {
   public transform(value: Timestamp): string {

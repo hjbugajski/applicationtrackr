@@ -8,7 +8,7 @@ describe('ManageAccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ManageAccountComponent]
+      declarations: [ManageAccountComponent],
     }).compileComponents();
   });
 

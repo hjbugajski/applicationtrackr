@@ -9,19 +9,19 @@ import { UserStore } from '~store/user.store';
 @Component({
   selector: 'at-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent {
   public collapseColumnsFormControl = new FormControl(false);
 
   constructor(
     private userService: UserService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.userStore.collapseColumns$
       .pipe(
         filter((value) => !!value),
-        take(1)
+        take(1),
       )
       .subscribe((value) => this.collapseColumnsFormControl.setValue(value));
   }

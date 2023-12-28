@@ -3,5 +3,5 @@ export enum Params {
   OobCode = 'oobCode',
   RecoverEmail = 'recoverEmail',
   ResetPassword = 'resetPassword',
-  VerifyEmail = 'verifyEmail'
+  VerifyEmail = 'verifyEmail',
 }

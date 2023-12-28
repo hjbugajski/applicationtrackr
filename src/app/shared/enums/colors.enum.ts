@@ -7,5 +7,5 @@ export enum Colors {
   Primary = 'primary',
   Severe = 'severe',
   SevereAlt = 'severe-alt',
-  Success = 'success'
+  Success = 'success',
 }

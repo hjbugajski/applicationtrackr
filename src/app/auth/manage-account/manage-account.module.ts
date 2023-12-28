@@ -15,8 +15,8 @@ import { ResetPasswordFormModule } from '~components/reset-password-form/reset-p
     MatButtonModule,
     MatProgressSpinnerModule,
     ResetPasswordFormModule,
-    RouterModule.forChild([{ path: '', component: ManageAccountComponent }])
+    RouterModule.forChild([{ path: '', component: ManageAccountComponent }]),
   ],
-  exports: [ManageAccountComponent]
+  exports: [ManageAccountComponent],
 })
 export class ManageAccountModule {}

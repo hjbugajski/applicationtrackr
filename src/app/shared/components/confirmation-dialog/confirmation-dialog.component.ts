@@ -7,12 +7,12 @@ import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 @Component({
   selector: 'at-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.scss']
+  styleUrls: ['./confirmation-dialog.component.scss'],
 })
 export class ConfirmationDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialog,
-    private matDialogRef: MatDialogRef<ConfirmationDialogComponent>
+    private matDialogRef: MatDialogRef<ConfirmationDialogComponent>,
   ) {}
 
   public get dialogActions(): typeof DialogActions {

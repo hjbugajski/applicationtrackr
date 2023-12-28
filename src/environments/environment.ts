@@ -11,9 +11,9 @@ export const environment = {
     projectId: 'applicationtrackr',
     storageBucket: 'applicationtrackr.appspot.com',
     messagingSenderId: '977416508007',
-    appId: '1:977416508007:web:23ddb048e2fbaa70213ac2'
+    appId: '1:977416508007:web:23ddb048e2fbaa70213ac2',
   },
-  useEmulators: true
+  useEmulators: true,
 };
 
 /*

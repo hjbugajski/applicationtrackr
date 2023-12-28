@@ -38,8 +38,8 @@ import { TrimUrlPipeModule } from '~pipes/trim-url/trim-url.pipe.module';
     MatTooltipModule,
     ReactiveFormsModule,
     TimestampDatePipeModule,
-    TrimUrlPipeModule
+    TrimUrlPipeModule,
   ],
-  exports: [ApplicationPanelInfoComponent]
+  exports: [ApplicationPanelInfoComponent],
 })
 export class ApplicationPanelInfoModule {}

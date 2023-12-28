@@ -8,7 +8,7 @@ import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom
 
 @Component({
   selector: 'at-sign-in-with-password-form',
-  templateUrl: './sign-in-with-password-form.component.html'
+  templateUrl: './sign-in-with-password-form.component.html',
 })
 export class SignInWithPasswordFormComponent implements OnChanges {
   @Input() public authMode: AuthModes = AuthModes.SignIn;
@@ -20,13 +20,13 @@ export class SignInWithPasswordFormComponent implements OnChanges {
 
   public emailForm = new FormGroup({
     email: new FormControl('', CustomValidators.emailValidators),
-    password: new FormControl('', CustomValidators.passwordValidators)
+    password: new FormControl('', CustomValidators.passwordValidators),
   });
   public isLoading = false;
 
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {
     this.emailForm.disable();
   }

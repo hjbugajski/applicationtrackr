@@ -24,7 +24,7 @@ export class UserStore {
       appearance: null,
       collapseColumns: null,
       currentJobBoard: null,
-      uid: null
+      uid: null,
     });
     this.state$ = this._state$.asObservable().pipe(distinctUntilChanged((prev, curr) => objectDeepEquals(prev, curr)));
     this.state$.pipe(takeUntil(this.globalService.destroy$)).subscribe((state) => {
@@ -39,7 +39,7 @@ export class UserStore {
   public get appearance$(): Observable<Themes | string | null> {
     return this.state$.pipe(
       map((state) => state.appearance),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -50,7 +50,7 @@ export class UserStore {
   public get collapseColumns$(): Observable<boolean | null> {
     return this.state$.pipe(
       map((state) => state.collapseColumns),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -61,7 +61,7 @@ export class UserStore {
   public get currentJobBoard$(): Observable<string | null> {
     return this.state$.pipe(
       map((state) => state.currentJobBoard),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -72,7 +72,7 @@ export class UserStore {
   public get uid$(): Observable<string | null> {
     return this.state$.pipe(
       map((state) => state.uid),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -81,7 +81,7 @@ export class UserStore {
       appearance: null,
       collapseColumns: null,
       currentJobBoard: null,
-      uid: null
+      uid: null,
     });
   }
 

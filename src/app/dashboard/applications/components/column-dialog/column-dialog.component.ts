@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { Firestore, getDocs, writeBatch } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,7 +26,7 @@ import { NotificationService } from '~services/notification/notification.service
 @Component({
   selector: 'at-column-dialog',
   templateUrl: './column-dialog.component.html',
-  styleUrls: ['./column-dialog.component.scss']
+  styleUrls: ['./column-dialog.component.scss'],
 })
 export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChildren('reorderItem') reorderItems!: QueryList<ElementRef<HTMLElement>>;
@@ -35,7 +35,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
   public colorOptions = COLOR_OPTIONS;
   public columnForm = new FormGroup({
     color: new FormControl<string | null>(null, [Validators.required]),
-    title: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
+    title: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
   });
   public columns: Column[] = [];
   public isLoading: boolean;
@@ -50,7 +50,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
     private firestore: Firestore,
     private globalService: GlobalService,
     private matDialogRef: MatDialogRef<ColumnDialogComponent>,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {
     this.action = this.providedData.action;
     this.isLoading = false;
@@ -84,7 +84,7 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
     } else {
       const dialogAction = await this.globalService.confirmationDialog({
         action: DialogActions.Discard,
-        item: this.providedData.action === DialogActions.New ? 'column' : 'edits'
+        item: this.providedData.action === DialogActions.New ? 'column' : 'edits',
       });
 
       if (dialogAction === DialogActions.Discard) {
@@ -172,11 +172,11 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
     const columnDoc: ColumnDoc = {
       applicationSort: {
         direction: 'asc',
-        field: 'company'
+        field: 'company',
       },
       color,
       sortOrder: this.columns.length,
-      title
+      title,
     };
 
     await this.columnsService

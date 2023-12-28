@@ -7,7 +7,7 @@ import { ReferenceTypes } from '~enums/reference-types.enum';
 import { UserStore } from '~store/user.store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirebaseFunctionsService {
   private _batchDelete: HttpsCallable;
@@ -15,7 +15,7 @@ export class FirebaseFunctionsService {
 
   constructor(
     private functions: Functions,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this._batchDelete = httpsCallable(this.functions, 'batchDelete');
     this._recursiveDelete = httpsCallable(this.functions, 'recursiveDelete');

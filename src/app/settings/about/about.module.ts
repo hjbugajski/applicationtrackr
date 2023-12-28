@@ -12,7 +12,7 @@ import { AboutComponent } from './about.component';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule.forChild([{ path: '', component: AboutComponent }])
-  ]
+    RouterModule.forChild([{ path: '', component: AboutComponent }]),
+  ],
 })
 export class AboutModule {}

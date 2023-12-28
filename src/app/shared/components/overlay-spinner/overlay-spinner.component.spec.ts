@@ -8,7 +8,7 @@ describe('OverlaySpinnerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OverlaySpinnerComponent]
+      declarations: [OverlaySpinnerComponent],
     }).compileComponents();
   });
 

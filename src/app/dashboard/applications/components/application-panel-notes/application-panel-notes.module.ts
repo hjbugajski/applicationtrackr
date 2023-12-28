@@ -21,8 +21,8 @@ import { ApplicationPanelNotesComponent } from './application-panel-notes.compon
     MatIconModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [ApplicationPanelNotesComponent]
+  exports: [ApplicationPanelNotesComponent],
 })
 export class ApplicationPanelNotesModule {}

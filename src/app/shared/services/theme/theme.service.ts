@@ -7,7 +7,7 @@ import { GlobalService } from '~services/global/global.service';
 import { UserStore } from '~store/user.store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   public appTheme: Themes | string;
@@ -17,7 +17,7 @@ export class ThemeService {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private globalService: GlobalService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.prefersColorSchemeDark = window.matchMedia('(prefers-color-scheme: dark)');
     this.appTheme = this.colorSchemeTheme;
@@ -25,7 +25,7 @@ export class ThemeService {
     this.userStore.appearance$
       .pipe(
         takeUntil(this.globalService.destroy$),
-        filter((appearance) => appearance !== null)
+        filter((appearance) => appearance !== null),
       )
       .subscribe((appearance) => {
         this.setTheme(appearance!);

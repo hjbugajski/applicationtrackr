@@ -13,7 +13,7 @@ import { LayoutComponent } from './layout.component';
     FormsModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
-    RouterModule.forChild([{ path: '', component: LayoutComponent }])
-  ]
+    RouterModule.forChild([{ path: '', component: LayoutComponent }]),
+  ],
 })
 export class LayoutModule {}

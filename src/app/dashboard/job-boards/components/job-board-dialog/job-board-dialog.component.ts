@@ -13,7 +13,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-new-job-board-dialog',
-  templateUrl: './job-board-dialog.component.html'
+  templateUrl: './job-board-dialog.component.html',
 })
 export class JobBoardDialogComponent {
   public button: string;
@@ -21,7 +21,7 @@ export class JobBoardDialogComponent {
   public isLoading: boolean;
   public jobBoardForm = new FormGroup({
     date: new FormControl<Date | null>(null, [Validators.required]),
-    title: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
+    title: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
   });
 
   constructor(
@@ -30,7 +30,7 @@ export class JobBoardDialogComponent {
     private jobBoardsService: JobBoardsService,
     private matDialogRef: MatDialogRef<JobBoardDialogComponent>,
     private notificationService: NotificationService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.button = this.providedData.action === DialogActions.New ? 'Add' : 'Save';
     this.header = this.providedData.action === DialogActions.New ? 'New' : 'Edit';
@@ -58,7 +58,7 @@ export class JobBoardDialogComponent {
     } else {
       const dialogAction = await this.globalService.confirmationDialog({
         action: DialogActions.Discard,
-        item: this.providedData.action === DialogActions.New ? 'job board' : 'edits'
+        item: this.providedData.action === DialogActions.New ? 'job board' : 'edits',
       });
 
       if (dialogAction === DialogActions.Discard) {

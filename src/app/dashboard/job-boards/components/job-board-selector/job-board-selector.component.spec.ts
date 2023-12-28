@@ -8,7 +8,7 @@ describe('JobBoardSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [JobBoardSelectorComponent]
+      declarations: [JobBoardSelectorComponent],
     }).compileComponents();
   });
 

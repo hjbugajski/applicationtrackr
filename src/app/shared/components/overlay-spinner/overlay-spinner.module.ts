@@ -7,6 +7,6 @@ import { OverlaySpinnerComponent } from './overlay-spinner.component';
 @NgModule({
   declarations: [OverlaySpinnerComponent],
   imports: [CommonModule, MatProgressSpinnerModule],
-  exports: [OverlaySpinnerComponent]
+  exports: [OverlaySpinnerComponent],
 })
 export class OverlaySpinnerModule {}

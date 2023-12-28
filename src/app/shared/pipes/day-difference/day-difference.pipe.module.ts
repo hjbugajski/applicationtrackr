@@ -6,6 +6,6 @@ import { DayDifferencePipe } from './day-difference.pipe';
 @NgModule({
   declarations: [DayDifferencePipe],
   imports: [CommonModule],
-  exports: [DayDifferencePipe]
+  exports: [DayDifferencePipe],
 })
 export class DayDifferencePipeModule {}

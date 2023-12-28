@@ -12,7 +12,7 @@ import { NotificationService } from '~services/notification/notification.service
 @Component({
   selector: 'at-application-panel-notes',
   templateUrl: './application-panel-notes.component.html',
-  styleUrls: ['./application-panel-notes.component.scss']
+  styleUrls: ['./application-panel-notes.component.scss'],
 })
 export class ApplicationPanelNotesComponent implements OnInit {
   @Input() public application!: Application;
@@ -22,14 +22,14 @@ export class ApplicationPanelNotesComponent implements OnInit {
   public isEditing = false;
   public isLoading = false;
   public noteForm = new FormGroup({
-    note: new FormControl<string | null>(null, [Validators.maxLength(4000)])
+    note: new FormControl<string | null>(null, [Validators.maxLength(4000)]),
   });
 
   constructor(
     private applicationsService: ApplicationsService,
     private changeDetectorRef: ChangeDetectorRef,
     private globalService: GlobalService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {}
 
   public get note(): AbstractControl<string | null> {
@@ -45,7 +45,7 @@ export class ApplicationPanelNotesComponent implements OnInit {
 
     const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
-      item: 'edits'
+      item: 'edits',
     });
 
     if (dialogAction === DialogActions.Discard) {
@@ -91,7 +91,7 @@ export class ApplicationPanelNotesComponent implements OnInit {
 
   private initNoteForm(): void {
     this.noteForm.setValue({
-      note: this.application.note
+      note: this.application.note,
     });
   }
 }

@@ -7,6 +7,6 @@ import { TagComponent } from './tag.component';
 @NgModule({
   declarations: [TagComponent],
   imports: [CommonModule, MatIconModule],
-  exports: [TagComponent]
+  exports: [TagComponent],
 })
 export class TagModule {}

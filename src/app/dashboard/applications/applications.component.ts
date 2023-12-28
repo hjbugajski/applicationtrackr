@@ -10,7 +10,7 @@ import { ColumnsService } from '~services/columns/columns.service';
 @Component({
   selector: 'at-applications',
   templateUrl: './applications.component.html',
-  styleUrls: ['./applications.component.scss']
+  styleUrls: ['./applications.component.scss'],
 })
 export class ApplicationsComponent implements OnDestroy {
   public columnIds$: Observable<string[]>;
@@ -20,7 +20,7 @@ export class ApplicationsComponent implements OnDestroy {
 
   constructor(
     private columnsService: ColumnsService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {
     this.columnIds$ = this.columnsService.columnIds$;
     this.subscription = this.columnsService.columns$
@@ -32,7 +32,7 @@ export class ApplicationsComponent implements OnDestroy {
     this.matDialog.open(ColumnDialogComponent, {
       data: { action: DialogActions.New },
       disableClose: true,
-      panelClass: 'at-dialog'
+      panelClass: 'at-dialog',
     });
   }
 

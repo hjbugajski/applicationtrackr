@@ -32,7 +32,7 @@ $at-palette: (
     border: var(--color-alpha-border),
     hover: var(--color-alpha-hover),
     canvas: var(--color-alpha-canvas),
-    canvas-inset: var(--color-alpha-canvas-inset)
+    canvas-inset: var(--color-alpha-canvas-inset),
   ),
   contrast: (
     primary: var(--color-contrast-primary),
@@ -49,8 +49,8 @@ $at-palette: (
     border: var(--color-contrast-border),
     hover: var(--color-contrast-hover),
     canvas: var(--color-contrast-canvas),
-    canvas-inset: var(--color-contrast-canvas-inset)
-  )
+    canvas-inset: var(--color-contrast-canvas-inset),
+  ),
 );
 
 $at-palette-keys: map.remove($at-palette, backdrop, alpha, contrast);

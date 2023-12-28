@@ -12,7 +12,7 @@ import { UserStore } from '~store/user.store';
 @Component({
   selector: 'at-job-board-selector',
   templateUrl: './job-board-selector.component.html',
-  styleUrls: ['./job-board-selector.component.scss']
+  styleUrls: ['./job-board-selector.component.scss'],
 })
 export class JobBoardSelectorComponent {
   public currentJobBoard$: Observable<string | null>;
@@ -22,7 +22,7 @@ export class JobBoardSelectorComponent {
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
     private userStore: UserStore,
-    private userService: UserService
+    private userService: UserService,
   ) {
     this.currentJobBoard$ = this.userStore.currentJobBoard$;
     this.jobBoards$ = this.jobBoardsService.jobBoards$;
@@ -32,7 +32,7 @@ export class JobBoardSelectorComponent {
     this.matDialog.open(JobBoardDialogComponent, {
       data: { action: DialogActions.New, data: null },
       disableClose: true,
-      panelClass: 'at-dialog'
+      panelClass: 'at-dialog',
     });
   }
 

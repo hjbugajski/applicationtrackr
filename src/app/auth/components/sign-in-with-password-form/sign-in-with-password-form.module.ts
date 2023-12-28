@@ -17,8 +17,8 @@ import { SignInWithPasswordFormComponent } from './sign-in-with-password-form.co
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [SignInWithPasswordFormComponent]
+  exports: [SignInWithPasswordFormComponent],
 })
 export class SignInWithPasswordFormModule {}

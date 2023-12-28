@@ -8,6 +8,6 @@ import { JobBoardModule } from '~components/job-board/job-board.module';
 
 @NgModule({
   declarations: [JobBoardsComponent],
-  imports: [CommonModule, JobBoardModule, RouterModule.forChild([{ path: '', component: JobBoardsComponent }])]
+  imports: [CommonModule, JobBoardModule, RouterModule.forChild([{ path: '', component: JobBoardsComponent }])],
 })
 export class JobBoardsModule {}

@@ -30,8 +30,8 @@ import { ConfirmationDialogModule } from '~components/confirmation-dialog/confir
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [NewApplicationDialogComponent]
+  exports: [NewApplicationDialogComponent],
 })
 export class NewApplicationDialogModule {}

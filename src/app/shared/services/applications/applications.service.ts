@@ -11,7 +11,7 @@ import { UserStore } from '~store/user.store';
 import { applicationConverter } from '~utils/firestore-converters';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApplicationsService extends FirestoreService<Application> {
   protected _basePath!: string;
@@ -21,14 +21,14 @@ export class ApplicationsService extends FirestoreService<Application> {
   constructor(
     protected firestore: Firestore,
     private globalService: GlobalService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     super(firestore);
 
     this.userStore.state$
       .pipe(
         takeUntil(this.globalService.destroy$),
-        filter((state) => state.uid !== null && state.currentJobBoard !== null)
+        filter((state) => state.uid !== null && state.currentJobBoard !== null),
       )
       .subscribe((state) => {
         this._basePath = [
@@ -36,11 +36,11 @@ export class ApplicationsService extends FirestoreService<Application> {
           state.uid,
           Collections.JobBoards,
           state.currentJobBoard,
-          Collections.Applications
+          Collections.Applications,
         ].join('/');
         this._collectionRef = collection(this.firestore, this._basePath);
         this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(
-          applicationConverter
+          applicationConverter,
         );
       });
   }

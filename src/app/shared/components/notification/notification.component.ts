@@ -8,15 +8,15 @@ import { NotificationData } from '~interfaces/notification-data.interface';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
   host: {
-    class: 'at-color-background'
-  }
+    class: 'at-color-background',
+  },
 })
 export class NotificationComponent {
   @HostBinding('class') colorClass = '';
 
   constructor(
     @Inject(MAT_SNACK_BAR_DATA) public data: NotificationData,
-    private matSnackBarRef: MatSnackBarRef<NotificationComponent>
+    private matSnackBarRef: MatSnackBarRef<NotificationComponent>,
   ) {
     this.colorClass = this.data.type;
   }

@@ -13,12 +13,12 @@ import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom
 @Component({
   selector: 'at-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnDestroy {
   public confirmDeleteControl = new FormControl('', [
     Validators.required,
-    Validators.pattern('delete account and data')
+    Validators.pattern('delete account and data'),
   ]);
   public isLoading = false;
   public isUpdateEmailLoading = false;
@@ -27,7 +27,7 @@ export class AccountComponent implements OnDestroy {
   public stepOneCompleted = false;
   public updateEmailForm = new FormGroup({
     newEmail: new FormControl('', CustomValidators.emailValidators),
-    password: new FormControl('', CustomValidators.passwordValidators)
+    password: new FormControl('', CustomValidators.passwordValidators),
   });
   public user: User | null = null;
 
@@ -36,7 +36,7 @@ export class AccountComponent implements OnDestroy {
   constructor(
     private auth: Auth,
     private authService: AuthService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.subscriptions = authState(this.auth).subscribe((user) => {
       this.user = user;

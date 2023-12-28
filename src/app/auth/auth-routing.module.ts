@@ -16,39 +16,39 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'prefix',
-        redirectTo: Paths.SignIn
+        redirectTo: Paths.SignIn,
       },
       {
         path: Paths.SignIn,
         title: 'Sign In',
         data: { path: Paths.SignIn, title: 'Sign in' },
-        loadChildren: () => import('./sign-in/sign-in.module').then((m) => m.SignInModule)
+        loadChildren: () => import('./sign-in/sign-in.module').then((m) => m.SignInModule),
       },
       {
         path: Paths.SignUp,
         title: 'Sign Up',
         data: { path: Paths.SignUp, title: 'Sign up' },
-        loadChildren: () => import('./sign-in/sign-in.module').then((m) => m.SignInModule)
+        loadChildren: () => import('./sign-in/sign-in.module').then((m) => m.SignInModule),
       },
       {
         path: Paths.ForgotPassword,
         title: 'Forgot Password',
         data: { path: Paths.ForgotPassword, title: 'Forgot password' },
-        loadChildren: () => import('./forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule)
+        loadChildren: () => import('./forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule),
       },
       {
         path: Paths.ManageAccount,
         title: 'Manage Account',
         data: { path: Paths.ManageAccount, title: 'Manage account' },
-        loadChildren: () => import('./manage-account/manage-account.module').then((m) => m.ManageAccountModule)
-      }
-    ]
-  }
+        loadChildren: () => import('./manage-account/manage-account.module').then((m) => m.ManageAccountModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   providers: [{ provide: TitleStrategy, useClass: PageTitleStrategy }],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AuthRoutingModule {}

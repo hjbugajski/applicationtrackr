@@ -67,8 +67,7 @@
 .at-application-panel-toolbar-column-container {
   display: flex;
   flex-flow: row wrap;
-  row-gap: 8px;
-  column-gap: 12px;
+  gap: 8px 12px;
   align-items: center;
 }
 

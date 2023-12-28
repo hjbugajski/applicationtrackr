@@ -8,7 +8,7 @@ import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalService implements OnDestroy {
   public destroy$ = new Subject<boolean>();
@@ -17,7 +17,7 @@ export class GlobalService implements OnDestroy {
 
   public async confirmationDialog(
     data: ConfirmationDialog,
-    { autoFocus = false, disableClose = true, width = '315px', panelClass = 'at-dialog-with-padding' } = {}
+    { autoFocus = false, disableClose = true, width = '315px', panelClass = 'at-dialog-with-padding' } = {},
   ): Promise<DialogActions | undefined> {
     return await lastValueFrom(
       this.matDialog
@@ -26,9 +26,9 @@ export class GlobalService implements OnDestroy {
           data,
           disableClose,
           width,
-          panelClass
+          panelClass,
         })
-        .afterClosed()
+        .afterClosed(),
     );
   }
 
@@ -41,7 +41,7 @@ export class GlobalService implements OnDestroy {
     return this.matDialog.open(OverlaySpinnerComponent, {
       autoFocus: false,
       disableClose: true,
-      panelClass: 'overlay-spinner-dialog'
+      panelClass: 'overlay-spinner-dialog',
     });
   }
 }

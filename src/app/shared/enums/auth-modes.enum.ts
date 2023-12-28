@@ -3,5 +3,5 @@ export enum AuthModes {
   Reauthenticate,
   Reset,
   SignIn,
-  Update
+  Update,
 }
