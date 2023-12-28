@@ -13,7 +13,6 @@ import {
   FirestoreDataConverter,
   getDoc,
   Query,
-  UpdateData,
   updateDoc,
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
@@ -64,7 +63,7 @@ export abstract class FirestoreService<T> {
     return await getDoc(this.docRef(id).withConverter(converter));
   }
 
-  public async update(id: string, value: UpdateData<T>): Promise<void> {
+  public async update(id: string, value: any): Promise<void> {
     return await updateDoc(this.docRef(id) as DocumentReference<T>, value);
   }
 }
