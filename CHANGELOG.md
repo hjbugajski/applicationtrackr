@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.8...v2.0.0) (2023-12-28)
+
+### Features
+
+- upgrade to Angular 17 ([425675d](https://github.com/hjbugajski/applicationtrackr/commit/425675d260b4d4c2cb9db9374aa4faadf592f34b))
+
+### Bug Fixes
+
+- correct column styling, update types ([c83e828](https://github.com/hjbugajski/applicationtrackr/commit/c83e82831eb40c5159fa5a8fdb63c99ae0e03c3e))
+
 ## [1.7.8](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.7...v1.7.8) (2023-09-16)
 
 ## [1.7.7](https://github.com/hjbugajski/applicationtrackr/compare/v1.7.6...v1.7.7) (2023-08-14)
