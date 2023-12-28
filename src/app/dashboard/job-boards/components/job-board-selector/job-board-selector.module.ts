@@ -21,8 +21,8 @@ import { JobBoardDialogModule } from '~components/job-board-dialog/job-board-dia
     MatIconModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    JobBoardDialogModule
+    JobBoardDialogModule,
   ],
-  exports: [JobBoardSelectorComponent]
+  exports: [JobBoardSelectorComponent],
 })
 export class JobBoardSelectorModule {}

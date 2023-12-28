@@ -16,7 +16,7 @@ interface Theme {
 @Component({
   selector: 'at-appearance',
   templateUrl: './appearance.component.html',
-  styleUrls: ['./appearance.component.scss']
+  styleUrls: ['./appearance.component.scss'],
 })
 export class AppearanceComponent implements OnDestroy {
   public selectedTheme: Themes | string | undefined;
@@ -27,12 +27,12 @@ export class AppearanceComponent implements OnDestroy {
   constructor(
     private themeService: ThemeService,
     private userService: UserService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.themesArray = [
       { class: Themes.Light, icon: this.getIconPath(Icons.LightTheme), viewValue: 'Light' },
       { class: Themes.Dark, icon: this.getIconPath(Icons.DarkTheme), viewValue: 'Dark' },
-      { class: Themes.System, icon: this.getIconPath(Icons.SystemTheme), viewValue: 'System' }
+      { class: Themes.System, icon: this.getIconPath(Icons.SystemTheme), viewValue: 'System' },
     ];
     this.subscription = this.userStore.appearance$
       .pipe(filter((value) => !!value))

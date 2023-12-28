@@ -37,9 +37,9 @@ import { IconModule } from '~modules/icon.module';
       }
 
       return functions;
-    })
+    }),
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

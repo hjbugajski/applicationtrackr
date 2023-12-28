@@ -33,8 +33,8 @@ import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pi
     NewApplicationDialogModule,
     OverlaySpinnerModule,
     ScrollingModule,
-    TagModule
+    TagModule,
   ],
-  exports: [ColumnComponent]
+  exports: [ColumnComponent],
 })
 export class ColumnModule {}

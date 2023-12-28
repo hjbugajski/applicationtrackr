@@ -28,8 +28,8 @@ import { TimestampDatePipeModule } from '~pipes/timestamp-date/timestamp-date.pi
     MatProgressSpinnerModule,
     MatSelectModule,
     ReactiveFormsModule,
-    TimestampDatePipeModule
+    TimestampDatePipeModule,
   ],
-  exports: [ApplicationPanelOfferComponent]
+  exports: [ApplicationPanelOfferComponent],
 })
 export class ApplicationPanelOfferModule {}

@@ -9,6 +9,6 @@ import { SignInWithGoogleButtonComponent } from './sign-in-with-google-button.co
 @NgModule({
   declarations: [SignInWithGoogleButtonComponent],
   imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
-  exports: [SignInWithGoogleButtonComponent]
+  exports: [SignInWithGoogleButtonComponent],
 })
 export class SignInWithGoogleButtonModule {}

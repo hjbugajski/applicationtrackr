@@ -9,35 +9,35 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: Paths.Dashboard
+    redirectTo: Paths.Dashboard,
   },
   {
     path: Paths.Auth,
     title: 'Auth',
     canActivate: [authGuard],
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: Paths.Dashboard,
     title: 'Dashboard',
     canActivate: [authGuard],
-    loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
+    loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
     path: Paths.Settings,
     title: 'Settings',
     canActivate: [authGuard],
-    loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule)
+    loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule),
   },
   {
     path: '**',
-    redirectTo: Paths.Dashboard
-  }
+    redirectTo: Paths.Dashboard,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   providers: [{ provide: TitleStrategy, useClass: PageTitleStrategy }],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -6,7 +6,7 @@ import {
   Firestore,
   orderBy,
   Query,
-  query
+  query,
 } from '@angular/fire/firestore';
 import { distinctUntilChanged, map, Observable, takeUntil } from 'rxjs';
 
@@ -19,7 +19,7 @@ import { UserStore } from '~store/user.store';
 import { columnConverter } from '~utils/firestore-converters';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ColumnsService extends FirestoreService<Column> {
   public columnIds$!: Observable<string[]>;
@@ -33,7 +33,7 @@ export class ColumnsService extends FirestoreService<Column> {
     private firebaseFunctionsService: FirebaseFunctionsService,
     protected firestore: Firestore,
     private globalService: GlobalService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     super(firestore);
 
@@ -47,7 +47,7 @@ export class ColumnsService extends FirestoreService<Column> {
           state.uid,
           Collections.JobBoards,
           state.currentJobBoard,
-          Collections.Columns
+          Collections.Columns,
         ].join('/');
         this._collectionRef = collection(this.firestore, this._basePath);
         this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(columnConverter);
@@ -55,7 +55,7 @@ export class ColumnsService extends FirestoreService<Column> {
         this.reset();
         this.columnIds$ = this.collection$(this.query).pipe(
           map((columns) => columns.map((column) => column.docId)),
-          distinctUntilChanged()
+          distinctUntilChanged(),
         );
         this.columns$ = this.collection$(this.query);
       } else {

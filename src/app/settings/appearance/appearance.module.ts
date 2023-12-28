@@ -16,7 +16,7 @@ import { AppearanceComponent } from './appearance.component';
     MatIconModule,
     MatMenuModule,
     MatRadioModule,
-    RouterModule.forChild([{ path: '', component: AppearanceComponent }])
-  ]
+    RouterModule.forChild([{ path: '', component: AppearanceComponent }]),
+  ],
 })
 export class AppearanceModule {}

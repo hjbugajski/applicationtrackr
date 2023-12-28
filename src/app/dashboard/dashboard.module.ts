@@ -23,7 +23,7 @@ import { ToolbarModule } from '~components/toolbar/toolbar.module';
     MatIconModule,
     MatSidenavModule,
     MatRippleModule,
-    ToolbarModule
-  ]
+    ToolbarModule,
+  ],
 })
 export class DashboardModule {}

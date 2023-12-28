@@ -6,6 +6,6 @@ import { TimestampDatePipe } from './timestamp-date.pipe';
 @NgModule({
   declarations: [TimestampDatePipe],
   imports: [CommonModule],
-  exports: [TimestampDatePipe]
+  exports: [TimestampDatePipe],
 })
 export class TimestampDatePipeModule {}

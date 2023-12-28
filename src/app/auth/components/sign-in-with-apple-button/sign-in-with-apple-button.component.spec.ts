@@ -8,7 +8,7 @@ describe('SignInWithAppleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SignInWithAppleButtonComponent]
+      declarations: [SignInWithAppleButtonComponent],
     }).compileComponents();
   });
 

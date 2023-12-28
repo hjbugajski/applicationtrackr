@@ -22,7 +22,7 @@ import { ColumnDialogModule } from './components/column-dialog/column-dialog.mod
     MatIconModule,
     MatProgressSpinnerModule,
     RouterModule.forChild([{ path: '', component: ApplicationsComponent }]),
-    ScrollingModule
-  ]
+    ScrollingModule,
+  ],
 })
 export class ApplicationsModule {}

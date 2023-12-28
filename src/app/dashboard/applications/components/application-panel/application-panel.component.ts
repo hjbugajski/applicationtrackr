@@ -18,7 +18,7 @@ import { applicationConverter, columnConverter } from '~utils/firestore-converte
 @Component({
   selector: 'at-application-panel',
   templateUrl: './application-panel.component.html',
-  styleUrls: ['./application-panel.component.scss']
+  styleUrls: ['./application-panel.component.scss'],
 })
 export class ApplicationPanelComponent implements OnDestroy, OnInit {
   @ViewChildren(MatInput) public matInputs: QueryList<MatInput> | undefined;
@@ -28,7 +28,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
   public columns$: Observable<Column[]>;
   public companyPositionForm = new FormGroup({
     company: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
-    position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
+    position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
   });
   public isEditing = false;
   public isLoading = false;
@@ -42,7 +42,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     private columnsService: ColumnsService,
     private dialogRef: DialogRef,
     private globalService: GlobalService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {
     this.application = this.dialogData.application;
     this.column = this.dialogData.column;
@@ -51,7 +51,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
       .doc$(this.application.docId, applicationConverter)
       .pipe(
         filter((doc) => !!doc),
-        switchMap(async (doc) => await this.setColumn(doc))
+        switchMap(async (doc) => await this.setColumn(doc)),
       )
       .subscribe((doc) => (this.application = doc));
   }
@@ -73,7 +73,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
 
     const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
-      item: 'edits'
+      item: 'edits',
     });
 
     if (dialogAction === DialogActions.Discard) {
@@ -91,7 +91,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
       message: `Application for <strong class="at-text danger">${this.application.company}</strong> will be deleted. This action cannot be undone.`,
-      item: 'application'
+      item: 'application',
     };
     const dialogAction = await this.globalService.confirmationDialog(data, { width: '375px' });
 
@@ -168,7 +168,7 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
   private initForm(): void {
     this.companyPositionForm.setValue({
       company: this.application.company,
-      position: this.application.position
+      position: this.application.position,
     });
   }
 

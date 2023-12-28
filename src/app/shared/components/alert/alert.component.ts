@@ -7,8 +7,8 @@ import { Colors } from '~enums/colors.enum';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
   host: {
-    class: 'at-alert at-border at-alpha-background'
-  }
+    class: 'at-alert at-border at-alpha-background',
+  },
 })
 export class AlertComponent {
   @Input() @HostBinding('class') public color: Colors | string = Colors.Primary;

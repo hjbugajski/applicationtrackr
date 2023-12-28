@@ -6,6 +6,6 @@ import { TrimUrlPipe } from './trim-url.pipe';
 @NgModule({
   declarations: [TrimUrlPipe],
   imports: [CommonModule],
-  exports: [TrimUrlPipe]
+  exports: [TrimUrlPipe],
 })
 export class TrimUrlPipeModule {}

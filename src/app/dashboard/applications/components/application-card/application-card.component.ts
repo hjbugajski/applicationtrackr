@@ -8,7 +8,7 @@ import { Column } from '~models/column.model';
 @Component({
   selector: 'at-application-card',
   templateUrl: './application-card.component.html',
-  styleUrls: ['./application-card.component.scss']
+  styleUrls: ['./application-card.component.scss'],
 })
 export class ApplicationCardComponent implements OnInit {
   @Input() public application!: Application;
@@ -34,10 +34,10 @@ export class ApplicationCardComponent implements OnInit {
     this.dialog.open(ApplicationPanelComponent, {
       data: {
         application: this.application,
-        column: this.column
+        column: this.column,
       },
       disableClose: true,
-      autoFocus: 'dialog'
+      autoFocus: 'dialog',
     });
   }
 }

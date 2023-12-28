@@ -15,8 +15,8 @@ import { UserStore } from '~store/user.store';
   styleUrls: ['./job-board.component.scss'],
   encapsulation: ViewEncapsulation.None,
   host: {
-    class: 'job-boards-list-item'
-  }
+    class: 'job-boards-list-item',
+  },
 })
 export class JobBoardComponent implements OnInit {
   @Input() public jobBoard!: JobBoard;
@@ -27,14 +27,14 @@ export class JobBoardComponent implements OnInit {
     private globalService: GlobalService,
     private jobBoardsService: JobBoardsService,
     private matDialog: MatDialog,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {}
 
   public async deleteJobBoard(jobBoard: JobBoard): Promise<void> {
     const data: ConfirmationDialog = {
       action: DialogActions.Delete,
       message: `Job board <strong class="at-text danger">${jobBoard.title}</strong>, all associated columns, and all associated applications will be deleted. This action cannot be undone.`,
-      item: 'job board'
+      item: 'job board',
     };
     const dialogAction = await this.globalService.confirmationDialog(data, { width: '375px' });
 
@@ -49,7 +49,7 @@ export class JobBoardComponent implements OnInit {
     this.matDialog.open(JobBoardDialogComponent, {
       data: { action: DialogActions.Edit, data: jobBoard },
       disableClose: true,
-      panelClass: 'at-dialog'
+      panelClass: 'at-dialog',
     });
   }
 

@@ -351,8 +351,8 @@ $red-palette: (
     600: $white,
     700: $white,
     800: $white,
-    900: $white
-  )
+    900: $white,
+  ),
 );
 
 $purple-palette: (
@@ -376,8 +376,8 @@ $purple-palette: (
     600: $white,
     700: $white,
     800: $white,
-    900: $white
-  )
+    900: $white,
+  ),
 );
 
 $blue-palette: (
@@ -401,8 +401,8 @@ $blue-palette: (
     600: $white,
     700: $white,
     800: $white,
-    900: $white
-  )
+    900: $white,
+  ),
 );
 
 $dark-red-palette: (
@@ -426,8 +426,8 @@ $dark-red-palette: (
     600: $white,
     700: $white,
     800: $white,
-    900: $white
-  )
+    900: $white,
+  ),
 );
 
 $dark-purple-palette: (
@@ -451,8 +451,8 @@ $dark-purple-palette: (
     600: $white,
     700: $white,
     800: $white,
-    900: $white
-  )
+    900: $white,
+  ),
 );
 
 $dark-blue-palette: (
@@ -476,8 +476,8 @@ $dark-blue-palette: (
     600: $white,
     700: $white,
     800: $white,
-    900: $white
-  )
+    900: $white,
+  ),
 );
 
 $light-theme-foreground-palette: (
@@ -495,7 +495,7 @@ $light-theme-foreground-palette: (
   text: $light-gray-9,
   slider-min: $light-gray-3,
   slider-off: $light-gray-3,
-  slider-off-active: $light-gray-3
+  slider-off-active: $light-gray-3,
 );
 
 $dark-theme-foreground-palette: (
@@ -513,7 +513,7 @@ $dark-theme-foreground-palette: (
   text: $dark-gray-1,
   slider-min: $dark-gray-3,
   slider-off: $dark-gray-3,
-  slider-off-active: $dark-gray-3
+  slider-off-active: $dark-gray-3,
 );
 
 $light-theme-background-palette: (
@@ -531,7 +531,7 @@ $light-theme-background-palette: (
   disabled-button-toggle: $light-gray-1,
   unselected-chip: $light-gray-0,
   disabled-list-option: $white,
-  tooltip: $light-gray-8
+  tooltip: $light-gray-8,
 );
 
 $dark-theme-background-palette: (
@@ -549,5 +549,5 @@ $dark-theme-background-palette: (
   disabled-button-toggle: $dark-gray-7,
   unselected-chip: $dark-gray-7,
   disabled-list-option: $dark-gray-10,
-  tooltip: $dark-gray-7
+  tooltip: $dark-gray-7,
 );

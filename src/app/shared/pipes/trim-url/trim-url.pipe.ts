@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 const trimUrlRegex = /^http:\/\/www\.|^https:\/\/www\.|^http:\/\/|^https:\/\//;
 
 @Pipe({
-  name: 'trimUrl'
+  name: 'trimUrl',
 })
 export class TrimUrlPipe implements PipeTransform {
   transform(value: string, end = 25): string {

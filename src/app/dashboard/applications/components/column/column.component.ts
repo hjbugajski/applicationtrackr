@@ -26,9 +26,9 @@ import { objectDeepEquals } from '~utils/compare.util';
   styleUrls: ['./column.component.scss'],
   host: {
     class: 'column at-alpha-background',
-    '[class.column-empty]': 'total === 0 && userStore.collapseColumns'
+    '[class.column-empty]': 'total === 0 && userStore.collapseColumns',
   },
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ColumnComponent implements OnChanges, OnDestroy {
   @Input() public column: Column | undefined;
@@ -48,7 +48,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     private globalService: GlobalService,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.collapseColumns$ = this.userStore.collapseColumns$;
     this.isTouch = matchMedia('(hover: none)').matches;
@@ -60,7 +60,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
       message: `Column <strong class="at-text danger">${
         this.column!.title
       }</strong> and all associated applications will be deleted. This action cannot be undone.`,
-      item: 'column'
+      item: 'column',
     };
     const dialogAction = await this.globalService.confirmationDialog(data, { width: '375px' });
 
@@ -91,7 +91,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     this.matDialog.open(ColumnDialogComponent, {
       data: { action: DialogActions.Edit, data: this.column },
       disableClose: true,
-      panelClass: 'at-dialog'
+      panelClass: 'at-dialog',
     });
   }
 
@@ -99,7 +99,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     this.matDialog.open(NewApplicationDialogComponent, {
       data: { column: this.column },
       disableClose: true,
-      panelClass: 'at-dialog'
+      panelClass: 'at-dialog',
     });
   }
 
@@ -123,7 +123,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     this.matDialog.open(ColumnDialogComponent, {
       data: { action: DialogActions.Reorder, data: this.column },
       disableClose: true,
-      panelClass: 'at-dialog'
+      panelClass: 'at-dialog',
     });
   }
 
@@ -146,8 +146,8 @@ export class ColumnComponent implements OnChanges, OnDestroy {
       query(
         this.applicationsService.collectionRefWithConverter,
         where('columnDocId', '==', this.column!.docId),
-        orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction)
-      )
+        orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction),
+      ),
     );
     this.subscription = this.applications$.subscribe((applications) => (this.total = applications.length));
   }

@@ -8,7 +8,7 @@ describe('SignInWithGoogleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SignInWithGoogleButtonComponent]
+      declarations: [SignInWithGoogleButtonComponent],
     }).compileComponents();
   });
 

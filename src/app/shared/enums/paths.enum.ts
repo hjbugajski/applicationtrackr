@@ -13,5 +13,5 @@ export enum Paths {
   Rejections = 'rejections',
   Settings = 'settings',
   SignIn = 'sign-in',
-  SignUp = 'sign-up'
+  SignUp = 'sign-up',
 }

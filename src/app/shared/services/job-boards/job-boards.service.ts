@@ -8,7 +8,7 @@ import {
   getCountFromServer,
   orderBy,
   query,
-  writeBatch
+  writeBatch,
 } from '@angular/fire/firestore';
 import { Observable, takeUntil } from 'rxjs';
 
@@ -26,7 +26,7 @@ import { dateToTimestamp } from '~utils/date.util';
 import { jobBoardConverter } from '~utils/firestore-converters';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JobBoardsService extends FirestoreService<JobBoard> {
   public jobBoards$: Observable<JobBoard[]>;
@@ -40,7 +40,7 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
     protected firestore: Firestore,
     private globalService: GlobalService,
     private notificationService: NotificationService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     super(firestore);
 
@@ -67,7 +67,7 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
       uid,
       Collections.JobBoards,
       boardId,
-      Collections.Columns
+      Collections.Columns,
     );
 
     for (let i = 0; i < COLUMNS.length; i++) {
@@ -79,7 +79,7 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
 
   public async createJobBoard(
     uid: string,
-    value: JobBoardDoc = { title: 'Job Board', date: dateToTimestamp(new Date(Date.now())) }
+    value: JobBoardDoc = { title: 'Job Board', date: dateToTimestamp(new Date(Date.now())) },
   ): Promise<string> {
     const docRef = await this.create(value);
 

@@ -17,8 +17,8 @@ import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pi
     DayDifferencePipeModule,
     DragDropModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
-  exports: [ApplicationCardComponent]
+  exports: [ApplicationCardComponent],
 })
 export class ApplicationCardModule {}

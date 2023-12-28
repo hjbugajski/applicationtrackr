@@ -7,7 +7,7 @@ import { UserStore } from '~store/user.store';
 
 @Component({
   selector: 'at-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent implements OnDestroy {
   private authSubscription: Subscription;
@@ -15,7 +15,7 @@ export class AppComponent implements OnDestroy {
   constructor(
     private auth: Auth,
     private themeService: ThemeService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.authSubscription = authState(this.auth)
       .pipe(distinctUntilChanged((prev, curr) => prev?.uid === curr?.uid))

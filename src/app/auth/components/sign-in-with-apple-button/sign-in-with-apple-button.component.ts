@@ -10,7 +10,7 @@ import { ThemeService } from '~services/theme/theme.service';
 @Component({
   selector: 'at-sign-in-with-apple-button',
   templateUrl: './sign-in-with-apple-button.component.html',
-  styleUrls: ['./sign-in-with-apple-button.component.scss']
+  styleUrls: ['./sign-in-with-apple-button.component.scss'],
 })
 export class SignInWithAppleButtonComponent implements OnDestroy {
   @Input() public authMode: AuthModes = AuthModes.SignIn;
@@ -25,7 +25,7 @@ export class SignInWithAppleButtonComponent implements OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
   ) {
     this.appTheme = this.themeService.appTheme;
     this.subscription = this.themeService.appTheme$.subscribe((theme) => (this.appTheme = theme));

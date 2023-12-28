@@ -17,7 +17,7 @@ import { dateToTimestamp, timestampToDate } from '~utils/date.util';
 
 @Component({
   selector: 'at-application-panel-info',
-  templateUrl: './application-panel-info.component.html'
+  templateUrl: './application-panel-info.component.html',
 })
 export class ApplicationPanelInfoComponent implements OnInit {
   @Input() public application!: Application;
@@ -30,7 +30,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
     date: new FormControl<Date | null>(null, [Validators.required]),
     link: new FormControl<string | null>(null, [CustomValidators.url, Validators.maxLength(2000)]),
     location: new FormControl<string | null>(null, [Validators.maxLength(128)]),
-    payPeriod: new FormControl<string | null>(null)
+    payPeriod: new FormControl<string | null>(null),
   });
   public isEditing = false;
   public isLoading = false;
@@ -41,7 +41,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private columnsService: ColumnsService,
     private globalService: GlobalService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {
     this.columns$ = this.columnsService.columns$;
   }
@@ -83,7 +83,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
 
     const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
-      item: 'edits'
+      item: 'edits',
     });
 
     if (dialogAction === DialogActions.Discard) {
@@ -135,7 +135,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
       date: dateToTimestamp(this.date.value!),
       link: this.link.value,
       location: this.location.value,
-      payPeriod: this.payPeriod.value
+      payPeriod: this.payPeriod.value,
     };
 
     await this.applicationsService
@@ -157,7 +157,7 @@ export class ApplicationPanelInfoComponent implements OnInit {
       date: timestampToDate(this.application.date),
       link: this.application.link,
       location: this.application.location,
-      payPeriod: this.application.payPeriod
+      payPeriod: this.application.payPeriod,
     });
   }
 }

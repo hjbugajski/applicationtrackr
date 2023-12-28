@@ -38,7 +38,7 @@ import { SignInWithPasswordFormModule } from '~components/sign-in-with-password-
     SignInWithAppleButtonModule,
     SignInWithPasswordFormModule,
     SignInWithGoogleButtonModule,
-    RouterModule.forChild([{ path: '', component: AccountComponent }])
-  ]
+    RouterModule.forChild([{ path: '', component: AccountComponent }]),
+  ],
 })
 export class AccountModule {}

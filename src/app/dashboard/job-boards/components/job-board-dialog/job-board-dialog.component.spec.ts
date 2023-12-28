@@ -8,7 +8,7 @@ describe('JobBoardDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [JobBoardDialogComponent]
+      declarations: [JobBoardDialogComponent],
     }).compileComponents();
   });
 

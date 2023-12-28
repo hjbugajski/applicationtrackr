@@ -13,7 +13,7 @@ import { AuthService } from '~services/auth/auth.service';
 @Component({
   selector: 'at-manage-account',
   templateUrl: './manage-account.component.html',
-  styleUrls: ['./manage-account.component.scss']
+  styleUrls: ['./manage-account.component.scss'],
 })
 export class ManageAccountComponent implements OnInit {
   public authParams: AuthParams;
@@ -23,7 +23,7 @@ export class ManageAccountComponent implements OnInit {
   constructor(
     private auth: Auth,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.authParams = this.activatedRoute.snapshot.queryParams as AuthParams;
     this.linkButton = { route: '/', text: 'Back to sign in' };
@@ -51,8 +51,8 @@ export class ManageAccountComponent implements OnInit {
     const isLoggedIn = await lastValueFrom(
       authState(this.auth).pipe(
         map((user) => !!user),
-        take(1)
-      )
+        take(1),
+      ),
     );
 
     this.linkButton = isLoggedIn

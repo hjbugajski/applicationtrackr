@@ -9,7 +9,7 @@ export class CustomValidators {
     Validators.maxLength(128),
     CustomValidators.letter,
     CustomValidators.number,
-    CustomValidators.symbol
+    CustomValidators.symbol,
   ];
 
   private static readonly emailRegex =

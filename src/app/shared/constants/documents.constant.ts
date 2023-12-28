@@ -4,46 +4,46 @@ export const COLUMNS: ColumnDoc[] = [
   {
     applicationSort: {
       direction: 'asc',
-      field: 'company'
+      field: 'company',
     },
     color: 'neutral',
     sortOrder: 0,
-    title: 'Todo'
+    title: 'Todo',
   },
   {
     applicationSort: {
       direction: 'asc',
-      field: 'company'
+      field: 'company',
     },
     color: 'primary',
     sortOrder: 1,
-    title: 'Submitted'
+    title: 'Submitted',
   },
   {
     applicationSort: {
       direction: 'asc',
-      field: 'company'
+      field: 'company',
     },
     color: 'accent',
     sortOrder: 2,
-    title: 'Interview'
+    title: 'Interview',
   },
   {
     applicationSort: {
       direction: 'asc',
-      field: 'company'
+      field: 'company',
     },
     color: 'success',
     sortOrder: 3,
-    title: 'Offer'
+    title: 'Offer',
   },
   {
     applicationSort: {
       direction: 'asc',
-      field: 'company'
+      field: 'company',
     },
     color: 'danger',
     sortOrder: 4,
-    title: 'Rejected'
-  }
+    title: 'Rejected',
+  },
 ];

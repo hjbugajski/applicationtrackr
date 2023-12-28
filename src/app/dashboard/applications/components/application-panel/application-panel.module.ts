@@ -34,8 +34,8 @@ import { DayDifferencePipeModule } from '~pipes/day-difference/day-difference.pi
     MatMenuModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    TagModule
+    TagModule,
   ],
-  exports: [ApplicationPanelComponent]
+  exports: [ApplicationPanelComponent],
 })
 export class ApplicationPanelModule {}

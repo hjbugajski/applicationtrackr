@@ -5,7 +5,7 @@ import { ThemeService } from '~services/theme/theme.service';
 @Component({
   selector: 'at-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnDestroy {
   constructor(private themeService: ThemeService) {

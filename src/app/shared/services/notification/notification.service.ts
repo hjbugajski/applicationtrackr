@@ -6,7 +6,7 @@ import { Colors } from '~enums/colors.enum';
 import { NotificationData } from '~interfaces/notification-data.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
   constructor(private matSnackBar: MatSnackBar) {}
@@ -15,12 +15,12 @@ export class NotificationService {
     this.matSnackBar.openFromComponent<NotificationComponent, NotificationData>(NotificationComponent, {
       data: {
         message,
-        type
+        type,
       },
       duration,
       horizontalPosition: 'right',
       panelClass: 'mat-snackbar',
-      verticalPosition: 'top'
+      verticalPosition: 'top',
     });
   }
 

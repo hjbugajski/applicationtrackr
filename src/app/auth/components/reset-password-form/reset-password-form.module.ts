@@ -17,8 +17,8 @@ import { ResetPasswordFormComponent } from './reset-password-form.component';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [ResetPasswordFormComponent]
+  exports: [ResetPasswordFormComponent],
 })
 export class ResetPasswordFormModule {}

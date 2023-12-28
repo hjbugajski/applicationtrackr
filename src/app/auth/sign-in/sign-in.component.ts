@@ -18,9 +18,9 @@ import { ThemeService } from '~services/theme/theme.service';
     trigger('emailPasswordExpanded', [
       state('collapsed, void', style({ height: '0', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.5, 0, 0.5, 1)'))
-    ])
-  ]
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.5, 0, 0.5, 1)')),
+    ]),
+  ],
 })
 export class SignInComponent implements OnDestroy {
   public appTheme: string;
@@ -36,7 +36,7 @@ export class SignInComponent implements OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private themeService: ThemeService
+    private themeService: ThemeService,
   ) {
     this.appTheme = this.themeService.appTheme;
     this.subscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));

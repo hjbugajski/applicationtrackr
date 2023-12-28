@@ -5,5 +5,5 @@ export enum Icons {
   LightTheme = 'applicationtrackr-light-theme',
   RedditLogo = 'reddit-logo',
   SystemTheme = 'applicationtrackr-system-theme',
-  TwitterLogo = 'twitter-logo'
+  TwitterLogo = 'twitter-logo',
 }

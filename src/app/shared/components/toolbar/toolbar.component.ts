@@ -10,9 +10,9 @@ export type ToolbarVariant = 'ghost' | 'regular';
   host: {
     class: 'at-toolbar',
     '[class.at-toolbar-fixed]': 'fixed',
-    '[class.at-toolbar-ghost]': "variant === 'ghost'"
+    '[class.at-toolbar-ghost]': "variant === 'ghost'",
   },
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ToolbarComponent {
   @Input() public fixed = false;
@@ -22,15 +22,15 @@ export class ToolbarComponent {
 @Directive({
   selector: 'at-toolbar-spacer, [at-toolbar-spacer]',
   host: {
-    class: 'at-toolbar-spacer'
-  }
+    class: 'at-toolbar-spacer',
+  },
 })
 export class ToolbarSpacerDirective {}
 
 @Directive({
   selector: 'at-toolbar-title, [at-toolbar-title]',
   host: {
-    class: 'at-toolbar-title'
-  }
+    class: 'at-toolbar-title',
+  },
 })
 export class ToolbarTitleDirective {}

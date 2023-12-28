@@ -6,6 +6,6 @@ import { ToolbarComponent, ToolbarSpacerDirective, ToolbarTitleDirective } from 
 @NgModule({
   declarations: [ToolbarComponent, ToolbarSpacerDirective, ToolbarTitleDirective],
   imports: [CommonModule],
-  exports: [ToolbarComponent, ToolbarSpacerDirective, ToolbarTitleDirective]
+  exports: [ToolbarComponent, ToolbarSpacerDirective, ToolbarTitleDirective],
 })
 export class ToolbarModule {}

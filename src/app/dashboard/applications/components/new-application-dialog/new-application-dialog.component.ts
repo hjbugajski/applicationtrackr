@@ -21,7 +21,7 @@ import { expandCollapse, ngIfAnimation } from '~utils/transitions.util';
   selector: 'at-new-application-dialog',
   templateUrl: './new-application-dialog.component.html',
   styleUrls: ['./new-application-dialog.component.scss'],
-  animations: [expandCollapse, ngIfAnimation]
+  animations: [expandCollapse, ngIfAnimation],
 })
 export class NewApplicationDialogComponent implements OnInit {
   @ViewChildren(MatInput) public matInputs: QueryList<MatInput> | undefined;
@@ -34,7 +34,7 @@ export class NewApplicationDialogComponent implements OnInit {
     link: new FormControl<string | null>(null, [CustomValidators.url, Validators.maxLength(2000)]),
     location: new FormControl<string | null>(null, [Validators.maxLength(128)]),
     payPeriod: new FormControl<string | null>(null),
-    position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)])
+    position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
   });
   public columns$: Observable<Column[]>;
   public isLoading = false;
@@ -48,7 +48,7 @@ export class NewApplicationDialogComponent implements OnInit {
     private columnsService: ColumnsService,
     private globalService: GlobalService,
     private matDialogRef: MatDialogRef<NewApplicationDialogComponent>,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {
     this.columns$ = this.columnsService.columns$;
   }
@@ -117,7 +117,7 @@ export class NewApplicationDialogComponent implements OnInit {
     this.applicationForm.patchValue({
       column: this.dialogData.column,
       date: new Date(),
-      payPeriod: this.payPeriodOptions[3]
+      payPeriod: this.payPeriodOptions[3],
     });
   }
 
@@ -136,7 +136,7 @@ export class NewApplicationDialogComponent implements OnInit {
       note: null,
       offer: null,
       payPeriod: this.payPeriod.value,
-      position: this.position.value!
+      position: this.position.value!,
     };
 
     await this.createApplication(application);
@@ -151,7 +151,7 @@ export class NewApplicationDialogComponent implements OnInit {
 
     const dialogAction = await this.globalService.confirmationDialog({
       action: DialogActions.Discard,
-      item: 'application'
+      item: 'application',
     });
 
     if (dialogAction === DialogActions.Discard) {

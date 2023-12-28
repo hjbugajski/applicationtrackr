@@ -14,12 +14,12 @@ import {
   getDoc,
   Query,
   UpdateData,
-  updateDoc
+  updateDoc,
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export abstract class FirestoreService<T> {
   protected abstract _basePath: string;

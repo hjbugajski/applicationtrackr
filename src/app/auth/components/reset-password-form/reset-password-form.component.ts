@@ -15,7 +15,7 @@ interface PasswordForm {
 @Component({
   selector: 'at-reset-password-form',
   templateUrl: './reset-password-form.component.html',
-  styleUrls: ['./reset-password-form.component.scss']
+  styleUrls: ['./reset-password-form.component.scss'],
 })
 export class ResetPasswordFormComponent implements OnInit {
   @Input() public authMode: AuthModes = AuthModes.Reset;
@@ -27,7 +27,7 @@ export class ResetPasswordFormComponent implements OnInit {
   public isLoading = false;
   public passwordForm = new FormGroup<PasswordForm>({
     newPassword: new FormControl('', CustomValidators.passwordValidators),
-    confirmPassword: new FormControl('', CustomValidators.passwordValidators)
+    confirmPassword: new FormControl('', CustomValidators.passwordValidators),
   });
 
   constructor(private authService: AuthService) {}

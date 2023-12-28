@@ -17,12 +17,12 @@ export const applicationConverter = {
       note: application.note,
       offer: application.offer,
       payPeriod: application.payPeriod,
-      position: application.position
+      position: application.position,
     };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): Application => {
     return new Application(snapshot);
-  }
+  },
 };
 
 export const columnConverter = {
@@ -31,24 +31,24 @@ export const columnConverter = {
       applicationSort: column.applicationSort,
       color: column.color,
       sortOrder: column.sortOrder,
-      title: column.title
+      title: column.title,
     };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): Column => {
     return new Column(snapshot);
-  }
+  },
 };
 
 export const jobBoardConverter = {
   toFirestore: (jobBoard: JobBoard): DocumentData => {
     return {
       date: jobBoard.date,
-      title: jobBoard.title
+      title: jobBoard.title,
     };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): JobBoard => {
     return new JobBoard(snapshot);
-  }
+  },
 };
 
 export const userConverter = {
@@ -57,11 +57,11 @@ export const userConverter = {
       currentJobBoard: user.currentJobBoard,
       settings: {
         appearance: user.settings?.appearance,
-        collapseColumns: user.settings?.collapseColumns
-      }
+        collapseColumns: user.settings?.collapseColumns,
+      },
     };
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>): User => {
     return new User(snapshot);
-  }
+  },
 };

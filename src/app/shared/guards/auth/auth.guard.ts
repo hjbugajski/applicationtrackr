@@ -5,7 +5,7 @@ import {
   CanActivateChildFn,
   CanActivateFn,
   Router,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ export const authGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: Ro
       } else {
         return router.parseUrl(`/${Paths.Auth}/${Paths.SignIn}`);
       }
-    })
+    }),
   );
 };
 
