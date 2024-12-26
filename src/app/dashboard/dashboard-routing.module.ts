@@ -15,7 +15,8 @@ const routes: Routes = [
       {
         path: Paths.Applications,
         title: 'Applications',
-        loadChildren: () => import('./applications/applications.module').then((m) => m.ApplicationsModule),
+        loadChildren: () =>
+          import('./applications/applications.module').then((m) => m.ApplicationsModule),
       },
       {
         path: Paths.JobBoards,

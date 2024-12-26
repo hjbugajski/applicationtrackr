@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { Observable } from 'rxjs';
@@ -146,7 +153,9 @@ export class ApplicationPanelInfoComponent implements OnInit {
         this.initInfoForm();
       })
       .catch(() => {
-        this.notificationService.showError('There was a problem updating the application. Please try again.');
+        this.notificationService.showError(
+          'There was a problem updating the application. Please try again.',
+        );
       })
       .finally(() => (this.isLoading = false));
   }

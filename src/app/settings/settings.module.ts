@@ -11,6 +11,13 @@ import { ToolbarModule } from '~components/toolbar/toolbar.module';
 
 @NgModule({
   declarations: [SettingsComponent],
-  imports: [CommonModule, MatButtonModule, MatDividerModule, MatIconModule, SettingsRoutingModule, ToolbarModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    SettingsRoutingModule,
+    ToolbarModule,
+  ],
 })
 export class SettingsModule {}

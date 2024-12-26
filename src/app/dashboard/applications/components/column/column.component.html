@@ -9,14 +9,23 @@
     <button mat-icon-button [color]="column?.color" (click)="newApplication()" [disabled]="!column">
       <mat-icon>add</mat-icon>
     </button>
-    <button mat-icon-button [color]="column?.color" [matMenuTriggerFor]="columOptionsMenu" [disabled]="!column">
+    <button
+      mat-icon-button
+      [color]="column?.color"
+      [matMenuTriggerFor]="columOptionsMenu"
+      [disabled]="!column"
+    >
       <mat-icon>more_horiz</mat-icon>
     </button>
 
     <mat-menu #columOptionsMenu="matMenu" xPosition="before">
       <button mat-menu-item (click)="editColumn()">Edit</button>
       <button mat-menu-item (click)="reorderColumn()">Reorder</button>
-      <button mat-menu-item [matMenuTriggerFor]="sortApplicationsMenu" class="mat-menu-item-with-right-icon">
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="sortApplicationsMenu"
+        class="mat-menu-item-with-right-icon"
+      >
         Sort
         <mat-icon>arrow_right</mat-icon>
       </button>

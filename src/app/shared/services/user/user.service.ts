@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { User as FireAuthUser } from '@angular/fire/auth';
-import { collection, CollectionReference, DocumentData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import {
+  collection,
+  CollectionReference,
+  DocumentData,
+  Firestore,
+  setDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { Subscription, takeUntil } from 'rxjs';
 
 import { Collections } from '~enums/collections.enum';
@@ -30,7 +37,9 @@ export class UserService extends FirestoreService<User> {
 
     this._basePath = Collections.Users;
     this._collectionRef = collection(this.firestore, this._basePath);
-    this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(userConverter);
+    this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(
+      userConverter,
+    );
 
     this.userStore.uid$.pipe(takeUntil(this.globalService.destroy$)).subscribe((uid) => {
       this.userDocSubscription?.unsubscribe();

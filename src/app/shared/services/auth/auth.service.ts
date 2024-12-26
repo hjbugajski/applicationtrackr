@@ -53,7 +53,6 @@ export class AuthService {
       await this.router.navigate([Paths.Auth, Paths.SignIn]);
       this.notificationService.showSuccess('Password has been reset!');
     } catch (error: any) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       this.notificationService.showError(error?.message ?? 'An error occurred. Please try again.');
     }
   }
@@ -66,7 +65,8 @@ export class AuthService {
         let message = 'An error occurred. Please try again.';
 
         if (error.code === 'auth/email-already-in-use') {
-          const defaultMessage = 'This email address is already in use. Please use another or sign in.';
+          const defaultMessage =
+            'This email address is already in use. Please use another or sign in.';
 
           message = await this.signInMethods(email, defaultMessage);
         } else if (error.code === 'auth/invalid-email') {
@@ -86,7 +86,9 @@ export class AuthService {
       await this.router.navigate([Paths.Auth, Paths.SignIn]);
       this.notificationService.showSuccess('Account and data have been deleted.');
     } catch {
-      this.notificationService.showError('There was an error deleting account and data. Please try again.');
+      this.notificationService.showError(
+        'There was an error deleting account and data. Please try again.',
+      );
     }
   }
 
@@ -109,7 +111,9 @@ export class AuthService {
     }
 
     await reauthenticateWithPopup(this.auth.currentUser!, authProvider).catch(() => {
-      this.notificationService.showError('There was an error with re-authentication. Please try again.');
+      this.notificationService.showError(
+        'There was an error with re-authentication. Please try again.',
+      );
     });
   }
 
@@ -124,7 +128,6 @@ export class AuthService {
 
       this.notificationService.showSuccess('Email has been recovered!');
     } catch (error: any) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       this.notificationService.showError(error?.message ?? 'An error occurred. Please try again.');
     }
   }
@@ -191,27 +194,41 @@ export class AuthService {
       .then(async () => await this.router.navigate([Paths.Auth, Paths.SignIn]))
       .then(() => this.notificationService.showSuccess('You have been signed out.'))
       .catch(() => {
-        this.notificationService.showError('There was an error while trying to sign out. Please try again.');
+        this.notificationService.showError(
+          'There was an error while trying to sign out. Please try again.',
+        );
       });
   }
 
-  public async updateUserEmail(currentEmail: string, newEmail: string, password: string): Promise<void> {
+  public async updateUserEmail(
+    currentEmail: string,
+    newEmail: string,
+    password: string,
+  ): Promise<void> {
     try {
       await this.reauthenticateCredential(currentEmail, password);
       await updateEmail(this.auth.currentUser!, newEmail);
       this.notificationService.showSuccess('Email has been updated!');
     } catch {
-      this.notificationService.showError('There was an error updating your email. Please try again.');
+      this.notificationService.showError(
+        'There was an error updating your email. Please try again.',
+      );
     }
   }
 
-  public async updateUserPassword(email: string, currentPassword: string, newPassword: string): Promise<void> {
+  public async updateUserPassword(
+    email: string,
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<void> {
     try {
       await this.reauthenticateCredential(email, currentPassword);
       await updatePassword(this.auth.currentUser!, newPassword);
       this.notificationService.showSuccess('Password has been updated!');
     } catch {
-      this.notificationService.showError('There was an error updating your password. Please try again.');
+      this.notificationService.showError(
+        'There was an error updating your password. Please try again.',
+      );
     }
   }
 
@@ -221,7 +238,9 @@ export class AuthService {
       await this.router.navigate([Paths.Auth, Paths.SignIn]);
       this.notificationService.showSuccess('Email verified');
     } catch {
-      this.notificationService.showError('There was an error verifying your email. Please try again.');
+      this.notificationService.showError(
+        'There was an error verifying your email. Please try again.',
+      );
     }
   }
 
@@ -233,7 +252,9 @@ export class AuthService {
 
   private async handleCreateUserDoc(user: User): Promise<void> {
     const userDoc = await this.userService.docSnap(user.uid, userConverter);
-    const jobBoardsCollection = await getDocs(query(this.jobBoardsService.collectionRefWithConverter));
+    const jobBoardsCollection = await getDocs(
+      query(this.jobBoardsService.collectionRefWithConverter),
+    );
 
     if (!userDoc.exists()) {
       await this.userService.createUserDoc(user);

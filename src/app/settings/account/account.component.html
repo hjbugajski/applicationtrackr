@@ -70,8 +70,8 @@
     <h2 class="settings-section-header at-text danger">Delete account</h2>
     <at-alert class="at-text danger" [color]="colors.Danger">
       <div message>
-        This action will delete your account and all data associated with your account. This action cannot be undone.
-        Your account and data cannot be recovered.
+        This action will delete your account and all data associated with your account. This action
+        cannot be undone. Your account and data cannot be recovered.
       </div>
     </at-alert>
     <mat-stepper orientation="vertical" color="warn" [linear]="true" #authStepper>
@@ -116,7 +116,10 @@
       <mat-step [editable]="false">
         <ng-template matStepLabel>Confirm deletion</ng-template>
         <ng-template matStepContent>
-          <p>To delete your account, type <span class="danger at-text">delete account and data</span>.</p>
+          <p>
+            To delete your account, type
+            <span class="danger at-text">delete account and data</span>.
+          </p>
           <form (ngSubmit)="deleteUser()" class="form-max-width">
             <mat-form-field class="full-width">
               <mat-label>Confirmation</mat-label>

@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 
@@ -139,7 +146,11 @@ export class ApplicationPanelOfferComponent implements OnInit {
         this.offerForm.reset();
         this.initForm();
       })
-      .catch(() => this.notificationService.showError('There was a problem updating the offer. Please try again.'))
+      .catch(() =>
+        this.notificationService.showError(
+          'There was a problem updating the offer. Please try again.',
+        ),
+      )
       .finally(() => (this.isLoading = false));
   }
 
@@ -148,10 +159,14 @@ export class ApplicationPanelOfferComponent implements OnInit {
       benefits: this.application.offer?.benefits ?? null,
       bonus: this.application.offer?.bonus ?? null,
       compensation: this.application.offer?.compensation ?? null,
-      deadline: this.application.offer?.deadline ? timestampToDate(this.application.offer.deadline) : null,
+      deadline: this.application.offer?.deadline
+        ? timestampToDate(this.application.offer.deadline)
+        : null,
       payPeriod: this.application.offer?.payPeriod ?? this.payPeriodOptions[3],
       pto: this.application.offer?.pto ?? null,
-      startDate: this.application.offer?.startDate ? timestampToDate(this.application.offer.startDate) : null,
+      startDate: this.application.offer?.startDate
+        ? timestampToDate(this.application.offer.startDate)
+        : null,
     });
   }
 }

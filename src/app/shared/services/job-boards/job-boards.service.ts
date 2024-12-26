@@ -49,10 +49,14 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
       if (uid) {
         this._basePath = [Collections.Users, uid, Collections.JobBoards].join('/');
         this._collectionRef = collection(this.firestore, this._basePath);
-        this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(jobBoardConverter);
+        this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(
+          jobBoardConverter,
+        );
 
         this.resetJobBoards();
-        this.jobBoards$ = this.collection$(query(this.collectionRefWithConverter, orderBy('date', 'desc')));
+        this.jobBoards$ = this.collection$(
+          query(this.collectionRefWithConverter, orderBy('date', 'desc')),
+        );
       } else {
         this.resetJobBoards();
       }
@@ -70,9 +74,7 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
       Collections.Columns,
     );
 
-    for (let i = 0; i < COLUMNS.length; i++) {
-      batch.set(doc(collectionRef), COLUMNS[i]);
-    }
+    COLUMNS.forEach((column) => batch.set(doc(collectionRef), column));
 
     await batch.commit();
   }
@@ -92,7 +94,11 @@ export class JobBoardsService extends FirestoreService<JobBoard> {
     await this.firebaseFunctionsService
       .recursiveDelete(`${Collections.JobBoards}/${docId}`, ReferenceTypes.Doc)
       .then(() => this.notificationService.showSuccess('Job board deleted.'))
-      .catch(() => this.notificationService.showError('There was a problem deleting the job board. Please try again.'));
+      .catch(() =>
+        this.notificationService.showError(
+          'There was a problem deleting the job board. Please try again.',
+        ),
+      );
   }
 
   public async getApplicationsTotal(id: string): Promise<number> {

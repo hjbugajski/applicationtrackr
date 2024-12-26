@@ -1,8 +1,14 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, Input, OnChanges, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  ViewEncapsulation,
+} from '@angular/core';
 import { orderBy, query, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { deepEqual } from '@firebase/util';
 import { Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
@@ -11,6 +17,7 @@ import { COLUMN_SORT_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { SortOption } from '~interfaces/sort-option.interface';
+import { Sort } from '~interfaces/sort.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
@@ -70,7 +77,11 @@ export class ColumnComponent implements OnChanges, OnDestroy {
       await this.columnsService
         .deleteColumn(this.column!)
         .then(() => this.notificationService.showSuccess('Column deleted.'))
-        .catch(() => this.notificationService.showError('There was an error deleting the column. Please try again.'))
+        .catch(() =>
+          this.notificationService.showError(
+            'There was an error deleting the column. Please try again.',
+          ),
+        )
         .finally(() => overlayDialog.close());
     }
   }
@@ -81,9 +92,13 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     const prevColumn = event.previousContainer.data as Column;
 
     if (prevColumn !== nextColumn) {
-      await this.applicationsService.moveApplication(nextColumn.docId, application.docId).catch(() => {
-        this.notificationService.showError('There was an error moving the application. Please try again.');
-      });
+      await this.applicationsService
+        .moveApplication(nextColumn.docId, application.docId)
+        .catch(() => {
+          this.notificationService.showError(
+            'There was an error moving the application. Please try again.',
+          );
+        });
     }
   }
 
@@ -107,10 +122,15 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     const currColumn = changes.column.currentValue as Column | undefined;
     const prevColumn = changes.column.previousValue as Column | undefined;
     const isColumnChange = currColumn?.docId !== prevColumn?.docId;
-    const isSortChange = currColumn && prevColumn && !deepEqual(currColumn.applicationSort, prevColumn.applicationSort);
+    const isSortChange =
+      currColumn &&
+      prevColumn &&
+      !this.deepEqualSort(currColumn.applicationSort, prevColumn.applicationSort);
 
     if (currColumn && (changes.column.isFirstChange() || isColumnChange || isSortChange)) {
-      this.selectedSortOption = this.sortOptions.find((v) => objectDeepEquals(v.value, currColumn.applicationSort));
+      this.selectedSortOption = this.sortOptions.find((v) =>
+        objectDeepEquals(v.value, currColumn.applicationSort),
+      );
       this.initApplications();
     }
   }
@@ -136,8 +156,26 @@ export class ColumnComponent implements OnChanges, OnDestroy {
 
     const value = this.selectedSortOption?.value ?? this.sortOptions[0].value;
     await this.columnsService.update(this.column!.docId, { applicationSort: value }).catch(() => {
-      this.notificationService.showError('There was an error updating the default sort. Please try again.');
+      this.notificationService.showError(
+        'There was an error updating the default sort. Please try again.',
+      );
     });
+  }
+
+  private deepEqualSort(a: Sort, b: Sort): boolean {
+    if (a === b) {
+      return true;
+    }
+
+    if (!a || !b) {
+      return false;
+    }
+
+    if (typeof a !== 'object' || typeof b !== 'object') {
+      return false;
+    }
+
+    return a.direction === b.direction && a.field === b.field;
   }
 
   private initApplications(): void {
@@ -149,6 +187,8 @@ export class ColumnComponent implements OnChanges, OnDestroy {
         orderBy(this.column!.applicationSort.field, this.column!.applicationSort.direction),
       ),
     );
-    this.subscription = this.applications$.subscribe((applications) => (this.total = applications.length));
+    this.subscription = this.applications$.subscribe(
+      (applications) => (this.total = applications.length),
+    );
   }
 }

@@ -20,7 +20,12 @@
     </div>
     <div class="button-row-container-end">
       <button mat-button (click)="reorderClose()">Cancel</button>
-      <button mat-flat-button color="primary" [disabled]="!isReordered || isLoading" (click)="submitReorder()">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!isReordered || isLoading"
+        (click)="submitReorder()"
+      >
         <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
           <mat-spinner color="accent" diameter="24"></mat-spinner>
         </div>
@@ -57,7 +62,12 @@
     </form>
     <div class="button-row-container-end">
       <button mat-button (click)="formClose()">Cancel</button>
-      <button mat-flat-button color="primary" [disabled]="columnForm.invalid || isLoading" (click)="submit()">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="columnForm.invalid || isLoading"
+        (click)="submit()"
+      >
         <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
           <mat-spinner color="accent" diameter="24"></mat-spinner>
         </div>

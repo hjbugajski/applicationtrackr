@@ -6,7 +6,9 @@
     class="mat-button-with-right-icon job-board-menu at-border border"
   >
     <ng-container *ngFor="let jobBoard of jobBoards$ | async">
-      <span *ngIf="jobBoard.docId === (currentJobBoard$ | async)" class="text">{{ jobBoard.title }}</span>
+      <span *ngIf="jobBoard.docId === (currentJobBoard$ | async)" class="text">{{
+        jobBoard.title
+      }}</span>
     </ng-container>
     <mat-icon class="at-text muted large-icon">arrow_drop_down</mat-icon>
   </button>
@@ -17,7 +19,9 @@
       mat-menu-item
       *ngFor="let jobBoard of jobBoards$ | async"
       (click)="onSelectionChange(jobBoard)"
-      [ngClass]="{ 'mat-list-single-selected-option': (currentJobBoard$ | async) === jobBoard.docId }"
+      [ngClass]="{
+        'mat-list-single-selected-option': (currentJobBoard$ | async) === jobBoard.docId,
+      }"
     >
       {{ jobBoard.title }}
     </button>

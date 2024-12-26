@@ -50,7 +50,9 @@ export class ColumnsService extends FirestoreService<Column> {
           Collections.Columns,
         ].join('/');
         this._collectionRef = collection(this.firestore, this._basePath);
-        this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(columnConverter);
+        this._collectionRefWithConverter = collection(this.firestore, this._basePath).withConverter(
+          columnConverter,
+        );
 
         this.reset();
         this.columnIds$ = this.collection$(this.query).pipe(

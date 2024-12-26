@@ -78,7 +78,13 @@
           <div class="mat-form-field-combined">
             <mat-form-field class="full-width" floatLabel="always">
               <mat-label>Compensation</mat-label>
-              <input formControlName="compensation" matInput type="number" placeholder="0" class="number-input" />
+              <input
+                formControlName="compensation"
+                matInput
+                type="number"
+                placeholder="0"
+                class="number-input"
+              />
               <span matTextPrefix>$&nbsp;</span>
               <span matTextSuffix>/</span>
               <mat-error>{{ getError(compensation) }}</mat-error>
@@ -121,7 +127,12 @@
           <!-- Deadline Date Picker -->
           <mat-form-field class="full-width">
             <mat-label>Deadline</mat-label>
-            <input formControlName="deadline" matInput placeholder="No deadline" [matDatepicker]="deadlineDatePicker" />
+            <input
+              formControlName="deadline"
+              matInput
+              placeholder="No deadline"
+              [matDatepicker]="deadlineDatePicker"
+            />
             <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker" [disabled]="!isEditing">
               <mat-icon matDatepickerToggleIcon class="at-text neutral"> today </mat-icon>
             </mat-datepicker-toggle>
@@ -132,7 +143,12 @@
           <!-- Start Date Date Picker -->
           <mat-form-field class="full-width">
             <mat-label>Start date</mat-label>
-            <input formControlName="startDate" matInput placeholder="No start date" [matDatepicker]="startDatePicker" />
+            <input
+              formControlName="startDate"
+              matInput
+              placeholder="No start date"
+              [matDatepicker]="startDatePicker"
+            />
             <mat-datepicker-toggle matSuffix [for]="startDatePicker" [disabled]="!isEditing">
               <mat-icon matDatepickerToggleIcon class="at-text neutral"> today </mat-icon>
             </mat-datepicker-toggle>
@@ -145,7 +161,12 @@
       <!-- Buttons -->
       <div class="button-row-container-end">
         <button *ngIf="isEditing" mat-button (click)="cancel()">Cancel</button>
-        <button mat-flat-button [color]="column.color" (click)="save()" [disabled]="offerForm.invalid || isLoading">
+        <button
+          mat-flat-button
+          [color]="column.color"
+          (click)="save()"
+          [disabled]="offerForm.invalid || isLoading"
+        >
           <div *ngIf="isLoading; else text" class="loading-spinner-in-button">
             <mat-spinner color="accent" diameter="24"></mat-spinner>
           </div>

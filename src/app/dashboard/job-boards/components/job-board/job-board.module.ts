@@ -10,7 +10,13 @@ import { TimestampDatePipeModule } from '~pipes/timestamp-date/timestamp-date.pi
 
 @NgModule({
   declarations: [JobBoardComponent],
-  imports: [CommonModule, MatButtonModule, OverlaySpinnerModule, TagModule, TimestampDatePipeModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    OverlaySpinnerModule,
+    TagModule,
+    TimestampDatePipeModule,
+  ],
   exports: [JobBoardComponent],
 })
 export class JobBoardModule {}

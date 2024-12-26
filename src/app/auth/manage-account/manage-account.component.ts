@@ -39,12 +39,16 @@ export class ManageAccountComponent implements OnInit {
 
   public async recoverEmail(): Promise<void> {
     this.isLoading = true;
-    await this.authService.recoverEmail(this.authParams.oobCode).finally(() => (this.isLoading = false));
+    await this.authService
+      .recoverEmail(this.authParams.oobCode)
+      .finally(() => (this.isLoading = false));
   }
 
   public async verifyEmail(): Promise<void> {
     this.isLoading = true;
-    await this.authService.verifyEmail(this.authParams.oobCode).finally(() => (this.isLoading = false));
+    await this.authService
+      .verifyEmail(this.authParams.oobCode)
+      .finally(() => (this.isLoading = false));
   }
 
   private async setLinkButton(): Promise<void> {

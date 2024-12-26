@@ -22,7 +22,7 @@
   &:focus {
     outline: none;
 
-    @each $key in map-keys(palette.$at-palette-keys) {
+    @each $key in map.keys(palette.$at-palette-keys) {
       &.#{$key} {
         border: 2px solid map.get(palette.$at-palette, $key);
       }

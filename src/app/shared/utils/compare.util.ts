@@ -10,7 +10,6 @@ export const objectDeepEquals = (a: any, b: any): boolean => {
       return false;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return keys.every((k) => objectDeepEquals(a[k], b[k]));
   }
 

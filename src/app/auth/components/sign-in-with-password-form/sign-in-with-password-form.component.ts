@@ -85,7 +85,9 @@ export class SignInWithPasswordFormComponent implements OnChanges {
           this.reauthenticated.emit();
         })
         .catch(() => {
-          this.notificationService.showError('There was an error with re-authentication. Please try again.');
+          this.notificationService.showError(
+            'There was an error with re-authentication. Please try again.',
+          );
         })
         .finally(() => (this.isLoading = false));
     }

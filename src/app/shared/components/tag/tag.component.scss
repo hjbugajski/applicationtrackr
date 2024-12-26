@@ -18,7 +18,7 @@
 
   border-radius: 100px;
 
-  @each $key in map-keys(palette.$at-palette-keys) {
+  @each $key in map.keys(palette.$at-palette-keys) {
     &.#{$key} {
       color: map.get(palette.$at-palette, $key) !important;
       background-color: map.get(palette.$at-palette, alpha, $key) !important;

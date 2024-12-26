@@ -12,7 +12,10 @@ import { map } from 'rxjs/operators';
 import { Paths } from '~enums/paths.enum';
 import { RouteData } from '~interfaces/route-data.interface';
 
-export const authGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+export const authGuard: CanActivateFn = (
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+) => {
   const auth = inject(Auth);
   const router = inject(Router);
   const path = state.url.split('/')[1];
@@ -34,5 +37,7 @@ export const authGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: Ro
   );
 };
 
-export const authGuardChild: CanActivateChildFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
-  authGuard(next, state);
+export const authGuardChild: CanActivateChildFn = (
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+) => authGuard(next, state);

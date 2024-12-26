@@ -14,7 +14,10 @@ export class ForgotPasswordFormComponent implements OnInit {
   @Input() public maxWidth = false;
   @Input() public readonly: boolean | undefined;
 
-  public email = new FormControl('', { nonNullable: true, validators: CustomValidators.emailValidators });
+  public email = new FormControl('', {
+    nonNullable: true,
+    validators: CustomValidators.emailValidators,
+  });
   public isLoading = false;
 
   constructor(private authService: AuthService) {}
@@ -31,7 +34,9 @@ export class ForgotPasswordFormComponent implements OnInit {
     if (this.email.valid) {
       this.isLoading = true;
 
-      await this.authService.sendPasswordResetEmail(this.email.value).finally(() => (this.isLoading = false));
+      await this.authService
+        .sendPasswordResetEmail(this.email.value)
+        .finally(() => (this.isLoading = false));
     }
   }
 }
