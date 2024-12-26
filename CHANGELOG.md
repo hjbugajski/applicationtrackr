@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.1](https://github.com/hjbugajski/applicationtrackr/compare/v3.0.0...v3.0.1) (2024-12-26)
+
+### Bug Fixes
+
+- build output dir ([453cbb2](https://github.com/hjbugajski/applicationtrackr/commit/453cbb2648c6814e799273b10d64c2564c95640d))
+
 ## [3.0.0](https://github.com/hjbugajski/applicationtrackr/compare/v2.0.2...v3.0.0) (2024-12-26)
 
 ### Bug Fixes
