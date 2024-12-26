@@ -8,10 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "prettier": "npx prettier --ignore-path .gitignore --check .",
-    "prettier:fix": "npx prettier --ignore-path .gitignore --write .",
-    "stylelint": "npx stylelint '**/*.scss' --ignore-path .gitignore",
-    "stylelint:fix": "npx stylelint '**/*.scss' --ignore-path .gitignore --fix",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "stylelint": "stylelint '**/*.scss' --ignore-path .gitignore",
+    "stylelint:fix": "stylelint '**/*.scss' --ignore-path .gitignore --fix",
     "bump": "bump ./src/app/settings/about/about.component.html",
     "bump:patch": "bump patch ./src/app/settings/about/about.component.html",
     "bump:minor": "bump minor ./src/app/settings/about/about.component.html",
@@ -26,6 +26,7 @@
     "prerelease:major": "npm run bump:major"
   },
   "private": true,
+  "packageManager": "pnpm@9.15.1",
   "dependencies": {
     "@angular/animations": "^18",
     "@angular/cdk": "^18",
@@ -68,7 +69,7 @@
   },
   "commit-and-tag-version": {
     "scripts": {
-      "postcommit": "git add .; git commit --amend --no-edit;"
+      "postcommit": "pnpm dlx prettier --ignore-path .gitignore --write CHANGELOG.md && git add . && git commit --amend --no-edit"
     }
   }
 }
