@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/hjbugajski/applicationtrackr/compare/v2.0.2...v3.0.0) (2024-12-26)
+
+### Bug Fixes
+
+- possible undefined value ([b4f661c](https://github.com/hjbugajski/applicationtrackr/commit/b4f661c36f2c3694b7dc753344f021636c57b495))
+- providers and imports ([29c3ff1](https://github.com/hjbugajski/applicationtrackr/commit/29c3ff1bc4934af8c6138c0b0443030727be85fd))
+
 ## [2.0.2](https://github.com/hjbugajski/applicationtrackr/compare/v2.0.1...v2.0.2) (2024-03-05)
 
 ## [2.0.1](https://github.com/hjbugajski/applicationtrackr/compare/v2.0.0...v2.0.1) (2023-12-28)
