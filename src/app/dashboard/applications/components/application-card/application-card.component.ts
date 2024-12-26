@@ -13,7 +13,7 @@ import { Column } from '~models/column.model';
 export class ApplicationCardComponent implements OnInit {
   @Input() public application!: Application;
   @HostBinding('class') colorClass = '';
-  @Input() public column!: Column;
+  @Input() public column?: Column;
   @HostBinding() role = 'button';
   @HostBinding() tabindex = 0;
 
@@ -27,7 +27,7 @@ export class ApplicationCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.colorClass = this.column.color;
+    this.colorClass = this.column?.color || '';
   }
 
   public openApplication(): void {
