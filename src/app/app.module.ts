@@ -26,6 +26,10 @@ import { IconModule } from '~modules/icon.module';
     IconModule,
     MatDialogModule,
     NotificationModule,
+  ],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    provideHttpClient(withInterceptorsFromDi()),
     provideAuth(() => getAuth()),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
@@ -38,10 +42,6 @@ import { IconModule } from '~modules/icon.module';
 
       return functions;
     }),
-  ],
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    provideHttpClient(withInterceptorsFromDi()),
   ],
 })
 export class AppModule {}

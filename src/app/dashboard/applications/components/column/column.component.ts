@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { orderBy, query, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { deepEqual } from '@firebase/util';
 import { Observable, Subscription } from 'rxjs';
 
 import { ColumnDialogComponent } from '~components/column-dialog/column-dialog.component';
@@ -18,6 +17,7 @@ import { COLUMN_SORT_OPTIONS } from '~constants/forms.constants';
 import { DialogActions } from '~enums/dialog-actions.enum';
 import { ConfirmationDialog } from '~interfaces/confirmation-dialog.interface';
 import { SortOption } from '~interfaces/sort-option.interface';
+import { Sort } from '~interfaces/sort.interface';
 import { Application } from '~models/application.model';
 import { Column } from '~models/column.model';
 import { ApplicationsService } from '~services/applications/applications.service';
@@ -125,7 +125,7 @@ export class ColumnComponent implements OnChanges, OnDestroy {
     const isSortChange =
       currColumn &&
       prevColumn &&
-      !deepEqual(currColumn.applicationSort, prevColumn.applicationSort);
+      !this.deepEqualSort(currColumn.applicationSort, prevColumn.applicationSort);
 
     if (currColumn && (changes.column.isFirstChange() || isColumnChange || isSortChange)) {
       this.selectedSortOption = this.sortOptions.find((v) =>
@@ -160,6 +160,22 @@ export class ColumnComponent implements OnChanges, OnDestroy {
         'There was an error updating the default sort. Please try again.',
       );
     });
+  }
+
+  private deepEqualSort(a: Sort, b: Sort): boolean {
+    if (a === b) {
+      return true;
+    }
+
+    if (!a || !b) {
+      return false;
+    }
+
+    if (typeof a !== 'object' || typeof b !== 'object') {
+      return false;
+    }
+
+    return a.direction === b.direction && a.field === b.field;
   }
 
   private initApplications(): void {
