@@ -52,14 +52,19 @@ export abstract class FirestoreService<T> {
   }
 
   public doc$(id: string, converter: FirestoreDataConverter<T>): Observable<T> {
-    return docSnapshots(this.docRef(id).withConverter(converter)).pipe(map((doc) => doc.data() as T));
+    return docSnapshots(this.docRef(id).withConverter(converter)).pipe(
+      map((doc) => doc.data() as T),
+    );
   }
 
   public docRef(id: string): DocumentReference<DocumentData> {
     return doc(this.firestore, this.basePath, id);
   }
 
-  public async docSnap(id: string, converter: FirestoreDataConverter<T>): Promise<DocumentSnapshot<T>> {
+  public async docSnap(
+    id: string,
+    converter: FirestoreDataConverter<T>,
+  ): Promise<DocumentSnapshot<T>> {
     return await getDoc(this.docRef(id).withConverter(converter));
   }
 

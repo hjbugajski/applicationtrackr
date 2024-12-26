@@ -84,7 +84,10 @@ export class ResetPasswordFormComponent implements OnInit {
     this.confirmPassword.addValidators(CustomValidators.matchValue(this.newPassword));
 
     if (this.authMode === AuthModes.Update) {
-      this.passwordForm.addControl('currentPassword', new FormControl('', CustomValidators.passwordValidators));
+      this.passwordForm.addControl(
+        'currentPassword',
+        new FormControl('', CustomValidators.passwordValidators),
+      );
     }
   }
 

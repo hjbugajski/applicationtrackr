@@ -5,7 +5,10 @@
   <mat-icon *ngIf="!showEmailPasswordForm">email</mat-icon>
   {{ emailSignInButton }}
 </button>
-<div class="form-container" [@emailPasswordExpanded]="showEmailPasswordForm ? 'expanded' : 'collapsed'">
+<div
+  class="form-container"
+  [@emailPasswordExpanded]="showEmailPasswordForm ? 'expanded' : 'collapsed'"
+>
   <at-sign-in-with-password-form
     [authMode]="emailPasswordAuthMode"
     [buttonText]="title"

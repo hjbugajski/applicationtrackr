@@ -6,7 +6,7 @@
 .at-light-theme,
 .at-dark-theme {
   .mat-mdc-tab-group {
-    @each $key in map-keys(palette.$at-palette-keys) {
+    @each $key in map.keys(palette.$at-palette-keys) {
       &.mat-#{$key} .mat-mdc-tab:not(.mat-mdc-tab-disabled) {
         &.mdc-tab--active .mdc-tab__text-label {
           color: map.get(palette.$at-palette, $key) !important;

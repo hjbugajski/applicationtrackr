@@ -25,9 +25,11 @@ export class FirebaseFunctionsService {
     const path = `${Collections.JobBoards}/${this.userStore.currentJobBoard!}/${Collections.Applications}`;
     const operator: WhereFilterOp = '==';
 
-    await this._batchDelete({ field: 'columnDocId', operator, path, value: columnDocId }).catch((error) => {
-      throw error;
-    });
+    await this._batchDelete({ field: 'columnDocId', operator, path, value: columnDocId }).catch(
+      (error) => {
+        throw error;
+      },
+    );
   }
 
   public async recursiveDelete(path: string, refType: ReferenceTypes): Promise<any> {

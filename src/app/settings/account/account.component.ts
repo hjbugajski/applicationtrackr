@@ -1,6 +1,12 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Auth, authState, User } from '@angular/fire/auth';
-import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Subscription } from 'rxjs';
 
@@ -123,11 +129,13 @@ export class AccountComponent implements OnDestroy {
     if (this.updateEmailForm.valid) {
       this.isUpdateEmailLoading = true;
 
-      await this.authService.updateUserEmail(this.user!.email!, this.newEmail.value!, this.password.value!).then(() => {
-        this.isUpdateEmailLoading = false;
-        this.updateEmailForm.reset();
-        formDirective.resetForm();
-      });
+      await this.authService
+        .updateUserEmail(this.user!.email!, this.newEmail.value!, this.password.value!)
+        .then(() => {
+          this.isUpdateEmailLoading = false;
+          this.updateEmailForm.reset();
+          formDirective.resetForm();
+        });
     }
   }
 }

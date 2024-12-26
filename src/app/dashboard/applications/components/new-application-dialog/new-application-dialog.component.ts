@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
@@ -34,7 +41,10 @@ export class NewApplicationDialogComponent implements OnInit {
     link: new FormControl<string | null>(null, [CustomValidators.url, Validators.maxLength(2000)]),
     location: new FormControl<string | null>(null, [Validators.maxLength(128)]),
     payPeriod: new FormControl<string | null>(null),
-    position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
+    position: new FormControl<string | null>(null, [
+      Validators.required,
+      Validators.maxLength(128),
+    ]),
   });
   public columns$: Observable<Column[]>;
   public isLoading = false;
@@ -175,7 +185,9 @@ export class NewApplicationDialogComponent implements OnInit {
         this.matDialogRef.close();
       })
       .catch(() => {
-        this.notificationService.showError('There was a problem adding the application. Please try again.');
+        this.notificationService.showError(
+          'There was a problem adding the application. Please try again.',
+        );
       })
       .finally(() => (this.isLoading = false));
   }

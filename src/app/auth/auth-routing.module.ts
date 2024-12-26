@@ -34,13 +34,15 @@ const routes: Routes = [
         path: Paths.ForgotPassword,
         title: 'Forgot Password',
         data: { path: Paths.ForgotPassword, title: 'Forgot password' },
-        loadChildren: () => import('./forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule),
+        loadChildren: () =>
+          import('./forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule),
       },
       {
         path: Paths.ManageAccount,
         title: 'Manage Account',
         data: { path: Paths.ManageAccount, title: 'Manage account' },
-        loadChildren: () => import('./manage-account/manage-account.module').then((m) => m.ManageAccountModule),
+        loadChildren: () =>
+          import('./manage-account/manage-account.module').then((m) => m.ManageAccountModule),
       },
     ],
   },

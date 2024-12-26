@@ -1,8 +1,15 @@
 import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 export class CustomValidators {
-  public static emailValidators = [Validators.required, Validators.maxLength(320), CustomValidators.email];
-  public static numberValidators = [Validators.min(Number.MIN_SAFE_INTEGER), Validators.max(Number.MAX_SAFE_INTEGER)];
+  public static emailValidators = [
+    Validators.required,
+    Validators.maxLength(320),
+    CustomValidators.email,
+  ];
+  public static numberValidators = [
+    Validators.min(Number.MIN_SAFE_INTEGER),
+    Validators.max(Number.MAX_SAFE_INTEGER),
+  ];
   public static passwordValidators = [
     Validators.required,
     Validators.minLength(8),
@@ -17,7 +24,8 @@ export class CustomValidators {
   private static readonly letterRegex = /^(?=.*[a-zA-Z])/;
   private static readonly numberRegex = /^(?=.*[0-9])/;
   private static readonly symbolRegex = /^(?=.*[!@#$%^&_*+=()[\]{}<>,.;:'"\-?/\\])/;
-  private static readonly urlRegex = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,7}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/;
+  private static readonly urlRegex =
+    /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,7}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/;
 
   public static email(control: AbstractControl): ValidationErrors | null {
     return regexValidator(CustomValidators.emailRegex, 'email', control);
@@ -78,7 +86,11 @@ function isEmptyValue(value: any): boolean {
 
 function matchValueValidator(controlOne: AbstractControl | null): ValidatorFn {
   return (controlTwo: AbstractControl): ValidationErrors | null => {
-    if (isEmptyValue(controlOne) || isEmptyValue(controlOne?.value) || isEmptyValue(controlTwo.value)) {
+    if (
+      isEmptyValue(controlOne) ||
+      isEmptyValue(controlOne?.value) ||
+      isEmptyValue(controlTwo.value)
+    ) {
       return null;
     }
 
@@ -86,7 +98,11 @@ function matchValueValidator(controlOne: AbstractControl | null): ValidatorFn {
   };
 }
 
-function regexValidator(regex: RegExp, validator: string, control: AbstractControl): ValidationErrors | null {
+function regexValidator(
+  regex: RegExp,
+  validator: string,
+  control: AbstractControl,
+): ValidationErrors | null {
   if (isEmptyValue(control) || isEmptyValue(control?.value)) {
     return null;
   }

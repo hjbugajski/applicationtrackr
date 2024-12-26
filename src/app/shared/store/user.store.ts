@@ -26,7 +26,9 @@ export class UserStore {
       currentJobBoard: null,
       uid: null,
     });
-    this.state$ = this._state$.asObservable().pipe(distinctUntilChanged((prev, curr) => objectDeepEquals(prev, curr)));
+    this.state$ = this._state$
+      .asObservable()
+      .pipe(distinctUntilChanged((prev, curr) => objectDeepEquals(prev, curr)));
     this.state$.pipe(takeUntil(this.globalService.destroy$)).subscribe((state) => {
       this.state = state;
     });

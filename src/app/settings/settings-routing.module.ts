@@ -25,7 +25,8 @@ const routes: Routes = [
       {
         path: Paths.Appearance,
         title: 'Appearance Settings',
-        loadChildren: () => import('./appearance/appearance.module').then((m) => m.AppearanceModule),
+        loadChildren: () =>
+          import('./appearance/appearance.module').then((m) => m.AppearanceModule),
       },
       {
         path: Paths.Layout,

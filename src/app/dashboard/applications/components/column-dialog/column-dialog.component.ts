@@ -127,7 +127,9 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await getDocs(this.columnsService.query).then((v) => (this.columns = v.docs.map((doc) => doc.data())));
+    await getDocs(this.columnsService.query).then(
+      (v) => (this.columns = v.docs.map((doc) => doc.data())),
+    );
   }
 
   public reorderClose(): void {
@@ -164,7 +166,11 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
     await batch
       .commit()
       .then(() => this.matDialogRef.close())
-      .catch(() => this.notificationService.showError('There was an error reordering the columns. Please try again.'))
+      .catch(() =>
+        this.notificationService.showError(
+          'There was an error reordering the columns. Please try again.',
+        ),
+      )
       .finally(() => (this.isLoading = false));
   }
 
@@ -185,7 +191,11 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
         this.notificationService.showSuccess('Column added!');
         this.matDialogRef.close();
       })
-      .catch(() => this.notificationService.showError('There was an error adding the column. Please try again.'))
+      .catch(() =>
+        this.notificationService.showError(
+          'There was an error adding the column. Please try again.',
+        ),
+      )
       .finally(() => (this.isLoading = false));
   }
 
@@ -208,7 +218,11 @@ export class ColumnDialogComponent implements AfterViewInit, OnDestroy, OnInit {
     await this.columnsService
       .update(data.docId, { color, title })
       .then(() => this.matDialogRef.close())
-      .catch(() => this.notificationService.showError('There was an error updating the column. Please try again.'))
+      .catch(() =>
+        this.notificationService.showError(
+          'There was an error updating the column. Please try again.',
+        ),
+      )
       .finally(() => (this.isLoading = false));
   }
 }

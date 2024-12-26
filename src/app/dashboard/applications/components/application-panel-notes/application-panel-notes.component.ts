@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 
@@ -84,7 +91,9 @@ export class ApplicationPanelNotesComponent implements OnInit {
         this.initNoteForm();
       })
       .catch(() => {
-        this.notificationService.showError('There was a problem updating the application. Please try again.');
+        this.notificationService.showError(
+          'There was a problem updating the application. Please try again.',
+        );
       })
       .finally(() => (this.isLoading = false));
   }

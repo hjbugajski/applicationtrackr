@@ -17,17 +17,25 @@ export class GlobalService implements OnDestroy {
 
   public async confirmationDialog(
     data: ConfirmationDialog,
-    { autoFocus = false, disableClose = true, width = '315px', panelClass = 'at-dialog-with-padding' } = {},
+    {
+      autoFocus = false,
+      disableClose = true,
+      width = '315px',
+      panelClass = 'at-dialog-with-padding',
+    } = {},
   ): Promise<DialogActions | undefined> {
     return await lastValueFrom(
       this.matDialog
-        .open<ConfirmationDialogComponent, ConfirmationDialog, DialogActions>(ConfirmationDialogComponent, {
-          autoFocus,
-          data,
-          disableClose,
-          width,
-          panelClass,
-        })
+        .open<ConfirmationDialogComponent, ConfirmationDialog, DialogActions>(
+          ConfirmationDialogComponent,
+          {
+            autoFocus,
+            data,
+            disableClose,
+            width,
+            panelClass,
+          },
+        )
         .afterClosed(),
     );
   }

@@ -31,7 +31,10 @@ export class ThemeService {
         this.setTheme(appearance!);
       });
     this.prefersColorSchemeDark.addEventListener('change', (event) => {
-      if (this.userStore.appearance === null || this.userStore.appearance === Themes.System.toString()) {
+      if (
+        this.userStore.appearance === null ||
+        this.userStore.appearance === Themes.System.toString()
+      ) {
         this.setTheme(event.matches ? Themes.Dark : Themes.Light);
       }
     });

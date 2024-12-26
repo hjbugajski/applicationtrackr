@@ -39,7 +39,9 @@ export class SignInComponent implements OnDestroy {
     private themeService: ThemeService,
   ) {
     this.appTheme = this.themeService.appTheme;
-    this.subscription = this.themeService.appTheme$.subscribe((theme: string) => (this.appTheme = theme));
+    this.subscription = this.themeService.appTheme$.subscribe(
+      (theme: string) => (this.appTheme = theme),
+    );
 
     this.initSignInOrSignUp();
   }
@@ -76,12 +78,18 @@ export class SignInComponent implements OnDestroy {
     if (this.currentPath === Paths.SignIn) {
       this.emailPasswordAuthMode = AuthModes.SignIn;
       this.showForgotPassword = true;
-      this.signInUpButton = { text: 'No account? Sign up', route: `/${Paths.Auth}/${Paths.SignUp}` };
+      this.signInUpButton = {
+        text: 'No account? Sign up',
+        route: `/${Paths.Auth}/${Paths.SignUp}`,
+      };
     } else {
       // Sign up
       this.emailPasswordAuthMode = AuthModes.Create;
       this.showForgotPassword = false;
-      this.signInUpButton = { text: 'Have an account? Sign in', route: `/${Paths.Auth}/${Paths.SignIn}` };
+      this.signInUpButton = {
+        text: 'Have an account? Sign in',
+        route: `/${Paths.Auth}/${Paths.SignIn}`,
+      };
     }
   }
 }

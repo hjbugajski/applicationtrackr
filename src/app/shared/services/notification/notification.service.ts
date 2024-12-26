@@ -12,16 +12,19 @@ export class NotificationService {
   constructor(private matSnackBar: MatSnackBar) {}
 
   public show(type: Colors, message: string, duration = 3000): void {
-    this.matSnackBar.openFromComponent<NotificationComponent, NotificationData>(NotificationComponent, {
-      data: {
-        message,
-        type,
+    this.matSnackBar.openFromComponent<NotificationComponent, NotificationData>(
+      NotificationComponent,
+      {
+        data: {
+          message,
+          type,
+        },
+        duration,
+        horizontalPosition: 'right',
+        panelClass: 'mat-snackbar',
+        verticalPosition: 'top',
       },
-      duration,
-      horizontalPosition: 'right',
-      panelClass: 'mat-snackbar',
-      verticalPosition: 'top',
-    });
+    );
   }
 
   public showError(message: string): void {

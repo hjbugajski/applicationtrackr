@@ -1,7 +1,9 @@
 <div class="at-application-panel-toolbar">
   <ng-container *ngIf="!isEditing; else companyPositionFormTemplate">
     <div class="at-application-panel-toolbar-inner-container">
-      <h1 class="at-application-toolbar-title at-text" [ngClass]="column.color">{{ application.company }}</h1>
+      <h1 class="at-application-toolbar-title at-text" [ngClass]="column.color">
+        {{ application.company }}
+      </h1>
       <mat-menu #columnsMenu="matMenu">
         <button
           *ngFor="let col of columns$ | async"
@@ -44,9 +46,18 @@
   </ng-container>
 </div>
 <div class="at-application-panel-body">
-  <at-application-panel-info [application]="application" [column]="column"></at-application-panel-info>
-  <at-application-panel-offer [application]="application" [column]="column"></at-application-panel-offer>
-  <at-application-panel-notes [application]="application" [column]="column"></at-application-panel-notes>
+  <at-application-panel-info
+    [application]="application"
+    [column]="column"
+  ></at-application-panel-info>
+  <at-application-panel-offer
+    [application]="application"
+    [column]="column"
+  ></at-application-panel-offer>
+  <at-application-panel-notes
+    [application]="application"
+    [column]="column"
+  ></at-application-panel-notes>
 </div>
 
 <ng-template #companyPositionFormTemplate>

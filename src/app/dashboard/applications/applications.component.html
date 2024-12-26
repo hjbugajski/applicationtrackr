@@ -5,7 +5,12 @@
     [ngClass]="columns[i] ? columns[i].color : ''"
   ></at-column>
   <div class="add-column-button-container">
-    <button mat-stroked-button color="neutral" class="add-column-button full-width" (click)="addNewColumn()">
+    <button
+      mat-stroked-button
+      color="neutral"
+      class="add-column-button full-width"
+      (click)="addNewColumn()"
+    >
       New column
     </button>
   </div>

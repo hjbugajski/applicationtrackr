@@ -1,4 +1,12 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
 export type TagSize = 'regular' | 'small';
 export type TagVariant = 'regular' | 'dropdown';

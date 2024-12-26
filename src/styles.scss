@@ -39,7 +39,7 @@ a {
   color: map.get(palette.$at-palette, primary);
 }
 
-@each $key in map-keys(palette.$at-palette-keys) {
+@each $key in map.keys(palette.$at-palette-keys) {
   .#{$key} {
     &.at-border {
       border: 2px solid map.get(palette.$at-palette, $key);

@@ -93,7 +93,9 @@ export class JobBoardDialogComponent {
           this.matDialogRef.close();
         })
         .catch(() => {
-          this.notificationService.showError('There was a problem creating the job board. Please try again.');
+          this.notificationService.showError(
+            'There was a problem creating the job board. Please try again.',
+          );
         })
         .finally(() => (this.isLoading = false));
     } else {
@@ -104,7 +106,9 @@ export class JobBoardDialogComponent {
         .update(data.docId, { date, title })
         .then(() => this.matDialogRef.close())
         .catch(() => {
-          this.notificationService.showError('There was a problem updating the job board. Please try again.');
+          this.notificationService.showError(
+            'There was a problem updating the job board. Please try again.',
+          );
         })
         .finally(() => (this.isLoading = false));
     }

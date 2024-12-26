@@ -1,5 +1,13 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { filter, Observable, Subscription, switchMap } from 'rxjs';
@@ -28,7 +36,10 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
   public columns$: Observable<Column[]>;
   public companyPositionForm = new FormGroup({
     company: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
-    position: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(128)]),
+    position: new FormControl<string | null>(null, [
+      Validators.required,
+      Validators.maxLength(128),
+    ]),
   });
   public isEditing = false;
   public isLoading = false;
@@ -105,7 +116,9 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
           this.close();
         })
         .catch(() => {
-          this.notificationService.showError('There was an error deleting the application. Please try again.');
+          this.notificationService.showError(
+            'There was an error deleting the application. Please try again.',
+          );
         })
         .finally(() => overlayDialog.close());
     }
@@ -133,7 +146,11 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     await this.applicationsService
       .moveApplication(newColumn.docId, this.application.docId)
       .then(() => this.notificationService.showSuccess('Application successfully moved!'))
-      .catch(() => this.notificationService.showError('There was an error moving the application. Please try again.'))
+      .catch(() =>
+        this.notificationService.showError(
+          'There was an error moving the application. Please try again.',
+        ),
+      )
       .finally(() => overlayDialog.close());
   }
 
@@ -153,14 +170,19 @@ export class ApplicationPanelComponent implements OnDestroy, OnInit {
     this.isLoading = true;
 
     await this.applicationsService
-      .update(this.application.docId, { company: this.company.value!, position: this.position.value! })
+      .update(this.application.docId, {
+        company: this.company.value!,
+        position: this.position.value!,
+      })
       .then(() => {
         this.isEditing = false;
         this.companyPositionForm.reset();
         this.initForm();
       })
       .catch(() => {
-        this.notificationService.showError('There was a problem updating the application. Please try again.');
+        this.notificationService.showError(
+          'There was a problem updating the application. Please try again.',
+        );
       })
       .finally(() => (this.isLoading = false));
   }
