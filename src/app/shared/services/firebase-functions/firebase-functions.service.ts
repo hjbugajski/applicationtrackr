@@ -11,6 +11,7 @@ import { UserStore } from '~store/user.store';
 })
 export class FirebaseFunctionsService {
   private _batchDelete: HttpsCallable;
+  private _bulkExport: HttpsCallable;
   private _recursiveDelete: HttpsCallable;
 
   constructor(
@@ -18,6 +19,7 @@ export class FirebaseFunctionsService {
     private userStore: UserStore,
   ) {
     this._batchDelete = httpsCallable(this.functions, 'batchDelete');
+    this._bulkExport = httpsCallable(this.functions, 'bulkExport');
     this._recursiveDelete = httpsCallable(this.functions, 'recursiveDelete');
   }
 
@@ -30,6 +32,13 @@ export class FirebaseFunctionsService {
         throw error;
       },
     );
+  }
+
+  public async bulkExport(): Promise<any> {
+    return await this._bulkExport().catch((error) => {
+      console.error('Error during bulk export:', error);
+      throw error;
+    });
   }
 
   public async recursiveDelete(path: string, refType: ReferenceTypes): Promise<any> {
