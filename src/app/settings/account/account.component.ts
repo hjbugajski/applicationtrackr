@@ -14,6 +14,8 @@ import { AuthModes } from '~enums/auth-modes.enum';
 import { Colors } from '~enums/colors.enum';
 import { Providers } from '~enums/providers.enum';
 import { AuthService } from '~services/auth/auth.service';
+import { FirebaseFunctionsService } from '~services/firebase-functions/firebase-functions.service';
+import { NotificationService } from '~services/notification/notification.service';
 import { CustomValidators, getEmailError, getPasswordError } from '~utils/custom-validators';
 
 @Component({
@@ -27,6 +29,7 @@ export class AccountComponent implements OnDestroy {
     Validators.pattern('delete account and data'),
   ]);
   public isLoading = false;
+  public isBulkExportLoading = false;
   public isUpdateEmailLoading = false;
   public provider: Providers | undefined;
   public reauthenticated = false;
@@ -43,6 +46,8 @@ export class AccountComponent implements OnDestroy {
     private auth: Auth,
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
+    private firebaseFunctionsService: FirebaseFunctionsService,
+    private notificationsService: NotificationService,
   ) {
     this.subscriptions = authState(this.auth).subscribe((user) => {
       this.user = user;
@@ -82,6 +87,38 @@ export class AccountComponent implements OnDestroy {
 
   public get providers(): typeof Providers {
     return Providers;
+  }
+
+  public async bulkExport(): Promise<void> {
+    this.isBulkExportLoading = true;
+    this.notificationsService.show(Colors.Neutral, 'Exporting data...');
+
+    try {
+      const exportData = await this.firebaseFunctionsService.bulkExport();
+
+      this.downloadJsonFile(exportData, 'job-board-export.json');
+      this.notificationsService.showSuccess('Data exported successfully!');
+    } catch (error) {
+      console.error('Error during bulk export:', error);
+      this.notificationsService.showError('Failed to export data. Please try again.');
+    } finally {
+      this.isBulkExportLoading = false;
+    }
+  }
+
+  private downloadJsonFile(data: any, filename: string): void {
+    const jsonString = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   public async deleteUser(): Promise<void> {

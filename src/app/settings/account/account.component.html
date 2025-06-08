@@ -11,6 +11,23 @@
     <div class="at-caption">Signed in with {{ providerDisplay }}</div>
   </div>
 
+  <!-- Export data -->
+  <div class="settings-section">
+    <h2 class="settings-section-header">Export data</h2>
+    <at-alert class="at-text primary" [color]="colors.Accent">
+      <div message>
+        Do not reload the page or navigate away while the export is in progress. Doing so may result
+        in an incomplete export.
+      </div>
+    </at-alert>
+    <button mat-flat-button color="accent" [disabled]="isBulkExportLoading" (click)="bulkExport()">
+      <div *ngIf="isBulkExportLoading" class="loading-spinner-in-button">
+        <mat-spinner color="accent" diameter="24"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!isBulkExportLoading">Export</ng-container>
+    </button>
+  </div>
+
   <ng-container *ngIf="provider === providers.Password">
     <!-- Update email address -->
     <div class="settings-section">
