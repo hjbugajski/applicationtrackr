@@ -1,4 +1,9 @@
-# Applicationtrackr
+# ApplicationTrackr
+
+> [!WARNING]
+> This project has been archived as of September 2025 and is no longer actively maintained.
+
+ApplicationTrackr is an Angular-based web application designed to help job seekers track and manage their job applications. Built with Angular 18, Angular Material, and Firebase integration for data storage and authentication.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.2.
 
